@@ -1,0 +1,8 @@
+<%= render layout: "layouts/nav/top/dropdown", locals: { 
+      id: "group-#{group.title.parameterize}",
+      icon: group.icon_uri || "folder",
+      title: group.title,
+      text: group.title
+    } do %>
+  <%= render partial: 'layouts/nav/top/group_items', locals: local_assigns %>
+<% end %>
