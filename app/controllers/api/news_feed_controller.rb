@@ -21,7 +21,7 @@ module Api
           articles = json_data["data"]
           filtered = articles
             .select { |article| NEWS_TYPE_IDS.include?(article["newstypeid"].to_i) }
-            .select { |article| article["resources"].any? { |resource| resource["name"] == "Gautschi" } }
+            .select { |article| article["resources"].any? { |resource| resource["name"] == Configuration.cluster_name } }
           
           # Only keep the fields we need
           filtered.map do |article|

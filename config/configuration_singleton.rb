@@ -344,6 +344,10 @@ class ConfigurationSingleton
     (ENV['OOD_ALLOWLIST_PATH'] || ENV['WHITELIST_PATH'] || "").split(':').map{ |s| Pathname.new(s) }
   end
 
+  def cluster_name
+    ENV.fetch("CLUSTER_NAME", "this cluster")
+  end
+
   # default value for opening apps in new window
   # that is used if app's manifest doesn't specify
   # if not set default is true

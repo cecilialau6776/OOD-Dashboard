@@ -6,8 +6,8 @@
            class="ms-1" 
            style="color: #6c757d; font-size: 1.1rem;"
            data-toggle="tooltip" 
-           title="Click to learn more about accounts and queues on Gautschi"
-           aria-label="Documentation about accounts and queues on Gautschi"
+           title="Click to learn more about accounts and queues on <%= Configuration.cluster_name %>"
+           aria-label="Documentation about accounts and queues on <%= Configuration.cluster_name %>"
            target="_blank">
             <i class="fas fa-info-circle" aria-hidden="true"></i>
         </a>
@@ -78,7 +78,7 @@
                 const worksheet = XLSX.utils.aoa_to_sheet(exportData);
                 var workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-                XLSX.writeFile(workbook, `gautschi_service_units_${allocation}_${Date.now()}.${EXPORT_TYPES[type]}`, { compression: true });
+                XLSX.writeFile(workbook, `<%= Configuration.cluster_name %>_service_units_${allocation}_${Date.now()}.${EXPORT_TYPES[type]}`, { compression: true });
             } else {
                 toastr.error("Invalid export file type");
             }

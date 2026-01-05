@@ -111,9 +111,10 @@ module Util
 
   # This function calculates the GPU-hours usage of a job
   def self.get_gpu_hours_usage(jobid, partition, qos, used_seconds, timelimit, reqtres)
-    # Gautschi-specific conditions for GPU hour calculation:
+    # Cluster-specific conditions for GPU hour calculation:
     # Only jobs in the 'ai' partition are considered for GPU hours
     # Also, job ids before 531648 are exempt from GPU hour calculations
+    # FIXME: modify this function for GPU-hour calculations based on your own cluster
     if partition != 'ai' || jobid.partition(/\D/).first.to_i <= 531648
       return ["N/A", "N/A"]
     end
