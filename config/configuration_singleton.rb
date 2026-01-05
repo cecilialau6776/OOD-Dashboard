@@ -344,8 +344,14 @@ class ConfigurationSingleton
     (ENV['OOD_ALLOWLIST_PATH'] || ENV['WHITELIST_PATH'] || "").split(':').map{ |s| Pathname.new(s) }
   end
 
+  # Cluster name
   def cluster_name
     ENV.fetch("CLUSTER_NAME", "this cluster")
+  end
+
+  # Partitions to exclude from partition status widget
+  def excluded_partitions
+    ENV.fetch("EXCLUDED_PARTITIONS", "").split(',').reject(&:empty?)
   end
 
   # default value for opening apps in new window

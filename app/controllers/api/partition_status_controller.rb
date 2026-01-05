@@ -1,7 +1,5 @@
 module Api
   class PartitionStatusController < ApplicationController
-    EXCLUDED_PARTITIONS = ["cocosys", "gautschi-nodes", "profiling"].freeze
-
     def get
       partition_statuses = Rails.cache.fetch("partition_status", expires_in: 60.seconds, race_condition_ttl: 3.seconds) do
         partitions_output, partitions_status = Open3.capture2("sinfo -h -o '%R|%a|%F|%C'")
@@ -19,7 +17,7 @@ module Api
               [sum[0] + (alloctres_hash["gres/gpu"] || 0).to_i, sum[1] + (cfgtres_hash["gres/gpu"] || 0).to_i]
             }
             { partition: s[0], state: s[1], total_nodes: nodes[3], allocated_nodes: nodes[0], other_nodes: nodes[2], free_nodes: nodes[1], total_cores: cores[3], allocated_cores: cores[0], other_cores: cores[2], free_cores: cores[1], allocated_gpus: gpus[0], total_gpus: gpus[1] }
-          }.reject { |p| EXCLUDED_PARTITIONS.include?(p[:partition]) }
+          }.reject { |p| Configuration.excluded_partitions.include?(p[:partition]) }
         else
           return false
         end
