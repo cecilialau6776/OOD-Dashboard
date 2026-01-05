@@ -354,6 +354,11 @@ class ConfigurationSingleton
     ENV.fetch("EXCLUDED_PARTITIONS", "").split(',').reject(&:empty?)
   end
 
+  # GPU partitions
+  def gpu_partitions
+    ENV.fetch("GPU_PARTITIONS", "").split(',').reject(&:empty?)
+  end
+
   # Info URL for button in Accounts widget
   def account_list_info_url
     ENV.fetch("ACCOUNT_LIST_INFO_URL", "")

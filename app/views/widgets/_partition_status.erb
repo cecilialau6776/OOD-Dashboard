@@ -39,8 +39,7 @@
 </style>
 
 <script defer>
-    const wholenodePartitions = [];
-    const gpuPartitions = ["ai", "smallgpu"];
+    const gpuPartitions = "<%= Configuration.gpu_partitions %>".split(",");
     function getProgressBarColor(ratio) {
         if (ratio < 0.7) return 'bg-success';
         if (ratio < 0.9) return 'bg-warning';
@@ -113,7 +112,7 @@
                             </div>
 
                             <div class="d-flex flex-column">
-                                ${!wholenodePartitions.includes(row.partition) && !gpuPartitions.includes(row.partition) ? `
+                                ${!gpuPartitions.includes(row.partition) ? `
                                     <div class="mb-2">
                                         <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
                                             <div style="font-size: 1rem;">
