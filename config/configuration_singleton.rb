@@ -354,6 +354,26 @@ class ConfigurationSingleton
     ENV.fetch("EXCLUDED_PARTITIONS", "").split(',').reject(&:empty?)
   end
 
+  # Info URL for button in Accounts widget
+  def account_list_info_url
+    ENV.fetch("ACCOUNT_LIST_INFO_URL", "")
+  end
+
+  # All Announcements URL for button in Announcements widget
+  def news_feed_url
+    ENV.fetch("NEWS_FEED_URL", "")
+  end
+
+  # Info URL for button in System Status widget
+  def partition_status_info_url
+    ENV.fetch("PARTITION_STATUS_INFO_URL", "")
+  end
+
+  # Info URL for button in Storage widget
+  def disk_usage_info_url
+    ENV.fetch("DISK_USAGE_INFO_URL", "")
+  end
+
   # default value for opening apps in new window
   # that is used if app's manifest doesn't specify
   # if not set default is true
