@@ -11,8 +11,6 @@ module Api
         nodes_hash = Util.scontrol_to_hash(output)
         
         nodes_hash.filter_map do |node|
-          next unless node["NodeName"]&.match?(/\A[abghi]\d+\z/)
-          
           alloctres_hash = node["AllocTRES"].split(',').map { |pair| pair.split('=', 2) }.to_h
           cfgtres_hash = node["CfgTRES"].split(',').map { |pair| pair.split('=', 2) }.to_h
           {
