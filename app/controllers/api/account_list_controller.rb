@@ -5,6 +5,7 @@ module Api
 
       allocations = Util.get_user_allocations(user)
       myaccounts = Rails.cache.fetch("account_list/#{user}", expires_in: 1.minutes, race_condition_ttl: 3.seconds) do
+        myaccounts_json, exit_code = Open3.capture2("OUT_FMT=json my-accounts #{user}")
         scontrol_output, scontrol_status = Open3.capture2("scontrol show assoc users=#{user} accounts=#{allocations} flags=assoc -o | tail -n +3")
         squeue_output, squeue_status = Open3.capture2("squeue -h --array -A #{allocations} -t PENDING,REQUEUED -a -r -o '%.60a|%C' | awk '{$1=$1}1'")
         # sacct_output, sacct_status = Open3.capture2("sacct -X --array -S now-9999weeks -E now -o account,qos,reqtres,elapsedraw -r ai -u #{user} -A #{allocations} -P -n")
@@ -30,7 +31,8 @@ module Api
             grp_tres_mins = line_h["GrpTRESMins"].split(",").map { |pair| pair.split("=") }.to_h
 
             grp_tres_cpu_match = grp_tres["cpu"].match(/([^()]+)\((\d+)\)/)
-            grp_tres_gres_hp_cpu_match = grp_tres["gres/hp_cpu"].match(/([^()]+)\((\d+)\)/)
+            # grp_tres_gres_hp_cpu_match = grp_tres["gres/hp_cpu"].match(/([^()]+)\((\d+)\)/)
+            grp_tres_gres_hp_cpu_match = [0, 0]
 
             grp_tres_mins_billing_match = grp_tres_mins["billing"].match(/([^()]+)\((\d+)\)/)
 
