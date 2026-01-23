@@ -5,6 +5,18 @@
 </noscript>
 
 <div class="row d-none homepage-widgets mx-0 mt-n2" style="background-color: var(--main-bg-color);">
+  <div class="col-lg-6 col-12 p-2">
+    <div class="d-flex flex-column rounded px-2 my-2" style="min-width: 0; word-wrap: break-word;">
+      <%= render partial: "/widgets/maintenence" %>
+    </div>
+  </div>
+  <div class="col-lg-6 col-12 p-2">
+    <div class="d-flex flex-column rounded px-2 my-2" style="overflow-x: auto; min-width: 0; word-wrap: break-word;">
+    </div>
+  </div>
+</div>
+
+<div class="row d-none homepage-widgets mx-0 mt-n2" style="background-color: var(--main-bg-color);">
   <div class="col-lg-5 col-12 p-2">
     <div class="d-flex flex-column rounded px-2 my-2" style="min-width: 0; word-wrap: break-word;">
       <%= render partial: "widgets/news_feed" %>
