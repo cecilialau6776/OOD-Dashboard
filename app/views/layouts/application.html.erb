@@ -966,8 +966,7 @@
           </button>
         </div>
         <a class="sidebar-brand d-flex align-items-center" href="<%= root_path %>" aria-label="<%= Configuration.cluster_name %> home">
-          <img class="d-inline-block mr-2" width="32" height="32" src="https://b.fssta.com/uploads/application/college/team-logos/Purdue.png" alt="Purdue logo">
-          <span style="font-weight: 500;"><%= Configuration.cluster_name %></span>
+          <img class="d-inline-block mr-2" src="https://ondemand.rc.rit.edu/public/logo.svg" alt="RIT Research Computing logo">
         </a>
 
         <!-- Add this new section for desktop navigation -->
@@ -979,21 +978,24 @@
       </div>
 
       <div class="ml-auto d-flex align-items-center">
-        <div class="nav-item">
-          <%= link_to docs_url, class: "nav-link nav-link-styled", target: "_blank" do %>
-            <i class="fas fa-book"></i> <%= Configuration.cluster_name %> User Guide
-          <% end %>
-        </div>
-        <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user mr-2"></i><%= @user.name %>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="/logout">
-              <i class="fas fa-sign-out-alt mr-2"></i><%= t("dashboard.nav_logout") %>
+        <ul class="navbar-nav navbar-nav-top d-lg-flex">
+          <%= render partial: "layouts/nav/top/develop_dropdown" if Configuration.app_development_enabled? %>
+          <li class="nav-item">
+            <%= link_to docs_url, class: "nav-link nav-link-styled", target: "_blank" do %>
+              <i class="fas fa-book"></i> RC Docs
+            <% end %>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user mr-2"></i><%= @user.name %>
             </a>
-          </div>
-        </div>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="/logout">
+                <i class="fas fa-sign-out-alt mr-2"></i><%= t("dashboard.nav_logout") %>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

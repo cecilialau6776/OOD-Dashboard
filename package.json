@@ -20,7 +20,8 @@
     "popper.js": "^1.16.1",
     "sass": "^1.50.0",
     "sweetalert2": "10.16.9",
-    "uppy": "^2.3.3"
+    "uppy": "^2.3.3",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "build": "node esbuild.config.js",
