@@ -6083,9 +6083,9 @@ var require_jquery = __commonJS({
   }
 });
 
-// node_modules/datatables.net/js/jquery.dataTables.js
-var require_jquery_dataTables = __commonJS({
-  "node_modules/datatables.net/js/jquery.dataTables.js"(exports, module) {
+// node_modules/datatables.net/js/dataTables.js
+var require_dataTables = __commonJS({
+  "node_modules/datatables.net/js/dataTables.js"(exports, module) {
     (function(factory) {
       "use strict";
       if (typeof define === "function" && define.amd) {
@@ -6110,7 +6110,7 @@ var require_jquery_dataTables = __commonJS({
       } else {
         window.DataTable = factory(jQuery, window, document);
       }
-    })(function($2, window2, document2, undefined2) {
+    })(function($2, window2, document2) {
       "use strict";
       var DataTable = function(selector, options) {
         if (DataTable.factory(selector, options)) {
@@ -6121,182 +6121,45 @@ var require_jquery_dataTables = __commonJS({
         } else {
           options = selector;
         }
-        this.$ = function(sSelector, oOpts) {
-          return this.api(true).$(sSelector, oOpts);
-        };
-        this._ = function(sSelector, oOpts) {
-          return this.api(true).rows(sSelector, oOpts).data();
-        };
-        this.api = function(traditional) {
-          return traditional ? new _Api(
-            _fnSettingsFromNode(this[_ext.iApiIndex])
-          ) : new _Api(this);
-        };
-        this.fnAddData = function(data, redraw) {
-          var api = this.api(true);
-          var rows = Array.isArray(data) && (Array.isArray(data[0]) || $2.isPlainObject(data[0])) ? api.rows.add(data) : api.row.add(data);
-          if (redraw === undefined2 || redraw) {
-            api.draw();
-          }
-          return rows.flatten().toArray();
-        };
-        this.fnAdjustColumnSizing = function(bRedraw) {
-          var api = this.api(true).columns.adjust();
-          var settings = api.settings()[0];
-          var scroll = settings.oScroll;
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw(false);
-          } else if (scroll.sX !== "" || scroll.sY !== "") {
-            _fnScrollDraw(settings);
-          }
-        };
-        this.fnClearTable = function(bRedraw) {
-          var api = this.api(true).clear();
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw();
-          }
-        };
-        this.fnClose = function(nTr) {
-          this.api(true).row(nTr).child.hide();
-        };
-        this.fnDeleteRow = function(target, callback, redraw) {
-          var api = this.api(true);
-          var rows = api.rows(target);
-          var settings = rows.settings()[0];
-          var data = settings.aoData[rows[0][0]];
-          rows.remove();
-          if (callback) {
-            callback.call(this, settings, data);
-          }
-          if (redraw === undefined2 || redraw) {
-            api.draw();
-          }
-          return data;
-        };
-        this.fnDestroy = function(remove) {
-          this.api(true).destroy(remove);
-        };
-        this.fnDraw = function(complete) {
-          this.api(true).draw(complete);
-        };
-        this.fnFilter = function(sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive) {
-          var api = this.api(true);
-          if (iColumn === null || iColumn === undefined2) {
-            api.search(sInput, bRegex, bSmart, bCaseInsensitive);
-          } else {
-            api.column(iColumn).search(sInput, bRegex, bSmart, bCaseInsensitive);
-          }
-          api.draw();
-        };
-        this.fnGetData = function(src, col) {
-          var api = this.api(true);
-          if (src !== undefined2) {
-            var type = src.nodeName ? src.nodeName.toLowerCase() : "";
-            return col !== undefined2 || type == "td" || type == "th" ? api.cell(src, col).data() : api.row(src).data() || null;
-          }
-          return api.data().toArray();
-        };
-        this.fnGetNodes = function(iRow) {
-          var api = this.api(true);
-          return iRow !== undefined2 ? api.row(iRow).node() : api.rows().nodes().flatten().toArray();
-        };
-        this.fnGetPosition = function(node) {
-          var api = this.api(true);
-          var nodeName = node.nodeName.toUpperCase();
-          if (nodeName == "TR") {
-            return api.row(node).index();
-          } else if (nodeName == "TD" || nodeName == "TH") {
-            var cell = api.cell(node).index();
-            return [
-              cell.row,
-              cell.columnVisible,
-              cell.column
-            ];
-          }
-          return null;
-        };
-        this.fnIsOpen = function(nTr) {
-          return this.api(true).row(nTr).child.isShown();
-        };
-        this.fnOpen = function(nTr, mHtml, sClass) {
-          return this.api(true).row(nTr).child(mHtml, sClass).show().child()[0];
-        };
-        this.fnPageChange = function(mAction, bRedraw) {
-          var api = this.api(true).page(mAction);
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw(false);
-          }
-        };
-        this.fnSetColumnVis = function(iCol, bShow, bRedraw) {
-          var api = this.api(true).column(iCol).visible(bShow);
-          if (bRedraw === undefined2 || bRedraw) {
-            api.columns.adjust().draw();
-          }
-        };
-        this.fnSettings = function() {
-          return _fnSettingsFromNode(this[_ext.iApiIndex]);
-        };
-        this.fnSort = function(aaSort) {
-          this.api(true).order(aaSort).draw();
-        };
-        this.fnSortListener = function(nNode, iColumn, fnCallback) {
-          this.api(true).order.listener(nNode, iColumn, fnCallback);
-        };
-        this.fnUpdate = function(mData, mRow, iColumn, bRedraw, bAction) {
-          var api = this.api(true);
-          if (iColumn === undefined2 || iColumn === null) {
-            api.row(mRow).data(mData);
-          } else {
-            api.cell(mRow, iColumn).data(mData);
-          }
-          if (bAction === undefined2 || bAction) {
-            api.columns.adjust();
-          }
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw();
-          }
-          return 0;
-        };
-        this.fnVersionCheck = _ext.fnVersionCheck;
         var _that = this;
-        var emptyInit = options === undefined2;
+        var emptyInit = options === void 0;
         var len = this.length;
         if (emptyInit) {
           options = {};
         }
-        this.oApi = this.internal = _ext.internal;
-        for (var fn in DataTable.ext.internal) {
-          if (fn) {
-            this[fn] = _fnExternApiFunc(fn);
-          }
-        }
+        this.api = function() {
+          return new _Api(this);
+        };
         this.each(function() {
           var o = {};
           var oInit = len > 1 ? _fnExtend(o, options, true) : options;
-          var i2 = 0, iLen, j, jLen, k, kLen;
+          var i2 = 0, iLen;
           var sId = this.getAttribute("id");
-          var bInitHandedOff = false;
           var defaults = DataTable.defaults;
           var $this = $2(this);
           if (this.nodeName.toLowerCase() != "table") {
             _fnLog(null, 0, "Non-table node initialisation (" + this.nodeName + ")", 2);
             return;
           }
+          if (oInit.on && oInit.on.options) {
+            _fnListener($this, "options", oInit.on.options);
+          }
+          $this.trigger("options.dt", oInit);
           _fnCompatOpts(defaults);
           _fnCompatCols(defaults.column);
           _fnCamelToHungarian(defaults, defaults, true);
           _fnCamelToHungarian(defaults.column, defaults.column, true);
-          _fnCamelToHungarian(defaults, $2.extend(oInit, $this.data()), true);
+          _fnCamelToHungarian(defaults, $2.extend(oInit, _fnEscapeObject($this.data())), true);
           var allSettings = DataTable.settings;
           for (i2 = 0, iLen = allSettings.length; i2 < iLen; i2++) {
             var s = allSettings[i2];
             if (s.nTable == this || s.nTHead && s.nTHead.parentNode == this || s.nTFoot && s.nTFoot.parentNode == this) {
-              var bRetrieve = oInit.bRetrieve !== undefined2 ? oInit.bRetrieve : defaults.bRetrieve;
-              var bDestroy = oInit.bDestroy !== undefined2 ? oInit.bDestroy : defaults.bDestroy;
+              var bRetrieve = oInit.bRetrieve !== void 0 ? oInit.bRetrieve : defaults.bRetrieve;
+              var bDestroy = oInit.bDestroy !== void 0 ? oInit.bDestroy : defaults.bDestroy;
               if (emptyInit || bRetrieve) {
                 return s.oInstance;
               } else if (bDestroy) {
-                s.oInstance.fnDestroy();
+                new DataTable.Api(s).destroy();
                 break;
               } else {
                 _fnLog(s, 0, "Cannot reinitialise DataTable", 3);
@@ -6312,20 +6175,24 @@ var require_jquery_dataTables = __commonJS({
             sId = "DataTables_Table_" + DataTable.ext._unique++;
             this.id = sId;
           }
+          $this.children("colgroup").remove();
           var oSettings = $2.extend(true, {}, DataTable.models.oSettings, {
             "sDestroyWidth": $this[0].style.width,
             "sInstance": sId,
-            "sTableId": sId
+            "sTableId": sId,
+            colgroup: $2("<colgroup>"),
+            fastData: function(row, column, type) {
+              return _fnGetCellData(oSettings, row, column, type);
+            }
           });
           oSettings.nTable = this;
-          oSettings.oApi = _that.internal;
           oSettings.oInit = oInit;
           allSettings.push(oSettings);
+          oSettings.api = new _Api(oSettings);
           oSettings.oInstance = _that.length === 1 ? _that : $this.dataTable();
           _fnCompatOpts(oInit);
-          _fnLanguageCompat(oInit.oLanguage);
           if (oInit.aLengthMenu && !oInit.iDisplayLength) {
-            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : oInit.aLengthMenu[0];
+            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : $2.isPlainObject(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0].value : oInit.aLengthMenu[0];
           }
           oInit = _fnExtend($2.extend(true, {}, defaults), oInit);
           _fnMap(oSettings.oFeatures, oInit, [
@@ -6342,26 +6209,30 @@ var require_jquery_dataTables = __commonJS({
             "bDeferRender"
           ]);
           _fnMap(oSettings, oInit, [
-            "asStripeClasses",
             "ajax",
-            "fnServerData",
             "fnFormatNumber",
             "sServerMethod",
             "aaSorting",
             "aaSortingFixed",
             "aLengthMenu",
             "sPaginationType",
-            "sAjaxSource",
-            "sAjaxDataProp",
             "iStateDuration",
-            "sDom",
             "bSortCellsTop",
             "iTabIndex",
+            "sDom",
             "fnStateLoadCallback",
             "fnStateSaveCallback",
             "renderer",
             "searchDelay",
             "rowId",
+            "caption",
+            "layout",
+            "orderDescReverse",
+            "orderIndicators",
+            "orderHandler",
+            "titleRow",
+            "typeDetect",
+            "columnTitleTag",
             ["iCookieDuration", "iStateDuration"],
             ["oSearch", "oPreviousSearch"],
             ["aoSearchCols", "aoPreSearchCols"],
@@ -6374,88 +6245,57 @@ var require_jquery_dataTables = __commonJS({
             ["bScrollCollapse", "bCollapse"]
           ]);
           _fnMap(oSettings.oLanguage, oInit, "fnInfoCallback");
-          _fnCallbackReg(oSettings, "aoDrawCallback", oInit.fnDrawCallback, "user");
-          _fnCallbackReg(oSettings, "aoServerParams", oInit.fnServerParams, "user");
-          _fnCallbackReg(oSettings, "aoStateSaveParams", oInit.fnStateSaveParams, "user");
-          _fnCallbackReg(oSettings, "aoStateLoadParams", oInit.fnStateLoadParams, "user");
-          _fnCallbackReg(oSettings, "aoStateLoaded", oInit.fnStateLoaded, "user");
-          _fnCallbackReg(oSettings, "aoRowCallback", oInit.fnRowCallback, "user");
-          _fnCallbackReg(oSettings, "aoRowCreatedCallback", oInit.fnCreatedRow, "user");
-          _fnCallbackReg(oSettings, "aoHeaderCallback", oInit.fnHeaderCallback, "user");
-          _fnCallbackReg(oSettings, "aoFooterCallback", oInit.fnFooterCallback, "user");
-          _fnCallbackReg(oSettings, "aoInitComplete", oInit.fnInitComplete, "user");
-          _fnCallbackReg(oSettings, "aoPreDrawCallback", oInit.fnPreDrawCallback, "user");
+          _fnCallbackReg(oSettings, "aoDrawCallback", oInit.fnDrawCallback);
+          _fnCallbackReg(oSettings, "aoStateSaveParams", oInit.fnStateSaveParams);
+          _fnCallbackReg(oSettings, "aoStateLoadParams", oInit.fnStateLoadParams);
+          _fnCallbackReg(oSettings, "aoStateLoaded", oInit.fnStateLoaded);
+          _fnCallbackReg(oSettings, "aoRowCallback", oInit.fnRowCallback);
+          _fnCallbackReg(oSettings, "aoRowCreatedCallback", oInit.fnCreatedRow);
+          _fnCallbackReg(oSettings, "aoHeaderCallback", oInit.fnHeaderCallback);
+          _fnCallbackReg(oSettings, "aoFooterCallback", oInit.fnFooterCallback);
+          _fnCallbackReg(oSettings, "aoInitComplete", oInit.fnInitComplete);
+          _fnCallbackReg(oSettings, "aoPreDrawCallback", oInit.fnPreDrawCallback);
           oSettings.rowIdFn = _fnGetObjectDataFn(oInit.rowId);
+          if (oInit.on) {
+            Object.keys(oInit.on).forEach(function(key) {
+              _fnListener($this, key, oInit.on[key]);
+            });
+          }
           _fnBrowserDetect(oSettings);
           var oClasses = oSettings.oClasses;
           $2.extend(oClasses, DataTable.ext.classes, oInit.oClasses);
-          $this.addClass(oClasses.sTable);
-          if (oSettings.iInitDisplayStart === undefined2) {
+          $this.addClass(oClasses.table);
+          if (!oSettings.oFeatures.bPaginate) {
+            oInit.iDisplayStart = 0;
+          }
+          if (oSettings.iInitDisplayStart === void 0) {
             oSettings.iInitDisplayStart = oInit.iDisplayStart;
             oSettings._iDisplayStart = oInit.iDisplayStart;
           }
-          if (oInit.iDeferLoading !== null) {
-            oSettings.bDeferLoading = true;
-            var tmp = Array.isArray(oInit.iDeferLoading);
-            oSettings._iRecordsDisplay = tmp ? oInit.iDeferLoading[0] : oInit.iDeferLoading;
-            oSettings._iRecordsTotal = tmp ? oInit.iDeferLoading[1] : oInit.iDeferLoading;
+          var defer = oInit.iDeferLoading;
+          if (defer !== null) {
+            oSettings.deferLoading = true;
+            var tmp = Array.isArray(defer);
+            oSettings._iRecordsDisplay = tmp ? defer[0] : defer;
+            oSettings._iRecordsTotal = tmp ? defer[1] : defer;
           }
-          var oLanguage = oSettings.oLanguage;
-          $2.extend(true, oLanguage, oInit.oLanguage);
-          if (oLanguage.sUrl) {
-            $2.ajax({
-              dataType: "json",
-              url: oLanguage.sUrl,
-              success: function(json) {
-                _fnCamelToHungarian(defaults.oLanguage, json);
-                _fnLanguageCompat(json);
-                $2.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
-                _fnCallbackFire(oSettings, null, "i18n", [oSettings]);
-                _fnInitialise(oSettings);
-              },
-              error: function() {
-                _fnInitialise(oSettings);
-              }
-            });
-            bInitHandedOff = true;
-          } else {
-            _fnCallbackFire(oSettings, null, "i18n", [oSettings]);
-          }
-          if (oInit.asStripeClasses === null) {
-            oSettings.asStripeClasses = [
-              oClasses.sStripeOdd,
-              oClasses.sStripeEven
-            ];
-          }
-          var stripeClasses = oSettings.asStripeClasses;
-          var rowOne = $this.children("tbody").find("tr").eq(0);
-          if ($2.inArray(true, $2.map(stripeClasses, function(el, i3) {
-            return rowOne.hasClass(el);
-          })) !== -1) {
-            $2("tbody tr", this).removeClass(stripeClasses.join(" "));
-            oSettings.asDestroyStripes = stripeClasses.slice();
-          }
-          var anThs = [];
-          var aoColumnsInit;
-          var nThead = this.getElementsByTagName("thead");
-          if (nThead.length !== 0) {
-            _fnDetectHeader(oSettings.aoHeader, nThead[0]);
-            anThs = _fnGetUniqueThs(oSettings);
-          }
-          if (oInit.aoColumns === null) {
-            aoColumnsInit = [];
-            for (i2 = 0, iLen = anThs.length; i2 < iLen; i2++) {
-              aoColumnsInit.push(null);
+          var columnsInit = [];
+          var thead = this.getElementsByTagName("thead");
+          var initHeaderLayout = _fnDetectHeader(oSettings, thead[0]);
+          if (oInit.aoColumns) {
+            columnsInit = oInit.aoColumns;
+          } else if (initHeaderLayout.length) {
+            for (i2 = 0, iLen = initHeaderLayout[0].length; i2 < iLen; i2++) {
+              columnsInit.push(null);
             }
-          } else {
-            aoColumnsInit = oInit.aoColumns;
           }
-          for (i2 = 0, iLen = aoColumnsInit.length; i2 < iLen; i2++) {
-            _fnAddColumn(oSettings, anThs ? anThs[i2] : null);
+          for (i2 = 0, iLen = columnsInit.length; i2 < iLen; i2++) {
+            _fnAddColumn(oSettings);
           }
-          _fnApplyColumnDefs(oSettings, oInit.aoColumnDefs, aoColumnsInit, function(iCol, oDef) {
+          _fnApplyColumnDefs(oSettings, oInit.aoColumnDefs, columnsInit, initHeaderLayout, function(iCol, oDef) {
             _fnColumnOptions(oSettings, iCol, oDef);
           });
+          var rowOne = $this.children("tbody").find("tr:first-child").eq(0);
           if (rowOne.length) {
             var a = function(cell, name) {
               return cell.getAttribute("data-" + name) !== null ? name : null;
@@ -6471,9 +6311,9 @@ var require_jquery_dataTables = __commonJS({
                 if (sort !== null || filter !== null) {
                   col.mData = {
                     _: i3 + ".display",
-                    sort: sort !== null ? i3 + ".@data-" + sort : undefined2,
-                    type: sort !== null ? i3 + ".@data-" + sort : undefined2,
-                    filter: filter !== null ? i3 + ".@data-" + filter : undefined2
+                    sort: sort !== null ? i3 + ".@data-" + sort : void 0,
+                    type: sort !== null ? i3 + ".@data-" + sort : void 0,
+                    filter: filter !== null ? i3 + ".@data-" + filter : void 0
                   };
                   col._isArrayHost = true;
                   _fnColumnOptions(oSettings, i3);
@@ -6481,88 +6321,206 @@ var require_jquery_dataTables = __commonJS({
               }
             });
           }
+          _fnCallbackReg(oSettings, "aoDrawCallback", _fnSaveState);
           var features = oSettings.oFeatures;
-          var loadedInit = function() {
-            if (oInit.aaSorting === undefined2) {
-              var sorting = oSettings.aaSorting;
-              for (i2 = 0, iLen = sorting.length; i2 < iLen; i2++) {
-                sorting[i2][1] = oSettings.aoColumns[i2].asSorting[0];
-              }
-            }
-            _fnSortingClasses(oSettings);
-            if (features.bSort) {
-              _fnCallbackReg(oSettings, "aoDrawCallback", function() {
-                if (oSettings.bSorted) {
-                  var aSort = _fnSortFlatten(oSettings);
-                  var sortedColumns = {};
-                  $2.each(aSort, function(i3, val) {
-                    sortedColumns[val.src] = val.dir;
-                  });
-                  _fnCallbackFire(oSettings, null, "order", [oSettings, aSort, sortedColumns]);
-                  _fnSortAria(oSettings);
-                }
-              });
-            }
-            _fnCallbackReg(oSettings, "aoDrawCallback", function() {
-              if (oSettings.bSorted || _fnDataSource(oSettings) === "ssp" || features.bDeferRender) {
-                _fnSortingClasses(oSettings);
-              }
-            }, "sc");
-            var captions = $this.children("caption").each(function() {
-              this._captionSide = $2(this).css("caption-side");
-            });
-            var thead = $this.children("thead");
-            if (thead.length === 0) {
-              thead = $2("<thead/>").appendTo($this);
-            }
-            oSettings.nTHead = thead[0];
-            var tbody = $this.children("tbody");
-            if (tbody.length === 0) {
-              tbody = $2("<tbody/>").insertAfter(thead);
-            }
-            oSettings.nTBody = tbody[0];
-            var tfoot = $this.children("tfoot");
-            if (tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "")) {
-              tfoot = $2("<tfoot/>").appendTo($this);
-            }
-            if (tfoot.length === 0 || tfoot.children().length === 0) {
-              $this.addClass(oClasses.sNoFooter);
-            } else if (tfoot.length > 0) {
-              oSettings.nTFoot = tfoot[0];
-              _fnDetectHeader(oSettings.aoFooter, oSettings.nTFoot);
-            }
-            if (oInit.aaData) {
-              for (i2 = 0; i2 < oInit.aaData.length; i2++) {
-                _fnAddData(oSettings, oInit.aaData[i2]);
-              }
-            } else if (oSettings.bDeferLoading || _fnDataSource(oSettings) == "dom") {
-              _fnAddTr(oSettings, $2(oSettings.nTBody).children("tr"));
-            }
-            oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-            oSettings.bInitialised = true;
-            if (bInitHandedOff === false) {
-              _fnInitialise(oSettings);
-            }
-          };
-          _fnCallbackReg(oSettings, "aoDrawCallback", _fnSaveState, "state_save");
           if (oInit.bStateSave) {
             features.bStateSave = true;
-            _fnLoadState(oSettings, oInit, loadedInit);
+          }
+          if (oInit.aaSorting === void 0) {
+            var sorting = oSettings.aaSorting;
+            for (i2 = 0, iLen = sorting.length; i2 < iLen; i2++) {
+              sorting[i2][1] = oSettings.aoColumns[i2].asSorting[0];
+            }
+          }
+          _fnSortingClasses(oSettings);
+          _fnCallbackReg(oSettings, "aoDrawCallback", function() {
+            if (oSettings.bSorted || _fnDataSource(oSettings) === "ssp" || features.bDeferRender) {
+              _fnSortingClasses(oSettings);
+            }
+          });
+          var caption = $this.children("caption");
+          if (oSettings.caption) {
+            if (caption.length === 0) {
+              caption = $2("<caption/>").prependTo($this);
+            }
+            caption.html(oSettings.caption);
+          }
+          if (caption.length) {
+            caption[0]._captionSide = caption.css("caption-side");
+            oSettings.captionNode = caption[0];
+          }
+          if (caption.length) {
+            oSettings.colgroup.insertAfter(caption);
           } else {
-            loadedInit();
+            oSettings.colgroup.prependTo(oSettings.nTable);
+          }
+          if (thead.length === 0) {
+            thead = $2("<thead/>").appendTo($this);
+          }
+          oSettings.nTHead = thead[0];
+          var tbody = $this.children("tbody");
+          if (tbody.length === 0) {
+            tbody = $2("<tbody/>").insertAfter(thead);
+          }
+          oSettings.nTBody = tbody[0];
+          var tfoot = $this.children("tfoot");
+          if (tfoot.length === 0) {
+            tfoot = $2("<tfoot/>").appendTo($this);
+          }
+          oSettings.nTFoot = tfoot[0];
+          oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+          oSettings.bInitialised = true;
+          var oLanguage = oSettings.oLanguage;
+          $2.extend(true, oLanguage, oInit.oLanguage);
+          if (oLanguage.sUrl) {
+            $2.ajax({
+              dataType: "json",
+              url: oLanguage.sUrl,
+              success: function(json) {
+                _fnCamelToHungarian(defaults.oLanguage, json);
+                $2.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
+                _fnCallbackFire(oSettings, null, "i18n", [oSettings], true);
+                _fnInitialise(oSettings);
+              },
+              error: function() {
+                _fnLog(oSettings, 0, "i18n file loading error", 21);
+                _fnInitialise(oSettings);
+              }
+            });
+          } else {
+            _fnCallbackFire(oSettings, null, "i18n", [oSettings], true);
+            _fnInitialise(oSettings);
           }
         });
         _that = null;
         return this;
       };
+      DataTable.ext = _ext = {
+        builder: "-source-",
+        buttons: {},
+        ccContent: {},
+        classes: {},
+        errMode: "alert",
+        escape: {
+          attributes: false
+        },
+        feature: [],
+        features: {},
+        search: [],
+        selector: {
+          cell: [],
+          column: [],
+          row: []
+        },
+        legacy: {
+          ajax: null
+        },
+        pager: {},
+        renderer: {
+          pageButton: {},
+          header: {}
+        },
+        order: {},
+        type: {
+          className: {},
+          detect: [],
+          render: {},
+          search: {},
+          order: {}
+        },
+        _unique: 0,
+        fnVersionCheck: DataTable.fnVersionCheck,
+        iApiIndex: 0,
+        sVersion: DataTable.version
+      };
+      $2.extend(_ext, {
+        afnFiltering: _ext.search,
+        aTypes: _ext.type.detect,
+        ofnSearch: _ext.type.search,
+        oSort: _ext.type.order,
+        afnSortData: _ext.order,
+        aoFeatures: _ext.feature,
+        oStdClasses: _ext.classes,
+        oPagination: _ext.pager
+      });
+      $2.extend(DataTable.ext.classes, {
+        container: "dt-container",
+        empty: {
+          row: "dt-empty"
+        },
+        info: {
+          container: "dt-info"
+        },
+        layout: {
+          row: "dt-layout-row",
+          cell: "dt-layout-cell",
+          tableRow: "dt-layout-table",
+          tableCell: "",
+          start: "dt-layout-start",
+          end: "dt-layout-end",
+          full: "dt-layout-full"
+        },
+        length: {
+          container: "dt-length",
+          select: "dt-input"
+        },
+        order: {
+          canAsc: "dt-orderable-asc",
+          canDesc: "dt-orderable-desc",
+          isAsc: "dt-ordering-asc",
+          isDesc: "dt-ordering-desc",
+          none: "dt-orderable-none",
+          position: "sorting_"
+        },
+        processing: {
+          container: "dt-processing"
+        },
+        scrolling: {
+          body: "dt-scroll-body",
+          container: "dt-scroll",
+          footer: {
+            self: "dt-scroll-foot",
+            inner: "dt-scroll-footInner"
+          },
+          header: {
+            self: "dt-scroll-head",
+            inner: "dt-scroll-headInner"
+          }
+        },
+        search: {
+          container: "dt-search",
+          input: "dt-input"
+        },
+        table: "dataTable",
+        tbody: {
+          cell: "",
+          row: ""
+        },
+        thead: {
+          cell: "",
+          row: ""
+        },
+        tfoot: {
+          cell: "",
+          row: ""
+        },
+        paging: {
+          active: "current",
+          button: "dt-paging-button",
+          container: "dt-paging",
+          disabled: "disabled",
+          nav: ""
+        }
+      });
       var _ext;
       var _Api;
       var _api_register;
       var _api_registerPlural;
       var _re_dic = {};
       var _re_new_lines = /[\r\n\u2028]/g;
-      var _re_html = /<.*?>/g;
-      var _re_date = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/;
+      var _re_html = /<([^>]*>)/g;
+      var _max_str_len = Math.pow(2, 28);
+      var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
       var _re_escape_regex = new RegExp("(\\" + ["/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-"].join("|\\") + ")", "g");
       var _re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
       var _empty = function(d) {
@@ -6578,13 +6536,13 @@ var require_jquery_dataTables = __commonJS({
         }
         return typeof num2 === "string" && decimalPoint !== "." ? num2.replace(/\./g, "").replace(_re_dic[decimalPoint], ".") : num2;
       };
-      var _isNumber = function(d, decimalPoint, formatted) {
+      var _isNumber = function(d, decimalPoint, formatted, allowEmpty) {
         var type = typeof d;
         var strType = type === "string";
         if (type === "number" || type === "bigint") {
           return true;
         }
-        if (_empty(d)) {
+        if (allowEmpty && _empty(d)) {
           return true;
         }
         if (decimalPoint && strType) {
@@ -6598,24 +6556,27 @@ var require_jquery_dataTables = __commonJS({
       var _isHtml = function(d) {
         return _empty(d) || typeof d === "string";
       };
-      var _htmlNumeric = function(d, decimalPoint, formatted) {
-        if (_empty(d)) {
+      var _htmlNumeric = function(d, decimalPoint, formatted, allowEmpty) {
+        if (allowEmpty && _empty(d)) {
           return true;
         }
+        if (typeof d === "string" && d.match(/<(input|select)/i)) {
+          return null;
+        }
         var html = _isHtml(d);
-        return !html ? null : _isNumber(_stripHtml(d), decimalPoint, formatted) ? true : null;
+        return !html ? null : _isNumber(_stripHtml(d), decimalPoint, formatted, allowEmpty) ? true : null;
       };
       var _pluck = function(a, prop, prop2) {
         var out = [];
-        var i2 = 0, ien = a.length;
-        if (prop2 !== undefined2) {
-          for (; i2 < ien; i2++) {
+        var i2 = 0, iLen = a.length;
+        if (prop2 !== void 0) {
+          for (; i2 < iLen; i2++) {
             if (a[i2] && a[i2][prop]) {
               out.push(a[i2][prop][prop2]);
             }
           }
         } else {
-          for (; i2 < ien; i2++) {
+          for (; i2 < iLen; i2++) {
             if (a[i2]) {
               out.push(a[i2][prop]);
             }
@@ -6625,16 +6586,18 @@ var require_jquery_dataTables = __commonJS({
       };
       var _pluck_order = function(a, order, prop, prop2) {
         var out = [];
-        var i2 = 0, ien = order.length;
-        if (prop2 !== undefined2) {
-          for (; i2 < ien; i2++) {
-            if (a[order[i2]][prop]) {
+        var i2 = 0, iLen = order.length;
+        if (prop2 !== void 0) {
+          for (; i2 < iLen; i2++) {
+            if (a[order[i2]] && a[order[i2]][prop]) {
               out.push(a[order[i2]][prop][prop2]);
             }
           }
         } else {
-          for (; i2 < ien; i2++) {
-            out.push(a[order[i2]][prop]);
+          for (; i2 < iLen; i2++) {
+            if (a[order[i2]]) {
+              out.push(a[order[i2]][prop]);
+            }
           }
         }
         return out;
@@ -6642,7 +6605,7 @@ var require_jquery_dataTables = __commonJS({
       var _range = function(len, start) {
         var out = [];
         var end;
-        if (start === undefined2) {
+        if (start === void 0) {
           start = 0;
           end = len;
         } else {
@@ -6656,15 +6619,40 @@ var require_jquery_dataTables = __commonJS({
       };
       var _removeEmpty = function(a) {
         var out = [];
-        for (var i2 = 0, ien = a.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = a.length; i2 < iLen; i2++) {
           if (a[i2]) {
             out.push(a[i2]);
           }
         }
         return out;
       };
-      var _stripHtml = function(d) {
-        return d.replace(_re_html, "").replace(/<script/i, "");
+      var _stripHtml = function(input, replacement) {
+        if (!input || typeof input !== "string") {
+          return input;
+        }
+        if (input.length > _max_str_len) {
+          throw new Error("Exceeded max str len");
+        }
+        var previous;
+        input = input.replace(_re_html, replacement || "");
+        do {
+          previous = input;
+          input = input.replace(/<script/i, "");
+        } while (input !== previous);
+        return previous;
+      };
+      var _escapeHtml = function(d) {
+        if (Array.isArray(d)) {
+          d = d.join(",");
+        }
+        return typeof d === "string" ? d.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : d;
+      };
+      var _normalize = function(str, both) {
+        if (typeof str !== "string") {
+          return str;
+        }
+        var res = str.normalize ? str.normalize("NFD") : str;
+        return res.length !== str.length ? (both === true ? str + " " : "") + res.replace(/[\u0300-\u036f]/g, "") : res;
       };
       var _areAllUnique = function(src) {
         if (src.length < 2) {
@@ -6672,7 +6660,7 @@ var require_jquery_dataTables = __commonJS({
         }
         var sorted = src.slice().sort();
         var last = sorted[0];
-        for (var i2 = 1, ien = sorted.length; i2 < ien; i2++) {
+        for (var i2 = 1, iLen = sorted.length; i2 < iLen; i2++) {
           if (sorted[i2] === last) {
             return false;
           }
@@ -6681,12 +6669,15 @@ var require_jquery_dataTables = __commonJS({
         return true;
       };
       var _unique = function(src) {
+        if (Array.from && Set) {
+          return Array.from(new Set(src));
+        }
         if (_areAllUnique(src)) {
           return src.slice();
         }
-        var out = [], val, i2, ien = src.length, j, k = 0;
+        var out = [], val, i2, iLen = src.length, j, k = 0;
         again:
-          for (i2 = 0; i2 < ien; i2++) {
+          for (i2 = 0; i2 < iLen; i2++) {
             val = src[i2];
             for (j = 0; j < k; j++) {
               if (out[j] === val) {
@@ -6708,37 +6699,42 @@ var require_jquery_dataTables = __commonJS({
         }
         return out;
       };
-      var _includes = function(search, start) {
-        if (start === undefined2) {
-          start = 0;
+      function _addClass(el, name) {
+        if (name) {
+          name.split(" ").forEach(function(n) {
+            if (n) {
+              el.classList.add(n);
+            }
+          });
         }
-        return this.indexOf(search, start) !== -1;
-      };
-      if (!Array.isArray) {
-        Array.isArray = function(arg) {
-          return Object.prototype.toString.call(arg) === "[object Array]";
-        };
-      }
-      if (!Array.prototype.includes) {
-        Array.prototype.includes = _includes;
-      }
-      if (!String.prototype.trim) {
-        String.prototype.trim = function() {
-          return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-        };
-      }
-      if (!String.prototype.includes) {
-        String.prototype.includes = _includes;
       }
       DataTable.util = {
+        diacritics: function(mixed, both) {
+          var type = typeof mixed;
+          if (type !== "function") {
+            return _normalize(mixed, both);
+          }
+          _normalize = mixed;
+        },
+        debounce: function(fn, timeout) {
+          var timer;
+          return function() {
+            var that = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+              fn.apply(that, args);
+            }, timeout || 250);
+          };
+        },
         throttle: function(fn, freq) {
-          var frequency = freq !== undefined2 ? freq : 200, last, timer;
+          var frequency = freq !== void 0 ? freq : 200, last, timer;
           return function() {
             var that = this, now = +new Date(), args = arguments;
             if (last && now < last + frequency) {
               clearTimeout(timer);
               timer = setTimeout(function() {
-                last = undefined2;
+                last = void 0;
                 fn.apply(that, args);
               }, frequency);
             } else {
@@ -6791,7 +6787,7 @@ var require_jquery_dataTables = __commonJS({
                   a[i2] = a[i2].replace(__reFn, "");
                   data = data[a[i2]](val);
                 }
-                if (data[a[i2]] === null || data[a[i2]] === undefined2) {
+                if (data[a[i2]] === null || data[a[i2]] === void 0) {
                   data[a[i2]] = {};
                 }
                 data = data[a[i2]];
@@ -6821,7 +6817,7 @@ var require_jquery_dataTables = __commonJS({
             });
             return function(data, type, row, meta) {
               var t = o[type] || o._;
-              return t !== undefined2 ? t(data, type, row, meta) : data;
+              return t !== void 0 ? t(data, type, row, meta) : data;
             };
           } else if (source === null) {
             return function(data) {
@@ -6862,8 +6858,8 @@ var require_jquery_dataTables = __commonJS({
                   }
                   if (data === null || data[a[i2]] === null) {
                     return null;
-                  } else if (data === undefined2 || data[a[i2]] === undefined2) {
-                    return undefined2;
+                  } else if (data === void 0 || data[a[i2]] === void 0) {
+                    return void 0;
                   }
                   data = data[a[i2]];
                 }
@@ -6874,15 +6870,36 @@ var require_jquery_dataTables = __commonJS({
               return fetchData(data, type, source);
             };
           } else {
-            return function(data, type) {
+            return function(data) {
               return data[source];
             };
           }
-        }
+        },
+        stripHtml: function(mixed, replacement) {
+          var type = typeof mixed;
+          if (type === "function") {
+            _stripHtml = mixed;
+            return;
+          } else if (type === "string") {
+            return _stripHtml(mixed, replacement);
+          }
+          return mixed;
+        },
+        escapeHtml: function(mixed) {
+          var type = typeof mixed;
+          if (type === "function") {
+            _escapeHtml = mixed;
+            return;
+          } else if (type === "string" || Array.isArray(mixed)) {
+            return _escapeHtml(mixed);
+          }
+          return mixed;
+        },
+        unique: _unique
       };
       function _fnHungarianMap(o) {
         var hungarian = "a aa ai ao as b fn i m o s ", match, newKey, map = {};
-        $2.each(o, function(key, val) {
+        $2.each(o, function(key) {
           match = key.match(/^([^A-Z]+?)([A-Z])/);
           if (match && hungarian.indexOf(match[1] + " ") !== -1) {
             newKey = key.replace(match[0], match[2].toLowerCase());
@@ -6899,9 +6916,9 @@ var require_jquery_dataTables = __commonJS({
           _fnHungarianMap(src);
         }
         var hungarianKey;
-        $2.each(user, function(key, val) {
+        $2.each(user, function(key) {
           hungarianKey = src._hungarianMap[key];
-          if (hungarianKey !== undefined2 && (force || user[hungarianKey] === undefined2)) {
+          if (hungarianKey !== void 0 && (force || user[hungarianKey] === void 0)) {
             if (hungarianKey.charAt(0) === "o") {
               if (!user[hungarianKey]) {
                 user[hungarianKey] = {};
@@ -6914,31 +6931,8 @@ var require_jquery_dataTables = __commonJS({
           }
         });
       }
-      function _fnLanguageCompat(lang) {
-        var defaults = DataTable.defaults.oLanguage;
-        var defaultDecimal = defaults.sDecimal;
-        if (defaultDecimal) {
-          _addNumericSort(defaultDecimal);
-        }
-        if (lang) {
-          var zeroRecords = lang.sZeroRecords;
-          if (!lang.sEmptyTable && zeroRecords && defaults.sEmptyTable === "No data available in table") {
-            _fnMap(lang, lang, "sZeroRecords", "sEmptyTable");
-          }
-          if (!lang.sLoadingRecords && zeroRecords && defaults.sLoadingRecords === "Loading...") {
-            _fnMap(lang, lang, "sZeroRecords", "sLoadingRecords");
-          }
-          if (lang.sInfoThousands) {
-            lang.sThousands = lang.sInfoThousands;
-          }
-          var decimal = lang.sDecimal;
-          if (decimal && defaultDecimal !== decimal) {
-            _addNumericSort(decimal);
-          }
-        }
-      }
       var _fnCompatMap = function(o, knew, old) {
-        if (o[knew] !== undefined2) {
+        if (o[knew] !== void 0) {
           o[old] = o[knew];
         }
       };
@@ -6959,13 +6953,30 @@ var require_jquery_dataTables = __commonJS({
         if (typeof init.scrollX === "boolean") {
           init.scrollX = init.scrollX ? "100%" : "";
         }
+        if (typeof init.bSort === "object") {
+          init.orderIndicators = init.bSort.indicators !== void 0 ? init.bSort.indicators : true;
+          init.orderHandler = init.bSort.handler !== void 0 ? init.bSort.handler : true;
+          init.bSort = true;
+        } else if (init.bSort === false) {
+          init.orderIndicators = false;
+          init.orderHandler = false;
+        } else if (init.bSort === true) {
+          init.orderIndicators = true;
+          init.orderHandler = true;
+        }
+        if (typeof init.bSortCellsTop === "boolean") {
+          init.titleRow = init.bSortCellsTop;
+        }
         var searchCols = init.aoSearchCols;
         if (searchCols) {
-          for (var i2 = 0, ien = searchCols.length; i2 < ien; i2++) {
+          for (var i2 = 0, iLen = searchCols.length; i2 < iLen; i2++) {
             if (searchCols[i2]) {
               _fnCamelToHungarian(DataTable.models.oSearch, searchCols[i2]);
             }
           }
+        }
+        if (init.serverSide && !init.searchDelay) {
+          init.searchDelay = 400;
         }
       }
       function _fnCompatCols(init) {
@@ -6985,7 +6996,7 @@ var require_jquery_dataTables = __commonJS({
           var n = $2("<div/>").css({
             position: "fixed",
             top: 0,
-            left: $2(window2).scrollLeft() * -1,
+            left: -1 * window2.pageXOffset,
             height: 1,
             width: 1,
             overflow: "hidden"
@@ -7006,60 +7017,32 @@ var require_jquery_dataTables = __commonJS({
           var outer = n.children();
           var inner = outer.children();
           browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
-          browser.bScrollOversize = inner[0].offsetWidth === 100 && outer[0].clientWidth !== 100;
           browser.bScrollbarLeft = Math.round(inner.offset().left) !== 1;
-          browser.bBounding = n[0].getBoundingClientRect().width ? true : false;
           n.remove();
         }
         $2.extend(settings.oBrowser, DataTable.__browser);
         settings.oScroll.iBarWidth = DataTable.__browser.barWidth;
       }
-      function _fnReduce(that, fn, init, start, end, inc) {
-        var i2 = start, value, isSet = false;
-        if (init !== undefined2) {
-          value = init;
-          isSet = true;
-        }
-        while (i2 !== end) {
-          if (!that.hasOwnProperty(i2)) {
-            continue;
-          }
-          value = isSet ? fn(value, that[i2], i2, that) : that[i2];
-          isSet = true;
-          i2 += inc;
-        }
-        return value;
-      }
-      function _fnAddColumn(oSettings, nTh) {
+      function _fnAddColumn(oSettings) {
         var oDefaults = DataTable.defaults.column;
         var iCol = oSettings.aoColumns.length;
         var oCol = $2.extend({}, DataTable.models.oColumn, oDefaults, {
-          "nTh": nTh ? nTh : document2.createElement("th"),
-          "sTitle": oDefaults.sTitle ? oDefaults.sTitle : nTh ? nTh.innerHTML : "",
           "aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
           "mData": oDefaults.mData ? oDefaults.mData : iCol,
-          idx: iCol
+          idx: iCol,
+          searchFixed: {},
+          colEl: $2("<col>").attr("data-dt-column", iCol)
         });
         oSettings.aoColumns.push(oCol);
         var searchCols = oSettings.aoPreSearchCols;
         searchCols[iCol] = $2.extend({}, DataTable.models.oSearch, searchCols[iCol]);
-        _fnColumnOptions(oSettings, iCol, $2(nTh).data());
       }
       function _fnColumnOptions(oSettings, iCol, oOptions) {
         var oCol = oSettings.aoColumns[iCol];
-        var oClasses = oSettings.oClasses;
-        var th = $2(oCol.nTh);
-        if (!oCol.sWidthOrig) {
-          oCol.sWidthOrig = th.attr("width") || null;
-          var t = (th.attr("style") || "").match(/width:\s*(\d+[pxem%]+)/);
-          if (t) {
-            oCol.sWidthOrig = t[1];
-          }
-        }
-        if (oOptions !== undefined2 && oOptions !== null) {
+        if (oOptions !== void 0 && oOptions !== null) {
           _fnCompatCols(oOptions);
           _fnCamelToHungarian(DataTable.defaults.column, oOptions, true);
-          if (oOptions.mDataProp !== undefined2 && !oOptions.mData) {
+          if (oOptions.mDataProp !== void 0 && !oOptions.mData) {
             oOptions.mData = oOptions.mDataProp;
           }
           if (oOptions.sType) {
@@ -7068,34 +7051,33 @@ var require_jquery_dataTables = __commonJS({
           if (oOptions.className && !oOptions.sClass) {
             oOptions.sClass = oOptions.className;
           }
-          if (oOptions.sClass) {
-            th.addClass(oOptions.sClass);
-          }
           var origClass = oCol.sClass;
           $2.extend(oCol, oOptions);
           _fnMap(oCol, oOptions, "sWidth", "sWidthOrig");
           if (origClass !== oCol.sClass) {
             oCol.sClass = origClass + " " + oCol.sClass;
           }
-          if (oOptions.iDataSort !== undefined2) {
+          if (oOptions.iDataSort !== void 0) {
             oCol.aDataSort = [oOptions.iDataSort];
           }
           _fnMap(oCol, oOptions, "aDataSort");
-          if (!oCol.ariaTitle) {
-            oCol.ariaTitle = th.attr("aria-label");
-          }
         }
         var mDataSrc = oCol.mData;
         var mData = _fnGetObjectDataFn(mDataSrc);
-        var mRender = oCol.mRender ? _fnGetObjectDataFn(oCol.mRender) : null;
+        if (oCol.mRender && Array.isArray(oCol.mRender)) {
+          var copy = oCol.mRender.slice();
+          var name = copy.shift();
+          oCol.mRender = DataTable.render[name].apply(window2, copy);
+        }
+        oCol._render = oCol.mRender ? _fnGetObjectDataFn(oCol.mRender) : null;
         var attrTest = function(src) {
           return typeof src === "string" && src.indexOf("@") !== -1;
         };
         oCol._bAttrSrc = $2.isPlainObject(mDataSrc) && (attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter));
         oCol._setter = null;
         oCol.fnGetData = function(rowData, type, meta) {
-          var innerData = mData(rowData, type, undefined2, meta);
-          return mRender && type ? mRender(innerData, type, rowData, meta) : innerData;
+          var innerData = mData(rowData, type, void 0, meta);
+          return oCol._render && type ? oCol._render(innerData, type, rowData, meta) : innerData;
         };
         oCol.fnSetData = function(rowData, val, meta) {
           return _fnSetObjectDataFn(mDataSrc)(rowData, val, meta);
@@ -7105,37 +7087,26 @@ var require_jquery_dataTables = __commonJS({
         }
         if (!oSettings.oFeatures.bSort) {
           oCol.bSortable = false;
-          th.addClass(oClasses.sSortableNone);
-        }
-        var bAsc = $2.inArray("asc", oCol.asSorting) !== -1;
-        var bDesc = $2.inArray("desc", oCol.asSorting) !== -1;
-        if (!oCol.bSortable || !bAsc && !bDesc) {
-          oCol.sSortingClass = oClasses.sSortableNone;
-          oCol.sSortingClassJUI = "";
-        } else if (bAsc && !bDesc) {
-          oCol.sSortingClass = oClasses.sSortableAsc;
-          oCol.sSortingClassJUI = oClasses.sSortJUIAscAllowed;
-        } else if (!bAsc && bDesc) {
-          oCol.sSortingClass = oClasses.sSortableDesc;
-          oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
-        } else {
-          oCol.sSortingClass = oClasses.sSortable;
-          oCol.sSortingClassJUI = oClasses.sSortJUI;
         }
       }
       function _fnAdjustColumnSizing(settings) {
-        if (settings.oFeatures.bAutoWidth !== false) {
-          var columns = settings.aoColumns;
-          _fnCalculateColumnWidths(settings);
-          for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-            columns[i2].nTh.style.width = columns[i2].sWidth;
-          }
-        }
+        _fnCalculateColumnWidths(settings);
+        _fnColumnSizes(settings);
         var scroll = settings.oScroll;
         if (scroll.sY !== "" || scroll.sX !== "") {
           _fnScrollDraw(settings);
         }
         _fnCallbackFire(settings, null, "column-sizing", [settings]);
+      }
+      function _fnColumnSizes(settings) {
+        var cols = settings.aoColumns;
+        for (var i2 = 0; i2 < cols.length; i2++) {
+          var width = _fnColumnsSumWidth(settings, [i2], false, false);
+          cols[i2].colEl.css("width", width);
+          if (settings.oScroll.sX) {
+            cols[i2].colEl.css("min-width", width);
+          }
+        }
       }
       function _fnVisibleToColumnIndex(oSettings, iMatch) {
         var aiVis = _fnGetColumns(oSettings, "bVisible");
@@ -7143,53 +7114,82 @@ var require_jquery_dataTables = __commonJS({
       }
       function _fnColumnIndexToVisible(oSettings, iMatch) {
         var aiVis = _fnGetColumns(oSettings, "bVisible");
-        var iPos = $2.inArray(iMatch, aiVis);
+        var iPos = aiVis.indexOf(iMatch);
         return iPos !== -1 ? iPos : null;
       }
-      function _fnVisbleColumns(oSettings) {
+      function _fnVisibleColumns(settings) {
+        var layout = settings.aoHeader;
+        var columns = settings.aoColumns;
         var vis = 0;
-        $2.each(oSettings.aoColumns, function(i2, col) {
-          if (col.bVisible && $2(col.nTh).css("display") !== "none") {
-            vis++;
+        if (layout.length) {
+          for (var i2 = 0, iLen = layout[0].length; i2 < iLen; i2++) {
+            if (columns[i2].bVisible && $2(layout[0][i2].cell).css("display") !== "none") {
+              vis++;
+            }
           }
-        });
+        }
         return vis;
       }
       function _fnGetColumns(oSettings, sParam) {
         var a = [];
-        $2.map(oSettings.aoColumns, function(val, i2) {
+        oSettings.aoColumns.map(function(val, i2) {
           if (val[sParam]) {
             a.push(i2);
           }
         });
         return a;
       }
+      function _typeResult(typeDetect, res) {
+        return res === true ? typeDetect._name : res;
+      }
       function _fnColumnTypes(settings) {
         var columns = settings.aoColumns;
         var data = settings.aoData;
         var types = DataTable.ext.type.detect;
-        var i2, ien, j, jen, k, ken;
-        var col, cell, detectedType, cache;
-        for (i2 = 0, ien = columns.length; i2 < ien; i2++) {
+        var i2, iLen, j, jen, k, ken;
+        var col, detectedType, cache;
+        for (i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
           col = columns[i2];
           cache = [];
           if (!col.sType && col._sManualType) {
             col.sType = col._sManualType;
           } else if (!col.sType) {
+            if (!settings.typeDetect) {
+              return;
+            }
             for (j = 0, jen = types.length; j < jen; j++) {
+              var typeDetect = types[j];
+              var oneOf = typeDetect.oneOf;
+              var allOf = typeDetect.allOf || typeDetect;
+              var init = typeDetect.init;
+              var one = false;
+              detectedType = null;
+              if (init) {
+                detectedType = _typeResult(typeDetect, init(settings, col, i2));
+                if (detectedType) {
+                  col.sType = detectedType;
+                  break;
+                }
+              }
               for (k = 0, ken = data.length; k < ken; k++) {
-                if (cache[k] === undefined2) {
+                if (!data[k]) {
+                  continue;
+                }
+                if (cache[k] === void 0) {
                   cache[k] = _fnGetCellData(settings, k, i2, "type");
                 }
-                detectedType = types[j](cache[k], settings);
-                if (!detectedType && j !== types.length - 1) {
+                if (oneOf && !one) {
+                  one = _typeResult(typeDetect, oneOf(cache[k], settings));
+                }
+                detectedType = _typeResult(typeDetect, allOf(cache[k], settings));
+                if (!detectedType && j !== types.length - 3) {
                   break;
                 }
                 if (detectedType === "html" && !_empty(cache[k])) {
                   break;
                 }
               }
-              if (detectedType) {
+              if (oneOf && one && detectedType || !oneOf && detectedType) {
                 col.sType = detectedType;
                 break;
               }
@@ -7198,30 +7198,81 @@ var require_jquery_dataTables = __commonJS({
               col.sType = "string";
             }
           }
+          var autoClass = _ext.type.className[col.sType];
+          if (autoClass) {
+            _columnAutoClass(settings.aoHeader, i2, autoClass);
+            _columnAutoClass(settings.aoFooter, i2, autoClass);
+          }
+          var renderer = _ext.type.render[col.sType];
+          if (renderer && !col._render) {
+            col._render = DataTable.util.get(renderer);
+            _columnAutoRender(settings, i2);
+          }
         }
       }
-      function _fnApplyColumnDefs(oSettings, aoColDefs, aoCols, fn) {
+      function _columnAutoRender(settings, colIdx) {
+        var data = settings.aoData;
+        for (var i2 = 0; i2 < data.length; i2++) {
+          if (data[i2].nTr) {
+            var display = _fnGetCellData(settings, i2, colIdx, "display");
+            data[i2].displayData[colIdx] = display;
+            _fnWriteCell(data[i2].anCells[colIdx], display);
+          }
+        }
+      }
+      function _columnAutoClass(container, colIdx, className) {
+        container.forEach(function(row) {
+          if (row[colIdx] && row[colIdx].unique) {
+            _addClass(row[colIdx].cell, className);
+          }
+        });
+      }
+      function _fnApplyColumnDefs(oSettings, aoColDefs, aoCols, headerLayout, fn) {
         var i2, iLen, j, jLen, k, kLen, def;
         var columns = oSettings.aoColumns;
+        if (aoCols) {
+          for (i2 = 0, iLen = aoCols.length; i2 < iLen; i2++) {
+            if (aoCols[i2] && aoCols[i2].name) {
+              columns[i2].sName = aoCols[i2].name;
+            }
+          }
+        }
         if (aoColDefs) {
           for (i2 = aoColDefs.length - 1; i2 >= 0; i2--) {
             def = aoColDefs[i2];
-            var aTargets = def.target !== undefined2 ? def.target : def.targets !== undefined2 ? def.targets : def.aTargets;
+            var aTargets = def.target !== void 0 ? def.target : def.targets !== void 0 ? def.targets : def.aTargets;
             if (!Array.isArray(aTargets)) {
               aTargets = [aTargets];
             }
             for (j = 0, jLen = aTargets.length; j < jLen; j++) {
-              if (typeof aTargets[j] === "number" && aTargets[j] >= 0) {
-                while (columns.length <= aTargets[j]) {
+              var target = aTargets[j];
+              if (typeof target === "number" && target >= 0) {
+                while (columns.length <= target) {
                   _fnAddColumn(oSettings);
                 }
-                fn(aTargets[j], def);
-              } else if (typeof aTargets[j] === "number" && aTargets[j] < 0) {
-                fn(columns.length + aTargets[j], def);
-              } else if (typeof aTargets[j] === "string") {
+                fn(target, def);
+              } else if (typeof target === "number" && target < 0) {
+                fn(columns.length + target, def);
+              } else if (typeof target === "string") {
                 for (k = 0, kLen = columns.length; k < kLen; k++) {
-                  if (aTargets[j] == "_all" || $2(columns[k].nTh).hasClass(aTargets[j])) {
+                  if (target === "_all") {
                     fn(k, def);
+                  } else if (target.indexOf(":name") !== -1) {
+                    if (columns[k].sName === target.replace(":name", "")) {
+                      fn(k, def);
+                    }
+                  } else {
+                    headerLayout.forEach(function(row) {
+                      if (row[k]) {
+                        var cell = $2(row[k].cell);
+                        if (target.match(/^[a-z][\w-]*$/i)) {
+                          target = "." + target;
+                        }
+                        if (cell.is(target)) {
+                          fn(k, def);
+                        }
+                      }
+                    });
                   }
                 }
               }
@@ -7234,28 +7285,64 @@ var require_jquery_dataTables = __commonJS({
           }
         }
       }
-      function _fnAddData(oSettings, aDataIn, nTr, anTds) {
-        var iRow = oSettings.aoData.length;
-        var oData = $2.extend(true, {}, DataTable.models.oRow, {
-          src: nTr ? "dom" : "data",
-          idx: iRow
+      function _fnColumnsSumWidth(settings, targets, original, incVisible) {
+        if (!Array.isArray(targets)) {
+          targets = _fnColumnsFromHeader(targets);
+        }
+        var sum = 0;
+        var unit;
+        var columns = settings.aoColumns;
+        for (var i2 = 0, iLen = targets.length; i2 < iLen; i2++) {
+          var column = columns[targets[i2]];
+          var definedWidth = original ? column.sWidthOrig : column.sWidth;
+          if (!incVisible && column.bVisible === false) {
+            continue;
+          }
+          if (definedWidth === null || definedWidth === void 0) {
+            return null;
+          } else if (typeof definedWidth === "number") {
+            unit = "px";
+            sum += definedWidth;
+          } else {
+            var matched = definedWidth.match(/([\d\.]+)([^\d]*)/);
+            if (matched) {
+              sum += matched[1] * 1;
+              unit = matched.length === 3 ? matched[2] : "px";
+            }
+          }
+        }
+        return sum + unit;
+      }
+      function _fnColumnsFromHeader(cell) {
+        var attr = $2(cell).closest("[data-dt-column]").attr("data-dt-column");
+        if (!attr) {
+          return [];
+        }
+        return attr.split(",").map(function(val) {
+          return val * 1;
         });
-        oData._aData = aDataIn;
-        oSettings.aoData.push(oData);
-        var nTd, sThisType;
-        var columns = oSettings.aoColumns;
+      }
+      function _fnAddData(settings, dataIn, tr, tds) {
+        var rowIdx = settings.aoData.length;
+        var rowModel = $2.extend(true, {}, DataTable.models.oRow, {
+          src: tr ? "dom" : "data",
+          idx: rowIdx
+        });
+        rowModel._aData = dataIn;
+        settings.aoData.push(rowModel);
+        var columns = settings.aoColumns;
         for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
           columns[i2].sType = null;
         }
-        oSettings.aiDisplayMaster.push(iRow);
-        var id = oSettings.rowIdFn(aDataIn);
-        if (id !== undefined2) {
-          oSettings.aIds[id] = oData;
+        settings.aiDisplayMaster.push(rowIdx);
+        var id = settings.rowIdFn(dataIn);
+        if (id !== void 0) {
+          settings.aIds[id] = rowModel;
         }
-        if (nTr || !oSettings.oFeatures.bDeferRender) {
-          _fnCreateTr(oSettings, iRow, nTr, anTds);
+        if (tr || !settings.oFeatures.bDeferRender) {
+          _fnCreateTr(settings, rowIdx, tr, tds);
         }
-        return iRow;
+        return rowIdx;
       }
       function _fnAddTr(settings, trs) {
         var row;
@@ -7267,35 +7354,36 @@ var require_jquery_dataTables = __commonJS({
           return _fnAddData(settings, row.data, el, row.cells);
         });
       }
-      function _fnNodeToDataIndex(oSettings, n) {
-        return n._DT_RowIndex !== undefined2 ? n._DT_RowIndex : null;
-      }
-      function _fnNodeToColumnIndex(oSettings, iRow, n) {
-        return $2.inArray(n, oSettings.aoData[iRow].anCells);
-      }
       function _fnGetCellData(settings, rowIdx, colIdx, type) {
         if (type === "search") {
           type = "filter";
         } else if (type === "order") {
           type = "sort";
         }
+        var row = settings.aoData[rowIdx];
+        if (!row) {
+          return void 0;
+        }
         var draw = settings.iDraw;
         var col = settings.aoColumns[colIdx];
-        var rowData = settings.aoData[rowIdx]._aData;
+        var rowData = row._aData;
         var defaultContent = col.sDefaultContent;
         var cellData = col.fnGetData(rowData, type, {
           settings,
           row: rowIdx,
           col: colIdx
         });
-        if (cellData === undefined2) {
+        if (type !== "display" && cellData && typeof cellData === "object" && cellData.nodeName) {
+          cellData = cellData.innerHTML;
+        }
+        if (cellData === void 0) {
           if (settings.iDrawError != draw && defaultContent === null) {
             _fnLog(settings, 0, "Requested unknown parameter " + (typeof col.mData == "function" ? "{function}" : "'" + col.mData + "'") + " for row " + rowIdx + ", column " + colIdx, 4);
             settings.iDrawError = draw;
           }
           return defaultContent;
         }
-        if ((cellData === rowData || cellData === null) && defaultContent !== null && type !== undefined2) {
+        if ((cellData === rowData || cellData === null) && defaultContent !== null && type !== void 0) {
           cellData = defaultContent;
         } else if (typeof cellData === "function") {
           return cellData.call(rowData);
@@ -7304,9 +7392,9 @@ var require_jquery_dataTables = __commonJS({
           return "";
         }
         if (type === "filter") {
-          var fomatters = DataTable.ext.type.search;
-          if (fomatters[col.sType]) {
-            cellData = fomatters[col.sType](cellData);
+          var formatters = DataTable.ext.type.search;
+          if (formatters[col.sType]) {
+            cellData = formatters[col.sType](cellData);
           }
         }
         return cellData;
@@ -7320,10 +7408,18 @@ var require_jquery_dataTables = __commonJS({
           col: colIdx
         });
       }
+      function _fnWriteCell(td, val) {
+        if (val && typeof val === "object" && val.nodeName) {
+          $2(td).empty().append(val);
+        } else {
+          td.innerHTML = val;
+        }
+      }
       var __reArray = /\[.*?\]$/;
       var __reFn = /\(\)$/;
       function _fnSplitObjNotation(str) {
-        return $2.map(str.match(/(\\.|[^\.])+/g) || [""], function(s) {
+        var parts = str.match(/(\\.|[^.])+/g) || [""];
+        return parts.map(function(s) {
           return s.replace(/\\\./g, ".");
         });
       }
@@ -7338,62 +7434,47 @@ var require_jquery_dataTables = __commonJS({
         settings.aiDisplay.length = 0;
         settings.aIds = {};
       }
-      function _fnDeleteIndex(a, iTarget, splice) {
-        var iTargetIndex = -1;
-        for (var i2 = 0, iLen = a.length; i2 < iLen; i2++) {
-          if (a[i2] == iTarget) {
-            iTargetIndex = i2;
-          } else if (a[i2] > iTarget) {
-            a[i2]--;
-          }
-        }
-        if (iTargetIndex != -1 && splice === undefined2) {
-          a.splice(iTargetIndex, 1);
-        }
-      }
       function _fnInvalidate(settings, rowIdx, src, colIdx) {
         var row = settings.aoData[rowIdx];
-        var i2, ien;
-        var cellWrite = function(cell, col) {
-          while (cell.childNodes.length) {
-            cell.removeChild(cell.firstChild);
-          }
-          cell.innerHTML = _fnGetCellData(settings, rowIdx, col, "display");
-        };
+        var i2, iLen;
+        row._aSortData = null;
+        row._aFilterData = null;
+        row.displayData = null;
         if (src === "dom" || (!src || src === "auto") && row.src === "dom") {
           row._aData = _fnGetRowElements(
             settings,
             row,
             colIdx,
-            colIdx === undefined2 ? undefined2 : row._aData
+            colIdx === void 0 ? void 0 : row._aData
           ).data;
         } else {
           var cells = row.anCells;
+          var display = _fnGetRowDisplay(settings, rowIdx);
           if (cells) {
-            if (colIdx !== undefined2) {
-              cellWrite(cells[colIdx], colIdx);
+            if (colIdx !== void 0) {
+              _fnWriteCell(cells[colIdx], display[colIdx]);
             } else {
-              for (i2 = 0, ien = cells.length; i2 < ien; i2++) {
-                cellWrite(cells[i2], i2);
+              for (i2 = 0, iLen = cells.length; i2 < iLen; i2++) {
+                _fnWriteCell(cells[i2], display[i2]);
               }
             }
           }
         }
-        row._aSortData = null;
-        row._aFilterData = null;
         var cols = settings.aoColumns;
-        if (colIdx !== undefined2) {
+        if (colIdx !== void 0) {
           cols[colIdx].sType = null;
+          cols[colIdx].wideStrings = null;
         } else {
-          for (i2 = 0, ien = cols.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = cols.length; i2 < iLen; i2++) {
             cols[i2].sType = null;
+            cols[i2].wideStrings = null;
           }
           _fnRowAttributes(settings, row);
         }
       }
       function _fnGetRowElements(settings, row, colIdx, d) {
-        var tds = [], td = row.firstChild, name, col, o, i2 = 0, contents, columns = settings.aoColumns, objectRead = settings._rowReadObject;
-        d = d !== undefined2 ? d : objectRead ? {} : [];
+        var tds = [], td = row.firstChild, name, col, i2 = 0, contents, columns = settings.aoColumns, objectRead = settings._rowReadObject;
+        d = d !== void 0 ? d : objectRead ? {} : [];
         var attr = function(str, td2) {
           if (typeof str === "string") {
             var idx = str.indexOf("@");
@@ -7405,7 +7486,7 @@ var require_jquery_dataTables = __commonJS({
           }
         };
         var cellProcess = function(cell) {
-          if (colIdx === undefined2 || colIdx === i2) {
+          if (colIdx === void 0 || colIdx === i2) {
             col = columns[i2];
             contents = cell.innerHTML.trim();
             if (col && col._bAttrSrc) {
@@ -7454,17 +7535,31 @@ var require_jquery_dataTables = __commonJS({
           cells: tds
         };
       }
+      function _fnGetRowDisplay(settings, rowIdx) {
+        var rowModal = settings.aoData[rowIdx];
+        var columns = settings.aoColumns;
+        if (!rowModal.displayData) {
+          rowModal.displayData = [];
+          for (var colIdx = 0, len = columns.length; colIdx < len; colIdx++) {
+            rowModal.displayData.push(
+              _fnGetCellData(settings, rowIdx, colIdx, "display")
+            );
+          }
+        }
+        return rowModal.displayData;
+      }
       function _fnCreateTr(oSettings, iRow, nTrIn, anTds) {
-        var row = oSettings.aoData[iRow], rowData = row._aData, cells = [], nTr, nTd, oCol, i2, iLen, create;
+        var row = oSettings.aoData[iRow], rowData = row._aData, cells = [], nTr, nTd, oCol, i2, iLen, create, trClass = oSettings.oClasses.tbody.row;
         if (row.nTr === null) {
           nTr = nTrIn || document2.createElement("tr");
           row.nTr = nTr;
           row.anCells = cells;
+          _addClass(nTr, trClass);
           nTr._DT_RowIndex = iRow;
           _fnRowAttributes(oSettings, row);
           for (i2 = 0, iLen = oSettings.aoColumns.length; i2 < iLen; i2++) {
             oCol = oSettings.aoColumns[i2];
-            create = nTrIn ? false : true;
+            create = nTrIn && anTds[i2] ? false : true;
             nTd = create ? document2.createElement(oCol.sCellType) : anTds[i2];
             if (!nTd) {
               _fnLog(oSettings, 0, "Incorrect column count", 18);
@@ -7474,15 +7569,14 @@ var require_jquery_dataTables = __commonJS({
               column: i2
             };
             cells.push(nTd);
+            var display = _fnGetRowDisplay(oSettings, iRow);
             if (create || (oCol.mRender || oCol.mData !== i2) && (!$2.isPlainObject(oCol.mData) || oCol.mData._ !== i2 + ".display")) {
-              nTd.innerHTML = _fnGetCellData(oSettings, iRow, i2, "display");
+              _fnWriteCell(nTd, display[i2]);
             }
-            if (oCol.sClass) {
-              nTd.className += " " + oCol.sClass;
-            }
-            if (oCol.bVisible && !nTrIn) {
+            _addClass(nTd, oCol.sClass);
+            if (oCol.bVisible && create) {
               nTr.appendChild(nTd);
-            } else if (!oCol.bVisible && nTrIn) {
+            } else if (!oCol.bVisible && !create) {
               nTd.parentNode.removeChild(nTd);
             }
             if (oCol.fnCreatedCell) {
@@ -7496,7 +7590,9 @@ var require_jquery_dataTables = __commonJS({
               );
             }
           }
-          _fnCallbackFire(oSettings, "aoRowCreatedCallback", null, [nTr, rowData, iRow, cells]);
+          _fnCallbackFire(oSettings, "aoRowCreatedCallback", "row-created", [nTr, rowData, iRow, cells]);
+        } else {
+          _addClass(row.nTr, trClass);
         }
       }
       function _fnRowAttributes(settings, row) {
@@ -7520,105 +7616,109 @@ var require_jquery_dataTables = __commonJS({
           }
         }
       }
-      function _fnBuildHead(oSettings) {
-        var i2, ien, cell, row, column;
-        var thead = oSettings.nTHead;
-        var tfoot = oSettings.nTFoot;
-        var createHeader = $2("th, td", thead).length === 0;
-        var classes = oSettings.oClasses;
-        var columns = oSettings.aoColumns;
-        if (createHeader) {
-          row = $2("<tr/>").appendTo(thead);
-        }
-        for (i2 = 0, ien = columns.length; i2 < ien; i2++) {
-          column = columns[i2];
-          cell = $2(column.nTh).addClass(column.sClass);
-          if (createHeader) {
-            cell.appendTo(row);
-          }
-          if (oSettings.oFeatures.bSort) {
-            cell.addClass(column.sSortingClass);
-            if (column.bSortable !== false) {
-              cell.attr("tabindex", oSettings.iTabIndex).attr("aria-controls", oSettings.sTableId);
-              _fnSortAttachListener(oSettings, column.nTh, i2);
-            }
-          }
-          if (column.sTitle != cell[0].innerHTML) {
-            cell.html(column.sTitle);
-          }
-          _fnRenderer(oSettings, "header")(
-            oSettings,
-            cell,
-            column,
-            classes
-          );
-        }
-        if (createHeader) {
-          _fnDetectHeader(oSettings.aoHeader, thead);
-        }
-        $2(thead).children("tr").children("th, td").addClass(classes.sHeaderTH);
-        $2(tfoot).children("tr").children("th, td").addClass(classes.sFooterTH);
-        if (tfoot !== null) {
-          var cells = oSettings.aoFooter[0];
-          for (i2 = 0, ien = cells.length; i2 < ien; i2++) {
-            column = columns[i2];
-            if (column) {
-              column.nTf = cells[i2].cell;
-              if (column.sClass) {
-                $2(column.nTf).addClass(column.sClass);
-              }
-            } else {
-              _fnLog(oSettings, 0, "Incorrect column count", 18);
-            }
-          }
-        }
-      }
-      function _fnDrawHead(oSettings, aoSource, bIncludeHidden) {
-        var i2, iLen, j, jLen, k, kLen, n, nLocalTr;
-        var aoLocal = [];
-        var aApplied = [];
-        var iColumns = oSettings.aoColumns.length;
-        var iRowspan, iColspan;
-        if (!aoSource) {
+      function _fnBuildHead(settings, side) {
+        var classes = settings.oClasses;
+        var columns = settings.aoColumns;
+        var i2, iLen, row;
+        var target = side === "header" ? settings.nTHead : settings.nTFoot;
+        var titleProp = side === "header" ? "sTitle" : side;
+        if (!target) {
           return;
         }
-        if (bIncludeHidden === undefined2) {
-          bIncludeHidden = false;
-        }
-        for (i2 = 0, iLen = aoSource.length; i2 < iLen; i2++) {
-          aoLocal[i2] = aoSource[i2].slice();
-          aoLocal[i2].nTr = aoSource[i2].nTr;
-          for (j = iColumns - 1; j >= 0; j--) {
-            if (!oSettings.aoColumns[j].bVisible && !bIncludeHidden) {
-              aoLocal[i2].splice(j, 1);
+        if (side === "header" || _pluck(settings.aoColumns, titleProp).join("")) {
+          row = $2("tr", target);
+          if (!row.length) {
+            row = $2("<tr/>").appendTo(target);
+          }
+          if (row.length === 1) {
+            var cellCount = 0;
+            $2("td, th", row).each(function() {
+              cellCount += this.colSpan;
+            });
+            for (i2 = cellCount, iLen = columns.length; i2 < iLen; i2++) {
+              $2("<th/>").html(columns[i2][titleProp] || "").appendTo(row);
             }
           }
-          aApplied.push([]);
         }
-        for (i2 = 0, iLen = aoLocal.length; i2 < iLen; i2++) {
-          nLocalTr = aoLocal[i2].nTr;
-          if (nLocalTr) {
-            while (n = nLocalTr.firstChild) {
-              nLocalTr.removeChild(n);
-            }
-          }
-          for (j = 0, jLen = aoLocal[i2].length; j < jLen; j++) {
-            iRowspan = 1;
-            iColspan = 1;
-            if (aApplied[i2][j] === undefined2) {
-              nLocalTr.appendChild(aoLocal[i2][j].cell);
-              aApplied[i2][j] = 1;
-              while (aoLocal[i2 + iRowspan] !== undefined2 && aoLocal[i2][j].cell == aoLocal[i2 + iRowspan][j].cell) {
-                aApplied[i2 + iRowspan][j] = 1;
-                iRowspan++;
+        var detected = _fnDetectHeader(settings, target, true);
+        if (side === "header") {
+          settings.aoHeader = detected;
+          $2("tr", target).addClass(classes.thead.row);
+        } else {
+          settings.aoFooter = detected;
+          $2("tr", target).addClass(classes.tfoot.row);
+        }
+        $2(target).children("tr").children("th, td").each(function() {
+          _fnRenderer(settings, side)(
+            settings,
+            $2(this),
+            classes
+          );
+        });
+      }
+      function _fnHeaderLayout(settings, source, incColumns) {
+        var row, column, cell;
+        var local = [];
+        var structure = [];
+        var columns = settings.aoColumns;
+        var columnCount = columns.length;
+        var rowspan, colspan;
+        if (!source) {
+          return;
+        }
+        if (!incColumns) {
+          incColumns = _range(columnCount).filter(function(idx) {
+            return columns[idx].bVisible;
+          });
+        }
+        for (row = 0; row < source.length; row++) {
+          local[row] = source[row].slice().filter(function(cell2, i2) {
+            return incColumns.includes(i2);
+          });
+          structure.push([]);
+        }
+        for (row = 0; row < local.length; row++) {
+          for (column = 0; column < local[row].length; column++) {
+            rowspan = 1;
+            colspan = 1;
+            if (structure[row][column] === void 0) {
+              cell = local[row][column].cell;
+              while (local[row + rowspan] !== void 0 && local[row][column].cell == local[row + rowspan][column].cell) {
+                structure[row + rowspan][column] = null;
+                rowspan++;
               }
-              while (aoLocal[i2][j + iColspan] !== undefined2 && aoLocal[i2][j].cell == aoLocal[i2][j + iColspan].cell) {
-                for (k = 0; k < iRowspan; k++) {
-                  aApplied[i2 + k][j + iColspan] = 1;
+              while (local[row][column + colspan] !== void 0 && local[row][column].cell == local[row][column + colspan].cell) {
+                for (var k = 0; k < rowspan; k++) {
+                  structure[row + k][column + colspan] = null;
                 }
-                iColspan++;
+                colspan++;
               }
-              $2(aoLocal[i2][j].cell).attr("rowspan", iRowspan).attr("colspan", iColspan);
+              var titleSpan = $2(".dt-column-title", cell);
+              structure[row][column] = {
+                cell,
+                colspan,
+                rowspan,
+                title: titleSpan.length ? titleSpan.html() : $2(cell).html()
+              };
+            }
+          }
+        }
+        return structure;
+      }
+      function _fnDrawHead(settings, source) {
+        var layout = _fnHeaderLayout(settings, source);
+        var tr, n;
+        for (var row = 0; row < source.length; row++) {
+          tr = source[row].row;
+          if (tr) {
+            while (n = tr.firstChild) {
+              tr.removeChild(n);
+            }
+          }
+          for (var column = 0; column < layout[row].length; column++) {
+            var point = layout[row][column];
+            if (point) {
+              $2(point.cell).appendTo(tr).attr("rowspan", point.rowspan).attr("colspan", point.colspan);
             }
           }
         }
@@ -7626,27 +7726,29 @@ var require_jquery_dataTables = __commonJS({
       function _fnDraw(oSettings, ajaxComplete) {
         _fnStart(oSettings);
         var aPreDraw = _fnCallbackFire(oSettings, "aoPreDrawCallback", "preDraw", [oSettings]);
-        if ($2.inArray(false, aPreDraw) !== -1) {
+        if (aPreDraw.indexOf(false) !== -1) {
           _fnProcessingDisplay(oSettings, false);
           return;
         }
         var anRows = [];
         var iRowCount = 0;
-        var asStripeClasses = oSettings.asStripeClasses;
-        var iStripes = asStripeClasses.length;
-        var oLang = oSettings.oLanguage;
         var bServerSide = _fnDataSource(oSettings) == "ssp";
         var aiDisplay = oSettings.aiDisplay;
         var iDisplayStart = oSettings._iDisplayStart;
         var iDisplayEnd = oSettings.fnDisplayEnd();
+        var columns = oSettings.aoColumns;
+        var body = $2(oSettings.nTBody);
         oSettings.bDrawing = true;
-        if (oSettings.bDeferLoading) {
-          oSettings.bDeferLoading = false;
+        if (oSettings.deferLoading) {
+          oSettings.deferLoading = false;
           oSettings.iDraw++;
           _fnProcessingDisplay(oSettings, false);
         } else if (!bServerSide) {
           oSettings.iDraw++;
         } else if (!oSettings.bDestroying && !ajaxComplete) {
+          if (oSettings.iDraw === 0) {
+            body.empty().append(_emptyRow(oSettings));
+          }
           _fnAjaxUpdate(oSettings);
           return;
         }
@@ -7656,16 +7758,18 @@ var require_jquery_dataTables = __commonJS({
           for (var j = iStart; j < iEnd; j++) {
             var iDataIndex = aiDisplay[j];
             var aoData = oSettings.aoData[iDataIndex];
+            if (aoData === null) {
+              continue;
+            }
             if (aoData.nTr === null) {
               _fnCreateTr(oSettings, iDataIndex);
             }
             var nRow = aoData.nTr;
-            if (iStripes !== 0) {
-              var sStripe = asStripeClasses[iRowCount % iStripes];
-              if (aoData._sRowStripe != sStripe) {
-                $2(nRow).removeClass(aoData._sRowStripe).addClass(sStripe);
-                aoData._sRowStripe = sStripe;
-              }
+            for (var i2 = 0; i2 < columns.length; i2++) {
+              var col = columns[i2];
+              var td = aoData.anCells[i2];
+              _addClass(td, _ext.type.className[col.sType]);
+              _addClass(td, oSettings.oClasses.tbody.cell);
             }
             _fnCallbackFire(
               oSettings,
@@ -7677,17 +7781,7 @@ var require_jquery_dataTables = __commonJS({
             iRowCount++;
           }
         } else {
-          var sZero = oLang.sZeroRecords;
-          if (oSettings.iDraw == 1 && _fnDataSource(oSettings) == "ajax") {
-            sZero = oLang.sLoadingRecords;
-          } else if (oLang.sEmptyTable && oSettings.fnRecordsTotal() === 0) {
-            sZero = oLang.sEmptyTable;
-          }
-          anRows[0] = $2("<tr/>", { "class": iStripes ? asStripeClasses[0] : "" }).append($2("<td />", {
-            "valign": "top",
-            "colSpan": _fnVisbleColumns(oSettings),
-            "class": oSettings.oClasses.sRowEmpty
-          }).html(sZero))[0];
+          anRows[0] = _emptyRow(oSettings);
         }
         _fnCallbackFire(oSettings, "aoHeaderCallback", "header", [
           $2(oSettings.nTHead).children("tr")[0],
@@ -7703,198 +7797,346 @@ var require_jquery_dataTables = __commonJS({
           iDisplayEnd,
           aiDisplay
         ]);
-        var body = $2(oSettings.nTBody);
-        body.children().detach();
-        body.append($2(anRows));
-        _fnCallbackFire(oSettings, "aoDrawCallback", "draw", [oSettings]);
+        if (body[0].replaceChildren) {
+          body[0].replaceChildren.apply(body[0], anRows);
+        } else {
+          body.children().detach();
+          body.append($2(anRows));
+        }
+        $2(oSettings.nTableWrapper).toggleClass("dt-empty-footer", $2("tr", oSettings.nTFoot).length === 0);
+        _fnCallbackFire(oSettings, "aoDrawCallback", "draw", [oSettings], true);
         oSettings.bSorted = false;
         oSettings.bFiltered = false;
         oSettings.bDrawing = false;
       }
-      function _fnReDraw(settings, holdPosition) {
+      function _fnReDraw(settings, holdPosition, recompute) {
         var features = settings.oFeatures, sort = features.bSort, filter = features.bFilter;
-        if (sort) {
-          _fnSort(settings);
-        }
-        if (filter) {
-          _fnFilterComplete(settings, settings.oPreviousSearch);
-        } else {
-          settings.aiDisplay = settings.aiDisplayMaster.slice();
+        if (recompute === void 0 || recompute === true) {
+          _fnColumnTypes(settings);
+          if (sort) {
+            _fnSort(settings);
+          }
+          if (filter) {
+            _fnFilterComplete(settings, settings.oPreviousSearch);
+          } else {
+            settings.aiDisplay = settings.aiDisplayMaster.slice();
+          }
         }
         if (holdPosition !== true) {
           settings._iDisplayStart = 0;
         }
         settings._drawHold = holdPosition;
         _fnDraw(settings);
-        settings._drawHold = false;
-      }
-      function _fnAddOptionsHtml(oSettings) {
-        var classes = oSettings.oClasses;
-        var table = $2(oSettings.nTable);
-        var holding = $2("<div/>").insertBefore(table);
-        var features = oSettings.oFeatures;
-        var insert = $2("<div/>", {
-          id: oSettings.sTableId + "_wrapper",
-          "class": classes.sWrapper + (oSettings.nTFoot ? "" : " " + classes.sNoFooter)
+        settings.api.one("draw", function() {
+          settings._drawHold = false;
         });
-        oSettings.nHolding = holding[0];
-        oSettings.nTableWrapper = insert[0];
-        oSettings.nTableReinsertBefore = oSettings.nTable.nextSibling;
-        var aDom = oSettings.sDom.split("");
-        var featureNode, cOption, nNewNode, cNext, sAttr, j;
-        for (var i2 = 0; i2 < aDom.length; i2++) {
-          featureNode = null;
-          cOption = aDom[i2];
-          if (cOption == "<") {
-            nNewNode = $2("<div/>")[0];
-            cNext = aDom[i2 + 1];
-            if (cNext == "'" || cNext == '"') {
-              sAttr = "";
-              j = 2;
-              while (aDom[i2 + j] != cNext) {
-                sAttr += aDom[i2 + j];
-                j++;
-              }
-              if (sAttr == "H") {
-                sAttr = classes.sJUIHeader;
-              } else if (sAttr == "F") {
-                sAttr = classes.sJUIFooter;
-              }
-              if (sAttr.indexOf(".") != -1) {
-                var aSplit = sAttr.split(".");
-                nNewNode.id = aSplit[0].substr(1, aSplit[0].length - 1);
-                nNewNode.className = aSplit[1];
-              } else if (sAttr.charAt(0) == "#") {
-                nNewNode.id = sAttr.substr(1, sAttr.length - 1);
-              } else {
-                nNewNode.className = sAttr;
-              }
-              i2 += j;
+      }
+      function _emptyRow(settings) {
+        var oLang = settings.oLanguage;
+        var zero = oLang.sZeroRecords;
+        var dataSrc = _fnDataSource(settings);
+        if ((dataSrc === "ssp" || dataSrc === "ajax") && !settings.json) {
+          zero = oLang.sLoadingRecords;
+        } else if (oLang.sEmptyTable && settings.fnRecordsTotal() === 0) {
+          zero = oLang.sEmptyTable;
+        }
+        return $2("<tr/>").append($2("<td />", {
+          "colSpan": _fnVisibleColumns(settings),
+          "class": settings.oClasses.empty.row
+        }).html(zero))[0];
+      }
+      function _layoutItems(row, align, items) {
+        if (Array.isArray(items)) {
+          for (var i2 = 0; i2 < items.length; i2++) {
+            _layoutItems(row, align, items[i2]);
+          }
+          return;
+        }
+        var rowCell = row[align];
+        if ($2.isPlainObject(items)) {
+          if (items.features) {
+            if (items.rowId) {
+              row.id = items.rowId;
             }
-            insert.append(nNewNode);
-            insert = $2(nNewNode);
-          } else if (cOption == ">") {
-            insert = insert.parent();
-          } else if (cOption == "l" && features.bPaginate && features.bLengthChange) {
-            featureNode = _fnFeatureHtmlLength(oSettings);
-          } else if (cOption == "f" && features.bFilter) {
-            featureNode = _fnFeatureHtmlFilter(oSettings);
-          } else if (cOption == "r" && features.bProcessing) {
-            featureNode = _fnFeatureHtmlProcessing(oSettings);
-          } else if (cOption == "t") {
-            featureNode = _fnFeatureHtmlTable(oSettings);
-          } else if (cOption == "i" && features.bInfo) {
-            featureNode = _fnFeatureHtmlInfo(oSettings);
-          } else if (cOption == "p" && features.bPaginate) {
-            featureNode = _fnFeatureHtmlPaginate(oSettings);
-          } else if (DataTable.ext.feature.length !== 0) {
-            var aoFeatures = DataTable.ext.feature;
-            for (var k = 0, kLen = aoFeatures.length; k < kLen; k++) {
-              if (cOption == aoFeatures[k].cFeature) {
-                featureNode = aoFeatures[k].fnInit(oSettings);
-                break;
+            if (items.rowClass) {
+              row.className = items.rowClass;
+            }
+            rowCell.id = items.id;
+            rowCell.className = items.className;
+            _layoutItems(row, align, items.features);
+          } else {
+            Object.keys(items).map(function(key) {
+              rowCell.contents.push({
+                feature: key,
+                opts: items[key]
+              });
+            });
+          }
+        } else {
+          rowCell.contents.push(items);
+        }
+      }
+      function _layoutGetRow(rows, rowNum, align) {
+        var row;
+        for (var i2 = 0; i2 < rows.length; i2++) {
+          row = rows[i2];
+          if (row.rowNum === rowNum) {
+            if (align === "full" && row.full || (align === "start" || align === "end") && (row.start || row.end)) {
+              if (!row[align]) {
+                row[align] = {
+                  contents: []
+                };
               }
+              return row;
             }
           }
-          if (featureNode) {
-            var aanFeatures = oSettings.aanFeatures;
-            if (!aanFeatures[cOption]) {
-              aanFeatures[cOption] = [];
+        }
+        row = {
+          rowNum
+        };
+        row[align] = {
+          contents: []
+        };
+        rows.push(row);
+        return row;
+      }
+      function _layoutArray(settings, layout, side) {
+        var rows = [];
+        $2.each(layout, function(pos, items) {
+          if (items === null) {
+            return;
+          }
+          var parts = pos.match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
+          var rowNum = parts[2] ? parts[2] * 1 : 0;
+          var align = parts[3] ? parts[3].toLowerCase() : "full";
+          if (parts[1] !== side) {
+            return;
+          }
+          var row2 = _layoutGetRow(rows, rowNum, align);
+          _layoutItems(row2, align, items);
+        });
+        rows.sort(function(a, b) {
+          var order1 = a.rowNum;
+          var order2 = b.rowNum;
+          if (order1 === order2) {
+            var ret = a.full && !b.full ? -1 : 1;
+            return side === "bottom" ? ret * -1 : ret;
+          }
+          return order2 - order1;
+        });
+        if (side === "bottom") {
+          rows.reverse();
+        }
+        for (var row = 0; row < rows.length; row++) {
+          delete rows[row].rowNum;
+          _layoutResolve(settings, rows[row]);
+        }
+        return rows;
+      }
+      function _layoutResolve(settings, row) {
+        var getFeature = function(feature, opts) {
+          if (!_ext.features[feature]) {
+            _fnLog(settings, 0, "Unknown feature: " + feature);
+          }
+          return _ext.features[feature].apply(this, [settings, opts]);
+        };
+        var resolve = function(item) {
+          if (!row[item]) {
+            return;
+          }
+          var line = row[item].contents;
+          for (var i2 = 0, iLen = line.length; i2 < iLen; i2++) {
+            if (!line[i2]) {
+              continue;
+            } else if (typeof line[i2] === "string") {
+              line[i2] = getFeature(line[i2], null);
+            } else if ($2.isPlainObject(line[i2])) {
+              line[i2] = getFeature(line[i2].feature, line[i2].opts);
+            } else if (typeof line[i2].node === "function") {
+              line[i2] = line[i2].node(settings);
+            } else if (typeof line[i2] === "function") {
+              var inst = line[i2](settings);
+              line[i2] = typeof inst.node === "function" ? inst.node() : inst;
             }
-            aanFeatures[cOption].push(featureNode);
+          }
+        };
+        resolve("start");
+        resolve("end");
+        resolve("full");
+      }
+      function _fnAddOptionsHtml(settings) {
+        var classes = settings.oClasses;
+        var table = $2(settings.nTable);
+        var insert = $2("<div/>").attr({
+          id: settings.sTableId + "_wrapper",
+          "class": classes.container
+        }).insertBefore(table);
+        settings.nTableWrapper = insert[0];
+        if (settings.sDom) {
+          _fnLayoutDom(settings, settings.sDom, insert);
+        } else {
+          var top = _layoutArray(settings, settings.layout, "top");
+          var bottom = _layoutArray(settings, settings.layout, "bottom");
+          var renderer = _fnRenderer(settings, "layout");
+          top.forEach(function(item) {
+            renderer(settings, insert, item);
+          });
+          renderer(settings, insert, {
+            full: {
+              table: true,
+              contents: [_fnFeatureHtmlTable(settings)]
+            }
+          });
+          bottom.forEach(function(item) {
+            renderer(settings, insert, item);
+          });
+        }
+        _processingHtml(settings);
+      }
+      function _fnLayoutDom(settings, dom, insert) {
+        var parts = dom.match(/(".*?")|('.*?')|./g);
+        var featureNode, option, newNode, next, attr;
+        for (var i2 = 0; i2 < parts.length; i2++) {
+          featureNode = null;
+          option = parts[i2];
+          if (option == "<") {
+            newNode = $2("<div/>");
+            next = parts[i2 + 1];
+            if (next[0] == "'" || next[0] == '"') {
+              attr = next.replace(/['"]/g, "");
+              var id = "", className;
+              if (attr.indexOf(".") != -1) {
+                var split = attr.split(".");
+                id = split[0];
+                className = split[1];
+              } else if (attr[0] == "#") {
+                id = attr;
+              } else {
+                className = attr;
+              }
+              newNode.attr("id", id.substring(1)).addClass(className);
+              i2++;
+            }
+            insert.append(newNode);
+            insert = newNode;
+          } else if (option == ">") {
+            insert = insert.parent();
+          } else if (option == "t") {
+            featureNode = _fnFeatureHtmlTable(settings);
+          } else {
+            DataTable.ext.feature.forEach(function(feature) {
+              if (option == feature.cFeature) {
+                featureNode = feature.fnInit(settings);
+              }
+            });
+          }
+          if (featureNode) {
             insert.append(featureNode);
           }
         }
-        holding.replaceWith(insert);
-        oSettings.nHolding = null;
       }
-      function _fnDetectHeader(aLayout, nThead) {
-        var nTrs = $2(nThead).children("tr");
-        var nTr, nCell;
-        var i2, k, l, iLen, jLen, iColShifted, iColumn, iColspan, iRowspan;
-        var bUnique;
-        var fnShiftCol = function(a, i3, j) {
+      function _fnDetectHeader(settings, thead, write) {
+        var columns = settings.aoColumns;
+        var rows = $2(thead).children("tr");
+        var row, cell;
+        var i2, k, l, iLen, shifted, column, colspan, rowspan;
+        var titleRow = settings.titleRow;
+        var isHeader = thead && thead.nodeName.toLowerCase() === "thead";
+        var layout = [];
+        var unique;
+        var shift = function(a, i3, j) {
           var k2 = a[i3];
           while (k2[j]) {
             j++;
           }
           return j;
         };
-        aLayout.splice(0, aLayout.length);
-        for (i2 = 0, iLen = nTrs.length; i2 < iLen; i2++) {
-          aLayout.push([]);
+        for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
+          layout.push([]);
         }
-        for (i2 = 0, iLen = nTrs.length; i2 < iLen; i2++) {
-          nTr = nTrs[i2];
-          iColumn = 0;
-          nCell = nTr.firstChild;
-          while (nCell) {
-            if (nCell.nodeName.toUpperCase() == "TD" || nCell.nodeName.toUpperCase() == "TH") {
-              iColspan = nCell.getAttribute("colspan") * 1;
-              iRowspan = nCell.getAttribute("rowspan") * 1;
-              iColspan = !iColspan || iColspan === 0 || iColspan === 1 ? 1 : iColspan;
-              iRowspan = !iRowspan || iRowspan === 0 || iRowspan === 1 ? 1 : iRowspan;
-              iColShifted = fnShiftCol(aLayout, i2, iColumn);
-              bUnique = iColspan === 1 ? true : false;
-              for (l = 0; l < iColspan; l++) {
-                for (k = 0; k < iRowspan; k++) {
-                  aLayout[i2 + k][iColShifted + l] = {
-                    "cell": nCell,
-                    "unique": bUnique
-                  };
-                  aLayout[i2 + k].nTr = nTr;
+        for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
+          row = rows[i2];
+          column = 0;
+          cell = row.firstChild;
+          while (cell) {
+            if (cell.nodeName.toUpperCase() == "TD" || cell.nodeName.toUpperCase() == "TH") {
+              var cols = [];
+              var jqCell = $2(cell);
+              colspan = cell.getAttribute("colspan") * 1;
+              rowspan = cell.getAttribute("rowspan") * 1;
+              colspan = !colspan || colspan === 0 || colspan === 1 ? 1 : colspan;
+              rowspan = !rowspan || rowspan === 0 || rowspan === 1 ? 1 : rowspan;
+              shifted = shift(layout, i2, column);
+              unique = colspan === 1 ? true : false;
+              if (write) {
+                if (unique) {
+                  _fnColumnOptions(settings, shifted, _fnEscapeObject(jqCell.data()));
+                  var columnDef = columns[shifted];
+                  var width = cell.getAttribute("width") || null;
+                  var t = cell.style.width.match(/width:\s*(\d+[pxem%]+)/);
+                  if (t) {
+                    width = t[1];
+                  }
+                  columnDef.sWidthOrig = columnDef.sWidth || width;
+                  if (isHeader) {
+                    if (columnDef.sTitle !== null && !columnDef.autoTitle) {
+                      if (titleRow === true && i2 === 0 || titleRow === false && i2 === rows.length - 1 || titleRow === i2 || titleRow === null) {
+                        cell.innerHTML = columnDef.sTitle;
+                      }
+                    }
+                    if (!columnDef.sTitle && unique) {
+                      columnDef.sTitle = _stripHtml(cell.innerHTML);
+                      columnDef.autoTitle = true;
+                    }
+                  } else {
+                    if (columnDef.footer) {
+                      cell.innerHTML = columnDef.footer;
+                    }
+                  }
+                  if (!columnDef.ariaTitle) {
+                    columnDef.ariaTitle = jqCell.attr("aria-label") || columnDef.sTitle;
+                  }
+                  if (columnDef.className) {
+                    jqCell.addClass(columnDef.className);
+                  }
+                }
+                if ($2(".dt-column-title", cell).length === 0) {
+                  $2(document2.createElement(settings.columnTitleTag)).addClass("dt-column-title").append(cell.childNodes).appendTo(cell);
+                }
+                if (settings.orderIndicators && isHeader && jqCell.filter(":not([data-dt-order=disable])").length !== 0 && jqCell.parent(":not([data-dt-order=disable])").length !== 0 && $2(".dt-column-order", cell).length === 0) {
+                  $2(document2.createElement(settings.columnTitleTag)).addClass("dt-column-order").appendTo(cell);
+                }
+                var headerFooter = isHeader ? "header" : "footer";
+                if ($2("div.dt-column-" + headerFooter, cell).length === 0) {
+                  $2("<div>").addClass("dt-column-" + headerFooter).append(cell.childNodes).appendTo(cell);
                 }
               }
+              for (l = 0; l < colspan; l++) {
+                for (k = 0; k < rowspan; k++) {
+                  layout[i2 + k][shifted + l] = {
+                    cell,
+                    unique
+                  };
+                  layout[i2 + k].row = row;
+                }
+                cols.push(shifted + l);
+              }
+              cell.setAttribute("data-dt-column", _unique(cols).join(","));
             }
-            nCell = nCell.nextSibling;
+            cell = cell.nextSibling;
           }
         }
-      }
-      function _fnGetUniqueThs(oSettings, nHeader, aLayout) {
-        var aReturn = [];
-        if (!aLayout) {
-          aLayout = oSettings.aoHeader;
-          if (nHeader) {
-            aLayout = [];
-            _fnDetectHeader(aLayout, nHeader);
-          }
-        }
-        for (var i2 = 0, iLen = aLayout.length; i2 < iLen; i2++) {
-          for (var j = 0, jLen = aLayout[i2].length; j < jLen; j++) {
-            if (aLayout[i2][j].unique && (!aReturn[j] || !oSettings.bSortCellsTop)) {
-              aReturn[j] = aLayout[i2][j].cell;
-            }
-          }
-        }
-        return aReturn;
+        return layout;
       }
       function _fnStart(oSettings) {
         var bServerSide = _fnDataSource(oSettings) == "ssp";
         var iInitDisplayStart = oSettings.iInitDisplayStart;
-        if (iInitDisplayStart !== undefined2 && iInitDisplayStart !== -1) {
+        if (iInitDisplayStart !== void 0 && iInitDisplayStart !== -1) {
           oSettings._iDisplayStart = bServerSide ? iInitDisplayStart : iInitDisplayStart >= oSettings.fnRecordsDisplay() ? 0 : iInitDisplayStart;
           oSettings.iInitDisplayStart = -1;
         }
       }
       function _fnBuildAjax(oSettings, data, fn) {
-        _fnCallbackFire(oSettings, "aoServerParams", "serverParams", [data]);
-        if (data && Array.isArray(data)) {
-          var tmp = {};
-          var rbracket = /(.*?)\[\]$/;
-          $2.each(data, function(key, val) {
-            var match = val.name.match(rbracket);
-            if (match) {
-              var name = match[0];
-              if (!tmp[name]) {
-                tmp[name] = [];
-              }
-              tmp[name].push(val.value);
-            } else {
-              tmp[val.name] = val.value;
-            }
-          });
-          data = tmp;
-        }
         var ajaxData;
         var ajax = oSettings.ajax;
         var instance = oSettings.oInstance;
@@ -7908,8 +8150,14 @@ var require_jquery_dataTables = __commonJS({
           if (error) {
             _fnLog(oSettings, 0, error);
           }
+          if (json.d && typeof json.d === "string") {
+            try {
+              json = JSON.parse(json.d);
+            } catch (e) {
+            }
+          }
           oSettings.json = json;
-          _fnCallbackFire(oSettings, null, "xhr", [oSettings, json, oSettings.jqXHR]);
+          _fnCallbackFire(oSettings, null, "xhr", [oSettings, json, oSettings.jqXHR], true);
           fn(json);
         };
         if ($2.isPlainObject(ajax) && ajax.data) {
@@ -7919,14 +8167,21 @@ var require_jquery_dataTables = __commonJS({
           delete ajax.data;
         }
         var baseAjax = {
-          "data": data,
-          "success": callback,
-          "dataType": "json",
-          "cache": false,
-          "type": oSettings.sServerMethod,
-          "error": function(xhr, error, thrown) {
-            var ret = _fnCallbackFire(oSettings, null, "xhr", [oSettings, null, oSettings.jqXHR]);
-            if ($2.inArray(true, ret) === -1) {
+          url: typeof ajax === "string" ? ajax : "",
+          data,
+          success: callback,
+          dataType: "json",
+          cache: false,
+          type: oSettings.sServerMethod,
+          error: function(xhr, error) {
+            var ret = _fnCallbackFire(
+              oSettings,
+              null,
+              "xhr",
+              [oSettings, null, oSettings.jqXHR],
+              true
+            );
+            if (ret.indexOf(true) === -1) {
               if (error == "parsererror") {
                 _fnLog(oSettings, 0, "Invalid JSON response", 1);
               } else if (xhr.readyState === 4) {
@@ -7936,115 +8191,88 @@ var require_jquery_dataTables = __commonJS({
             _fnProcessingDisplay(oSettings, false);
           }
         };
+        if ($2.isPlainObject(ajax)) {
+          $2.extend(baseAjax, ajax);
+        }
         oSettings.oAjaxData = data;
-        _fnCallbackFire(oSettings, null, "preXhr", [oSettings, data]);
-        if (oSettings.fnServerData) {
-          oSettings.fnServerData.call(
-            instance,
-            oSettings.sAjaxSource,
-            $2.map(data, function(val, key) {
-              return { name: key, value: val };
-            }),
-            callback,
-            oSettings
-          );
-        } else if (oSettings.sAjaxSource || typeof ajax === "string") {
-          oSettings.jqXHR = $2.ajax($2.extend(baseAjax, {
-            url: ajax || oSettings.sAjaxSource
-          }));
-        } else if (typeof ajax === "function") {
+        _fnCallbackFire(oSettings, null, "preXhr", [oSettings, data, baseAjax], true);
+        if (baseAjax.submitAs === "json" && typeof data === "object") {
+          baseAjax.data = JSON.stringify(data);
+          if (!baseAjax.contentType) {
+            baseAjax.contentType = "application/json; charset=utf-8";
+          }
+        }
+        if (typeof ajax === "function") {
           oSettings.jqXHR = ajax.call(instance, data, callback, oSettings);
+        } else if (ajax.url === "") {
+          var empty = {};
+          _fnAjaxDataSrc(oSettings, empty, []);
+          callback(empty);
         } else {
-          oSettings.jqXHR = $2.ajax($2.extend(baseAjax, ajax));
+          oSettings.jqXHR = $2.ajax(baseAjax);
+        }
+        if (ajaxData) {
           ajax.data = ajaxData;
         }
       }
       function _fnAjaxUpdate(settings) {
         settings.iDraw++;
         _fnProcessingDisplay(settings, true);
-        var drawHold = settings._drawHold;
-        _fnBuildAjax(
-          settings,
-          _fnAjaxParameters(settings),
-          function(json) {
-            settings._drawHold = drawHold;
-            _fnAjaxUpdateDraw(settings, json);
-            settings._drawHold = false;
-          }
-        );
+        _fnBuildAjax(settings, _fnAjaxParameters(settings), function(json) {
+          _fnAjaxUpdateDraw(settings, json);
+        });
       }
       function _fnAjaxParameters(settings) {
-        var columns = settings.aoColumns, columnCount = columns.length, features = settings.oFeatures, preSearch = settings.oPreviousSearch, preColSearch = settings.aoPreSearchCols, i2, data = [], dataProp, column, columnSearch, sort = _fnSortFlatten(settings), displayStart = settings._iDisplayStart, displayLength = features.bPaginate !== false ? settings._iDisplayLength : -1;
-        var param = function(name, value) {
-          data.push({ "name": name, "value": value });
+        var columns = settings.aoColumns, features = settings.oFeatures, preSearch = settings.oPreviousSearch, preColSearch = settings.aoPreSearchCols, colData = function(idx, prop) {
+          return typeof columns[idx][prop] === "function" ? "function" : columns[idx][prop];
         };
-        param("sEcho", settings.iDraw);
-        param("iColumns", columnCount);
-        param("sColumns", _pluck(columns, "sName").join(","));
-        param("iDisplayStart", displayStart);
-        param("iDisplayLength", displayLength);
-        var d = {
+        return {
           draw: settings.iDraw,
-          columns: [],
-          order: [],
-          start: displayStart,
-          length: displayLength,
+          columns: columns.map(function(column, i2) {
+            return {
+              data: colData(i2, "mData"),
+              name: column.sName,
+              searchable: column.bSearchable,
+              orderable: column.bSortable,
+              search: {
+                value: preColSearch[i2].search,
+                regex: preColSearch[i2].regex,
+                fixed: Object.keys(column.searchFixed).map(function(name) {
+                  return {
+                    name,
+                    term: typeof column.searchFixed[name] !== "function" ? column.searchFixed[name].toString() : "function"
+                  };
+                })
+              }
+            };
+          }),
+          order: _fnSortFlatten(settings).map(function(val) {
+            return {
+              column: val.col,
+              dir: val.dir,
+              name: colData(val.col, "sName")
+            };
+          }),
+          start: settings._iDisplayStart,
+          length: features.bPaginate ? settings._iDisplayLength : -1,
           search: {
-            value: preSearch.sSearch,
-            regex: preSearch.bRegex
+            value: preSearch.search,
+            regex: preSearch.regex,
+            fixed: Object.keys(settings.searchFixed).map(function(name) {
+              return {
+                name,
+                term: typeof settings.searchFixed[name] !== "function" ? settings.searchFixed[name].toString() : "function"
+              };
+            })
           }
         };
-        for (i2 = 0; i2 < columnCount; i2++) {
-          column = columns[i2];
-          columnSearch = preColSearch[i2];
-          dataProp = typeof column.mData == "function" ? "function" : column.mData;
-          d.columns.push({
-            data: dataProp,
-            name: column.sName,
-            searchable: column.bSearchable,
-            orderable: column.bSortable,
-            search: {
-              value: columnSearch.sSearch,
-              regex: columnSearch.bRegex
-            }
-          });
-          param("mDataProp_" + i2, dataProp);
-          if (features.bFilter) {
-            param("sSearch_" + i2, columnSearch.sSearch);
-            param("bRegex_" + i2, columnSearch.bRegex);
-            param("bSearchable_" + i2, column.bSearchable);
-          }
-          if (features.bSort) {
-            param("bSortable_" + i2, column.bSortable);
-          }
-        }
-        if (features.bFilter) {
-          param("sSearch", preSearch.sSearch);
-          param("bRegex", preSearch.bRegex);
-        }
-        if (features.bSort) {
-          $2.each(sort, function(i3, val) {
-            d.order.push({ column: val.col, dir: val.dir });
-            param("iSortCol_" + i3, val.col);
-            param("sSortDir_" + i3, val.dir);
-          });
-          param("iSortingCols", sort.length);
-        }
-        var legacy = DataTable.ext.legacy.ajax;
-        if (legacy === null) {
-          return settings.sAjaxSource ? data : d;
-        }
-        return legacy ? data : d;
       }
       function _fnAjaxUpdateDraw(settings, json) {
-        var compat = function(old, modern) {
-          return json[old] !== undefined2 ? json[old] : json[modern];
-        };
         var data = _fnAjaxDataSrc(settings, json);
-        var draw = compat("sEcho", "draw");
-        var recordsTotal = compat("iTotalRecords", "recordsTotal");
-        var recordsFiltered = compat("iTotalDisplayRecords", "recordsFiltered");
-        if (draw !== undefined2) {
+        var draw = _fnAjaxDataSrcParam(settings, "draw", json);
+        var recordsTotal = _fnAjaxDataSrcParam(settings, "recordsTotal", json);
+        var recordsFiltered = _fnAjaxDataSrcParam(settings, "recordsFiltered", json);
+        if (draw !== void 0) {
           if (draw * 1 < settings.iDraw) {
             return;
           }
@@ -8056,121 +8284,80 @@ var require_jquery_dataTables = __commonJS({
         _fnClearTable(settings);
         settings._iRecordsTotal = parseInt(recordsTotal, 10);
         settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
-        for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
           _fnAddData(settings, data[i2]);
         }
         settings.aiDisplay = settings.aiDisplayMaster.slice();
+        _fnColumnTypes(settings);
         _fnDraw(settings, true);
-        if (!settings._bInitComplete) {
-          _fnInitComplete(settings, json);
-        }
+        _fnInitComplete(settings);
         _fnProcessingDisplay(settings, false);
       }
-      function _fnAjaxDataSrc(oSettings, json, write) {
-        var dataSrc = $2.isPlainObject(oSettings.ajax) && oSettings.ajax.dataSrc !== undefined2 ? oSettings.ajax.dataSrc : oSettings.sAjaxDataProp;
+      function _fnAjaxDataSrc(settings, json, write) {
+        var dataProp = "data";
+        if ($2.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== void 0) {
+          var dataSrc = settings.ajax.dataSrc;
+          if (typeof dataSrc === "string" || typeof dataSrc === "function") {
+            dataProp = dataSrc;
+          } else if (dataSrc.data !== void 0) {
+            dataProp = dataSrc.data;
+          }
+        }
         if (!write) {
-          if (dataSrc === "data") {
-            return json.aaData || json[dataSrc];
+          if (dataProp === "data") {
+            return json.aaData || json[dataProp];
           }
-          return dataSrc !== "" ? _fnGetObjectDataFn(dataSrc)(json) : json;
+          return dataProp !== "" ? _fnGetObjectDataFn(dataProp)(json) : json;
         }
-        _fnSetObjectDataFn(dataSrc)(json, write);
+        _fnSetObjectDataFn(dataProp)(json, write);
       }
-      function _fnFeatureHtmlFilter(settings) {
-        var classes = settings.oClasses;
-        var tableId = settings.sTableId;
-        var language = settings.oLanguage;
-        var previousSearch = settings.oPreviousSearch;
-        var features = settings.aanFeatures;
-        var input = '<input type="search" class="' + classes.sFilterInput + '"/>';
-        var str = language.sSearch;
-        str = str.match(/_INPUT_/) ? str.replace("_INPUT_", input) : str + input;
-        var filter = $2("<div/>", {
-          "id": !features.f ? tableId + "_filter" : null,
-          "class": classes.sFilter
-        }).append($2("<label/>").append(str));
-        var searchFn = function(event) {
-          var n = features.f;
-          var val = !this.value ? "" : this.value;
-          if (previousSearch["return"] && event.key !== "Enter") {
-            return;
-          }
-          if (val != previousSearch.sSearch) {
-            _fnFilterComplete(settings, {
-              "sSearch": val,
-              "bRegex": previousSearch.bRegex,
-              "bSmart": previousSearch.bSmart,
-              "bCaseInsensitive": previousSearch.bCaseInsensitive,
-              "return": previousSearch["return"]
-            });
-            settings._iDisplayStart = 0;
-            _fnDraw(settings);
-          }
-        };
-        var searchDelay = settings.searchDelay !== null ? settings.searchDelay : _fnDataSource(settings) === "ssp" ? 400 : 0;
-        var jqFilter = $2("input", filter).val(previousSearch.sSearch).attr("placeholder", language.sSearchPlaceholder).on(
-          "keyup.DT search.DT input.DT paste.DT cut.DT",
-          searchDelay ? _fnThrottle(searchFn, searchDelay) : searchFn
-        ).on("mouseup.DT", function(e) {
-          setTimeout(function() {
-            searchFn.call(jqFilter[0], e);
-          }, 10);
-        }).on("keypress.DT", function(e) {
-          if (e.keyCode == 13) {
-            return false;
-          }
-        }).attr("aria-controls", tableId);
-        $2(settings.nTable).on("search.dt.DT", function(ev, s) {
-          if (settings === s) {
-            try {
-              if (jqFilter[0] !== document2.activeElement) {
-                jqFilter.val(previousSearch.sSearch);
-              }
-            } catch (e) {
-            }
-          }
-        });
-        return filter[0];
+      function _fnAjaxDataSrcParam(settings, param, json) {
+        var dataSrc = $2.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+        if (dataSrc && dataSrc[param]) {
+          return _fnGetObjectDataFn(dataSrc[param])(json);
+        }
+        var old = "";
+        if (param === "draw") {
+          old = "sEcho";
+        } else if (param === "recordsTotal") {
+          old = "iTotalRecords";
+        } else if (param === "recordsFiltered") {
+          old = "iTotalDisplayRecords";
+        }
+        return json[old] !== void 0 ? json[old] : json[param];
       }
-      function _fnFilterComplete(oSettings, oInput, iForce) {
-        var oPrevSearch = oSettings.oPreviousSearch;
-        var aoPrevSearch = oSettings.aoPreSearchCols;
-        var fnSaveFilter = function(oFilter) {
-          oPrevSearch.sSearch = oFilter.sSearch;
-          oPrevSearch.bRegex = oFilter.bRegex;
-          oPrevSearch.bSmart = oFilter.bSmart;
-          oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
-          oPrevSearch["return"] = oFilter["return"];
-        };
-        var fnRegex = function(o) {
-          return o.bEscapeRegex !== undefined2 ? !o.bEscapeRegex : o.bRegex;
-        };
-        _fnColumnTypes(oSettings);
-        if (_fnDataSource(oSettings) != "ssp") {
-          _fnFilter(oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive);
-          fnSaveFilter(oInput);
-          for (var i2 = 0; i2 < aoPrevSearch.length; i2++) {
-            _fnFilterColumn(
-              oSettings,
-              aoPrevSearch[i2].sSearch,
-              i2,
-              fnRegex(aoPrevSearch[i2]),
-              aoPrevSearch[i2].bSmart,
-              aoPrevSearch[i2].bCaseInsensitive
+      function _fnFilterComplete(settings, input) {
+        var columnsSearch = settings.aoPreSearchCols;
+        if (_fnDataSource(settings) != "ssp") {
+          _fnFilterData(settings);
+          settings.aiDisplay = settings.aiDisplayMaster.slice();
+          _fnFilter(settings.aiDisplay, settings, input.search, input);
+          $2.each(settings.searchFixed, function(name, term) {
+            _fnFilter(settings.aiDisplay, settings, term, {});
+          });
+          for (var i2 = 0; i2 < columnsSearch.length; i2++) {
+            var col = columnsSearch[i2];
+            _fnFilter(
+              settings.aiDisplay,
+              settings,
+              col.search,
+              col,
+              i2
             );
+            $2.each(settings.aoColumns[i2].searchFixed, function(name, term) {
+              _fnFilter(settings.aiDisplay, settings, term, {}, i2);
+            });
           }
-          _fnFilterCustom(oSettings);
-        } else {
-          fnSaveFilter(oInput);
+          _fnFilterCustom(settings);
         }
-        oSettings.bFiltered = true;
-        _fnCallbackFire(oSettings, null, "search", [oSettings]);
+        settings.bFiltered = true;
+        _fnCallbackFire(settings, null, "search", [settings]);
       }
       function _fnFilterCustom(settings) {
         var filters = DataTable.ext.search;
         var displayRows = settings.aiDisplay;
         var row, rowIdx;
-        for (var i2 = 0, ien = filters.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = filters.length; i2 < iLen; i2++) {
           var rows = [];
           for (var j = 0, jen = displayRows.length; j < jen; j++) {
             rowIdx = displayRows[j];
@@ -8180,83 +8367,99 @@ var require_jquery_dataTables = __commonJS({
             }
           }
           displayRows.length = 0;
-          $2.merge(displayRows, rows);
+          _fnArrayApply(displayRows, rows);
         }
       }
-      function _fnFilterColumn(settings, searchStr, colIdx, regex, smart, caseInsensitive) {
-        if (searchStr === "") {
+      function _fnFilter(searchRows, settings, input, options, column) {
+        if (input === "") {
           return;
         }
-        var data;
-        var out = [];
-        var display = settings.aiDisplay;
-        var rpSearch = _fnFilterCreateSearch(searchStr, regex, smart, caseInsensitive);
-        for (var i2 = 0; i2 < display.length; i2++) {
-          data = settings.aoData[display[i2]]._aFilterData[colIdx];
-          if (rpSearch.test(data)) {
-            out.push(display[i2]);
+        var i2 = 0;
+        var matched = [];
+        var searchFunc = typeof input === "function" ? input : null;
+        var rpSearch = input instanceof RegExp ? input : searchFunc ? null : _fnFilterCreateSearch(input, options);
+        for (i2 = 0; i2 < searchRows.length; i2++) {
+          var row = settings.aoData[searchRows[i2]];
+          var data = column === void 0 ? row._sFilterRow : row._aFilterData[column];
+          if (searchFunc && searchFunc(data, row._aData, searchRows[i2], column) || rpSearch && rpSearch.test(data)) {
+            matched.push(searchRows[i2]);
           }
         }
-        settings.aiDisplay = out;
+        searchRows.length = matched.length;
+        for (i2 = 0; i2 < matched.length; i2++) {
+          searchRows[i2] = matched[i2];
+        }
       }
-      function _fnFilter(settings, input, force, regex, smart, caseInsensitive) {
-        var rpSearch = _fnFilterCreateSearch(input, regex, smart, caseInsensitive);
-        var prevSearch = settings.oPreviousSearch.sSearch;
-        var displayMaster = settings.aiDisplayMaster;
-        var display, invalidated, i2;
-        var filtered = [];
-        if (DataTable.ext.search.length !== 0) {
-          force = true;
+      function _fnFilterCreateSearch(search, inOpts) {
+        var not = [];
+        var options = $2.extend({}, {
+          boundary: false,
+          caseInsensitive: true,
+          exact: false,
+          regex: false,
+          smart: true
+        }, inOpts);
+        if (typeof search !== "string") {
+          search = search.toString();
         }
-        invalidated = _fnFilterData(settings);
-        if (input.length <= 0) {
-          settings.aiDisplay = displayMaster.slice();
-        } else {
-          if (invalidated || force || regex || prevSearch.length > input.length || input.indexOf(prevSearch) !== 0 || settings.bSorted) {
-            settings.aiDisplay = displayMaster.slice();
-          }
-          display = settings.aiDisplay;
-          for (i2 = 0; i2 < display.length; i2++) {
-            if (rpSearch.test(settings.aoData[display[i2]]._sFilterRow)) {
-              filtered.push(display[i2]);
+        search = _normalize(search);
+        if (options.exact) {
+          return new RegExp(
+            "^" + _fnEscapeRegex(search) + "$",
+            options.caseInsensitive ? "i" : ""
+          );
+        }
+        search = options.regex ? search : _fnEscapeRegex(search);
+        if (options.smart) {
+          var parts = search.match(/!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [""];
+          var a = parts.map(function(word) {
+            var negative = false;
+            var m;
+            if (word.charAt(0) === "!") {
+              negative = true;
+              word = word.substring(1);
             }
-          }
-          settings.aiDisplay = filtered;
-        }
-      }
-      function _fnFilterCreateSearch(search, regex, smart, caseInsensitive) {
-        search = regex ? search : _fnEscapeRegex(search);
-        if (smart) {
-          var a = $2.map(search.match(/["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [""], function(word) {
             if (word.charAt(0) === '"') {
-              var m = word.match(/^"(.*)"$/);
+              m = word.match(/^"(.*)"$/);
               word = m ? m[1] : word;
             } else if (word.charAt(0) === "\u201C") {
-              var m = word.match(/^\u201C(.*)\u201D$/);
+              m = word.match(/^\u201C(.*)\u201D$/);
               word = m ? m[1] : word;
             }
-            return word.replace('"', "");
+            if (negative) {
+              if (word.length > 1) {
+                not.push("(?!" + word + ")");
+              }
+              word = "";
+            }
+            return word.replace(/"/g, "");
           });
-          search = "^(?=.*?" + a.join(")(?=.*?") + ").*$";
+          var match = not.length ? not.join("") : "";
+          var boundary = options.boundary ? "\\b" : "";
+          search = "^(?=.*?" + boundary + a.join(")(?=.*?" + boundary) + ")(" + match + ".)*$";
         }
-        return new RegExp(search, caseInsensitive ? "i" : "");
+        return new RegExp(search, options.caseInsensitive ? "i" : "");
       }
       var _fnEscapeRegex = DataTable.util.escapeRegex;
       var __filter_div = $2("<div>")[0];
-      var __filter_div_textContent = __filter_div.textContent !== undefined2;
+      var __filter_div_textContent = __filter_div.textContent !== void 0;
       function _fnFilterData(settings) {
         var columns = settings.aoColumns;
+        var data = settings.aoData;
         var column;
-        var i2, j, ien, jen, filterData, cellData, row;
+        var j, jen, filterData, cellData, row;
         var wasInvalidated = false;
-        for (i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          row = settings.aoData[i2];
+        for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
+          if (!data[rowIdx]) {
+            continue;
+          }
+          row = data[rowIdx];
           if (!row._aFilterData) {
             filterData = [];
             for (j = 0, jen = columns.length; j < jen; j++) {
               column = columns[j];
               if (column.bSearchable) {
-                cellData = _fnGetCellData(settings, i2, j, "filter");
+                cellData = _fnGetCellData(settings, rowIdx, j, "filter");
                 if (cellData === null) {
                   cellData = "";
                 }
@@ -8282,188 +8485,71 @@ var require_jquery_dataTables = __commonJS({
         }
         return wasInvalidated;
       }
-      function _fnSearchToCamel(obj) {
-        return {
-          search: obj.sSearch,
-          smart: obj.bSmart,
-          regex: obj.bRegex,
-          caseInsensitive: obj.bCaseInsensitive
-        };
-      }
-      function _fnSearchToHung(obj) {
-        return {
-          sSearch: obj.search,
-          bSmart: obj.smart,
-          bRegex: obj.regex,
-          bCaseInsensitive: obj.caseInsensitive
-        };
-      }
-      function _fnFeatureHtmlInfo(settings) {
-        var tid = settings.sTableId, nodes = settings.aanFeatures.i, n = $2("<div/>", {
-          "class": settings.oClasses.sInfo,
-          "id": !nodes ? tid + "_info" : null
-        });
-        if (!nodes) {
-          settings.aoDrawCallback.push({
-            "fn": _fnUpdateInfo,
-            "sName": "information"
-          });
-          n.attr("role", "status").attr("aria-live", "polite");
-          $2(settings.nTable).attr("aria-describedby", tid + "_info");
-        }
-        return n[0];
-      }
-      function _fnUpdateInfo(settings) {
-        var nodes = settings.aanFeatures.i;
-        if (nodes.length === 0) {
-          return;
-        }
-        var lang = settings.oLanguage, start = settings._iDisplayStart + 1, end = settings.fnDisplayEnd(), max = settings.fnRecordsTotal(), total = settings.fnRecordsDisplay(), out = total ? lang.sInfo : lang.sInfoEmpty;
-        if (total !== max) {
-          out += " " + lang.sInfoFiltered;
-        }
-        out += lang.sInfoPostFix;
-        out = _fnInfoMacros(settings, out);
-        var callback = lang.fnInfoCallback;
-        if (callback !== null) {
-          out = callback.call(
-            settings.oInstance,
-            settings,
-            start,
-            end,
-            max,
-            total,
-            out
-          );
-        }
-        $2(nodes).html(out);
-      }
-      function _fnInfoMacros(settings, str) {
-        var formatter = settings.fnFormatNumber, start = settings._iDisplayStart + 1, len = settings._iDisplayLength, vis = settings.fnRecordsDisplay(), all = len === -1;
-        return str.replace(/_START_/g, formatter.call(settings, start)).replace(/_END_/g, formatter.call(settings, settings.fnDisplayEnd())).replace(/_MAX_/g, formatter.call(settings, settings.fnRecordsTotal())).replace(/_TOTAL_/g, formatter.call(settings, vis)).replace(/_PAGE_/g, formatter.call(settings, all ? 1 : Math.ceil(start / len))).replace(/_PAGES_/g, formatter.call(settings, all ? 1 : Math.ceil(vis / len)));
-      }
       function _fnInitialise(settings) {
-        var i2, iLen, iAjaxStart = settings.iInitDisplayStart;
-        var columns = settings.aoColumns, column;
-        var features = settings.oFeatures;
-        var deferLoading = settings.bDeferLoading;
+        var i2;
+        var init = settings.oInit;
+        var deferLoading = settings.deferLoading;
+        var dataSrc = _fnDataSource(settings);
         if (!settings.bInitialised) {
           setTimeout(function() {
             _fnInitialise(settings);
           }, 200);
           return;
         }
-        _fnAddOptionsHtml(settings);
-        _fnBuildHead(settings);
-        _fnDrawHead(settings, settings.aoHeader);
-        _fnDrawHead(settings, settings.aoFooter);
-        _fnProcessingDisplay(settings, true);
-        if (features.bAutoWidth) {
-          _fnCalculateColumnWidths(settings);
-        }
-        for (i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-          column = columns[i2];
-          if (column.sWidth) {
-            column.nTh.style.width = _fnStringToCss(column.sWidth);
+        _fnBuildHead(settings, "header");
+        _fnBuildHead(settings, "footer");
+        _fnLoadState(settings, init, function() {
+          _fnDrawHead(settings, settings.aoHeader);
+          _fnDrawHead(settings, settings.aoFooter);
+          var iAjaxStart = settings.iInitDisplayStart;
+          if (init.aaData) {
+            for (i2 = 0; i2 < init.aaData.length; i2++) {
+              _fnAddData(settings, init.aaData[i2]);
+            }
+          } else if (deferLoading || dataSrc == "dom") {
+            _fnAddTr(settings, $2(settings.nTBody).children("tr"));
           }
-        }
-        _fnCallbackFire(settings, null, "preInit", [settings]);
-        _fnReDraw(settings);
-        var dataSrc = _fnDataSource(settings);
-        if (dataSrc != "ssp" || deferLoading) {
-          if (dataSrc == "ajax") {
-            _fnBuildAjax(settings, [], function(json) {
-              var aData = _fnAjaxDataSrc(settings, json);
-              for (i2 = 0; i2 < aData.length; i2++) {
-                _fnAddData(settings, aData[i2]);
-              }
-              settings.iInitDisplayStart = iAjaxStart;
-              _fnReDraw(settings);
+          settings.aiDisplay = settings.aiDisplayMaster.slice();
+          _fnAddOptionsHtml(settings);
+          _fnSortInit(settings);
+          _colGroup(settings);
+          _fnProcessingDisplay(settings, true);
+          _fnCallbackFire(settings, null, "preInit", [settings], true);
+          _fnReDraw(settings);
+          if (dataSrc != "ssp" || deferLoading) {
+            if (dataSrc == "ajax") {
+              _fnBuildAjax(settings, {}, function(json) {
+                var aData = _fnAjaxDataSrc(settings, json);
+                for (i2 = 0; i2 < aData.length; i2++) {
+                  _fnAddData(settings, aData[i2]);
+                }
+                settings.iInitDisplayStart = iAjaxStart;
+                _fnReDraw(settings);
+                _fnProcessingDisplay(settings, false);
+                _fnInitComplete(settings);
+              }, settings);
+            } else {
+              _fnInitComplete(settings);
               _fnProcessingDisplay(settings, false);
-              _fnInitComplete(settings, json);
-            }, settings);
-          } else {
-            _fnProcessingDisplay(settings, false);
-            _fnInitComplete(settings);
+            }
           }
-        }
+        });
       }
-      function _fnInitComplete(settings, json) {
-        settings._bInitComplete = true;
-        if (json || settings.oInit.aaData) {
-          _fnAdjustColumnSizing(settings);
+      function _fnInitComplete(settings) {
+        if (settings._bInitComplete) {
+          return;
         }
-        _fnCallbackFire(settings, null, "plugin-init", [settings, json]);
-        _fnCallbackFire(settings, "aoInitComplete", "init", [settings, json]);
+        var args = [settings, settings.json];
+        settings._bInitComplete = true;
+        _fnAdjustColumnSizing(settings);
+        _fnCallbackFire(settings, null, "plugin-init", args, true);
+        _fnCallbackFire(settings, "aoInitComplete", "init", args, true);
       }
       function _fnLengthChange(settings, val) {
         var len = parseInt(val, 10);
         settings._iDisplayLength = len;
         _fnLengthOverflow(settings);
         _fnCallbackFire(settings, null, "length", [settings, len]);
-      }
-      function _fnFeatureHtmlLength(settings) {
-        var classes = settings.oClasses, tableId = settings.sTableId, menu = settings.aLengthMenu, d2 = Array.isArray(menu[0]), lengths = d2 ? menu[0] : menu, language = d2 ? menu[1] : menu;
-        var select = $2("<select/>", {
-          "name": tableId + "_length",
-          "aria-controls": tableId,
-          "class": classes.sLengthSelect
-        });
-        for (var i2 = 0, ien = lengths.length; i2 < ien; i2++) {
-          select[0][i2] = new Option(
-            typeof language[i2] === "number" ? settings.fnFormatNumber(language[i2]) : language[i2],
-            lengths[i2]
-          );
-        }
-        var div = $2("<div><label/></div>").addClass(classes.sLength);
-        if (!settings.aanFeatures.l) {
-          div[0].id = tableId + "_length";
-        }
-        div.children().append(
-          settings.oLanguage.sLengthMenu.replace("_MENU_", select[0].outerHTML)
-        );
-        $2("select", div).val(settings._iDisplayLength).on("change.DT", function(e) {
-          _fnLengthChange(settings, $2(this).val());
-          _fnDraw(settings);
-        });
-        $2(settings.nTable).on("length.dt.DT", function(e, s, len) {
-          if (settings === s) {
-            $2("select", div).val(len);
-          }
-        });
-        return div[0];
-      }
-      function _fnFeatureHtmlPaginate(settings) {
-        var type = settings.sPaginationType, plugin = DataTable.ext.pager[type], modern = typeof plugin === "function", redraw = function(settings2) {
-          _fnDraw(settings2);
-        }, node = $2("<div/>").addClass(settings.oClasses.sPaging + type)[0], features = settings.aanFeatures;
-        if (!modern) {
-          plugin.fnInit(settings, node, redraw);
-        }
-        if (!features.p) {
-          node.id = settings.sTableId + "_paginate";
-          settings.aoDrawCallback.push({
-            "fn": function(settings2) {
-              if (modern) {
-                var start = settings2._iDisplayStart, len = settings2._iDisplayLength, visRecords = settings2.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = plugin(page, pages), i2, ien;
-                for (i2 = 0, ien = features.p.length; i2 < ien; i2++) {
-                  _fnRenderer(settings2, "pageButton")(
-                    settings2,
-                    features.p[i2],
-                    i2,
-                    buttons,
-                    page,
-                    pages
-                  );
-                }
-              } else {
-                plugin.fnUpdate(settings2, redraw);
-              }
-            },
-            "sName": "pagination"
-          });
-        }
-        return node;
       }
       function _fnPageChange(settings, action, redraw) {
         var start = settings._iDisplayStart, len = settings._iDisplayLength, records = settings.fnRecordsDisplay();
@@ -8487,33 +8573,54 @@ var require_jquery_dataTables = __commonJS({
           }
         } else if (action == "last") {
           start = Math.floor((records - 1) / len) * len;
+        } else if (action === "ellipsis") {
+          return;
         } else {
           _fnLog(settings, 0, "Unknown paging action: " + action, 5);
         }
         var changed = settings._iDisplayStart !== start;
         settings._iDisplayStart = start;
-        if (changed) {
-          _fnCallbackFire(settings, null, "page", [settings]);
-          if (redraw) {
-            _fnDraw(settings);
-          }
-        } else {
-          _fnCallbackFire(settings, null, "page-nc", [settings]);
+        _fnCallbackFire(settings, null, changed ? "page" : "page-nc", [settings]);
+        if (changed && redraw) {
+          _fnDraw(settings);
         }
         return changed;
       }
-      function _fnFeatureHtmlProcessing(settings) {
-        return $2("<div/>", {
-          "id": !settings.aanFeatures.r ? settings.sTableId + "_processing" : null,
-          "class": settings.oClasses.sProcessing,
-          "role": "status"
-        }).html(settings.oLanguage.sProcessing).append("<div><div></div><div></div><div></div><div></div></div>").insertBefore(settings.nTable)[0];
+      function _processingHtml(settings) {
+        var table = settings.nTable;
+        var scrolling = settings.oScroll.sX !== "" || settings.oScroll.sY !== "";
+        if (settings.oFeatures.bProcessing) {
+          var n = $2("<div/>", {
+            "id": settings.sTableId + "_processing",
+            "class": settings.oClasses.processing.container,
+            "role": "status"
+          }).html(settings.oLanguage.sProcessing).append("<div><div></div><div></div><div></div><div></div></div>");
+          if (scrolling) {
+            n.prependTo($2("div.dt-scroll", settings.nTableWrapper));
+          } else {
+            n.insertBefore(table);
+          }
+          $2(table).on("processing.dt.DT", function(e, s, show) {
+            n.css("display", show ? "block" : "none");
+          });
+        }
       }
       function _fnProcessingDisplay(settings, show) {
-        if (settings.oFeatures.bProcessing) {
-          $2(settings.aanFeatures.r).css("display", show ? "block" : "none");
+        if (settings.bDrawing && show === false) {
+          return;
         }
         _fnCallbackFire(settings, null, "processing", [settings, show]);
+      }
+      function _fnProcessingRun(settings, enable, run) {
+        if (!enable) {
+          run();
+        } else {
+          _fnProcessingDisplay(settings, true);
+          setTimeout(function() {
+            run();
+            _fnProcessingDisplay(settings, false);
+          }, 0);
+        }
       }
       function _fnFeatureHtmlTable(settings) {
         var table = $2(settings.nTable);
@@ -8523,9 +8630,9 @@ var require_jquery_dataTables = __commonJS({
         }
         var scrollX = scroll.sX;
         var scrollY = scroll.sY;
-        var classes = settings.oClasses;
-        var caption = table.children("caption");
-        var captionSide = caption.length ? caption[0]._captionSide : null;
+        var classes = settings.oClasses.scrolling;
+        var caption = settings.captionNode;
+        var captionSide = caption ? caption._captionSide : null;
         var headerClone = $2(table[0].cloneNode(false));
         var footerClone = $2(table[0].cloneNode(false));
         var footer = table.children("tfoot");
@@ -8536,14 +8643,14 @@ var require_jquery_dataTables = __commonJS({
         if (!footer.length) {
           footer = null;
         }
-        var scroller = $2(_div, { "class": classes.sScrollWrapper }).append(
-          $2(_div, { "class": classes.sScrollHead }).css({
+        var scroller = $2(_div, { "class": classes.container }).append(
+          $2(_div, { "class": classes.header.self }).css({
             overflow: "hidden",
             position: "relative",
             border: 0,
             width: scrollX ? size(scrollX) : "100%"
           }).append(
-            $2(_div, { "class": classes.sScrollHeadInner }).css({
+            $2(_div, { "class": classes.header.inner }).css({
               "box-sizing": "content-box",
               width: scroll.sXInner || "100%"
             }).append(
@@ -8553,7 +8660,7 @@ var require_jquery_dataTables = __commonJS({
             )
           )
         ).append(
-          $2(_div, { "class": classes.sScrollBody }).css({
+          $2(_div, { "class": classes.body }).css({
             position: "relative",
             overflow: "auto",
             width: size(scrollX)
@@ -8561,12 +8668,12 @@ var require_jquery_dataTables = __commonJS({
         );
         if (footer) {
           scroller.append(
-            $2(_div, { "class": classes.sScrollFoot }).css({
+            $2(_div, { "class": classes.footer.self }).css({
               overflow: "hidden",
               border: 0,
               width: scrollX ? size(scrollX) : "100%"
             }).append(
-              $2(_div, { "class": classes.sScrollFootInner }).append(
+              $2(_div, { "class": classes.footer.inner }).append(
                 footerClone.removeAttr("id").css("margin-left", 0).append(captionSide === "bottom" ? caption : null).append(
                   table.children("tfoot")
                 )
@@ -8578,15 +8685,20 @@ var require_jquery_dataTables = __commonJS({
         var scrollHead = children[0];
         var scrollBody = children[1];
         var scrollFoot = footer ? children[2] : null;
-        if (scrollX) {
-          $2(scrollBody).on("scroll.DT", function(e) {
-            var scrollLeft = this.scrollLeft;
-            scrollHead.scrollLeft = scrollLeft;
-            if (footer) {
-              scrollFoot.scrollLeft = scrollLeft;
-            }
-          });
-        }
+        $2(scrollBody).on("scroll.DT", function() {
+          var scrollLeft = this.scrollLeft;
+          scrollHead.scrollLeft = scrollLeft;
+          if (footer) {
+            scrollFoot.scrollLeft = scrollLeft;
+          }
+        });
+        $2("th, td", scrollHead).on("focus", function() {
+          var scrollLeft = scrollHead.scrollLeft;
+          scrollBody.scrollLeft = scrollLeft;
+          if (footer) {
+            scrollBody.scrollLeft = scrollLeft;
+          }
+        });
         $2(scrollBody).css("max-height", scrollY);
         if (!scroll.bCollapse) {
           $2(scrollBody).css("height", scrollY);
@@ -8594,23 +8706,13 @@ var require_jquery_dataTables = __commonJS({
         settings.nScrollHead = scrollHead;
         settings.nScrollBody = scrollBody;
         settings.nScrollFoot = scrollFoot;
-        settings.aoDrawCallback.push({
-          "fn": _fnScrollDraw,
-          "sName": "scrolling"
-        });
+        settings.aoDrawCallback.push(_fnScrollDraw);
         return scroller[0];
       }
       function _fnScrollDraw(settings) {
-        var scroll = settings.oScroll, scrollX = scroll.sX, scrollXInner = scroll.sXInner, scrollY = scroll.sY, barWidth = scroll.iBarWidth, divHeader = $2(settings.nScrollHead), divHeaderStyle = divHeader[0].style, divHeaderInner = divHeader.children("div"), divHeaderInnerStyle = divHeaderInner[0].style, divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $2(divBodyEl), divBodyStyle = divBodyEl.style, divFooter = $2(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $2(settings.nTHead), table = $2(settings.nTable), tableEl = table[0], tableStyle = tableEl.style, footer = settings.nTFoot ? $2(settings.nTFoot) : null, browser = settings.oBrowser, ie67 = browser.bScrollOversize, dtHeaderCells = _pluck(settings.aoColumns, "nTh"), headerTrgEls, footerTrgEls, headerSrcEls, footerSrcEls, headerCopy, footerCopy, headerWidths = [], footerWidths = [], headerContent = [], footerContent = [], idx, correction, sanityWidth, zeroOut = function(nSizer) {
-          var style = nSizer.style;
-          style.paddingTop = "0";
-          style.paddingBottom = "0";
-          style.borderTopWidth = "0";
-          style.borderBottomWidth = "0";
-          style.height = 0;
-        };
+        var scroll = settings.oScroll, barWidth = scroll.iBarWidth, divHeader = $2(settings.nScrollHead), divHeaderInner = divHeader.children("div"), divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $2(divBodyEl), divFooter = $2(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $2(settings.nTHead), table = $2(settings.nTable), footer = settings.nTFoot && $2("th, td", settings.nTFoot).length ? $2(settings.nTFoot) : null, browser = settings.oBrowser, headerCopy, footerCopy;
         var scrollBarVis = divBodyEl.scrollHeight > divBodyEl.clientHeight;
-        if (settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== undefined2) {
+        if (settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== void 0) {
           settings.scrollBarVis = scrollBarVis;
           _fnAdjustColumnSizing(settings);
           return;
@@ -8618,276 +8720,243 @@ var require_jquery_dataTables = __commonJS({
           settings.scrollBarVis = scrollBarVis;
         }
         table.children("thead, tfoot").remove();
-        if (footer) {
-          footerCopy = footer.clone().prependTo(table);
-          footerTrgEls = footer.find("tr");
-          footerSrcEls = footerCopy.find("tr");
-          footerCopy.find("[id]").removeAttr("id");
-        }
         headerCopy = header.clone().prependTo(table);
-        headerTrgEls = header.find("tr");
-        headerSrcEls = headerCopy.find("tr");
         headerCopy.find("th, td").removeAttr("tabindex");
         headerCopy.find("[id]").removeAttr("id");
-        if (!scrollX) {
-          divBodyStyle.width = "100%";
-          divHeader[0].style.width = "100%";
+        if (footer) {
+          footerCopy = footer.clone().prependTo(table);
+          footerCopy.find("[id]").removeAttr("id");
         }
-        $2.each(_fnGetUniqueThs(settings, headerCopy), function(i2, el) {
-          idx = _fnVisibleToColumnIndex(settings, i2);
-          el.style.width = settings.aoColumns[idx].sWidth;
+        if (settings.aiDisplay.length) {
+          var firstTr = null;
+          var start = _fnDataSource(settings) !== "ssp" ? settings._iDisplayStart : 0;
+          for (i2 = start; i2 < start + settings.aiDisplay.length; i2++) {
+            var idx = settings.aiDisplay[i2];
+            var tr = settings.aoData[idx].nTr;
+            if (tr) {
+              firstTr = tr;
+              break;
+            }
+          }
+          if (firstTr) {
+            var colSizes = $2(firstTr).children("th, td").map(function(vis) {
+              return {
+                idx: _fnVisibleToColumnIndex(settings, vis),
+                width: $2(this).outerWidth()
+              };
+            });
+            for (var i2 = 0; i2 < colSizes.length; i2++) {
+              var colEl = settings.aoColumns[colSizes[i2].idx].colEl[0];
+              var colWidth = colEl.style.width.replace("px", "");
+              if (colWidth !== colSizes[i2].width) {
+                colEl.style.width = colSizes[i2].width + "px";
+                if (scroll.sX) {
+                  colEl.style.minWidth = colSizes[i2].width + "px";
+                }
+              }
+            }
+          }
+        }
+        divHeaderTable.find("colgroup").remove();
+        divHeaderTable.append(settings.colgroup.clone());
+        if (footer) {
+          divFooterTable.find("colgroup").remove();
+          divFooterTable.append(settings.colgroup.clone());
+        }
+        $2("th, td", headerCopy).each(function() {
+          $2(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
         });
         if (footer) {
-          _fnApplyToChildren(function(n) {
-            n.style.width = "";
-          }, footerSrcEls);
+          $2("th, td", footerCopy).each(function() {
+            $2(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+          });
         }
-        sanityWidth = table.outerWidth();
-        if (scrollX === "") {
-          tableStyle.width = "100%";
-          if (ie67 && (table.find("tbody").height() > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll")) {
-            tableStyle.width = _fnStringToCss(table.outerWidth() - barWidth);
-          }
-          sanityWidth = table.outerWidth();
-        } else if (scrollXInner !== "") {
-          tableStyle.width = _fnStringToCss(scrollXInner);
-          sanityWidth = table.outerWidth();
-        }
-        _fnApplyToChildren(zeroOut, headerSrcEls);
-        _fnApplyToChildren(function(nSizer) {
-          var style = window2.getComputedStyle ? window2.getComputedStyle(nSizer).width : _fnStringToCss($2(nSizer).width());
-          headerContent.push(nSizer.innerHTML);
-          headerWidths.push(style);
-        }, headerSrcEls);
-        _fnApplyToChildren(function(nToSize, i2) {
-          nToSize.style.width = headerWidths[i2];
-        }, headerTrgEls);
-        $2(headerSrcEls).css("height", 0);
+        var isScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css("overflow-y") == "scroll";
+        var paddingSide = "padding" + (browser.bScrollbarLeft ? "Left" : "Right");
+        var outerWidth = table.outerWidth();
+        divHeaderTable.css("width", _fnStringToCss(outerWidth));
+        divHeaderInner.css("width", _fnStringToCss(outerWidth)).css(paddingSide, isScrolling ? barWidth + "px" : "0px");
         if (footer) {
-          _fnApplyToChildren(zeroOut, footerSrcEls);
-          _fnApplyToChildren(function(nSizer) {
-            footerContent.push(nSizer.innerHTML);
-            footerWidths.push(_fnStringToCss($2(nSizer).css("width")));
-          }, footerSrcEls);
-          _fnApplyToChildren(function(nToSize, i2) {
-            nToSize.style.width = footerWidths[i2];
-          }, footerTrgEls);
-          $2(footerSrcEls).height(0);
+          divFooterTable.css("width", _fnStringToCss(outerWidth));
+          divFooterInner.css("width", _fnStringToCss(outerWidth)).css(paddingSide, isScrolling ? barWidth + "px" : "0px");
         }
-        _fnApplyToChildren(function(nSizer, i2) {
-          nSizer.innerHTML = '<div class="dataTables_sizing">' + headerContent[i2] + "</div>";
-          nSizer.childNodes[0].style.height = "0";
-          nSizer.childNodes[0].style.overflow = "hidden";
-          nSizer.style.width = headerWidths[i2];
-        }, headerSrcEls);
-        if (footer) {
-          _fnApplyToChildren(function(nSizer, i2) {
-            nSizer.innerHTML = '<div class="dataTables_sizing">' + footerContent[i2] + "</div>";
-            nSizer.childNodes[0].style.height = "0";
-            nSizer.childNodes[0].style.overflow = "hidden";
-            nSizer.style.width = footerWidths[i2];
-          }, footerSrcEls);
-        }
-        if (Math.round(table.outerWidth()) < Math.round(sanityWidth)) {
-          correction = divBodyEl.scrollHeight > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll" ? sanityWidth + barWidth : sanityWidth;
-          if (ie67 && (divBodyEl.scrollHeight > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll")) {
-            tableStyle.width = _fnStringToCss(correction - barWidth);
-          }
-          if (scrollX === "" || scrollXInner !== "") {
-            _fnLog(settings, 1, "Possible column misalignment", 6);
-          }
-        } else {
-          correction = "100%";
-        }
-        divBodyStyle.width = _fnStringToCss(correction);
-        divHeaderStyle.width = _fnStringToCss(correction);
-        if (footer) {
-          settings.nScrollFoot.style.width = _fnStringToCss(correction);
-        }
-        if (!scrollY) {
-          if (ie67) {
-            divBodyStyle.height = _fnStringToCss(tableEl.offsetHeight + barWidth);
-          }
-        }
-        var iOuterWidth = table.outerWidth();
-        divHeaderTable[0].style.width = _fnStringToCss(iOuterWidth);
-        divHeaderInnerStyle.width = _fnStringToCss(iOuterWidth);
-        var bScrolling = table.height() > divBodyEl.clientHeight || divBody.css("overflow-y") == "scroll";
-        var padding = "padding" + (browser.bScrollbarLeft ? "Left" : "Right");
-        divHeaderInnerStyle[padding] = bScrolling ? barWidth + "px" : "0px";
-        if (footer) {
-          divFooterTable[0].style.width = _fnStringToCss(iOuterWidth);
-          divFooterInner[0].style.width = _fnStringToCss(iOuterWidth);
-          divFooterInner[0].style[padding] = bScrolling ? barWidth + "px" : "0px";
-        }
-        table.children("colgroup").insertBefore(table.children("thead"));
+        table.children("colgroup").prependTo(table);
         divBody.trigger("scroll");
         if ((settings.bSorted || settings.bFiltered) && !settings._drawHold) {
           divBodyEl.scrollTop = 0;
         }
       }
-      function _fnApplyToChildren(fn, an1, an2) {
-        var index = 0, i2 = 0, iLen = an1.length;
-        var nNode1, nNode2;
-        while (i2 < iLen) {
-          nNode1 = an1[i2].firstChild;
-          nNode2 = an2 ? an2[i2].firstChild : null;
-          while (nNode1) {
-            if (nNode1.nodeType === 1) {
-              if (an2) {
-                fn(nNode1, nNode2, index);
-              } else {
-                fn(nNode1, index);
-              }
-              index++;
-            }
-            nNode1 = nNode1.nextSibling;
-            nNode2 = an2 ? nNode2.nextSibling : null;
-          }
-          i2++;
+      function _fnCalculateColumnWidths(settings) {
+        if (!settings.oFeatures.bAutoWidth) {
+          return;
         }
-      }
-      var __re_html_remove = /<.*?>/g;
-      function _fnCalculateColumnWidths(oSettings) {
-        var table = oSettings.nTable, columns = oSettings.aoColumns, scroll = oSettings.oScroll, scrollY = scroll.sY, scrollX = scroll.sX, scrollXInner = scroll.sXInner, columnCount = columns.length, visibleColumns = _fnGetColumns(oSettings, "bVisible"), headerCells = $2("th", oSettings.nTHead), tableWidthAttr = table.getAttribute("width"), tableContainer = table.parentNode, userInputs = false, i2, column, columnIdx, width, outerWidth, browser = oSettings.oBrowser, ie67 = browser.bScrollOversize;
+        var table = settings.nTable, columns = settings.aoColumns, scroll = settings.oScroll, scrollY = scroll.sY, scrollX = scroll.sX, scrollXInner = scroll.sXInner, visibleColumns = _fnGetColumns(settings, "bVisible"), tableWidthAttr = table.getAttribute("width"), tableContainer = table.parentNode, i2, j, column, columnIdx;
         var styleWidth = table.style.width;
+        var containerWidth = _fnWrapperWidth(settings);
+        if (containerWidth === settings.containerWidth) {
+          return false;
+        }
+        settings.containerWidth = containerWidth;
+        if (!styleWidth && !tableWidthAttr) {
+          table.style.width = "100%";
+          styleWidth = "100%";
+        }
         if (styleWidth && styleWidth.indexOf("%") !== -1) {
           tableWidthAttr = styleWidth;
         }
-        var sizes = _fnConvertToWidth(_pluck(columns, "sWidthOrig"), tableContainer);
-        for (i2 = 0; i2 < visibleColumns.length; i2++) {
-          column = columns[visibleColumns[i2]];
-          if (column.sWidth !== null) {
-            column.sWidth = sizes[i2];
-            userInputs = true;
-          }
-        }
-        if (ie67 || !userInputs && !scrollX && !scrollY && columnCount == _fnVisbleColumns(oSettings) && columnCount == headerCells.length) {
-          for (i2 = 0; i2 < columnCount; i2++) {
-            var colIdx = _fnVisibleToColumnIndex(oSettings, i2);
-            if (colIdx !== null) {
-              columns[colIdx].sWidth = _fnStringToCss(headerCells.eq(i2).width());
-            }
-          }
-        } else {
-          var tmpTable = $2(table).clone().css("visibility", "hidden").removeAttr("id");
-          tmpTable.find("tbody tr").remove();
-          var tr = $2("<tr/>").appendTo(tmpTable.find("tbody"));
-          tmpTable.find("thead, tfoot").remove();
-          tmpTable.append($2(oSettings.nTHead).clone()).append($2(oSettings.nTFoot).clone());
-          tmpTable.find("tfoot th, tfoot td").css("width", "");
-          headerCells = _fnGetUniqueThs(oSettings, tmpTable.find("thead")[0]);
-          for (i2 = 0; i2 < visibleColumns.length; i2++) {
-            column = columns[visibleColumns[i2]];
-            headerCells[i2].style.width = column.sWidthOrig !== null && column.sWidthOrig !== "" ? _fnStringToCss(column.sWidthOrig) : "";
-            if (column.sWidthOrig && scrollX) {
-              $2(headerCells[i2]).append($2("<div/>").css({
-                width: column.sWidthOrig,
+        _fnCallbackFire(
+          settings,
+          null,
+          "column-calc",
+          { visible: visibleColumns },
+          false
+        );
+        var tmpTable = $2(table.cloneNode()).css("visibility", "hidden").css("margin", 0).removeAttr("id");
+        tmpTable.append("<tbody/>");
+        tmpTable.append($2(settings.nTHead).clone()).append($2(settings.nTFoot).clone());
+        tmpTable.find("tfoot th, tfoot td").css("width", "");
+        tmpTable.find("thead th, thead td").each(function() {
+          var width = _fnColumnsSumWidth(settings, this, true, false);
+          if (width) {
+            this.style.width = width;
+            if (scrollX) {
+              this.style.minWidth = width;
+              $2(this).append($2("<div/>").css({
+                width,
                 margin: 0,
                 padding: 0,
                 border: 0,
                 height: 1
               }));
             }
+          } else {
+            this.style.width = "";
           }
-          if (oSettings.aoData.length) {
-            for (i2 = 0; i2 < visibleColumns.length; i2++) {
-              columnIdx = visibleColumns[i2];
-              column = columns[columnIdx];
-              $2(_fnGetWidestNode(oSettings, columnIdx)).clone(false).append(column.sContentPadding).appendTo(tr);
-            }
-          }
-          $2("[name]", tmpTable).removeAttr("name");
-          var holder = $2("<div/>").css(
-            scrollX || scrollY ? {
-              position: "absolute",
-              top: 0,
-              left: 0,
-              height: 1,
-              right: 0,
-              overflow: "hidden"
-            } : {}
-          ).append(tmpTable).appendTo(tableContainer);
-          if (scrollX && scrollXInner) {
-            tmpTable.width(scrollXInner);
-          } else if (scrollX) {
-            tmpTable.css("width", "auto");
-            tmpTable.removeAttr("width");
-            if (tmpTable.width() < tableContainer.clientWidth && tableWidthAttr) {
-              tmpTable.width(tableContainer.clientWidth);
-            }
-          } else if (scrollY) {
-            tmpTable.width(tableContainer.clientWidth);
-          } else if (tableWidthAttr) {
-            tmpTable.width(tableWidthAttr);
-          }
-          var total = 0;
-          for (i2 = 0; i2 < visibleColumns.length; i2++) {
-            var cell = $2(headerCells[i2]);
-            var border = cell.outerWidth() - cell.width();
-            var bounding = browser.bBounding ? Math.ceil(headerCells[i2].getBoundingClientRect().width) : cell.outerWidth();
-            total += bounding;
-            columns[visibleColumns[i2]].sWidth = _fnStringToCss(bounding - border);
-          }
-          table.style.width = _fnStringToCss(total);
-          holder.remove();
+        });
+        var longestData = [];
+        for (i2 = 0; i2 < visibleColumns.length; i2++) {
+          longestData.push(_fnGetWideStrings(settings, visibleColumns[i2]));
         }
+        if (longestData.length) {
+          for (i2 = 0; i2 < longestData[0].length; i2++) {
+            var tr = $2("<tr/>").appendTo(tmpTable.find("tbody"));
+            for (j = 0; j < visibleColumns.length; j++) {
+              columnIdx = visibleColumns[j];
+              column = columns[columnIdx];
+              var longest = longestData[j][i2] || "";
+              var autoClass = _ext.type.className[column.sType];
+              var padding = column.sContentPadding || (scrollX ? "-" : "");
+              var text = longest + padding;
+              var insert = longest.indexOf("<") === -1 && longest.indexOf("&") === -1 ? document2.createTextNode(text) : text;
+              $2("<td/>").addClass(autoClass).addClass(column.sClass).append(insert).appendTo(tr);
+            }
+          }
+        }
+        $2("[name]", tmpTable).removeAttr("name");
+        var holder = $2("<div/>").css(
+          scrollX || scrollY ? {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: 1,
+            right: 0,
+            overflow: "hidden"
+          } : {}
+        ).append(tmpTable).appendTo(tableContainer);
+        if (scrollX && scrollXInner) {
+          tmpTable.width(scrollXInner);
+        } else if (scrollX) {
+          tmpTable.css("width", "auto");
+          tmpTable.removeAttr("width");
+          if (tmpTable.outerWidth() < tableContainer.clientWidth && tableWidthAttr) {
+            tmpTable.outerWidth(tableContainer.clientWidth);
+          }
+        } else if (scrollY) {
+          tmpTable.outerWidth(tableContainer.clientWidth);
+        } else if (tableWidthAttr) {
+          tmpTable.outerWidth(tableWidthAttr);
+        }
+        var total = 0;
+        var bodyCells = tmpTable.find("tbody tr").eq(0).children();
+        for (i2 = 0; i2 < visibleColumns.length; i2++) {
+          var bounding = bodyCells[i2].getBoundingClientRect().width;
+          total += bounding;
+          columns[visibleColumns[i2]].sWidth = _fnStringToCss(bounding);
+        }
+        table.style.width = _fnStringToCss(total);
+        holder.remove();
         if (tableWidthAttr) {
           table.style.width = _fnStringToCss(tableWidthAttr);
         }
-        if ((tableWidthAttr || scrollX) && !oSettings._reszEvt) {
-          var bindResize = function() {
-            $2(window2).on("resize.DT-" + oSettings.sInstance, _fnThrottle(function() {
-              _fnAdjustColumnSizing(oSettings);
-            }));
-          };
-          if (ie67) {
-            setTimeout(bindResize, 1e3);
+        if ((tableWidthAttr || scrollX) && !settings._reszEvt) {
+          var resize = DataTable.util.throttle(function() {
+            var newWidth = _fnWrapperWidth(settings);
+            if (!settings.bDestroying && newWidth !== 0) {
+              _fnAdjustColumnSizing(settings);
+            }
+          });
+          if (window2.ResizeObserver) {
+            var first = $2(settings.nTableWrapper).is(":visible");
+            var resizer = $2("<div>").css({
+              width: "100%",
+              height: 0
+            }).addClass("dt-autosize").appendTo(settings.nTableWrapper);
+            settings.resizeObserver = new ResizeObserver(function(e) {
+              if (first) {
+                first = false;
+              } else {
+                resize();
+              }
+            });
+            settings.resizeObserver.observe(resizer[0]);
           } else {
-            bindResize();
+            $2(window2).on("resize.DT-" + settings.sInstance, resize);
           }
-          oSettings._reszEvt = true;
+          settings._reszEvt = true;
         }
       }
-      var _fnThrottle = DataTable.util.throttle;
-      function _fnConvertToWidth(widths, parent) {
-        var els = [];
-        var results = [];
-        for (var i2 = 0; i2 < widths.length; i2++) {
-          if (widths[i2]) {
-            els.push(
-              $2("<div/>").css("width", _fnStringToCss(widths[i2])).appendTo(parent || document2.body)
-            );
-          } else {
-            els.push(null);
+      function _fnWrapperWidth(settings) {
+        return $2(settings.nTableWrapper).is(":visible") ? $2(settings.nTableWrapper).width() : 0;
+      }
+      function _fnGetWideStrings(settings, colIdx) {
+        var column = settings.aoColumns[colIdx];
+        if (!column.wideStrings) {
+          var allStrings = [];
+          var collection = [];
+          for (var i2 = 0, iLen = settings.aiDisplayMaster.length; i2 < iLen; i2++) {
+            var rowIdx = settings.aiDisplayMaster[i2];
+            var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
+            var cellString = data && typeof data === "object" && data.nodeType ? data.innerHTML : data + "";
+            cellString = cellString.replace(/id=".*?"/g, "").replace(/name=".*?"/g, "");
+            cellString = cellString.replace(/<script.*?<\/script>/gi, " ");
+            var noHtml = _stripHtml(cellString, " ").replace(/&nbsp;/g, " ");
+            collection.push({
+              str: cellString,
+              len: noHtml.length
+            });
+            allStrings.push(noHtml);
+          }
+          collection.sort(function(a, b) {
+            return b.len - a.len;
+          }).splice(3);
+          column.wideStrings = collection.map(function(item) {
+            return item.str;
+          });
+          let parts = allStrings.join(" ").split(" ");
+          parts.sort(function(a, b) {
+            return b.length - a.length;
+          });
+          if (parts.length) {
+            column.wideStrings.push(parts[0]);
+          }
+          if (parts.length > 1) {
+            column.wideStrings.push(parts[1]);
+          }
+          if (parts.length > 2) {
+            column.wideStrings.push(parts[3]);
           }
         }
-        for (var i2 = 0; i2 < widths.length; i2++) {
-          results.push(els[i2] ? els[i2][0].offsetWidth : null);
-        }
-        $2(els).remove();
-        return results;
-      }
-      function _fnGetWidestNode(settings, colIdx) {
-        var idx = _fnGetMaxLenString(settings, colIdx);
-        if (idx < 0) {
-          return null;
-        }
-        var data = settings.aoData[idx];
-        return !data.nTr ? $2("<td/>").html(_fnGetCellData(settings, idx, colIdx, "display"))[0] : data.anCells[colIdx];
-      }
-      function _fnGetMaxLenString(settings, colIdx) {
-        var s, max = -1, maxIdx = -1;
-        for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          s = _fnGetCellData(settings, i2, colIdx, "display") + "";
-          s = s.replace(__re_html_remove, "");
-          s = s.replace(/&nbsp;/g, " ");
-          if (s.length > max) {
-            max = s.length;
-            maxIdx = i2;
-          }
-        }
-        return maxIdx;
+        return column.wideStrings;
       }
       function _fnStringToCss(s) {
         if (s === null) {
@@ -8898,153 +8967,249 @@ var require_jquery_dataTables = __commonJS({
         }
         return s.match(/\d$/) ? s + "px" : s;
       }
-      function _fnSortFlatten(settings) {
-        var i2, iLen, k, kLen, aSort = [], aiOrig = [], aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $2.isPlainObject(fixed), nestedSort = [], add = function(a) {
-          if (a.length && !Array.isArray(a[0])) {
-            nestedSort.push(a);
+      function _colGroup(settings) {
+        var cols = settings.aoColumns;
+        settings.colgroup.empty();
+        for (i = 0; i < cols.length; i++) {
+          if (cols[i].bVisible) {
+            settings.colgroup.append(cols[i].colEl);
+          }
+        }
+      }
+      function _fnSortInit(settings) {
+        var target = settings.nTHead;
+        var headerRows = target.querySelectorAll("tr");
+        var titleRow = settings.titleRow;
+        var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
+        if (titleRow === true) {
+          target = headerRows[0];
+        } else if (titleRow === false) {
+          target = headerRows[headerRows.length - 1];
+        } else if (titleRow !== null) {
+          target = headerRows[titleRow];
+        }
+        if (settings.orderHandler) {
+          _fnSortAttachListener(
+            settings,
+            target,
+            target === settings.nTHead ? "tr" + notSelector + " th" + notSelector + ", tr" + notSelector + " td" + notSelector : "th" + notSelector + ", td" + notSelector
+          );
+        }
+        var order = [];
+        _fnSortResolve(settings, order, settings.aaSorting);
+        settings.aaSorting = order;
+      }
+      function _fnSortAttachListener(settings, node, selector, column, callback) {
+        _fnBindAction(node, selector, function(e) {
+          var run = false;
+          var columns = column === void 0 ? _fnColumnsFromHeader(e.target) : typeof column === "function" ? column() : Array.isArray(column) ? column : [column];
+          if (columns.length) {
+            for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
+              var ret = _fnSortAdd(settings, columns[i2], i2, e.shiftKey);
+              if (ret !== false) {
+                run = true;
+              }
+              if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === "") {
+                break;
+              }
+            }
+            if (run) {
+              _fnProcessingRun(settings, true, function() {
+                _fnSort(settings);
+                _fnSortDisplay(settings, settings.aiDisplay);
+                _fnReDraw(settings, false, false);
+                if (callback) {
+                  callback();
+                }
+              });
+            }
+          }
+        });
+      }
+      function _fnSortDisplay(settings, display) {
+        if (display.length < 2) {
+          return;
+        }
+        var master = settings.aiDisplayMaster;
+        var masterMap = {};
+        var map = {};
+        var i2;
+        for (i2 = 0; i2 < master.length; i2++) {
+          masterMap[master[i2]] = i2;
+        }
+        for (i2 = 0; i2 < display.length; i2++) {
+          map[display[i2]] = masterMap[display[i2]];
+        }
+        display.sort(function(a, b) {
+          return map[a] - map[b];
+        });
+      }
+      function _fnSortResolve(settings, nestedSort, sort) {
+        var push = function(a) {
+          if ($2.isPlainObject(a)) {
+            if (a.idx !== void 0) {
+              nestedSort.push([a.idx, a.dir]);
+            } else if (a.name) {
+              var cols = _pluck(settings.aoColumns, "sName");
+              var idx = cols.indexOf(a.name);
+              if (idx !== -1) {
+                nestedSort.push([idx, a.dir]);
+              }
+            }
           } else {
-            $2.merge(nestedSort, a);
+            nestedSort.push(a);
           }
         };
+        if ($2.isPlainObject(sort)) {
+          push(sort);
+        } else if (sort.length && typeof sort[0] === "number") {
+          push(sort);
+        } else if (sort.length) {
+          for (var z = 0; z < sort.length; z++) {
+            push(sort[z]);
+          }
+        }
+      }
+      function _fnSortFlatten(settings) {
+        var i2, k, kLen, aSort = [], extSort = DataTable.ext.type.order, aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $2.isPlainObject(fixed), nestedSort = [];
+        if (!settings.oFeatures.bSort) {
+          return aSort;
+        }
         if (Array.isArray(fixed)) {
-          add(fixed);
+          _fnSortResolve(settings, nestedSort, fixed);
         }
         if (fixedObj && fixed.pre) {
-          add(fixed.pre);
+          _fnSortResolve(settings, nestedSort, fixed.pre);
         }
-        add(settings.aaSorting);
+        _fnSortResolve(settings, nestedSort, settings.aaSorting);
         if (fixedObj && fixed.post) {
-          add(fixed.post);
+          _fnSortResolve(settings, nestedSort, fixed.post);
         }
         for (i2 = 0; i2 < nestedSort.length; i2++) {
           srcCol = nestedSort[i2][0];
-          aDataSort = aoColumns[srcCol].aDataSort;
-          for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
-            iCol = aDataSort[k];
-            sType = aoColumns[iCol].sType || "string";
-            if (nestedSort[i2]._idx === undefined2) {
-              nestedSort[i2]._idx = $2.inArray(nestedSort[i2][1], aoColumns[iCol].asSorting);
+          if (aoColumns[srcCol]) {
+            aDataSort = aoColumns[srcCol].aDataSort;
+            for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
+              iCol = aDataSort[k];
+              sType = aoColumns[iCol].sType || "string";
+              if (nestedSort[i2]._idx === void 0) {
+                nestedSort[i2]._idx = aoColumns[iCol].asSorting.indexOf(nestedSort[i2][1]);
+              }
+              if (nestedSort[i2][1]) {
+                aSort.push({
+                  src: srcCol,
+                  col: iCol,
+                  dir: nestedSort[i2][1],
+                  index: nestedSort[i2]._idx,
+                  type: sType,
+                  formatter: extSort[sType + "-pre"],
+                  sorter: extSort[sType + "-" + nestedSort[i2][1]]
+                });
+              }
             }
-            aSort.push({
-              src: srcCol,
-              col: iCol,
-              dir: nestedSort[i2][1],
-              index: nestedSort[i2]._idx,
-              type: sType,
-              formatter: DataTable.ext.type.order[sType + "-pre"]
-            });
           }
         }
         return aSort;
       }
-      function _fnSort(oSettings) {
-        var i2, ien, iLen, j, jLen, k, kLen, sDataType, nTh, aiOrig = [], oExtSort = DataTable.ext.type.order, aoData = oSettings.aoData, aoColumns = oSettings.aoColumns, aDataSort, data, iCol, sType, oSort, formatters = 0, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
+      function _fnSort(oSettings, col, dir) {
+        var i2, iLen, aiOrig = [], extSort = DataTable.ext.type.order, aoData = oSettings.aoData, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
         _fnColumnTypes(oSettings);
-        aSort = _fnSortFlatten(oSettings);
-        for (i2 = 0, ien = aSort.length; i2 < ien; i2++) {
+        if (col !== void 0) {
+          var srcCol = oSettings.aoColumns[col];
+          aSort = [{
+            src: col,
+            col,
+            dir,
+            index: 0,
+            type: srcCol.sType,
+            formatter: extSort[srcCol.sType + "-pre"],
+            sorter: extSort[srcCol.sType + "-" + dir]
+          }];
+          displayMaster = displayMaster.slice();
+        } else {
+          aSort = _fnSortFlatten(oSettings);
+        }
+        for (i2 = 0, iLen = aSort.length; i2 < iLen; i2++) {
           sortCol = aSort[i2];
-          if (sortCol.formatter) {
-            formatters++;
-          }
           _fnSortData(oSettings, sortCol.col);
         }
         if (_fnDataSource(oSettings) != "ssp" && aSort.length !== 0) {
           for (i2 = 0, iLen = displayMaster.length; i2 < iLen; i2++) {
-            aiOrig[displayMaster[i2]] = i2;
+            aiOrig[i2] = i2;
           }
-          if (formatters === aSort.length) {
-            displayMaster.sort(function(a, b) {
-              var x, y, k2, test, sort, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
-              for (k2 = 0; k2 < len; k2++) {
-                sort = aSort[k2];
-                x = dataA[sort.col];
-                y = dataB[sort.col];
+          if (aSort.length && aSort[0].dir === "desc" && oSettings.orderDescReverse) {
+            aiOrig.reverse();
+          }
+          displayMaster.sort(function(a, b) {
+            var x, y, k, test, sort, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
+            for (k = 0; k < len; k++) {
+              sort = aSort[k];
+              x = dataA[sort.col];
+              y = dataB[sort.col];
+              if (sort.sorter) {
+                test = sort.sorter(x, y);
+                if (test !== 0) {
+                  return test;
+                }
+              } else {
                 test = x < y ? -1 : x > y ? 1 : 0;
                 if (test !== 0) {
                   return sort.dir === "asc" ? test : -test;
                 }
               }
-              x = aiOrig[a];
-              y = aiOrig[b];
-              return x < y ? -1 : x > y ? 1 : 0;
-            });
-          } else {
-            displayMaster.sort(function(a, b) {
-              var x, y, k2, l, test, sort, fn, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
-              for (k2 = 0; k2 < len; k2++) {
-                sort = aSort[k2];
-                x = dataA[sort.col];
-                y = dataB[sort.col];
-                fn = oExtSort[sort.type + "-" + sort.dir] || oExtSort["string-" + sort.dir];
-                test = fn(x, y);
-                if (test !== 0) {
-                  return test;
-                }
-              }
-              x = aiOrig[a];
-              y = aiOrig[b];
-              return x < y ? -1 : x > y ? 1 : 0;
-            });
-          }
-        }
-        oSettings.bSorted = true;
-      }
-      function _fnSortAria(settings) {
-        var label;
-        var nextSort;
-        var columns = settings.aoColumns;
-        var aSort = _fnSortFlatten(settings);
-        var oAria = settings.oLanguage.oAria;
-        for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-          var col = columns[i2];
-          var asSorting = col.asSorting;
-          var sTitle = col.ariaTitle || col.sTitle.replace(/<.*?>/g, "");
-          var th = col.nTh;
-          th.removeAttribute("aria-sort");
-          if (col.bSortable) {
-            if (aSort.length > 0 && aSort[0].col == i2) {
-              th.setAttribute("aria-sort", aSort[0].dir == "asc" ? "ascending" : "descending");
-              nextSort = asSorting[aSort[0].index + 1] || asSorting[0];
-            } else {
-              nextSort = asSorting[0];
             }
-            label = sTitle + (nextSort === "asc" ? oAria.sSortAscending : oAria.sSortDescending);
-          } else {
-            label = sTitle;
-          }
-          th.setAttribute("aria-label", label);
+            x = aiOrig[a];
+            y = aiOrig[b];
+            return x < y ? -1 : x > y ? 1 : 0;
+          });
+        } else if (aSort.length === 0) {
+          displayMaster.sort(function(x, y) {
+            return x < y ? -1 : x > y ? 1 : 0;
+          });
         }
+        if (col === void 0) {
+          oSettings.bSorted = true;
+          oSettings.sortDetails = aSort;
+          _fnCallbackFire(oSettings, null, "order", [oSettings, aSort]);
+        }
+        return displayMaster;
       }
-      function _fnSortListener(settings, colIdx, append, callback) {
+      function _fnSortAdd(settings, colIdx, addIndex, shift) {
         var col = settings.aoColumns[colIdx];
         var sorting = settings.aaSorting;
         var asSorting = col.asSorting;
         var nextSortIdx;
         var next = function(a, overflow) {
           var idx = a._idx;
-          if (idx === undefined2) {
-            idx = $2.inArray(a[1], asSorting);
+          if (idx === void 0) {
+            idx = asSorting.indexOf(a[1]);
           }
           return idx + 1 < asSorting.length ? idx + 1 : overflow ? null : 0;
         };
+        if (!col.bSortable) {
+          return false;
+        }
         if (typeof sorting[0] === "number") {
           sorting = settings.aaSorting = [sorting];
         }
-        if (append && settings.oFeatures.bSortMulti) {
-          var sortIdx = $2.inArray(colIdx, _pluck(sorting, "0"));
+        if ((shift || addIndex) && settings.oFeatures.bSortMulti) {
+          var sortIdx = _pluck(sorting, "0").indexOf(colIdx);
           if (sortIdx !== -1) {
             nextSortIdx = next(sorting[sortIdx], true);
             if (nextSortIdx === null && sorting.length === 1) {
               nextSortIdx = 0;
             }
-            if (nextSortIdx === null) {
+            if (nextSortIdx === null || asSorting[nextSortIdx] === "") {
               sorting.splice(sortIdx, 1);
             } else {
               sorting[sortIdx][1] = asSorting[nextSortIdx];
               sorting[sortIdx]._idx = nextSortIdx;
             }
-          } else {
+          } else if (shift) {
             sorting.push([colIdx, asSorting[0], 0]);
+            sorting[sorting.length - 1]._idx = 0;
+          } else {
+            sorting.push([colIdx, sorting[0][1], 0]);
             sorting[sorting.length - 1]._idx = 0;
           }
         } else if (sorting.length && sorting[0][0] == colIdx) {
@@ -9057,70 +9222,51 @@ var require_jquery_dataTables = __commonJS({
           sorting.push([colIdx, asSorting[0]]);
           sorting[0]._idx = 0;
         }
-        _fnReDraw(settings);
-        if (typeof callback == "function") {
-          callback(settings);
-        }
-      }
-      function _fnSortAttachListener(settings, attachTo, colIdx, callback) {
-        var col = settings.aoColumns[colIdx];
-        _fnBindAction(attachTo, {}, function(e) {
-          if (col.bSortable === false) {
-            return;
-          }
-          if (settings.oFeatures.bProcessing) {
-            _fnProcessingDisplay(settings, true);
-            setTimeout(function() {
-              _fnSortListener(settings, colIdx, e.shiftKey, callback);
-              if (_fnDataSource(settings) !== "ssp") {
-                _fnProcessingDisplay(settings, false);
-              }
-            }, 0);
-          } else {
-            _fnSortListener(settings, colIdx, e.shiftKey, callback);
-          }
-        });
       }
       function _fnSortingClasses(settings) {
         var oldSort = settings.aLastSort;
-        var sortClass = settings.oClasses.sSortColumn;
+        var sortClass = settings.oClasses.order.position;
         var sort = _fnSortFlatten(settings);
         var features = settings.oFeatures;
-        var i2, ien, colIdx;
+        var i2, iLen, colIdx;
         if (features.bSort && features.bSortClasses) {
-          for (i2 = 0, ien = oldSort.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = oldSort.length; i2 < iLen; i2++) {
             colIdx = oldSort[i2].src;
             $2(_pluck(settings.aoData, "anCells", colIdx)).removeClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
-          for (i2 = 0, ien = sort.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = sort.length; i2 < iLen; i2++) {
             colIdx = sort[i2].src;
             $2(_pluck(settings.aoData, "anCells", colIdx)).addClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
         }
         settings.aLastSort = sort;
       }
-      function _fnSortData(settings, idx) {
-        var column = settings.aoColumns[idx];
+      function _fnSortData(settings, colIdx) {
+        var column = settings.aoColumns[colIdx];
         var customSort = DataTable.ext.order[column.sSortDataType];
         var customData;
         if (customSort) {
           customData = customSort.call(
             settings.oInstance,
             settings,
-            idx,
-            _fnColumnIndexToVisible(settings, idx)
+            colIdx,
+            _fnColumnIndexToVisible(settings, colIdx)
           );
         }
         var row, cellData;
         var formatter = DataTable.ext.type.order[column.sType + "-pre"];
-        for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          row = settings.aoData[i2];
+        var data = settings.aoData;
+        for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
+          if (!data[rowIdx]) {
+            continue;
+          }
+          row = data[rowIdx];
           if (!row._aSortData) {
             row._aSortData = [];
           }
-          if (!row._aSortData[idx] || customSort) {
-            cellData = customSort ? customData[i2] : _fnGetCellData(settings, i2, idx, "sort");
-            row._aSortData[idx] = formatter ? formatter(cellData) : cellData;
+          if (!row._aSortData[colIdx] || customSort) {
+            cellData = customSort ? customData[rowIdx] : _fnGetCellData(settings, rowIdx, colIdx, "sort");
+            row._aSortData[colIdx] = formatter ? formatter(cellData, settings) : cellData;
           }
         }
       }
@@ -9128,16 +9274,22 @@ var require_jquery_dataTables = __commonJS({
         if (settings._bLoadingState) {
           return;
         }
+        var sorting = [];
+        _fnSortResolve(settings, sorting, settings.aaSorting);
+        var columns = settings.aoColumns;
         var state = {
           time: +new Date(),
           start: settings._iDisplayStart,
           length: settings._iDisplayLength,
-          order: $2.extend(true, [], settings.aaSorting),
-          search: _fnSearchToCamel(settings.oPreviousSearch),
-          columns: $2.map(settings.aoColumns, function(col, i2) {
+          order: sorting.map(function(sort) {
+            return columns[sort[0]] && columns[sort[0]].sName ? [columns[sort[0]].sName, sort[1]] : sort.slice();
+          }),
+          search: $2.extend({}, settings.oPreviousSearch),
+          columns: settings.aoColumns.map(function(col, i2) {
             return {
+              name: col.sName,
               visible: col.bVisible,
-              search: _fnSearchToCamel(settings.aoPreSearchCols[i2])
+              search: $2.extend({}, settings.aoPreSearchCols[i2])
             };
           })
         };
@@ -9147,7 +9299,7 @@ var require_jquery_dataTables = __commonJS({
           settings.fnStateSaveCallback.call(settings.oInstance, settings, state);
         }
       }
-      function _fnLoadState(settings, oInit, callback) {
+      function _fnLoadState(settings, init, callback) {
         if (!settings.oFeatures.bStateSave) {
           callback();
           return;
@@ -9156,23 +9308,18 @@ var require_jquery_dataTables = __commonJS({
           _fnImplementState(settings, state2, callback);
         };
         var state = settings.fnStateLoadCallback.call(settings.oInstance, settings, loaded);
-        if (state !== undefined2) {
+        if (state !== void 0) {
           _fnImplementState(settings, state, callback);
         }
         return true;
       }
       function _fnImplementState(settings, s, callback) {
-        var i2, ien;
+        var i2, iLen;
         var columns = settings.aoColumns;
+        var currentNames = _pluck(settings.aoColumns, "sName");
         settings._bLoadingState = true;
         var api = settings._bInitComplete ? new DataTable.Api(settings) : null;
         if (!s || !s.time) {
-          settings._bLoadingState = false;
-          callback();
-          return;
-        }
-        var abStateLoad = _fnCallbackFire(settings, "aoStateLoadParams", "stateLoadParams", [settings, s]);
-        if ($2.inArray(false, abStateLoad) !== -1) {
           settings._bLoadingState = false;
           callback();
           return;
@@ -9183,20 +9330,22 @@ var require_jquery_dataTables = __commonJS({
           callback();
           return;
         }
-        if (s.columns && columns.length !== s.columns.length) {
+        var abStateLoad = _fnCallbackFire(settings, "aoStateLoadParams", "stateLoadParams", [settings, s]);
+        if (abStateLoad.indexOf(false) !== -1) {
           settings._bLoadingState = false;
           callback();
           return;
         }
         settings.oLoadedState = $2.extend(true, {}, s);
-        if (s.length !== undefined2) {
+        _fnCallbackFire(settings, null, "stateLoadInit", [settings, s], true);
+        if (s.length !== void 0) {
           if (api) {
             api.page.len(s.length);
           } else {
             settings._iDisplayLength = s.length;
           }
         }
-        if (s.start !== undefined2) {
+        if (s.start !== void 0) {
           if (api === null) {
             settings._iDisplayStart = s.start;
             settings.iInitDisplayStart = s.start;
@@ -9204,44 +9353,67 @@ var require_jquery_dataTables = __commonJS({
             _fnPageChange(settings, s.start / settings._iDisplayLength);
           }
         }
-        if (s.order !== undefined2) {
+        if (s.order !== void 0) {
           settings.aaSorting = [];
           $2.each(s.order, function(i3, col2) {
-            settings.aaSorting.push(
-              col2[0] >= columns.length ? [0, col2[1]] : col2
-            );
+            var set2 = [col2[0], col2[1]];
+            if (typeof col2[0] === "string") {
+              var idx2 = currentNames.indexOf(col2[0]);
+              if (idx2 < 0) {
+                return;
+              }
+              set2[0] = idx2;
+            } else if (set2[0] >= columns.length) {
+              return;
+            }
+            settings.aaSorting.push(set2);
           });
         }
-        if (s.search !== undefined2) {
-          $2.extend(settings.oPreviousSearch, _fnSearchToHung(s.search));
+        if (s.search !== void 0) {
+          $2.extend(settings.oPreviousSearch, s.search);
         }
         if (s.columns) {
-          for (i2 = 0, ien = s.columns.length; i2 < ien; i2++) {
-            var col = s.columns[i2];
-            if (col.visible !== undefined2) {
-              if (api) {
-                api.column(i2).visible(col.visible, false);
+          var set = s.columns;
+          var incoming = _pluck(s.columns, "name");
+          if (incoming.join("").length && incoming.join("") !== currentNames.join("")) {
+            set = [];
+            for (i2 = 0; i2 < currentNames.length; i2++) {
+              if (currentNames[i2] != "") {
+                var idx = incoming.indexOf(currentNames[i2]);
+                if (idx >= 0) {
+                  set.push(s.columns[idx]);
+                } else {
+                  set.push({});
+                }
               } else {
-                columns[i2].bVisible = col.visible;
+                set.push({});
               }
             }
-            if (col.search !== undefined2) {
-              $2.extend(settings.aoPreSearchCols[i2], _fnSearchToHung(col.search));
-            }
           }
-          if (api) {
-            api.columns.adjust();
+          if (set.length === columns.length) {
+            for (i2 = 0, iLen = set.length; i2 < iLen; i2++) {
+              var col = set[i2];
+              if (col.visible !== void 0) {
+                if (api) {
+                  api.column(i2).visible(col.visible, false);
+                } else {
+                  columns[i2].bVisible = col.visible;
+                }
+              }
+              if (col.search !== void 0) {
+                $2.extend(settings.aoPreSearchCols[i2], col.search);
+              }
+            }
+            if (api) {
+              api.one("draw", function() {
+                api.columns.adjust();
+              });
+            }
           }
         }
         settings._bLoadingState = false;
         _fnCallbackFire(settings, "aoStateLoaded", "stateLoaded", [settings, s]);
         callback();
-      }
-      ;
-      function _fnSettingsFromNode(table) {
-        var settings = DataTable.settings;
-        var idx = $2.inArray(table, _pluck(settings, "nTable"));
-        return idx !== -1 ? settings[idx] : null;
       }
       function _fnLog(settings, level, msg, tn) {
         msg = "DataTables warning: " + (settings ? "table id=" + settings.sTableId + " - " : "") + msg;
@@ -9252,7 +9424,7 @@ var require_jquery_dataTables = __commonJS({
           var ext = DataTable.ext;
           var type = ext.sErrMode || ext.errMode;
           if (settings) {
-            _fnCallbackFire(settings, null, "error", [settings, tn, msg]);
+            _fnCallbackFire(settings, null, "dt-error", [settings, tn, msg], true);
           }
           if (type == "alert") {
             alert(msg);
@@ -9276,17 +9448,17 @@ var require_jquery_dataTables = __commonJS({
           });
           return;
         }
-        if (mappedName === undefined2) {
+        if (mappedName === void 0) {
           mappedName = name;
         }
-        if (src[name] !== undefined2) {
+        if (src[name] !== void 0) {
           ret[mappedName] = src[name];
         }
       }
       function _fnExtend(out, extender, breakRefs) {
         var val;
         for (var prop in extender) {
-          if (extender.hasOwnProperty(prop)) {
+          if (Object.prototype.hasOwnProperty.call(extender, prop)) {
             val = extender[prop];
             if ($2.isPlainObject(val)) {
               if (!$2.isPlainObject(out[prop])) {
@@ -9302,39 +9474,36 @@ var require_jquery_dataTables = __commonJS({
         }
         return out;
       }
-      function _fnBindAction(n, oData, fn) {
-        $2(n).on("click.DT", oData, function(e) {
-          $2(n).trigger("blur");
+      function _fnBindAction(n, selector, fn) {
+        $2(n).on("click.DT", selector, function(e) {
           fn(e);
-        }).on("keypress.DT", oData, function(e) {
+        }).on("keypress.DT", selector, function(e) {
           if (e.which === 13) {
             e.preventDefault();
             fn(e);
           }
-        }).on("selectstart.DT", function() {
+        }).on("selectstart.DT", selector, function() {
           return false;
         });
       }
-      function _fnCallbackReg(oSettings, sStore, fn, sName) {
+      function _fnCallbackReg(settings, store, fn) {
         if (fn) {
-          oSettings[sStore].push({
-            "fn": fn,
-            "sName": sName
-          });
+          settings[store].push(fn);
         }
       }
-      function _fnCallbackFire(settings, callbackArr, eventName, args) {
+      function _fnCallbackFire(settings, callbackArr, eventName, args, bubbles) {
         var ret = [];
         if (callbackArr) {
-          ret = $2.map(settings[callbackArr].slice().reverse(), function(val, i2) {
-            return val.fn.apply(settings.oInstance, args);
+          ret = settings[callbackArr].slice().reverse().map(function(val) {
+            return val.apply(settings.oInstance, args);
           });
         }
         if (eventName !== null) {
           var e = $2.Event(eventName + ".dt");
           var table = $2(settings.nTable);
-          table.trigger(e, args);
-          if (table.parents("body").length === 0) {
+          e.dt = settings.api;
+          table[bubbles ? "trigger" : "triggerHandler"](e, args);
+          if (bubbles && table.parents("body").length === 0) {
             $2("body").trigger(e, args);
           }
           ret.push(e.result);
@@ -9365,44 +9534,74 @@ var require_jquery_dataTables = __commonJS({
       function _fnDataSource(settings) {
         if (settings.oFeatures.bServerSide) {
           return "ssp";
-        } else if (settings.ajax || settings.sAjaxSource) {
+        } else if (settings.ajax) {
           return "ajax";
         }
         return "dom";
+      }
+      function _fnMacros(settings, str, entries) {
+        var formatter = settings.fnFormatNumber, start = settings._iDisplayStart + 1, len = settings._iDisplayLength, vis = settings.fnRecordsDisplay(), max = settings.fnRecordsTotal(), all = len === -1;
+        return str.replace(/_START_/g, formatter.call(settings, start)).replace(/_END_/g, formatter.call(settings, settings.fnDisplayEnd())).replace(/_MAX_/g, formatter.call(settings, max)).replace(/_TOTAL_/g, formatter.call(settings, vis)).replace(/_PAGE_/g, formatter.call(settings, all ? 1 : Math.ceil(start / len))).replace(/_PAGES_/g, formatter.call(settings, all ? 1 : Math.ceil(vis / len))).replace(/_ENTRIES_/g, settings.api.i18n("entries", "", entries)).replace(/_ENTRIES-MAX_/g, settings.api.i18n("entries", "", max)).replace(/_ENTRIES-TOTAL_/g, settings.api.i18n("entries", "", vis));
+      }
+      function _fnArrayApply(arr, data) {
+        if (!data) {
+          return;
+        }
+        if (data.length < 1e4) {
+          arr.push.apply(arr, data);
+        } else {
+          for (i = 0; i < data.length; i++) {
+            arr.push(data[i]);
+          }
+        }
+      }
+      function _fnListener(that, name, src) {
+        if (!Array.isArray(src)) {
+          src = [src];
+        }
+        for (i = 0; i < src.length; i++) {
+          that.on(name + ".dt", src[i]);
+        }
+      }
+      function _fnEscapeObject(obj) {
+        if (DataTable.ext.escape.attributes) {
+          $2.each(obj, function(key, val) {
+            obj[key] = _escapeHtml(val);
+          });
+        }
+        return obj;
       }
       var __apiStruct = [];
       var __arrayProto = Array.prototype;
       var _toSettings = function(mixed) {
         var idx, jq;
         var settings = DataTable.settings;
-        var tables = $2.map(settings, function(el, i2) {
-          return el.nTable;
-        });
+        var tables = _pluck(settings, "nTable");
         if (!mixed) {
           return [];
-        } else if (mixed.nTable && mixed.oApi) {
+        } else if (mixed.nTable && mixed.oFeatures) {
           return [mixed];
         } else if (mixed.nodeName && mixed.nodeName.toLowerCase() === "table") {
-          idx = $2.inArray(mixed, tables);
+          idx = tables.indexOf(mixed);
           return idx !== -1 ? [settings[idx]] : null;
         } else if (mixed && typeof mixed.settings === "function") {
           return mixed.settings().toArray();
         } else if (typeof mixed === "string") {
-          jq = $2(mixed);
+          jq = $2(mixed).get();
         } else if (mixed instanceof $2) {
-          jq = mixed;
+          jq = mixed.get();
         }
         if (jq) {
-          return jq.map(function(i2) {
-            idx = $2.inArray(this, tables);
-            return idx !== -1 ? settings[idx] : null;
-          }).toArray();
+          return settings.filter(function(v, idx2) {
+            return jq.includes(tables[idx2]);
+          });
         }
       };
       _Api = function(context, data) {
         if (!(this instanceof _Api)) {
           return new _Api(context, data);
         }
+        var i2;
         var settings = [];
         var ctxSettings = function(o) {
           var a = _toSettings(o);
@@ -9411,16 +9610,14 @@ var require_jquery_dataTables = __commonJS({
           }
         };
         if (Array.isArray(context)) {
-          for (var i2 = 0, ien = context.length; i2 < ien; i2++) {
+          for (i2 = 0; i2 < context.length; i2++) {
             ctxSettings(context[i2]);
           }
         } else {
           ctxSettings(context);
         }
-        this.context = _unique(settings);
-        if (data) {
-          $2.merge(this, data);
-        }
+        this.context = settings.length > 1 ? _unique(settings) : settings;
+        _fnArrayApply(this, data);
         this.selector = {
           rows: null,
           cols: null,
@@ -9433,13 +9630,12 @@ var require_jquery_dataTables = __commonJS({
         any: function() {
           return this.count() !== 0;
         },
-        concat: __arrayProto.concat,
         context: [],
         count: function() {
           return this.flatten().length;
         },
         each: function(fn) {
-          for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
+          for (var i2 = 0, iLen = this.length; i2 < iLen; i2++) {
             fn.call(this, this[i2], i2, this);
           }
           return this;
@@ -9449,52 +9645,42 @@ var require_jquery_dataTables = __commonJS({
           return ctx.length > idx ? new _Api(ctx[idx], this[idx]) : null;
         },
         filter: function(fn) {
-          var a = [];
-          if (__arrayProto.filter) {
-            a = __arrayProto.filter.call(this, fn, this);
-          } else {
-            for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
-              if (fn.call(this, this[i2], i2, this)) {
-                a.push(this[i2]);
-              }
-            }
-          }
+          var a = __arrayProto.filter.call(this, fn, this);
           return new _Api(this.context, a);
         },
         flatten: function() {
           var a = [];
           return new _Api(this.context, a.concat.apply(a, this.toArray()));
         },
-        join: __arrayProto.join,
-        indexOf: __arrayProto.indexOf || function(obj, start) {
-          for (var i2 = start || 0, ien = this.length; i2 < ien; i2++) {
-            if (this[i2] === obj) {
-              return i2;
-            }
-          }
-          return -1;
+        get: function(idx) {
+          return this[idx];
         },
+        join: __arrayProto.join,
+        includes: function(find) {
+          return this.indexOf(find) === -1 ? false : true;
+        },
+        indexOf: __arrayProto.indexOf,
         iterator: function(flatten, type, fn, alwaysNew) {
-          var a = [], ret, i2, ien, j, jen, context = this.context, rows, items, item, selector = this.selector;
+          var a = [], ret, i2, iLen, j, jen, context = this.context, rows, items, item, selector = this.selector;
           if (typeof flatten === "string") {
             alwaysNew = fn;
             fn = type;
             type = flatten;
             flatten = false;
           }
-          for (i2 = 0, ien = context.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = context.length; i2 < iLen; i2++) {
             var apiInst = new _Api(context[i2]);
             if (type === "table") {
               ret = fn.call(apiInst, context[i2], i2);
-              if (ret !== undefined2) {
+              if (ret !== void 0) {
                 a.push(ret);
               }
             } else if (type === "columns" || type === "rows") {
               ret = fn.call(apiInst, context[i2], this[i2], i2);
-              if (ret !== undefined2) {
+              if (ret !== void 0) {
                 a.push(ret);
               }
-            } else if (type === "column" || type === "column-rows" || type === "row" || type === "cell") {
+            } else if (type === "every" || type === "column" || type === "column-rows" || type === "row" || type === "cell") {
               items = this[i2];
               if (type === "column-rows") {
                 rows = _selector_row_indexes(context[i2], selector.opts);
@@ -9506,7 +9692,7 @@ var require_jquery_dataTables = __commonJS({
                 } else {
                   ret = fn.call(apiInst, context[i2], item, i2, j, rows);
                 }
-                if (ret !== undefined2) {
+                if (ret !== void 0) {
                   a.push(ret);
                 }
               }
@@ -9522,19 +9708,10 @@ var require_jquery_dataTables = __commonJS({
           }
           return this;
         },
-        lastIndexOf: __arrayProto.lastIndexOf || function(obj, start) {
-          return this.indexOf.apply(this.toArray.reverse(), arguments);
-        },
+        lastIndexOf: __arrayProto.lastIndexOf,
         length: 0,
         map: function(fn) {
-          var a = [];
-          if (__arrayProto.map) {
-            a = __arrayProto.map.call(this, fn, this);
-          } else {
-            for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
-              a.push(fn.call(this, this[i2], i2));
-            }
-          }
+          var a = __arrayProto.map.call(this, fn, this);
           return new _Api(this.context, a);
         },
         pluck: function(prop) {
@@ -9545,12 +9722,8 @@ var require_jquery_dataTables = __commonJS({
         },
         pop: __arrayProto.pop,
         push: __arrayProto.push,
-        reduce: __arrayProto.reduce || function(fn, init) {
-          return _fnReduce(this, fn, init, 0, this.length, 1);
-        },
-        reduceRight: __arrayProto.reduceRight || function(fn, init) {
-          return _fnReduce(this, fn, init, this.length - 1, -1, -1);
-        },
+        reduce: __arrayProto.reduce,
+        reduceRight: __arrayProto.reduceRight,
         reverse: __arrayProto.reverse,
         selector: null,
         shift: __arrayProto.shift,
@@ -9569,24 +9742,37 @@ var require_jquery_dataTables = __commonJS({
           return $2(this);
         },
         unique: function() {
-          return new _Api(this.context, _unique(this));
+          return new _Api(this.context, _unique(this.toArray()));
         },
         unshift: __arrayProto.unshift
       });
+      function _api_scope(scope, fn, struct) {
+        return function() {
+          var ret = fn.apply(scope || this, arguments);
+          _Api.extend(ret, ret, struct.methodExt);
+          return ret;
+        };
+      }
+      function _api_find(src, name) {
+        for (var i2 = 0, iLen = src.length; i2 < iLen; i2++) {
+          if (src[i2].name === name) {
+            return src[i2];
+          }
+        }
+        return null;
+      }
+      window2.__apiStruct = __apiStruct;
       _Api.extend = function(scope, obj, ext) {
         if (!ext.length || !obj || !(obj instanceof _Api) && !obj.__dt_wrapper) {
           return;
         }
-        var i2, ien, struct, methodScoping = function(scope2, fn, struc) {
-          return function() {
-            var ret = fn.apply(scope2, arguments);
-            _Api.extend(ret, ret, struc.methodExt);
-            return ret;
-          };
-        };
-        for (i2 = 0, ien = ext.length; i2 < ien; i2++) {
+        var i2, iLen, struct;
+        for (i2 = 0, iLen = ext.length; i2 < iLen; i2++) {
           struct = ext[i2];
-          obj[struct.name] = struct.type === "function" ? methodScoping(scope, struct.val, struct) : struct.type === "object" ? {} : struct.val;
+          if (struct.name === "__proto__") {
+            continue;
+          }
+          obj[struct.name] = struct.type === "function" ? _api_scope(scope, struct.val, struct) : struct.type === "object" ? {} : struct.val;
           obj[struct.name].__dt_wrapper = true;
           _Api.extend(scope, obj[struct.name], struct.propExt);
         }
@@ -9598,19 +9784,11 @@ var require_jquery_dataTables = __commonJS({
           }
           return;
         }
-        var i2, ien, heir = name.split("."), struct = __apiStruct, key, method;
-        var find = function(src2, name2) {
-          for (var i3 = 0, ien2 = src2.length; i3 < ien2; i3++) {
-            if (src2[i3].name === name2) {
-              return src2[i3];
-            }
-          }
-          return null;
-        };
-        for (i2 = 0, ien = heir.length; i2 < ien; i2++) {
+        var i2, iLen, heir = name.split("."), struct = __apiStruct, key, method;
+        for (i2 = 0, iLen = heir.length; i2 < iLen; i2++) {
           method = heir[i2].indexOf("()") !== -1;
           key = method ? heir[i2].replace("()", "") : heir[i2];
-          var src = find(struct, key);
+          var src = _api_find(struct, key);
           if (!src) {
             src = {
               name: key,
@@ -9621,7 +9799,7 @@ var require_jquery_dataTables = __commonJS({
             };
             struct.push(src);
           }
-          if (i2 === ien - 1) {
+          if (i2 === iLen - 1) {
             src.val = val;
             src.type = typeof val === "function" ? "function" : $2.isPlainObject(val) ? "object" : "other";
           } else {
@@ -9636,60 +9814,120 @@ var require_jquery_dataTables = __commonJS({
           if (ret === this) {
             return this;
           } else if (ret instanceof _Api) {
-            return ret.length ? Array.isArray(ret[0]) ? new _Api(ret.context, ret[0]) : ret[0] : undefined2;
+            return ret.length ? Array.isArray(ret[0]) ? new _Api(ret.context, ret[0]) : ret[0] : void 0;
           }
           return ret;
         });
       };
       var __table_selector = function(selector, a) {
         if (Array.isArray(selector)) {
-          return $2.map(selector, function(item) {
-            return __table_selector(item, a);
+          var result = [];
+          selector.forEach(function(sel) {
+            var inner = __table_selector(sel, a);
+            _fnArrayApply(result, inner);
+          });
+          return result.filter(function(item) {
+            return item;
           });
         }
         if (typeof selector === "number") {
           return [a[selector]];
         }
-        var nodes = $2.map(a, function(el, i2) {
+        var nodes = a.map(function(el) {
           return el.nTable;
         });
-        return $2(nodes).filter(selector).map(function(i2) {
-          var idx = $2.inArray(this, nodes);
+        return $2(nodes).filter(selector).map(function() {
+          var idx = nodes.indexOf(this);
           return a[idx];
         }).toArray();
       };
       _api_register("tables()", function(selector) {
-        return selector !== undefined2 && selector !== null ? new _Api(__table_selector(selector, this.context)) : this;
+        return selector !== void 0 && selector !== null ? new _Api(__table_selector(selector, this.context)) : this;
       });
       _api_register("table()", function(selector) {
         var tables = this.tables(selector);
         var ctx = tables.context;
         return ctx.length ? new _Api(ctx[0]) : tables;
       });
-      _api_registerPlural("tables().nodes()", "table().node()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTable;
-        }, 1);
+      [
+        ["nodes", "node", "nTable"],
+        ["body", "body", "nTBody"],
+        ["header", "header", "nTHead"],
+        ["footer", "footer", "nTFoot"]
+      ].forEach(function(item) {
+        _api_registerPlural(
+          "tables()." + item[0] + "()",
+          "table()." + item[1] + "()",
+          function() {
+            return this.iterator("table", function(ctx) {
+              return ctx[item[2]];
+            }, 1);
+          }
+        );
       });
-      _api_registerPlural("tables().body()", "table().body()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTBody;
-        }, 1);
-      });
-      _api_registerPlural("tables().header()", "table().header()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTHead;
-        }, 1);
-      });
-      _api_registerPlural("tables().footer()", "table().footer()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTFoot;
-        }, 1);
+      [
+        ["header", "aoHeader"],
+        ["footer", "aoFooter"]
+      ].forEach(function(item) {
+        _api_register("table()." + item[0] + ".structure()", function(selector) {
+          var indexes = this.columns(selector).indexes().flatten().toArray();
+          var ctx = this.context[0];
+          var structure = _fnHeaderLayout(ctx, ctx[item[1]], indexes);
+          var orderedIndexes = indexes.slice().sort(function(a, b) {
+            return a - b;
+          });
+          return structure.map(function(row) {
+            return indexes.map(function(colIdx) {
+              return row[orderedIndexes.indexOf(colIdx)];
+            });
+          });
+        });
       });
       _api_registerPlural("tables().containers()", "table().container()", function() {
         return this.iterator("table", function(ctx) {
           return ctx.nTableWrapper;
         }, 1);
+      });
+      _api_register("tables().every()", function(fn) {
+        var that = this;
+        return this.iterator("table", function(s, i2) {
+          fn.call(that.table(i2), i2);
+        });
+      });
+      _api_register("caption()", function(value, side) {
+        var context = this.context;
+        if (value === void 0) {
+          var caption = context[0].captionNode;
+          return caption && context.length ? caption.innerHTML : null;
+        }
+        return this.iterator("table", function(ctx) {
+          var table = $2(ctx.nTable);
+          var caption2 = $2(ctx.captionNode);
+          var container = $2(ctx.nTableWrapper);
+          if (!caption2.length) {
+            caption2 = $2("<caption/>").html(value);
+            ctx.captionNode = caption2[0];
+            if (!side) {
+              table.prepend(caption2);
+              side = caption2.css("caption-side");
+            }
+          }
+          caption2.html(value);
+          if (side) {
+            caption2.css("caption-side", side);
+            caption2[0]._captionSide = side;
+          }
+          if (container.find("div.dataTables_scroll").length) {
+            var selector = side === "top" ? "Head" : "Foot";
+            container.find("div.dataTables_scroll" + selector + " table").prepend(caption2);
+          } else {
+            table.prepend(caption2);
+          }
+        }, 1);
+      });
+      _api_register("caption.node()", function() {
+        var ctx = this.context;
+        return ctx.length ? ctx[0].captionNode : null;
       });
       _api_register("draw()", function(paging) {
         return this.iterator("table", function(settings) {
@@ -9704,16 +9942,16 @@ var require_jquery_dataTables = __commonJS({
         });
       });
       _api_register("page()", function(action) {
-        if (action === undefined2) {
+        if (action === void 0) {
           return this.page.info().page;
         }
         return this.iterator("table", function(settings) {
           _fnPageChange(settings, action);
         });
       });
-      _api_register("page.info()", function(action) {
+      _api_register("page.info()", function() {
         if (this.context.length === 0) {
-          return undefined2;
+          return void 0;
         }
         var settings = this.context[0], start = settings._iDisplayStart, len = settings.oFeatures.bPaginate ? settings._iDisplayLength : -1, visRecords = settings.fnRecordsDisplay(), all = len === -1;
         return {
@@ -9728,8 +9966,8 @@ var require_jquery_dataTables = __commonJS({
         };
       });
       _api_register("page.len()", function(len) {
-        if (len === undefined2) {
-          return this.context.length !== 0 ? this.context[0]._iDisplayLength : undefined2;
+        if (len === void 0) {
+          return this.context.length !== 0 ? this.context[0]._iDisplayLength : void 0;
         }
         return this.iterator("table", function(settings) {
           _fnLengthChange(settings, len);
@@ -9750,13 +9988,14 @@ var require_jquery_dataTables = __commonJS({
           if (xhr && xhr.readyState !== 4) {
             xhr.abort();
           }
-          _fnBuildAjax(settings, [], function(json) {
+          _fnBuildAjax(settings, {}, function(json) {
             _fnClearTable(settings);
             var data = _fnAjaxDataSrc(settings, json);
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
               _fnAddData(settings, data[i2]);
             }
             _fnReDraw(settings, holdPosition);
+            _fnInitComplete(settings);
             _fnProcessingDisplay(settings, false);
           });
         }
@@ -9780,12 +10019,12 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("ajax.url()", function(url) {
         var ctx = this.context;
-        if (url === undefined2) {
+        if (url === void 0) {
           if (ctx.length === 0) {
-            return undefined2;
+            return void 0;
           }
           ctx = ctx[0];
-          return ctx.ajax ? $2.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax : ctx.sAjaxSource;
+          return $2.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
         }
         return this.iterator("table", function(settings) {
           if ($2.isPlainObject(settings.ajax)) {
@@ -9801,22 +10040,22 @@ var require_jquery_dataTables = __commonJS({
         });
       });
       var _selector_run = function(type, selector, selectFn, settings, opts) {
-        var out = [], res, a, i2, ien, j, jen, selectorType = typeof selector;
-        if (!selector || selectorType === "string" || selectorType === "function" || selector.length === undefined2) {
+        var out = [], res, i2, iLen, selectorType = typeof selector;
+        if (!selector || selectorType === "string" || selectorType === "function" || selector.length === void 0) {
           selector = [selector];
         }
-        for (i2 = 0, ien = selector.length; i2 < ien; i2++) {
-          a = selector[i2] && selector[i2].split && !selector[i2].match(/[\[\(:]/) ? selector[i2].split(",") : [selector[i2]];
-          for (j = 0, jen = a.length; j < jen; j++) {
-            res = selectFn(typeof a[j] === "string" ? a[j].trim() : a[j]);
-            if (res && res.length) {
-              out = out.concat(res);
-            }
+        for (i2 = 0, iLen = selector.length; i2 < iLen; i2++) {
+          res = selectFn(typeof selector[i2] === "string" ? selector[i2].trim() : selector[i2]);
+          res = res.filter(function(item) {
+            return item !== null && item !== void 0;
+          });
+          if (res && res.length) {
+            out = out.concat(res);
           }
         }
         var ext = _ext.selector[type];
         if (ext.length) {
-          for (i2 = 0, ien = ext.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = ext.length; i2 < iLen; i2++) {
             out = ext[i2](settings, opts, out);
           }
         }
@@ -9826,35 +10065,35 @@ var require_jquery_dataTables = __commonJS({
         if (!opts) {
           opts = {};
         }
-        if (opts.filter && opts.search === undefined2) {
+        if (opts.filter && opts.search === void 0) {
           opts.search = opts.filter;
         }
         return $2.extend({
+          columnOrder: "implied",
           search: "none",
           order: "current",
           page: "all"
         }, opts);
       };
-      var _selector_first = function(inst) {
-        for (var i2 = 0, ien = inst.length; i2 < ien; i2++) {
-          if (inst[i2].length > 0) {
-            inst[0] = inst[i2];
-            inst[0].length = 1;
-            inst.length = 1;
-            inst.context = [inst.context[i2]];
-            return inst;
-          }
+      var _selector_first = function(old) {
+        var inst = new _Api(old.context[0]);
+        if (old.length) {
+          inst.push(old[0]);
         }
-        inst.length = 0;
+        inst.selector = old.selector;
+        if (inst.length && inst[0].length > 1) {
+          inst[0].splice(1);
+        }
         return inst;
       };
       var _selector_row_indexes = function(settings, opts) {
-        var i2, ien, tmp, a = [], displayFiltered = settings.aiDisplay, displayMaster = settings.aiDisplayMaster;
+        var i2, iLen, tmp, a = [], displayFiltered = settings.aiDisplay, displayMaster = settings.aiDisplayMaster;
         var search = opts.search, order = opts.order, page = opts.page;
         if (_fnDataSource(settings) == "ssp") {
           return search === "removed" ? [] : _range(0, displayMaster.length);
-        } else if (page == "current") {
-          for (i2 = settings._iDisplayStart, ien = settings.fnDisplayEnd(); i2 < ien; i2++) {
+        }
+        if (page == "current") {
+          for (i2 = settings._iDisplayStart, iLen = settings.fnDisplayEnd(); i2 < iLen; i2++) {
             a.push(displayFiltered[i2]);
           }
         } else if (order == "current" || order == "applied") {
@@ -9864,21 +10103,38 @@ var require_jquery_dataTables = __commonJS({
             a = displayFiltered.slice();
           } else if (search == "removed") {
             var displayFilteredMap = {};
-            for (var i2 = 0, ien = displayFiltered.length; i2 < ien; i2++) {
+            for (i2 = 0, iLen = displayFiltered.length; i2 < iLen; i2++) {
               displayFilteredMap[displayFiltered[i2]] = null;
             }
-            a = $2.map(displayMaster, function(el) {
-              return !displayFilteredMap.hasOwnProperty(el) ? el : null;
+            displayMaster.forEach(function(item) {
+              if (!Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
+                a.push(item);
+              }
             });
           }
         } else if (order == "index" || order == "original") {
-          for (i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = settings.aoData.length; i2 < iLen; i2++) {
+            if (!settings.aoData[i2]) {
+              continue;
+            }
             if (search == "none") {
               a.push(i2);
             } else {
-              tmp = $2.inArray(i2, displayFiltered);
+              tmp = displayFiltered.indexOf(i2);
               if (tmp === -1 && search == "removed" || tmp >= 0 && search == "applied") {
                 a.push(i2);
+              }
+            }
+          }
+        } else if (typeof order === "number") {
+          var ordered = _fnSort(settings, order, "asc");
+          if (search === "none") {
+            a = ordered;
+          } else {
+            for (i2 = 0; i2 < ordered.length; i2++) {
+              tmp = displayFiltered.indexOf(ordered[i2]);
+              if (tmp === -1 && search == "removed" || tmp >= 0 && search == "applied") {
+                a.push(ordered[i2]);
               }
             }
           }
@@ -9889,7 +10145,6 @@ var require_jquery_dataTables = __commonJS({
         var rows;
         var run = function(sel) {
           var selInt = _intVal(sel);
-          var i2, ien;
           var aoData = settings.aoData;
           if (selInt !== null && !opts) {
             return [selInt];
@@ -9897,13 +10152,13 @@ var require_jquery_dataTables = __commonJS({
           if (!rows) {
             rows = _selector_row_indexes(settings, opts);
           }
-          if (selInt !== null && $2.inArray(selInt, rows) !== -1) {
+          if (selInt !== null && rows.indexOf(selInt) !== -1) {
             return [selInt];
-          } else if (sel === null || sel === undefined2 || sel === "") {
+          } else if (sel === null || sel === void 0 || sel === "") {
             return rows;
           }
           if (typeof sel === "function") {
-            return $2.map(rows, function(idx) {
+            return rows.map(function(idx) {
               var row = aoData[idx];
               return sel(idx, row._aData, row.nTr) ? idx : null;
             });
@@ -9911,7 +10166,7 @@ var require_jquery_dataTables = __commonJS({
           if (sel.nodeName) {
             var rowIdx = sel._DT_RowIndex;
             var cellIdx = sel._DT_CellIndex;
-            if (rowIdx !== undefined2) {
+            if (rowIdx !== void 0) {
               return aoData[rowIdx] && aoData[rowIdx].nTr === sel ? [rowIdx] : [];
             } else if (cellIdx) {
               return aoData[cellIdx.row] && aoData[cellIdx.row].nTr === sel.parentNode ? [cellIdx.row] : [];
@@ -9922,7 +10177,7 @@ var require_jquery_dataTables = __commonJS({
           }
           if (typeof sel === "string" && sel.charAt(0) === "#") {
             var rowObj = settings.aIds[sel.replace(/^#/, "")];
-            if (rowObj !== undefined2) {
+            if (rowObj !== void 0) {
               return [rowObj.idx];
             }
           }
@@ -9933,10 +10188,14 @@ var require_jquery_dataTables = __commonJS({
             return this._DT_RowIndex;
           }).toArray();
         };
-        return _selector_run("row", selector, run, settings, opts);
+        var matched = _selector_run("row", selector, run, settings, opts);
+        if (opts.order === "current" || opts.order === "applied") {
+          _fnSortDisplay(settings, matched);
+        }
+        return matched;
       };
       _api_register("rows()", function(selector, opts) {
-        if (selector === undefined2) {
+        if (selector === void 0) {
           selector = "";
         } else if ($2.isPlainObject(selector)) {
           opts = selector;
@@ -9952,7 +10211,7 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("rows().nodes()", function() {
         return this.iterator("row", function(settings, row) {
-          return settings.aoData[row].nTr || undefined2;
+          return settings.aoData[row].nTr || void 0;
         }, 1);
       });
       _api_register("rows().data()", function() {
@@ -9979,7 +10238,7 @@ var require_jquery_dataTables = __commonJS({
       _api_registerPlural("rows().ids()", "row().id()", function(hash) {
         var a = [];
         var context = this.context;
-        for (var i2 = 0, ien = context.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = context.length; i2 < iLen; i2++) {
           for (var j = 0, jen = this[i2].length; j < jen; j++) {
             var id = context[i2].rowIdFn(context[i2].aoData[this[i2][j]]._aData);
             a.push((hash === true ? "#" : "") + id);
@@ -9988,49 +10247,30 @@ var require_jquery_dataTables = __commonJS({
         return new _Api(context, a);
       });
       _api_registerPlural("rows().remove()", "row().remove()", function() {
-        var that = this;
-        this.iterator("row", function(settings, row, thatIdx) {
+        this.iterator("row", function(settings, row) {
           var data = settings.aoData;
           var rowData = data[row];
-          var i2, ien, j, jen;
-          var loopRow, loopCells;
-          data.splice(row, 1);
-          for (i2 = 0, ien = data.length; i2 < ien; i2++) {
-            loopRow = data[i2];
-            loopCells = loopRow.anCells;
-            if (loopRow.nTr !== null) {
-              loopRow.nTr._DT_RowIndex = i2;
-            }
-            if (loopCells !== null) {
-              for (j = 0, jen = loopCells.length; j < jen; j++) {
-                loopCells[j]._DT_CellIndex.row = i2;
-              }
-            }
+          var idx = settings.aiDisplayMaster.indexOf(row);
+          if (idx !== -1) {
+            settings.aiDisplayMaster.splice(idx, 1);
           }
-          _fnDeleteIndex(settings.aiDisplayMaster, row);
-          _fnDeleteIndex(settings.aiDisplay, row);
-          _fnDeleteIndex(that[thatIdx], row, false);
           if (settings._iRecordsDisplay > 0) {
             settings._iRecordsDisplay--;
           }
           _fnLengthOverflow(settings);
           var id = settings.rowIdFn(rowData._aData);
-          if (id !== undefined2) {
+          if (id !== void 0) {
             delete settings.aIds[id];
           }
-        });
-        this.iterator("table", function(settings) {
-          for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-            settings.aoData[i2].idx = i2;
-          }
+          data[row] = null;
         });
         return this;
       });
       _api_register("rows.add()", function(rows) {
         var newRows = this.iterator("table", function(settings) {
-          var row, i2, ien;
+          var row, i2, iLen;
           var out = [];
-          for (i2 = 0, ien = rows.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
             row = rows[i2];
             if (row.nodeName && row.nodeName.toUpperCase() === "TR") {
               out.push(_fnAddTr(settings, row)[0]);
@@ -10042,7 +10282,7 @@ var require_jquery_dataTables = __commonJS({
         }, 1);
         var modRows = this.rows(-1);
         modRows.pop();
-        $2.merge(modRows, newRows);
+        _fnArrayApply(modRows, newRows);
         return modRows;
       });
       _api_register("row()", function(selector, opts) {
@@ -10050,8 +10290,8 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("row().data()", function(data) {
         var ctx = this.context;
-        if (data === undefined2) {
-          return ctx.length && this.length ? ctx[0].aoData[this[0]]._aData : undefined2;
+        if (data === void 0) {
+          return ctx.length && this.length && this[0].length ? ctx[0].aoData[this[0]]._aData : void 0;
         }
         var row = ctx[0].aoData[this[0]];
         row._aData = data;
@@ -10063,7 +10303,13 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("row().node()", function() {
         var ctx = this.context;
-        return ctx.length && this.length ? ctx[0].aoData[this[0]].nTr || null : null;
+        if (ctx.length && this.length && this[0].length) {
+          var row = ctx[0].aoData[this[0]];
+          if (row && row.nTr) {
+            return row.nTr;
+          }
+        }
+        return null;
       });
       _api_register("row.add()", function(row) {
         if (row instanceof $2 && row.length) {
@@ -10079,46 +10325,48 @@ var require_jquery_dataTables = __commonJS({
       });
       $2(document2).on("plugin-init.dt", function(e, context) {
         var api = new _Api(context);
-        var namespace = "on-plugin-init";
-        var stateSaveParamsEvent = "stateSaveParams." + namespace;
-        var destroyEvent = "destroy. " + namespace;
-        api.on(stateSaveParamsEvent, function(e2, settings, d) {
+        api.on("stateSaveParams.DT", function(e2, settings, d) {
           var idFn = settings.rowIdFn;
-          var data = settings.aoData;
+          var rows = settings.aiDisplayMaster;
           var ids = [];
-          for (var i2 = 0; i2 < data.length; i2++) {
-            if (data[i2]._detailsShow) {
-              ids.push("#" + idFn(data[i2]._aData));
+          for (var i2 = 0; i2 < rows.length; i2++) {
+            var rowIdx = rows[i2];
+            var data = settings.aoData[rowIdx];
+            if (data._detailsShow) {
+              ids.push("#" + idFn(data._aData));
             }
           }
           d.childRows = ids;
         });
-        api.on(destroyEvent, function() {
-          api.off(stateSaveParamsEvent + " " + destroyEvent);
+        api.on("stateLoaded.DT", function(e2, settings, state) {
+          __details_state_load(api, state);
         });
-        var loaded = api.state.loaded();
-        if (loaded && loaded.childRows) {
-          api.rows($2.map(loaded.childRows, function(id) {
-            return id.replace(/:/g, "\\:");
+        __details_state_load(api, api.state.loaded());
+      });
+      var __details_state_load = function(api, state) {
+        if (state && state.childRows) {
+          api.rows(state.childRows.map(function(id) {
+            return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, "$1\\:");
           })).every(function() {
-            _fnCallbackFire(context, null, "requestChild", [this]);
+            _fnCallbackFire(api.settings()[0], null, "requestChild", [this]);
           });
         }
-      });
+      };
       var __details_add = function(ctx, row, data, klass) {
         var rows = [];
         var addRow = function(r, k) {
           if (Array.isArray(r) || r instanceof $2) {
-            for (var i2 = 0, ien = r.length; i2 < ien; i2++) {
+            for (var i2 = 0, iLen = r.length; i2 < iLen; i2++) {
               addRow(r[i2], k);
             }
             return;
           }
           if (r.nodeName && r.nodeName.toLowerCase() === "tr") {
+            r.setAttribute("data-dt-row", row.idx);
             rows.push(r);
           } else {
-            var created = $2("<tr><td></td></tr>").addClass(k);
-            $2("td", created).addClass(k).html(r)[0].colSpan = _fnVisbleColumns(ctx);
+            var created = $2("<tr><td></td></tr>").attr("data-dt-row", row.idx).addClass(k);
+            $2("td", created).addClass(k).html(r)[0].colSpan = _fnVisibleColumns(ctx);
             rows.push(created[0]);
           }
         };
@@ -10140,11 +10388,11 @@ var require_jquery_dataTables = __commonJS({
       var __details_remove = function(api, idx) {
         var ctx = api.context;
         if (ctx.length) {
-          var row = ctx[0].aoData[idx !== undefined2 ? idx : api[0]];
+          var row = ctx[0].aoData[idx !== void 0 ? idx : api[0]];
           if (row && row._details) {
-            row._details.remove();
-            row._detailsShow = undefined2;
-            row._details = undefined2;
+            row._details.detach();
+            row._detailsShow = void 0;
+            row._details = void 0;
             $2(row.nTr).removeClass("dt-hasChild");
             __details_state(ctx);
           }
@@ -10189,14 +10437,14 @@ var require_jquery_dataTables = __commonJS({
               }
             });
           });
-          api.on(colvisEvent, function(e, ctx, idx, vis) {
+          api.on(colvisEvent, function(e, ctx) {
             if (settings !== ctx) {
               return;
             }
-            var row, visible = _fnVisbleColumns(ctx);
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+            var row, visible = _fnVisibleColumns(ctx);
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
               row = data[i2];
-              if (row._details) {
+              if (row && row._details) {
                 row._details.each(function() {
                   var el = $2(this).children("td");
                   if (el.length == 1) {
@@ -10210,8 +10458,8 @@ var require_jquery_dataTables = __commonJS({
             if (settings !== ctx) {
               return;
             }
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
-              if (data[i2]._details) {
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
+              if (data[i2] && data[i2]._details) {
                 __details_remove(api, i2);
               }
             }
@@ -10223,8 +10471,8 @@ var require_jquery_dataTables = __commonJS({
       var _child_mth = _child_obj + "()";
       _api_register(_child_mth, function(data, klass) {
         var ctx = this.context;
-        if (data === undefined2) {
-          return ctx.length && this.length ? ctx[0].aoData[this[0]]._details : undefined2;
+        if (data === void 0) {
+          return ctx.length && this.length && ctx[0].aoData[this[0]] ? ctx[0].aoData[this[0]]._details : void 0;
         } else if (data === true) {
           this.child.show();
         } else if (data === false) {
@@ -10237,7 +10485,7 @@ var require_jquery_dataTables = __commonJS({
       _api_register([
         _child_obj + ".show()",
         _child_mth + ".show()"
-      ], function(show) {
+      ], function() {
         __details_display(this, true);
         return this;
       });
@@ -10257,21 +10505,57 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register(_child_obj + ".isShown()", function() {
         var ctx = this.context;
-        if (ctx.length && this.length) {
+        if (ctx.length && this.length && ctx[0].aoData[this[0]]) {
           return ctx[0].aoData[this[0]]._detailsShow || false;
         }
         return false;
       });
-      var __re_column_selector = /^([^:]+):(name|visIdx|visible)$/;
-      var __columnData = function(settings, column, r1, r2, rows) {
+      var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
+      var __columnData = function(settings, column, r1, r2, rows, type) {
         var a = [];
-        for (var row = 0, ien = rows.length; row < ien; row++) {
-          a.push(_fnGetCellData(settings, rows[row], column));
+        for (var row = 0, iLen = rows.length; row < iLen; row++) {
+          a.push(_fnGetCellData(settings, rows[row], column, type));
         }
         return a;
       };
+      var __column_header = function(settings, column, row) {
+        var header = settings.aoHeader;
+        var titleRow = settings.titleRow;
+        var target = null;
+        if (row !== void 0) {
+          target = row;
+        } else if (titleRow === true) {
+          target = 0;
+        } else if (titleRow === false) {
+          target = header.length - 1;
+        } else if (titleRow !== null) {
+          target = titleRow;
+        } else {
+          for (var i2 = 0; i2 < header.length; i2++) {
+            if (header[i2][column].unique && $2(".dt-column-title", header[i2][column].cell).text()) {
+              target = i2;
+            }
+          }
+          if (target === null) {
+            target = 0;
+          }
+        }
+        return header[target][column].cell;
+      };
+      var __column_header_cells = function(header) {
+        var out = [];
+        for (var i2 = 0; i2 < header.length; i2++) {
+          for (var j = 0; j < header[i2].length; j++) {
+            var cell = header[i2][j].cell;
+            if (!out.includes(cell)) {
+              out.push(cell);
+            }
+          }
+        }
+        return out;
+      };
       var __column_selector = function(settings, selector, opts) {
-        var columns = settings.aoColumns, names = _pluck(columns, "sName"), nodes = _pluck(columns, "nTh");
+        var columns = settings.aoColumns, names, titles, nodes = __column_header_cells(settings.aoHeader);
         var run = function(s) {
           var selInt = _intVal(s);
           if (s === "") {
@@ -10284,11 +10568,11 @@ var require_jquery_dataTables = __commonJS({
           }
           if (typeof s === "function") {
             var rows = _selector_row_indexes(settings, opts);
-            return $2.map(columns, function(col, idx2) {
+            return columns.map(function(col, idx2) {
               return s(
                 idx2,
                 __columnData(settings, idx2, 0, 0, rows),
-                nodes[idx2]
+                __column_header(settings, idx2)
               ) ? idx2 : null;
             });
           }
@@ -10297,17 +10581,41 @@ var require_jquery_dataTables = __commonJS({
             switch (match[2]) {
               case "visIdx":
               case "visible":
-                var idx = parseInt(match[1], 10);
-                if (idx < 0) {
-                  var visColumns = $2.map(columns, function(col, i2) {
-                    return col.bVisible ? i2 : null;
-                  });
-                  return [visColumns[visColumns.length + idx]];
+                if (match[1] && match[1].match(/^\d+$/)) {
+                  var idx = parseInt(match[1], 10);
+                  if (idx < 0) {
+                    var visColumns = columns.map(function(col, i2) {
+                      return col.bVisible ? i2 : null;
+                    });
+                    return [visColumns[visColumns.length + idx]];
+                  }
+                  return [_fnVisibleToColumnIndex(settings, idx)];
                 }
-                return [_fnVisibleToColumnIndex(settings, idx)];
+                return columns.map(function(col, idx2) {
+                  if (!col.bVisible) {
+                    return null;
+                  }
+                  if (col.responsiveVisible === false) {
+                    return null;
+                  }
+                  if (match[1]) {
+                    return $2(nodes[idx2]).filter(match[1]).length > 0 ? idx2 : null;
+                  }
+                  return idx2;
+                });
               case "name":
-                return $2.map(names, function(name, i2) {
+                if (!names) {
+                  names = _pluck(columns, "sName");
+                }
+                return names.map(function(name, i2) {
                   return name === match[1] ? i2 : null;
+                });
+              case "title":
+                if (!titles) {
+                  titles = _pluck(columns, "sTitle");
+                }
+                return titles.map(function(title, i2) {
+                  return title === match[1] ? i2 : null;
                 });
               default:
                 return [];
@@ -10317,40 +10625,49 @@ var require_jquery_dataTables = __commonJS({
             return [s._DT_CellIndex.column];
           }
           var jqResult = $2(nodes).filter(s).map(function() {
-            return $2.inArray(this, nodes);
-          }).toArray();
+            return _fnColumnsFromHeader(this);
+          }).toArray().sort(function(a, b) {
+            return a - b;
+          });
           if (jqResult.length || !s.nodeName) {
             return jqResult;
           }
           var host = $2(s).closest("*[data-dt-column]");
           return host.length ? [host.data("dt-column")] : [];
         };
-        return _selector_run("column", selector, run, settings, opts);
+        var selected = _selector_run("column", selector, run, settings, opts);
+        return opts.columnOrder && opts.columnOrder === "index" ? selected.sort(function(a, b) {
+          return a - b;
+        }) : selected;
       };
       var __setColumnVis = function(settings, column, vis) {
-        var cols = settings.aoColumns, col = cols[column], data = settings.aoData, row, cells, i2, ien, tr;
-        if (vis === undefined2) {
+        var cols = settings.aoColumns, col = cols[column], data = settings.aoData, cells, i2, iLen, tr;
+        if (vis === void 0) {
           return col.bVisible;
         }
         if (col.bVisible === vis) {
-          return;
+          return false;
         }
         if (vis) {
-          var insertBefore = $2.inArray(true, _pluck(cols, "bVisible"), column + 1);
-          for (i2 = 0, ien = data.length; i2 < ien; i2++) {
-            tr = data[i2].nTr;
-            cells = data[i2].anCells;
-            if (tr) {
-              tr.insertBefore(cells[column], cells[insertBefore] || null);
+          var insertBefore = _pluck(cols, "bVisible").indexOf(true, column + 1);
+          for (i2 = 0, iLen = data.length; i2 < iLen; i2++) {
+            if (data[i2]) {
+              tr = data[i2].nTr;
+              cells = data[i2].anCells;
+              if (tr) {
+                tr.insertBefore(cells[column], cells[insertBefore] || null);
+              }
             }
           }
         } else {
           $2(_pluck(settings.aoData, "anCells", column)).detach();
         }
         col.bVisible = vis;
+        _colGroup(settings);
+        return true;
       };
       _api_register("columns()", function(selector, opts) {
-        if (selector === undefined2) {
+        if (selector === void 0) {
           selector = "";
         } else if ($2.isPlainObject(selector)) {
           opts = selector;
@@ -10364,18 +10681,27 @@ var require_jquery_dataTables = __commonJS({
         inst.selector.opts = opts;
         return inst;
       });
-      _api_registerPlural("columns().header()", "column().header()", function(selector, opts) {
+      _api_registerPlural("columns().header()", "column().header()", function(row) {
         return this.iterator("column", function(settings, column) {
-          return settings.aoColumns[column].nTh;
+          return __column_header(settings, column, row);
         }, 1);
       });
-      _api_registerPlural("columns().footer()", "column().footer()", function(selector, opts) {
+      _api_registerPlural("columns().footer()", "column().footer()", function(row) {
         return this.iterator("column", function(settings, column) {
-          return settings.aoColumns[column].nTf;
+          var footer = settings.aoFooter;
+          if (!footer.length) {
+            return null;
+          }
+          return settings.aoFooter[row !== void 0 ? row : 0][column].cell;
         }, 1);
       });
       _api_registerPlural("columns().data()", "column().data()", function() {
         return this.iterator("column-rows", __columnData, 1);
+      });
+      _api_registerPlural("columns().render()", "column().render()", function(type) {
+        return this.iterator("column-rows", function(settings, column, i2, j, rows) {
+          return __columnData(settings, column, i2, j, rows, type);
+        }, 1);
       });
       _api_registerPlural("columns().dataSrc()", "column().dataSrc()", function() {
         return this.iterator("column", function(settings, column) {
@@ -10392,36 +10718,89 @@ var require_jquery_dataTables = __commonJS({
           );
         }, 1);
       });
+      _api_registerPlural("columns().init()", "column().init()", function() {
+        return this.iterator("column", function(settings, column) {
+          return settings.aoColumns[column];
+        }, 1);
+      });
+      _api_registerPlural("columns().names()", "column().name()", function() {
+        return this.iterator("column", function(settings, column) {
+          return settings.aoColumns[column].sName;
+        }, 1);
+      });
       _api_registerPlural("columns().nodes()", "column().nodes()", function() {
         return this.iterator("column-rows", function(settings, column, i2, j, rows) {
           return _pluck_order(settings.aoData, rows, "anCells", column);
         }, 1);
       });
+      _api_registerPlural("columns().titles()", "column().title()", function(title, row) {
+        return this.iterator("column", function(settings, column) {
+          if (typeof title === "number") {
+            row = title;
+            title = void 0;
+          }
+          var span = $2(".dt-column-title", this.column(column).header(row));
+          if (title !== void 0) {
+            span.html(title);
+            return this;
+          }
+          return span.html();
+        }, 1);
+      });
+      _api_registerPlural("columns().types()", "column().type()", function() {
+        return this.iterator("column", function(settings, column) {
+          var colObj = settings.aoColumns[column];
+          var type = colObj.sType;
+          if (!type) {
+            _fnColumnTypes(settings);
+            type = colObj.sType;
+          }
+          return type;
+        }, 1);
+      });
       _api_registerPlural("columns().visible()", "column().visible()", function(vis, calc) {
         var that = this;
+        var changed = [];
         var ret = this.iterator("column", function(settings, column) {
-          if (vis === undefined2) {
+          if (vis === void 0) {
             return settings.aoColumns[column].bVisible;
           }
-          __setColumnVis(settings, column, vis);
+          if (__setColumnVis(settings, column, vis)) {
+            changed.push(column);
+          }
         });
-        if (vis !== undefined2) {
+        if (vis !== void 0) {
           this.iterator("table", function(settings) {
             _fnDrawHead(settings, settings.aoHeader);
             _fnDrawHead(settings, settings.aoFooter);
             if (!settings.aiDisplay.length) {
-              $2(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisbleColumns(settings));
+              $2(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisibleColumns(settings));
             }
             _fnSaveState(settings);
             that.iterator("column", function(settings2, column) {
-              _fnCallbackFire(settings2, null, "column-visibility", [settings2, column, vis, calc]);
+              if (changed.includes(column)) {
+                _fnCallbackFire(settings2, null, "column-visibility", [settings2, column, vis, calc]);
+              }
             });
-            if (calc === undefined2 || calc) {
+            if (changed.length && (calc === void 0 || calc)) {
               that.columns.adjust();
             }
           });
         }
         return ret;
+      });
+      _api_registerPlural("columns().widths()", "column().width()", function() {
+        var columns = this.columns(":visible").count();
+        var row = $2("<tr>").html("<td>" + Array(columns).join("</td><td>") + "</td>");
+        $2(this.table().body()).append(row);
+        var widths = row.children().map(function() {
+          return $2(this).outerWidth();
+        });
+        row.remove();
+        return this.iterator("column", function(settings, column) {
+          var visIdx = _fnColumnIndexToVisible(settings, column);
+          return visIdx !== null ? widths[visIdx] : 0;
+        }, 1);
       });
       _api_registerPlural("columns().indexes()", "column().index()", function(type) {
         return this.iterator("column", function(settings, column) {
@@ -10430,6 +10809,7 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("columns.adjust()", function() {
         return this.iterator("table", function(settings) {
+          settings.containerWidth = -1;
           _fnAdjustColumnSizing(settings);
         }, 1);
       });
@@ -10453,12 +10833,12 @@ var require_jquery_dataTables = __commonJS({
         var allCells = $2(_flatten([], cells));
         var row;
         var columns = settings.aoColumns.length;
-        var a, i2, ien, j, o, host;
+        var a, i2, iLen, j, o, host;
         var run = function(s) {
           var fnSelector = typeof s === "function";
-          if (s === null || s === undefined2 || fnSelector) {
+          if (s === null || s === void 0 || fnSelector) {
             a = [];
-            for (i2 = 0, ien = rows.length; i2 < ien; i2++) {
+            for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
               row = rows[i2];
               for (j = 0; j < columns; j++) {
                 o = {
@@ -10478,7 +10858,7 @@ var require_jquery_dataTables = __commonJS({
             return a;
           }
           if ($2.isPlainObject(s)) {
-            return s.column !== undefined2 && s.row !== undefined2 && $2.inArray(s.row, rows) !== -1 ? [s] : [];
+            return s.column !== void 0 && s.row !== void 0 && rows.indexOf(s.row) !== -1 ? [s] : [];
           }
           var jqResult = allCells.filter(s).map(function(i3, el) {
             return {
@@ -10499,7 +10879,7 @@ var require_jquery_dataTables = __commonJS({
       };
       _api_register("cells()", function(rowSelector, columnSelector, opts) {
         if ($2.isPlainObject(rowSelector)) {
-          if (rowSelector.row === undefined2) {
+          if (rowSelector.row === void 0) {
             opts = rowSelector;
             rowSelector = null;
           } else {
@@ -10511,7 +10891,7 @@ var require_jquery_dataTables = __commonJS({
           opts = columnSelector;
           columnSelector = null;
         }
-        if (columnSelector === null || columnSelector === undefined2) {
+        if (columnSelector === null || columnSelector === void 0) {
           return this.iterator("table", function(settings) {
             return __cell_selector(settings, rowSelector, _selector_opts(opts));
           });
@@ -10523,10 +10903,10 @@ var require_jquery_dataTables = __commonJS({
         } : {};
         var columns = this.columns(columnSelector, internalOpts);
         var rows = this.rows(rowSelector, internalOpts);
-        var i2, ien, j, jen;
+        var i2, iLen, j, jen;
         var cellsNoOpts = this.iterator("table", function(settings, idx) {
           var a = [];
-          for (i2 = 0, ien = rows[idx].length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = rows[idx].length; i2 < iLen; i2++) {
             for (j = 0, jen = columns[idx].length; j < jen; j++) {
               a.push({
                 row: rows[idx][i2],
@@ -10547,7 +10927,7 @@ var require_jquery_dataTables = __commonJS({
       _api_registerPlural("cells().nodes()", "cell().node()", function() {
         return this.iterator("cell", function(settings, row, column) {
           var data = settings.aoData[row];
-          return data && data.anCells ? data.anCells[column] : undefined2;
+          return data && data.anCells ? data.anCells[column] : void 0;
         }, 1);
       });
       _api_register("cells().data()", function() {
@@ -10586,8 +10966,8 @@ var require_jquery_dataTables = __commonJS({
       _api_register("cell().data()", function(data) {
         var ctx = this.context;
         var cell = this[0];
-        if (data === undefined2) {
-          return ctx.length && cell.length ? _fnGetCellData(ctx[0], cell[0].row, cell[0].column) : undefined2;
+        if (data === void 0) {
+          return ctx.length && cell.length ? _fnGetCellData(ctx[0], cell[0].row, cell[0].column) : void 0;
         }
         _fnSetCellData(ctx[0], cell[0].row, cell[0].column, data);
         _fnInvalidate(ctx[0], cell[0].row, "data", cell[0].column);
@@ -10595,27 +10975,30 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("order()", function(order, dir) {
         var ctx = this.context;
-        if (order === undefined2) {
-          return ctx.length !== 0 ? ctx[0].aaSorting : undefined2;
+        var args = Array.prototype.slice.call(arguments);
+        if (order === void 0) {
+          return ctx.length !== 0 ? ctx[0].aaSorting : void 0;
         }
         if (typeof order === "number") {
           order = [[order, dir]];
-        } else if (order.length && !Array.isArray(order[0])) {
-          order = Array.prototype.slice.call(arguments);
+        } else if (args.length > 1) {
+          order = args;
         }
         return this.iterator("table", function(settings) {
-          settings.aaSorting = order.slice();
+          var resolved = [];
+          _fnSortResolve(settings, resolved, order);
+          settings.aaSorting = resolved;
         });
       });
       _api_register("order.listener()", function(node, column, callback) {
         return this.iterator("table", function(settings) {
-          _fnSortAttachListener(settings, node, column, callback);
+          _fnSortAttachListener(settings, node, {}, column, callback);
         });
       });
       _api_register("order.fixed()", function(set) {
         if (!set) {
           var ctx = this.context;
-          var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined2;
+          var fixed = ctx.length ? ctx[0].aaSortingFixed : void 0;
           return Array.isArray(fixed) ? { pre: fixed } : fixed;
         }
         return this.iterator("table", function(settings) {
@@ -10627,30 +11010,73 @@ var require_jquery_dataTables = __commonJS({
         "column().order()"
       ], function(dir) {
         var that = this;
-        return this.iterator("table", function(settings, i2) {
-          var sort = [];
-          $2.each(that[i2], function(j, col) {
-            sort.push([col, dir]);
+        if (!dir) {
+          return this.iterator("column", function(settings, idx) {
+            var sort = _fnSortFlatten(settings);
+            for (var i2 = 0, iLen = sort.length; i2 < iLen; i2++) {
+              if (sort[i2].col === idx) {
+                return sort[i2].dir;
+              }
+            }
+            return null;
+          }, 1);
+        } else {
+          return this.iterator("table", function(settings, i2) {
+            settings.aaSorting = that[i2].map(function(col) {
+              return [col, dir];
+            });
           });
-          settings.aaSorting = sort;
+        }
+      });
+      _api_registerPlural("columns().orderable()", "column().orderable()", function(directions) {
+        return this.iterator("column", function(settings, idx) {
+          var col = settings.aoColumns[idx];
+          return directions ? col.asSorting : col.bSortable;
+        }, 1);
+      });
+      _api_register("processing()", function(show) {
+        return this.iterator("table", function(ctx) {
+          _fnProcessingDisplay(ctx, show);
         });
       });
       _api_register("search()", function(input, regex, smart, caseInsen) {
         var ctx = this.context;
-        if (input === undefined2) {
-          return ctx.length !== 0 ? ctx[0].oPreviousSearch.sSearch : undefined2;
+        if (input === void 0) {
+          return ctx.length !== 0 ? ctx[0].oPreviousSearch.search : void 0;
         }
         return this.iterator("table", function(settings) {
           if (!settings.oFeatures.bFilter) {
             return;
           }
-          _fnFilterComplete(settings, $2.extend({}, settings.oPreviousSearch, {
-            "sSearch": input + "",
-            "bRegex": regex === null ? false : regex,
-            "bSmart": smart === null ? true : smart,
-            "bCaseInsensitive": caseInsen === null ? true : caseInsen
-          }), 1);
+          if (typeof regex === "object") {
+            _fnFilterComplete(settings, $2.extend(settings.oPreviousSearch, regex, {
+              search: input
+            }));
+          } else {
+            _fnFilterComplete(settings, $2.extend(settings.oPreviousSearch, {
+              search: input,
+              regex: regex === null ? false : regex,
+              smart: smart === null ? true : smart,
+              caseInsensitive: caseInsen === null ? true : caseInsen
+            }));
+          }
         });
+      });
+      _api_register("search.fixed()", function(name, search) {
+        var ret = this.iterator(true, "table", function(settings) {
+          var fixed = settings.searchFixed;
+          if (!name) {
+            return Object.keys(fixed);
+          } else if (search === void 0) {
+            return fixed[name];
+          } else if (search === null) {
+            delete fixed[name];
+          } else {
+            fixed[name] = search;
+          }
+          return this;
+        });
+        return name !== void 0 && search === void 0 ? ret[0] : ret;
       });
       _api_registerPlural(
         "columns().search()",
@@ -10658,24 +11084,62 @@ var require_jquery_dataTables = __commonJS({
         function(input, regex, smart, caseInsen) {
           return this.iterator("column", function(settings, column) {
             var preSearch = settings.aoPreSearchCols;
-            if (input === undefined2) {
-              return preSearch[column].sSearch;
+            if (input === void 0) {
+              return preSearch[column].search;
             }
             if (!settings.oFeatures.bFilter) {
               return;
             }
-            $2.extend(preSearch[column], {
-              "sSearch": input + "",
-              "bRegex": regex === null ? false : regex,
-              "bSmart": smart === null ? true : smart,
-              "bCaseInsensitive": caseInsen === null ? true : caseInsen
-            });
-            _fnFilterComplete(settings, settings.oPreviousSearch, 1);
+            if (typeof regex === "object") {
+              $2.extend(preSearch[column], regex, {
+                search: input
+              });
+            } else {
+              $2.extend(preSearch[column], {
+                search: input,
+                regex: regex === null ? false : regex,
+                smart: smart === null ? true : smart,
+                caseInsensitive: caseInsen === null ? true : caseInsen
+              });
+            }
+            _fnFilterComplete(settings, settings.oPreviousSearch);
           });
         }
       );
-      _api_register("state()", function() {
-        return this.context.length ? this.context[0].oSavedState : null;
+      _api_register(
+        [
+          "columns().search.fixed()",
+          "column().search.fixed()"
+        ],
+        function(name, search) {
+          var ret = this.iterator(true, "column", function(settings, colIdx) {
+            var fixed = settings.aoColumns[colIdx].searchFixed;
+            if (!name) {
+              return Object.keys(fixed);
+            } else if (search === void 0) {
+              return fixed[name] || null;
+            } else if (search === null) {
+              delete fixed[name];
+            } else {
+              fixed[name] = search;
+            }
+            return this;
+          });
+          return name !== void 0 && search === void 0 ? ret[0] : ret;
+        }
+      );
+      _api_register("state()", function(set, ignoreTime) {
+        if (!set) {
+          return this.context.length ? this.context[0].oSavedState : null;
+        }
+        var setMutate = $2.extend(true, {}, set);
+        return this.iterator("table", function(settings) {
+          if (ignoreTime !== false) {
+            setMutate.time = +new Date() + 100;
+          }
+          _fnImplementState(settings, setMutate, function() {
+          });
+        });
       });
       _api_register("state.clear()", function() {
         return this.iterator("table", function(settings) {
@@ -10690,14 +11154,47 @@ var require_jquery_dataTables = __commonJS({
           _fnSaveState(settings);
         });
       });
-      DataTable.use = function(module2, type) {
-        if (type === "lib" || module2.fn) {
+      var __bootstrap;
+      var __foundation;
+      DataTable.use = function(arg1, arg2) {
+        var module2 = typeof arg1 === "string" ? arg2 : arg1;
+        var type = typeof arg2 === "string" ? arg2 : arg1;
+        if (module2 === void 0 && typeof type === "string") {
+          switch (type) {
+            case "lib":
+            case "jq":
+              return $2;
+            case "win":
+              return window2;
+            case "datetime":
+              return DataTable.DateTime;
+            case "luxon":
+              return __luxon;
+            case "moment":
+              return __moment;
+            case "bootstrap":
+              return __bootstrap || window2.bootstrap;
+            case "foundation":
+              return __foundation || window2.Foundation;
+            default:
+              return null;
+          }
+        }
+        if (type === "lib" || type === "jq" || module2 && module2.fn && module2.fn.jquery) {
           $2 = module2;
-        } else if (type == "win" || module2.document) {
+        } else if (type === "win" || module2 && module2.document) {
           window2 = module2;
           document2 = module2.document;
-        } else if (type === "datetime" || module2.type === "DateTime") {
+        } else if (type === "datetime" || module2 && module2.type === "DateTime") {
           DataTable.DateTime = module2;
+        } else if (type === "luxon" || module2 && module2.FixedOffsetZone) {
+          __luxon = module2;
+        } else if (type === "moment" || module2 && module2.isMoment) {
+          __moment = module2;
+        } else if (type === "bootstrap" || module2 && module2.Modal && module2.Modal.NAME === "modal") {
+          __bootstrap = module2;
+        } else if (type === "foundation" || module2 && module2.Reveal) {
+          __foundation = module2;
         }
       };
       DataTable.factory = function(root, jq) {
@@ -10712,8 +11209,8 @@ var require_jquery_dataTables = __commonJS({
         }
         return is;
       };
-      DataTable.versionCheck = DataTable.fnVersionCheck = function(version) {
-        var aThis = DataTable.version.split(".");
+      DataTable.versionCheck = function(version, version2) {
+        var aThis = version2 ? version2.split(".") : DataTable.version.split(".");
         var aThat = version.split(".");
         var iThis, iThat;
         for (var i2 = 0, iLen = aThat.length; i2 < iLen; i2++) {
@@ -10726,7 +11223,7 @@ var require_jquery_dataTables = __commonJS({
         }
         return true;
       };
-      DataTable.isDataTable = DataTable.fnIsDataTable = function(table) {
+      DataTable.isDataTable = function(table) {
         var t = $2(table).get(0);
         var is = false;
         if (table instanceof DataTable.Api) {
@@ -10741,16 +11238,16 @@ var require_jquery_dataTables = __commonJS({
         });
         return is;
       };
-      DataTable.tables = DataTable.fnTables = function(visible) {
+      DataTable.tables = function(visible) {
         var api = false;
         if ($2.isPlainObject(visible)) {
           api = visible.api;
           visible = visible.visible;
         }
-        var a = $2.map(DataTable.settings, function(o) {
-          if (!visible || visible && $2(o.nTable).is(":visible")) {
-            return o.nTable;
-          }
+        var a = DataTable.settings.filter(function(o) {
+          return !visible || visible && $2(o.nTable).is(":visible") ? true : false;
+        }).map(function(o) {
+          return o.nTable;
         });
         return api ? new _Api(a) : a;
       };
@@ -10765,7 +11262,7 @@ var require_jquery_dataTables = __commonJS({
       $2.each(["on", "one", "off"], function(i2, key) {
         _api_register(key + "()", function() {
           var args = Array.prototype.slice.call(arguments);
-          args[0] = $2.map(args[0].split(/\s/), function(e) {
+          args[0] = args[0].split(/\s/).map(function(e) {
             return !e.match(/\.dt\b/) ? e + ".dt" : e;
           }).join(" ");
           var inst = $2(this.tables().nodes());
@@ -10776,6 +11273,11 @@ var require_jquery_dataTables = __commonJS({
       _api_register("clear()", function() {
         return this.iterator("table", function(settings) {
           _fnClearTable(settings);
+        });
+      });
+      _api_register("error()", function(msg) {
+        return this.iterator("table", function(settings) {
+          _fnLog(settings, 0, msg);
         });
       });
       _api_register("settings()", function() {
@@ -10790,6 +11292,27 @@ var require_jquery_dataTables = __commonJS({
           return _pluck(settings.aoData, "_aData");
         }).flatten();
       });
+      _api_register("trigger()", function(name, args, bubbles) {
+        return this.iterator("table", function(settings) {
+          return _fnCallbackFire(settings, null, name, args, bubbles);
+        }).flatten();
+      });
+      _api_register("ready()", function(fn) {
+        var ctx = this.context;
+        if (!fn) {
+          return ctx.length ? ctx[0]._bInitComplete || false : null;
+        }
+        return this.tables().every(function() {
+          var api = this;
+          if (this.context[0]._bInitComplete) {
+            fn.call(api);
+          } else {
+            this.on("init.dt.DT", function() {
+              fn.call(api);
+            });
+          }
+        });
+      });
       _api_register("destroy()", function(remove) {
         remove = remove || false;
         return this.iterator("table", function(settings) {
@@ -10801,14 +11324,17 @@ var require_jquery_dataTables = __commonJS({
           var jqTable = $2(table);
           var jqTbody = $2(tbody);
           var jqWrapper = $2(settings.nTableWrapper);
-          var rows = $2.map(settings.aoData, function(r) {
-            return r.nTr;
+          var rows = settings.aoData.map(function(r) {
+            return r ? r.nTr : null;
           });
-          var i2, ien;
+          var orderClasses = classes.order;
           settings.bDestroying = true;
-          _fnCallbackFire(settings, "aoDestroyCallback", "destroy", [settings]);
+          _fnCallbackFire(settings, "aoDestroyCallback", "destroy", [settings], true);
           if (!remove) {
             new _Api(settings).columns().visible(true);
+          }
+          if (settings.resizeObserver) {
+            settings.resizeObserver.disconnect();
           }
           jqWrapper.off(".DT").find(":not(tbody *)").off(".DT");
           $2(window2).off(".DT-" + settings.sInstance);
@@ -10820,30 +11346,32 @@ var require_jquery_dataTables = __commonJS({
             jqTable.children("tfoot").detach();
             jqTable.append(tfoot);
           }
+          cleanHeader(thead, "header");
+          cleanHeader(tfoot, "footer");
+          settings.colgroup.remove();
           settings.aaSorting = [];
           settings.aaSortingFixed = [];
           _fnSortingClasses(settings);
-          $2(rows).removeClass(settings.asStripeClasses.join(" "));
-          $2("th, td", thead).removeClass(
-            classes.sSortable + " " + classes.sSortableAsc + " " + classes.sSortableDesc + " " + classes.sSortableNone
+          $2(jqTable).find("th, td").removeClass(
+            $2.map(DataTable.ext.type.className, function(v) {
+              return v;
+            }).join(" ")
           );
+          $2("th, td", thead).removeClass(
+            orderClasses.none + " " + orderClasses.canAsc + " " + orderClasses.canDesc + " " + orderClasses.isAsc + " " + orderClasses.isDesc
+          ).css("width", "").removeAttr("aria-sort");
           jqTbody.children().detach();
           jqTbody.append(rows);
           var orig = settings.nTableWrapper.parentNode;
+          var insertBefore = settings.nTableWrapper.nextSibling;
           var removedMethod = remove ? "remove" : "detach";
           jqTable[removedMethod]();
           jqWrapper[removedMethod]();
           if (!remove && orig) {
-            orig.insertBefore(table, settings.nTableReinsertBefore);
-            jqTable.css("width", settings.sDestroyWidth).removeClass(classes.sTable);
-            ien = settings.asDestroyStripes.length;
-            if (ien) {
-              jqTbody.children().each(function(i3) {
-                $2(this).addClass(settings.asDestroyStripes[i3 % ien]);
-              });
-            }
+            orig.insertBefore(table, insertBefore);
+            jqTable.css("width", settings.sDestroyWidth).removeClass(classes.table);
           }
-          var idx = $2.inArray(settings, DataTable.settings);
+          var idx = DataTable.settings.indexOf(settings);
           if (idx !== -1) {
             DataTable.settings.splice(idx, 1);
           }
@@ -10853,40 +11381,48 @@ var require_jquery_dataTables = __commonJS({
         _api_register(type + "s().every()", function(fn) {
           var opts = this.selector.opts;
           var api = this;
-          return this.iterator(type, function(settings, arg1, arg2, arg3, arg4) {
-            fn.call(
-              api[type](
-                arg1,
-                type === "cell" ? arg2 : opts,
-                type === "cell" ? opts : undefined2
-              ),
-              arg1,
-              arg2,
-              arg3,
-              arg4
-            );
+          var inst;
+          var counter = 0;
+          return this.iterator("every", function(settings, selectedIdx, tableIdx) {
+            inst = api[type](selectedIdx, opts);
+            if (type === "cell") {
+              fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
+            } else {
+              fn.call(inst, selectedIdx, tableIdx, counter);
+            }
+            counter++;
           });
         });
       });
       _api_register("i18n()", function(token, def, plural) {
         var ctx = this.context[0];
         var resolved = _fnGetObjectDataFn(token)(ctx.oLanguage);
-        if (resolved === undefined2) {
+        if (resolved === void 0) {
           resolved = def;
         }
-        if (plural !== undefined2 && $2.isPlainObject(resolved)) {
-          resolved = resolved[plural] !== undefined2 ? resolved[plural] : resolved._;
+        if ($2.isPlainObject(resolved)) {
+          resolved = plural !== void 0 && resolved[plural] !== void 0 ? resolved[plural] : plural === false ? resolved : resolved._;
         }
         return typeof resolved === "string" ? resolved.replace("%d", plural) : resolved;
       });
-      DataTable.version = "1.13.7";
+      function cleanHeader(node, className) {
+        $2(node).find(".dt-column-order").remove();
+        $2(node).find(".dt-column-title").each(function() {
+          var title = $2(this).html();
+          $2(this).parent().parent().append(title);
+          $2(this).remove();
+        });
+        $2(node).find("div.dt-column-" + className).remove();
+        $2("th, td", node).removeAttr("data-dt-column");
+      }
+      DataTable.version = "2.3.7";
       DataTable.settings = [];
       DataTable.models = {};
       DataTable.models.oSearch = {
-        "bCaseInsensitive": true,
-        "sSearch": "",
-        "bRegex": false,
-        "bSmart": true,
+        "caseInsensitive": true,
+        "search": "",
+        "regex": false,
+        "smart": true,
         "return": false
       };
       DataTable.models.oRow = {
@@ -10896,9 +11432,9 @@ var require_jquery_dataTables = __commonJS({
         "_aSortData": null,
         "_aFilterData": null,
         "_sFilterRow": null,
-        "_sRowStripe": "",
         "src": null,
-        "idx": -1
+        "idx": -1,
+        displayData: null
       };
       DataTable.models.oColumn = {
         "idx": null,
@@ -10914,19 +11450,18 @@ var require_jquery_dataTables = __commonJS({
         "fnSetData": null,
         "mData": null,
         "mRender": null,
-        "nTh": null,
-        "nTf": null,
         "sClass": null,
         "sContentPadding": null,
         "sDefaultContent": null,
         "sName": null,
         "sSortDataType": "std",
         "sSortingClass": null,
-        "sSortingClassJUI": null,
         "sTitle": null,
         "sType": null,
         "sWidth": null,
-        "sWidthOrig": null
+        "sWidthOrig": null,
+        wideStrings: null,
+        searchFixed: null
       };
       DataTable.defaults = {
         "aaData": null,
@@ -10937,9 +11472,8 @@ var require_jquery_dataTables = __commonJS({
         "aoColumns": null,
         "aoColumnDefs": null,
         "aoSearchCols": [],
-        "asStripeClasses": null,
         "bAutoWidth": true,
-        "bDeferRender": false,
+        "bDeferRender": true,
         "bDestroy": false,
         "bFilter": true,
         "bInfo": true,
@@ -10951,7 +11485,8 @@ var require_jquery_dataTables = __commonJS({
         "bServerSide": false,
         "bSort": true,
         "bSortMulti": true,
-        "bSortCellsTop": false,
+        "bSortCellsTop": null,
+        titleRow: null,
         "bSortClasses": true,
         "bStateSave": false,
         "fnCreatedRow": null,
@@ -10968,8 +11503,6 @@ var require_jquery_dataTables = __commonJS({
         "fnInitComplete": null,
         "fnPreDrawCallback": null,
         "fnRowCallback": null,
-        "fnServerData": null,
-        "fnServerParams": null,
         "fnStateLoadCallback": function(settings) {
           try {
             return JSON.parse(
@@ -10994,30 +11527,44 @@ var require_jquery_dataTables = __commonJS({
         },
         "fnStateSaveParams": null,
         "iStateDuration": 7200,
-        "iDeferLoading": null,
         "iDisplayLength": 10,
         "iDisplayStart": 0,
         "iTabIndex": 0,
         "oClasses": {},
         "oLanguage": {
           "oAria": {
-            "sSortAscending": ": activate to sort column ascending",
-            "sSortDescending": ": activate to sort column descending"
+            "orderable": ": Activate to sort",
+            "orderableReverse": ": Activate to invert sorting",
+            "orderableRemove": ": Activate to remove sorting",
+            paginate: {
+              first: "First",
+              last: "Last",
+              next: "Next",
+              previous: "Previous",
+              number: ""
+            }
           },
           "oPaginate": {
-            "sFirst": "First",
-            "sLast": "Last",
-            "sNext": "Next",
-            "sPrevious": "Previous"
+            "sFirst": "\xAB",
+            "sLast": "\xBB",
+            "sNext": "\u203A",
+            "sPrevious": "\u2039"
+          },
+          entries: {
+            _: "entries",
+            1: "entry"
+          },
+          lengthLabels: {
+            "-1": "All"
           },
           "sEmptyTable": "No data available in table",
-          "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-          "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-          "sInfoFiltered": "(filtered from _MAX_ total entries)",
+          "sInfo": "Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_",
+          "sInfoEmpty": "Showing 0 to 0 of 0 _ENTRIES-TOTAL_",
+          "sInfoFiltered": "(filtered from _MAX_ total _ENTRIES-MAX_)",
           "sInfoPostFix": "",
           "sDecimal": "",
           "sThousands": ",",
-          "sLengthMenu": "Show _MENU_ entries",
+          "sLengthMenu": "_MENU_ _ENTRIES_ per page",
           "sLoadingRecords": "Loading...",
           "sProcessing": "",
           "sSearch": "Search:",
@@ -11025,24 +11572,34 @@ var require_jquery_dataTables = __commonJS({
           "sUrl": "",
           "sZeroRecords": "No matching records found"
         },
+        orderDescReverse: true,
         "oSearch": $2.extend({}, DataTable.models.oSearch),
-        "sAjaxDataProp": "data",
-        "sAjaxSource": null,
-        "sDom": "lfrtip",
+        layout: {
+          topStart: "pageLength",
+          topEnd: "search",
+          bottomStart: "info",
+          bottomEnd: "paging"
+        },
+        "sDom": null,
         "searchDelay": null,
-        "sPaginationType": "simple_numbers",
+        "sPaginationType": "",
         "sScrollX": "",
         "sScrollXInner": "",
         "sScrollY": "",
         "sServerMethod": "GET",
         "renderer": null,
-        "rowId": "DT_RowId"
+        "rowId": "DT_RowId",
+        "caption": null,
+        iDeferLoading: null,
+        on: null,
+        columnTitleTag: "span"
       };
       _fnHungarianMap(DataTable.defaults);
       DataTable.defaults.column = {
         "aDataSort": null,
         "iDataSort": -1,
-        "asSorting": ["asc", "desc"],
+        ariaTitle: "",
+        "asSorting": ["asc", "desc", ""],
         "bSearchable": true,
         "bSortable": true,
         "bVisible": true,
@@ -11065,8 +11622,8 @@ var require_jquery_dataTables = __commonJS({
           "bAutoWidth": null,
           "bDeferRender": null,
           "bFilter": null,
-          "bInfo": null,
-          "bLengthChange": null,
+          "bInfo": true,
+          "bLengthChange": true,
           "bPaginate": null,
           "bProcessing": null,
           "bServerSide": null,
@@ -11086,9 +11643,7 @@ var require_jquery_dataTables = __commonJS({
           "fnInfoCallback": null
         },
         "oBrowser": {
-          "bScrollOversize": false,
           "bScrollbarLeft": false,
-          "bBounding": false,
           "barWidth": 0
         },
         "ajax": null,
@@ -11101,11 +11656,10 @@ var require_jquery_dataTables = __commonJS({
         "aoHeader": [],
         "aoFooter": [],
         "oPreviousSearch": {},
+        searchFixed: {},
         "aoPreSearchCols": [],
         "aaSorting": null,
         "aaSortingFixed": [],
-        "asStripeClasses": null,
-        "asDestroyStripes": [],
         "sDestroyWidth": 0,
         "aoRowCallback": [],
         "aoHeaderCallback": [],
@@ -11123,24 +11677,21 @@ var require_jquery_dataTables = __commonJS({
         "nTFoot": null,
         "nTBody": null,
         "nTableWrapper": null,
-        "bDeferLoading": false,
         "bInitialised": false,
         "aoOpenRows": [],
         "sDom": null,
         "searchDelay": null,
         "sPaginationType": "two_button",
+        pagingControls: 0,
         "iStateDuration": 0,
         "aoStateSave": [],
         "aoStateLoad": [],
         "oSavedState": null,
         "oLoadedState": null,
-        "sAjaxSource": null,
-        "sAjaxDataProp": null,
+        "bAjaxDataGet": true,
         "jqXHR": null,
-        "json": undefined2,
-        "oAjaxData": undefined2,
-        "fnServerData": null,
-        "aoServerParams": [],
+        "json": void 0,
+        "oAjaxData": void 0,
         "sServerMethod": null,
         "fnFormatNumber": null,
         "aLengthMenu": null,
@@ -11179,395 +11730,127 @@ var require_jquery_dataTables = __commonJS({
         "aLastSort": [],
         "oPlugins": {},
         "rowIdFn": null,
-        "rowId": null
+        "rowId": null,
+        caption: "",
+        captionNode: null,
+        colgroup: null,
+        deferLoading: null,
+        typeDetect: true,
+        resizeObserver: null,
+        containerWidth: -1,
+        orderDescReverse: null,
+        orderIndicators: true,
+        orderHandler: true,
+        titleRow: null,
+        columnTitleTag: "span"
       };
-      DataTable.ext = _ext = {
-        buttons: {},
-        classes: {},
-        builder: "-source-",
-        errMode: "alert",
-        feature: [],
-        search: [],
-        selector: {
-          cell: [],
-          column: [],
-          row: []
-        },
-        internal: {},
-        legacy: {
-          ajax: null
-        },
-        pager: {},
-        renderer: {
-          pageButton: {},
-          header: {}
-        },
-        order: {},
-        type: {
-          detect: [],
-          search: {},
-          order: {}
-        },
-        _unique: 0,
-        fnVersionCheck: DataTable.fnVersionCheck,
-        iApiIndex: 0,
-        oJUIClasses: {},
-        sVersion: DataTable.version
-      };
-      $2.extend(_ext, {
-        afnFiltering: _ext.search,
-        aTypes: _ext.type.detect,
-        ofnSearch: _ext.type.search,
-        oSort: _ext.type.order,
-        afnSortData: _ext.order,
-        aoFeatures: _ext.feature,
-        oApi: _ext.internal,
-        oStdClasses: _ext.classes,
-        oPagination: _ext.pager
-      });
-      $2.extend(DataTable.ext.classes, {
-        "sTable": "dataTable",
-        "sNoFooter": "no-footer",
-        "sPageButton": "paginate_button",
-        "sPageButtonActive": "current",
-        "sPageButtonDisabled": "disabled",
-        "sStripeOdd": "odd",
-        "sStripeEven": "even",
-        "sRowEmpty": "dataTables_empty",
-        "sWrapper": "dataTables_wrapper",
-        "sFilter": "dataTables_filter",
-        "sInfo": "dataTables_info",
-        "sPaging": "dataTables_paginate paging_",
-        "sLength": "dataTables_length",
-        "sProcessing": "dataTables_processing",
-        "sSortAsc": "sorting_asc",
-        "sSortDesc": "sorting_desc",
-        "sSortable": "sorting",
-        "sSortableAsc": "sorting_desc_disabled",
-        "sSortableDesc": "sorting_asc_disabled",
-        "sSortableNone": "sorting_disabled",
-        "sSortColumn": "sorting_",
-        "sFilterInput": "",
-        "sLengthSelect": "",
-        "sScrollWrapper": "dataTables_scroll",
-        "sScrollHead": "dataTables_scrollHead",
-        "sScrollHeadInner": "dataTables_scrollHeadInner",
-        "sScrollBody": "dataTables_scrollBody",
-        "sScrollFoot": "dataTables_scrollFoot",
-        "sScrollFootInner": "dataTables_scrollFootInner",
-        "sHeaderTH": "",
-        "sFooterTH": "",
-        "sSortJUIAsc": "",
-        "sSortJUIDesc": "",
-        "sSortJUI": "",
-        "sSortJUIAscAllowed": "",
-        "sSortJUIDescAllowed": "",
-        "sSortJUIWrapper": "",
-        "sSortIcon": "",
-        "sJUIHeader": "",
-        "sJUIFooter": ""
-      });
       var extPagination = DataTable.ext.pager;
-      function _numbers(page, pages) {
-        var numbers = [], buttons = extPagination.numbers_length, half = Math.floor(buttons / 2), i2 = 1;
-        if (pages <= buttons) {
-          numbers = _range(0, pages);
-        } else if (page <= half) {
-          numbers = _range(0, buttons - 2);
-          numbers.push("ellipsis");
-          numbers.push(pages - 1);
-        } else if (page >= pages - 1 - half) {
-          numbers = _range(pages - (buttons - 2), pages);
-          numbers.splice(0, 0, "ellipsis");
-          numbers.splice(0, 0, 0);
-        } else {
-          numbers = _range(page - half + 2, page + half - 1);
-          numbers.push("ellipsis");
-          numbers.push(pages - 1);
-          numbers.splice(0, 0, "ellipsis");
-          numbers.splice(0, 0, 0);
-        }
-        numbers.DT_el = "span";
-        return numbers;
-      }
       $2.extend(extPagination, {
-        simple: function(page, pages) {
+        simple: function() {
           return ["previous", "next"];
         },
-        full: function(page, pages) {
+        full: function() {
           return ["first", "previous", "next", "last"];
         },
-        numbers: function(page, pages) {
-          return [_numbers(page, pages)];
+        numbers: function() {
+          return ["numbers"];
         },
-        simple_numbers: function(page, pages) {
-          return ["previous", _numbers(page, pages), "next"];
+        simple_numbers: function() {
+          return ["previous", "numbers", "next"];
         },
-        full_numbers: function(page, pages) {
-          return ["first", "previous", _numbers(page, pages), "next", "last"];
+        full_numbers: function() {
+          return ["first", "previous", "numbers", "next", "last"];
         },
-        first_last_numbers: function(page, pages) {
-          return ["first", _numbers(page, pages), "last"];
+        first_last: function() {
+          return ["first", "last"];
         },
-        _numbers,
+        first_last_numbers: function() {
+          return ["first", "numbers", "last"];
+        },
+        _numbers: _pagingNumbers,
         numbers_length: 7
       });
       $2.extend(true, DataTable.ext.renderer, {
-        pageButton: {
-          _: function(settings, host, idx, buttons, page, pages) {
-            var classes = settings.oClasses;
-            var lang = settings.oLanguage.oPaginate;
-            var aria = settings.oLanguage.oAria.paginate || {};
-            var btnDisplay, btnClass;
-            var attach = function(container, buttons2) {
-              var i2, ien, node, button;
-              var disabledClass = classes.sPageButtonDisabled;
-              var clickHandler = function(e) {
-                _fnPageChange(settings, e.data.action, true);
-              };
-              for (i2 = 0, ien = buttons2.length; i2 < ien; i2++) {
-                button = buttons2[i2];
-                if (Array.isArray(button)) {
-                  var inner = $2("<" + (button.DT_el || "div") + "/>").appendTo(container);
-                  attach(inner, button);
-                } else {
-                  var disabled = false;
-                  btnDisplay = null;
-                  btnClass = button;
-                  switch (button) {
-                    case "ellipsis":
-                      container.append('<span class="ellipsis">&#x2026;</span>');
-                      break;
-                    case "first":
-                      btnDisplay = lang.sFirst;
-                      if (page === 0) {
-                        disabled = true;
-                      }
-                      break;
-                    case "previous":
-                      btnDisplay = lang.sPrevious;
-                      if (page === 0) {
-                        disabled = true;
-                      }
-                      break;
-                    case "next":
-                      btnDisplay = lang.sNext;
-                      if (pages === 0 || page === pages - 1) {
-                        disabled = true;
-                      }
-                      break;
-                    case "last":
-                      btnDisplay = lang.sLast;
-                      if (pages === 0 || page === pages - 1) {
-                        disabled = true;
-                      }
-                      break;
-                    default:
-                      btnDisplay = settings.fnFormatNumber(button + 1);
-                      btnClass = page === button ? classes.sPageButtonActive : "";
-                      break;
-                  }
-                  if (btnDisplay !== null) {
-                    var tag = settings.oInit.pagingTag || "a";
-                    if (disabled) {
-                      btnClass += " " + disabledClass;
-                    }
-                    node = $2("<" + tag + ">", {
-                      "class": classes.sPageButton + " " + btnClass,
-                      "aria-controls": settings.sTableId,
-                      "aria-disabled": disabled ? "true" : null,
-                      "aria-label": aria[button],
-                      "role": "link",
-                      "aria-current": btnClass === classes.sPageButtonActive ? "page" : null,
-                      "data-dt-idx": button,
-                      "tabindex": disabled ? -1 : settings.iTabIndex,
-                      "id": idx === 0 && typeof button === "string" ? settings.sTableId + "_" + button : null
-                    }).html(btnDisplay).appendTo(container);
-                    _fnBindAction(
-                      node,
-                      { action: button },
-                      clickHandler
-                    );
-                  }
-                }
-              }
+        pagingButton: {
+          _: function(settings, buttonType, content, active, disabled) {
+            var classes = settings.oClasses.paging;
+            var btnClasses = [classes.button];
+            var btn;
+            if (active) {
+              btnClasses.push(classes.active);
+            }
+            if (disabled) {
+              btnClasses.push(classes.disabled);
+            }
+            if (buttonType === "ellipsis") {
+              btn = $2('<span class="ellipsis"></span>').html(content)[0];
+            } else {
+              btn = $2("<button>", {
+                class: btnClasses.join(" "),
+                role: "link",
+                type: "button"
+              }).html(content);
+            }
+            return {
+              display: btn,
+              clicker: btn
             };
-            var activeEl;
-            try {
-              activeEl = $2(host).find(document2.activeElement).data("dt-idx");
-            } catch (e) {
-            }
-            attach($2(host).empty(), buttons);
-            if (activeEl !== undefined2) {
-              $2(host).find("[data-dt-idx=" + activeEl + "]").trigger("focus");
-            }
+          }
+        },
+        pagingContainer: {
+          _: function(settings, buttons) {
+            return buttons;
           }
         }
       });
-      $2.extend(DataTable.ext.type.detect, [
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _isNumber(d, decimal) ? "num" + decimal : null;
-        },
-        function(d, settings) {
-          if (d && !(d instanceof Date) && !_re_date.test(d)) {
-            return null;
+      var _filterString = function(stripHtml, normalize) {
+        return function(str) {
+          if (_empty(str) || typeof str !== "string") {
+            return str;
           }
-          var parsed = Date.parse(d);
-          return parsed !== null && !isNaN(parsed) || _empty(d) ? "date" : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _isNumber(d, decimal, true) ? "num-fmt" + decimal : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _htmlNumeric(d, decimal) ? "html-num" + decimal : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _htmlNumeric(d, decimal, true) ? "html-num-fmt" + decimal : null;
-        },
-        function(d, settings) {
-          return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1 ? "html" : null;
-        }
-      ]);
-      $2.extend(DataTable.ext.type.search, {
-        html: function(data) {
-          return _empty(data) ? data : typeof data === "string" ? data.replace(_re_new_lines, " ").replace(_re_html, "") : "";
-        },
-        string: function(data) {
-          return _empty(data) ? data : typeof data === "string" ? data.replace(_re_new_lines, " ") : data;
-        }
-      });
-      var __numericReplace = function(d, decimalPlace, re1, re2) {
-        if (d !== 0 && (!d || d === "-")) {
-          return -Infinity;
-        }
-        var type = typeof d;
-        if (type === "number" || type === "bigint") {
-          return d;
-        }
-        if (decimalPlace) {
-          d = _numToDecimal(d, decimalPlace);
-        }
-        if (d.replace) {
-          if (re1) {
-            d = d.replace(re1, "");
+          str = str.replace(_re_new_lines, " ");
+          if (stripHtml) {
+            str = _stripHtml(str);
           }
-          if (re2) {
-            d = d.replace(re2, "");
+          if (normalize) {
+            str = _normalize(str, false);
           }
-        }
-        return d * 1;
+          return str;
+        };
       };
-      function _addNumericSort(decimalPlace) {
-        $2.each(
-          {
-            "num": function(d) {
-              return __numericReplace(d, decimalPlace);
-            },
-            "num-fmt": function(d) {
-              return __numericReplace(d, decimalPlace, _re_formatted_numeric);
-            },
-            "html-num": function(d) {
-              return __numericReplace(d, decimalPlace, _re_html);
-            },
-            "html-num-fmt": function(d) {
-              return __numericReplace(d, decimalPlace, _re_html, _re_formatted_numeric);
-            }
-          },
-          function(key, fn) {
-            _ext.type.order[key + decimalPlace + "-pre"] = fn;
-            if (key.match(/^html\-/)) {
-              _ext.type.search[key + decimalPlace] = _ext.type.search.html;
-            }
-          }
-        );
-      }
-      $2.extend(_ext.type.order, {
-        "date-pre": function(d) {
-          var ts = Date.parse(d);
-          return isNaN(ts) ? -Infinity : ts;
-        },
-        "html-pre": function(a) {
-          return _empty(a) ? "" : a.replace ? a.replace(/<.*?>/g, "").toLowerCase() : a + "";
-        },
-        "string-pre": function(a) {
-          return _empty(a) ? "" : typeof a === "string" ? a.toLowerCase() : !a.toString ? "" : a.toString();
-        },
-        "string-asc": function(x, y) {
-          return x < y ? -1 : x > y ? 1 : 0;
-        },
-        "string-desc": function(x, y) {
-          return x < y ? 1 : x > y ? -1 : 0;
+      function __mld(dtLib, momentFn, luxonFn, dateFn, arg1) {
+        if (__moment) {
+          return dtLib[momentFn](arg1);
+        } else if (__luxon) {
+          return dtLib[luxonFn](arg1);
         }
-      });
-      _addNumericSort("");
-      $2.extend(true, DataTable.ext.renderer, {
-        header: {
-          _: function(settings, cell, column, classes) {
-            $2(settings.nTable).on("order.dt.DT", function(e, ctx, sorting, columns) {
-              if (settings !== ctx) {
-                return;
-              }
-              var colIdx = column.idx;
-              cell.removeClass(
-                classes.sSortAsc + " " + classes.sSortDesc
-              ).addClass(
-                columns[colIdx] == "asc" ? classes.sSortAsc : columns[colIdx] == "desc" ? classes.sSortDesc : column.sSortingClass
-              );
-            });
-          },
-          jqueryui: function(settings, cell, column, classes) {
-            $2("<div/>").addClass(classes.sSortJUIWrapper).append(cell.contents()).append(
-              $2("<span/>").addClass(classes.sSortIcon + " " + column.sSortingClassJUI)
-            ).appendTo(cell);
-            $2(settings.nTable).on("order.dt.DT", function(e, ctx, sorting, columns) {
-              if (settings !== ctx) {
-                return;
-              }
-              var colIdx = column.idx;
-              cell.removeClass(classes.sSortAsc + " " + classes.sSortDesc).addClass(
-                columns[colIdx] == "asc" ? classes.sSortAsc : columns[colIdx] == "desc" ? classes.sSortDesc : column.sSortingClass
-              );
-              cell.find("span." + classes.sSortIcon).removeClass(
-                classes.sSortJUIAsc + " " + classes.sSortJUIDesc + " " + classes.sSortJUI + " " + classes.sSortJUIAscAllowed + " " + classes.sSortJUIDescAllowed
-              ).addClass(
-                columns[colIdx] == "asc" ? classes.sSortJUIAsc : columns[colIdx] == "desc" ? classes.sSortJUIDesc : column.sSortingClassJUI
-              );
-            });
-          }
-        }
-      });
-      var __htmlEscapeEntities = function(d) {
-        if (Array.isArray(d)) {
-          d = d.join(",");
-        }
-        return typeof d === "string" ? d.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : d;
-      };
-      function __mld(dt, momentFn, luxonFn, dateFn, arg1) {
-        if (window2.moment) {
-          return dt[momentFn](arg1);
-        } else if (window2.luxon) {
-          return dt[luxonFn](arg1);
-        }
-        return dateFn ? dt[dateFn](arg1) : dt;
+        return dateFn ? dtLib[dateFn](arg1) : dtLib;
       }
       var __mlWarning = false;
+      var __luxon;
+      var __moment;
+      function resolveWindowLibs() {
+        if (window2.luxon && !__luxon) {
+          __luxon = window2.luxon;
+        }
+        if (window2.moment && !__moment) {
+          __moment = window2.moment;
+        }
+      }
       function __mldObj(d, format, locale) {
         var dt;
-        if (window2.moment) {
-          dt = window2.moment.utc(d, format, locale, true);
+        resolveWindowLibs();
+        if (__moment) {
+          dt = __moment.utc(d, format, locale, true);
           if (!dt.isValid()) {
             return null;
           }
-        } else if (window2.luxon) {
-          dt = format && typeof d === "string" ? window2.luxon.DateTime.fromFormat(d, format) : window2.luxon.DateTime.fromISO(d);
+        } else if (__luxon) {
+          dt = format && typeof d === "string" ? __luxon.DateTime.fromFormat(d, format) : __luxon.DateTime.fromISO(d);
           if (!dt.isValid) {
             return null;
           }
-          dt.setLocale(locale);
+          dt = dt.setLocale(locale);
         } else if (!format) {
           dt = new Date(d);
         } else {
@@ -11593,24 +11876,22 @@ var require_jquery_dataTables = __commonJS({
             to = from;
             from = null;
           }
-          var typeName = "datetime-" + to;
-          if (!DataTable.ext.type.order[typeName]) {
-            DataTable.ext.type.detect.unshift(function(d) {
-              return d === typeName ? typeName : false;
+          var typeName = "datetime" + (to ? "-" + to : "");
+          if (!DataTable.ext.type.order[typeName + "-pre"]) {
+            DataTable.type(typeName, {
+              detect: function(d) {
+                return d === typeName ? typeName : false;
+              },
+              order: {
+                pre: function(d) {
+                  return d.valueOf();
+                }
+              },
+              className: "dt-right"
             });
-            DataTable.ext.type.order[typeName + "-asc"] = function(a, b) {
-              var x = a.valueOf();
-              var y = b.valueOf();
-              return x === y ? 0 : x < y ? -1 : 1;
-            };
-            DataTable.ext.type.order[typeName + "-desc"] = function(a, b) {
-              var x = a.valueOf();
-              var y = b.valueOf();
-              return x === y ? 0 : x > y ? -1 : 1;
-            };
           }
           return function(d, type) {
-            if (d === null || d === undefined2) {
+            if (d === null || d === void 0) {
               if (def === "--now") {
                 var local = new Date();
                 d = new Date(Date.UTC(
@@ -11641,14 +11922,17 @@ var require_jquery_dataTables = __commonJS({
             if (type === "sort") {
               return dt;
             }
-            var formatted = to === null ? __mld(dt, "toDate", "toJSDate", "")[localeString]() : __mld(dt, "format", "toFormat", "toISOString", to);
-            return type === "display" ? __htmlEscapeEntities(formatted) : formatted;
+            var formatted = to === null ? __mld(dt, "toDate", "toJSDate", "")[localeString](
+              navigator.language,
+              { timeZone: "UTC" }
+            ) : __mld(dt, "format", "toFormat", "toISOString", to);
+            return type === "display" ? _escapeHtml(formatted) : formatted;
           };
         };
       }
       var __thousands = ",";
       var __decimal = ".";
-      if (window2.Intl !== undefined2) {
+      if (window2.Intl !== void 0) {
         try {
           var num = new Intl.NumberFormat().formatToParts(100000.1);
           for (var i = 0; i < num.length; i++) {
@@ -11662,18 +11946,23 @@ var require_jquery_dataTables = __commonJS({
         }
       }
       DataTable.datetime = function(format, locale) {
-        var typeName = "datetime-detect-" + format;
+        var typeName = "datetime-" + format;
         if (!locale) {
           locale = "en";
         }
         if (!DataTable.ext.type.order[typeName]) {
-          DataTable.ext.type.detect.unshift(function(d) {
-            var dt = __mldObj(d, format, locale);
-            return d === "" || dt ? typeName : false;
+          DataTable.type(typeName, {
+            detect: function(d) {
+              var dt = __mldObj(d, format, locale);
+              return d === "" || dt ? typeName : false;
+            },
+            order: {
+              pre: function(d) {
+                return __mldObj(d, format, locale) || 0;
+              }
+            },
+            className: "dt-right"
           });
-          DataTable.ext.type.order[typeName + "-pre"] = function(d) {
-            return __mldObj(d, format, locale) || 0;
-          };
         }
       };
       DataTable.render = {
@@ -11681,10 +11970,10 @@ var require_jquery_dataTables = __commonJS({
         datetime: __mlHelper("toLocaleString"),
         time: __mlHelper("toLocaleTimeString"),
         number: function(thousands, decimal, precision, prefix, postfix) {
-          if (thousands === null || thousands === undefined2) {
+          if (thousands === null || thousands === void 0) {
             thousands = __thousands;
           }
-          if (decimal === null || decimal === undefined2) {
+          if (decimal === null || decimal === void 0) {
             decimal = __decimal;
           }
           return {
@@ -11697,8 +11986,13 @@ var require_jquery_dataTables = __commonJS({
               }
               var negative = d < 0 ? "-" : "";
               var flo = parseFloat(d);
+              var abs = Math.abs(flo);
+              if (abs >= 1e11 || abs < 1e-4 && abs !== 0) {
+                var exp = flo.toExponential(precision).split(/e\+?/);
+                return exp[0] + " x 10<sup>" + exp[1] + "</sup>";
+              }
               if (isNaN(flo)) {
-                return __htmlEscapeEntities(d);
+                return _escapeHtml(d);
               }
               flo = flo.toFixed(precision);
               d = Math.abs(flo);
@@ -11716,113 +12010,807 @@ var require_jquery_dataTables = __commonJS({
         },
         text: function() {
           return {
-            display: __htmlEscapeEntities,
-            filter: __htmlEscapeEntities
+            display: _escapeHtml,
+            filter: _escapeHtml
           };
         }
       };
-      function _fnExternApiFunc(fn) {
-        return function() {
-          var args = [_fnSettingsFromNode(this[DataTable.ext.iApiIndex])].concat(
-            Array.prototype.slice.call(arguments)
-          );
-          return DataTable.ext.internal[fn].apply(this, args);
+      var _extTypes = DataTable.ext.type;
+      DataTable.type = function(name, prop, val) {
+        if (!prop) {
+          return {
+            className: _extTypes.className[name],
+            detect: _extTypes.detect.find(function(fn) {
+              return fn._name === name;
+            }),
+            order: {
+              pre: _extTypes.order[name + "-pre"],
+              asc: _extTypes.order[name + "-asc"],
+              desc: _extTypes.order[name + "-desc"]
+            },
+            render: _extTypes.render[name],
+            search: _extTypes.search[name]
+          };
+        }
+        var setProp = function(prop2, propVal) {
+          _extTypes[prop2][name] = propVal;
         };
-      }
-      $2.extend(DataTable.ext.internal, {
-        _fnExternApiFunc,
-        _fnBuildAjax,
-        _fnAjaxUpdate,
-        _fnAjaxParameters,
-        _fnAjaxUpdateDraw,
-        _fnAjaxDataSrc,
-        _fnAddColumn,
-        _fnColumnOptions,
-        _fnAdjustColumnSizing,
-        _fnVisibleToColumnIndex,
-        _fnColumnIndexToVisible,
-        _fnVisbleColumns,
-        _fnGetColumns,
-        _fnColumnTypes,
-        _fnApplyColumnDefs,
-        _fnHungarianMap,
-        _fnCamelToHungarian,
-        _fnLanguageCompat,
-        _fnBrowserDetect,
-        _fnAddData,
-        _fnAddTr,
-        _fnNodeToDataIndex,
-        _fnNodeToColumnIndex,
-        _fnGetCellData,
-        _fnSetCellData,
-        _fnSplitObjNotation,
-        _fnGetObjectDataFn,
-        _fnSetObjectDataFn,
-        _fnGetDataMaster,
-        _fnClearTable,
-        _fnDeleteIndex,
-        _fnInvalidate,
-        _fnGetRowElements,
-        _fnCreateTr,
-        _fnBuildHead,
-        _fnDrawHead,
-        _fnDraw,
-        _fnReDraw,
-        _fnAddOptionsHtml,
-        _fnDetectHeader,
-        _fnGetUniqueThs,
-        _fnFeatureHtmlFilter,
-        _fnFilterComplete,
-        _fnFilterCustom,
-        _fnFilterColumn,
-        _fnFilter,
-        _fnFilterCreateSearch,
-        _fnEscapeRegex,
-        _fnFilterData,
-        _fnFeatureHtmlInfo,
-        _fnUpdateInfo,
-        _fnInfoMacros,
-        _fnInitialise,
-        _fnInitComplete,
-        _fnLengthChange,
-        _fnFeatureHtmlLength,
-        _fnFeatureHtmlPaginate,
-        _fnPageChange,
-        _fnFeatureHtmlProcessing,
-        _fnProcessingDisplay,
-        _fnFeatureHtmlTable,
-        _fnScrollDraw,
-        _fnApplyToChildren,
-        _fnCalculateColumnWidths,
-        _fnThrottle,
-        _fnConvertToWidth,
-        _fnGetWidestNode,
-        _fnGetMaxLenString,
-        _fnStringToCss,
-        _fnSortFlatten,
-        _fnSort,
-        _fnSortAria,
-        _fnSortListener,
-        _fnSortAttachListener,
-        _fnSortingClasses,
-        _fnSortData,
-        _fnSaveState,
-        _fnLoadState,
-        _fnImplementState,
-        _fnSettingsFromNode,
-        _fnLog,
-        _fnMap,
-        _fnBindAction,
-        _fnCallbackReg,
-        _fnCallbackFire,
-        _fnLengthOverflow,
-        _fnRenderer,
-        _fnDataSource,
-        _fnRowAttributes,
-        _fnExtend,
-        _fnCalculateEnd: function() {
+        var setDetect = function(detect) {
+          Object.defineProperty(detect, "_name", { value: name });
+          var idx = _extTypes.detect.findIndex(function(item) {
+            return item._name === name;
+          });
+          if (idx === -1) {
+            _extTypes.detect.unshift(detect);
+          } else {
+            _extTypes.detect.splice(idx, 1, detect);
+          }
+        };
+        var setOrder = function(obj) {
+          _extTypes.order[name + "-pre"] = obj.pre;
+          _extTypes.order[name + "-asc"] = obj.asc;
+          _extTypes.order[name + "-desc"] = obj.desc;
+        };
+        if (val === void 0) {
+          val = prop;
+          prop = null;
+        }
+        if (prop === "className") {
+          setProp("className", val);
+        } else if (prop === "detect") {
+          setDetect(val);
+        } else if (prop === "order") {
+          setOrder(val);
+        } else if (prop === "render") {
+          setProp("render", val);
+        } else if (prop === "search") {
+          setProp("search", val);
+        } else if (!prop) {
+          if (val.className) {
+            setProp("className", val.className);
+          }
+          if (val.detect !== void 0) {
+            setDetect(val.detect);
+          }
+          if (val.order) {
+            setOrder(val.order);
+          }
+          if (val.render !== void 0) {
+            setProp("render", val.render);
+          }
+          if (val.search !== void 0) {
+            setProp("search", val.search);
+          }
+        }
+      };
+      DataTable.types = function() {
+        return _extTypes.detect.map(function(fn) {
+          return fn._name;
+        });
+      };
+      var __diacriticSort = function(a, b) {
+        a = a !== null && a !== void 0 ? a.toString().toLowerCase() : "";
+        b = b !== null && b !== void 0 ? b.toString().toLowerCase() : "";
+        return a.localeCompare(b, navigator.languages[0] || navigator.language, {
+          numeric: true,
+          ignorePunctuation: true
+        });
+      };
+      var __diacriticHtmlSort = function(a, b) {
+        a = _stripHtml(a);
+        b = _stripHtml(b);
+        return __diacriticSort(a, b);
+      };
+      DataTable.type("string", {
+        detect: function() {
+          return "string";
+        },
+        order: {
+          pre: function(a) {
+            return _empty(a) && typeof a !== "boolean" ? "" : typeof a === "string" ? a.toLowerCase() : !a.toString ? "" : a.toString();
+          }
+        },
+        search: _filterString(false, true)
+      });
+      DataTable.type("string-utf8", {
+        detect: {
+          allOf: function(d) {
+            return true;
+          },
+          oneOf: function(d) {
+            return !_empty(d) && navigator.languages && typeof d === "string" && d.match(/[^\x00-\x7F]/);
+          }
+        },
+        order: {
+          asc: __diacriticSort,
+          desc: function(a, b) {
+            return __diacriticSort(a, b) * -1;
+          }
+        },
+        search: _filterString(false, true)
+      });
+      DataTable.type("html", {
+        detect: {
+          allOf: function(d) {
+            return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
+          },
+          oneOf: function(d) {
+            return !_empty(d) && typeof d === "string" && d.indexOf("<") !== -1;
+          }
+        },
+        order: {
+          pre: function(a) {
+            return _empty(a) ? "" : a.replace ? _stripHtml(a).trim().toLowerCase() : a + "";
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable.type("html-utf8", {
+        detect: {
+          allOf: function(d) {
+            return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
+          },
+          oneOf: function(d) {
+            return navigator.languages && !_empty(d) && typeof d === "string" && d.indexOf("<") !== -1 && typeof d === "string" && d.match(/[^\x00-\x7F]/);
+          }
+        },
+        order: {
+          asc: __diacriticHtmlSort,
+          desc: function(a, b) {
+            return __diacriticHtmlSort(a, b) * -1;
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable.type("date", {
+        className: "dt-type-date",
+        detect: {
+          allOf: function(d) {
+            if (d && !(d instanceof Date) && !_re_date.test(d)) {
+              return null;
+            }
+            var parsed = Date.parse(d);
+            return parsed !== null && !isNaN(parsed) || _empty(d);
+          },
+          oneOf: function(d) {
+            return d instanceof Date || typeof d === "string" && _re_date.test(d);
+          }
+        },
+        order: {
+          pre: function(d) {
+            var ts = Date.parse(d);
+            return isNaN(ts) ? -Infinity : ts;
+          }
         }
       });
+      DataTable.type("html-num-fmt", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, true, false);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, true, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_html, _re_formatted_numeric);
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable.type("html-num", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, false, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, false, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_html);
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable.type("num-fmt", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, true, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, true, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_formatted_numeric);
+          }
+        }
+      });
+      DataTable.type("num", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, false, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, false, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp);
+          }
+        }
+      });
+      var __numericReplace = function(d, decimalPlace, re1, re2) {
+        if (d !== 0 && (!d || d === "-")) {
+          return -Infinity;
+        }
+        var type = typeof d;
+        if (type === "number" || type === "bigint") {
+          return d;
+        }
+        if (decimalPlace) {
+          d = _numToDecimal(d, decimalPlace);
+        }
+        if (d.replace) {
+          if (re1) {
+            d = d.replace(re1, "");
+          }
+          if (re2) {
+            d = d.replace(re2, "");
+          }
+        }
+        return d * 1;
+      };
+      $2.extend(true, DataTable.ext.renderer, {
+        footer: {
+          _: function(settings, cell, classes) {
+            cell.addClass(classes.tfoot.cell);
+          }
+        },
+        header: {
+          _: function(settings, cell, classes) {
+            cell.addClass(classes.thead.cell);
+            if (!settings.oFeatures.bSort) {
+              cell.addClass(classes.order.none);
+            }
+            var titleRow = settings.titleRow;
+            var headerRows = cell.closest("thead").find("tr");
+            var rowIdx = cell.parent().index();
+            if (cell.attr("data-dt-order") === "disable" || cell.parent().attr("data-dt-order") === "disable" || titleRow === true && rowIdx !== 0 || titleRow === false && rowIdx !== headerRows.length - 1 || typeof titleRow === "number" && rowIdx !== titleRow) {
+              return;
+            }
+            $2(settings.nTable).on("order.dt.DT column-visibility.dt.DT", function(e, ctx, column) {
+              if (settings !== ctx) {
+                return;
+              }
+              var sorting = ctx.sortDetails;
+              if (!sorting) {
+                return;
+              }
+              var orderedColumns = _pluck(sorting, "col");
+              if (e.type === "column-visibility" && !orderedColumns.includes(column)) {
+                return;
+              }
+              var i2;
+              var orderClasses = classes.order;
+              var columns = ctx.api.columns(cell);
+              var col = settings.aoColumns[columns.flatten()[0]];
+              var orderable = columns.orderable().includes(true);
+              var ariaType = "";
+              var indexes = columns.indexes();
+              var sortDirs = columns.orderable(true).flatten();
+              var tabIndex = settings.iTabIndex;
+              var canOrder = ctx.orderHandler && orderable;
+              cell.removeClass(
+                orderClasses.isAsc + " " + orderClasses.isDesc
+              ).toggleClass(orderClasses.none, !orderable).toggleClass(orderClasses.canAsc, canOrder && sortDirs.includes("asc")).toggleClass(orderClasses.canDesc, canOrder && sortDirs.includes("desc"));
+              var isOrdering = true;
+              for (i2 = 0; i2 < indexes.length; i2++) {
+                if (!orderedColumns.includes(indexes[i2])) {
+                  isOrdering = false;
+                }
+              }
+              if (isOrdering) {
+                var orderDirs = columns.order();
+                cell.addClass(
+                  orderDirs.includes("asc") ? orderClasses.isAsc : "" + orderDirs.includes("desc") ? orderClasses.isDesc : ""
+                );
+              }
+              var firstVis = -1;
+              for (i2 = 0; i2 < orderedColumns.length; i2++) {
+                if (settings.aoColumns[orderedColumns[i2]].bVisible) {
+                  firstVis = orderedColumns[i2];
+                  break;
+                }
+              }
+              if (indexes[0] == firstVis) {
+                var firstSort = sorting[0];
+                var sortOrder = col.asSorting;
+                cell.attr("aria-sort", firstSort.dir === "asc" ? "ascending" : "descending");
+                ariaType = !sortOrder[firstSort.index + 1] ? "Remove" : "Reverse";
+              } else {
+                cell.removeAttr("aria-sort");
+              }
+              if (orderable) {
+                var orderSpan = cell.find(".dt-column-order");
+                orderSpan.attr("role", "button").attr(
+                  "aria-label",
+                  orderable ? col.ariaTitle + ctx.api.i18n("oAria.orderable" + ariaType) : col.ariaTitle
+                );
+                if (tabIndex !== -1) {
+                  orderSpan.attr("tabindex", tabIndex);
+                }
+              }
+            });
+          }
+        },
+        layout: {
+          _: function(settings, container, items) {
+            var classes = settings.oClasses.layout;
+            var row = $2("<div/>").attr("id", items.id || null).addClass(items.className || classes.row).appendTo(container);
+            DataTable.ext.renderer.layout._forLayoutRow(items, function(key, val) {
+              if (key === "id" || key === "className") {
+                return;
+              }
+              var klass = "";
+              if (val.table) {
+                row.addClass(classes.tableRow);
+                klass += classes.tableCell + " ";
+              }
+              if (key === "start") {
+                klass += classes.start;
+              } else if (key === "end") {
+                klass += classes.end;
+              } else {
+                klass += classes.full;
+              }
+              $2("<div/>").attr({
+                id: val.id || null,
+                "class": val.className ? val.className : classes.cell + " " + klass
+              }).append(val.contents).appendTo(row);
+            });
+          },
+          _forLayoutRow: function(items, fn) {
+            var layoutEnum = function(x) {
+              switch (x) {
+                case "":
+                  return 0;
+                case "start":
+                  return 1;
+                case "end":
+                  return 2;
+                default:
+                  return 3;
+              }
+            };
+            Object.keys(items).sort(function(a, b) {
+              return layoutEnum(a) - layoutEnum(b);
+            }).forEach(function(key) {
+              fn(key, items[key]);
+            });
+          }
+        }
+      });
+      DataTable.feature = {};
+      DataTable.feature.register = function(name, cb, legacy) {
+        DataTable.ext.features[name] = cb;
+        if (legacy) {
+          _ext.feature.push({
+            cFeature: legacy,
+            fnInit: cb
+          });
+        }
+      };
+      function _divProp(el, prop, val) {
+        if (val) {
+          el[prop] = val;
+        }
+      }
+      DataTable.feature.register("div", function(settings, opts) {
+        var n = $2("<div>")[0];
+        if (opts) {
+          _divProp(n, "className", opts.className);
+          _divProp(n, "id", opts.id);
+          _divProp(n, "innerHTML", opts.html);
+          _divProp(n, "textContent", opts.text);
+        }
+        return n;
+      });
+      DataTable.feature.register("info", function(settings, opts) {
+        if (!settings.oFeatures.bInfo) {
+          return null;
+        }
+        var lang = settings.oLanguage, tid = settings.sTableId, n = $2("<div/>", {
+          "class": settings.oClasses.info.container
+        });
+        opts = $2.extend({
+          callback: lang.fnInfoCallback,
+          empty: lang.sInfoEmpty,
+          postfix: lang.sInfoPostFix,
+          search: lang.sInfoFiltered,
+          text: lang.sInfo
+        }, opts);
+        settings.aoDrawCallback.push(function(s) {
+          _fnUpdateInfo(s, opts, n);
+        });
+        if (!settings._infoEl) {
+          n.attr({
+            "aria-live": "polite",
+            id: tid + "_info",
+            role: "status"
+          });
+          $2(settings.nTable).attr("aria-describedby", tid + "_info");
+          settings._infoEl = n;
+        }
+        return n;
+      }, "i");
+      function _fnUpdateInfo(settings, opts, node) {
+        var start = settings._iDisplayStart + 1, end = settings.fnDisplayEnd(), max = settings.fnRecordsTotal(), total = settings.fnRecordsDisplay(), out = total ? opts.text : opts.empty;
+        if (total !== max) {
+          out += " " + opts.search;
+        }
+        out += opts.postfix;
+        out = _fnMacros(settings, out);
+        if (opts.callback) {
+          out = opts.callback.call(
+            settings.oInstance,
+            settings,
+            start,
+            end,
+            max,
+            total,
+            out
+          );
+        }
+        node.html(out);
+        _fnCallbackFire(settings, null, "info", [settings, node[0], out]);
+      }
+      var __searchCounter = 0;
+      DataTable.feature.register("search", function(settings, opts) {
+        if (!settings.oFeatures.bFilter) {
+          return null;
+        }
+        var classes = settings.oClasses.search;
+        var tableId = settings.sTableId;
+        var language = settings.oLanguage;
+        var previousSearch = settings.oPreviousSearch;
+        var input = '<input type="search" class="' + classes.input + '"/>';
+        opts = $2.extend({
+          placeholder: language.sSearchPlaceholder,
+          processing: false,
+          text: language.sSearch
+        }, opts);
+        if (opts.text.indexOf("_INPUT_") === -1) {
+          opts.text += "_INPUT_";
+        }
+        opts.text = _fnMacros(settings, opts.text);
+        var end = opts.text.match(/_INPUT_$/);
+        var start = opts.text.match(/^_INPUT_/);
+        var removed = opts.text.replace(/_INPUT_/, "");
+        var str = "<label>" + opts.text + "</label>";
+        if (start) {
+          str = "_INPUT_<label>" + removed + "</label>";
+        } else if (end) {
+          str = "<label>" + removed + "</label>_INPUT_";
+        }
+        var filter = $2("<div>").addClass(classes.container).append(str.replace(/_INPUT_/, input));
+        filter.find("label").attr("for", "dt-search-" + __searchCounter);
+        filter.find("input").attr("id", "dt-search-" + __searchCounter);
+        __searchCounter++;
+        var searchFn = function(event) {
+          var val = this.value;
+          if (previousSearch.return && event.key !== "Enter") {
+            return;
+          }
+          if (val != previousSearch.search) {
+            _fnProcessingRun(settings, opts.processing, function() {
+              previousSearch.search = val;
+              _fnFilterComplete(settings, previousSearch);
+              settings._iDisplayStart = 0;
+              _fnDraw(settings);
+            });
+          }
+        };
+        var searchDelay = settings.searchDelay !== null ? settings.searchDelay : 0;
+        var jqFilter = $2("input", filter).val(previousSearch.search).attr("placeholder", opts.placeholder).on(
+          "keyup.DT search.DT input.DT paste.DT cut.DT",
+          searchDelay ? DataTable.util.debounce(searchFn, searchDelay) : searchFn
+        ).on("mouseup.DT", function(e) {
+          setTimeout(function() {
+            searchFn.call(jqFilter[0], e);
+          }, 10);
+        }).on("keypress.DT", function(e) {
+          if (e.keyCode == 13) {
+            return false;
+          }
+        }).attr("aria-controls", tableId);
+        $2(settings.nTable).on("search.dt.DT", function(ev, s) {
+          if (settings === s && jqFilter[0] !== document2.activeElement) {
+            jqFilter.val(
+              typeof previousSearch.search !== "function" ? previousSearch.search : ""
+            );
+          }
+        });
+        return filter;
+      }, "f");
+      DataTable.feature.register("paging", function(settings, opts) {
+        if (!settings.oFeatures.bPaginate) {
+          return null;
+        }
+        opts = $2.extend({
+          buttons: DataTable.ext.pager.numbers_length,
+          type: settings.sPaginationType,
+          boundaryNumbers: true,
+          firstLast: true,
+          previousNext: true,
+          numbers: true
+        }, opts);
+        var host = $2("<div/>").addClass(settings.oClasses.paging.container + (opts.type ? " paging_" + opts.type : "")).append(
+          $2("<nav>").attr("aria-label", "pagination").addClass(settings.oClasses.paging.nav)
+        );
+        var draw = function() {
+          _pagingDraw(settings, host.children(), opts);
+        };
+        settings.aoDrawCallback.push(draw);
+        $2(settings.nTable).on("column-sizing.dt.DT", draw);
+        return host;
+      }, "p");
+      function _pagingDynamic(opts) {
+        var out = [];
+        if (opts.numbers) {
+          out.push("numbers");
+        }
+        if (opts.previousNext) {
+          out.unshift("previous");
+          out.push("next");
+        }
+        if (opts.firstLast) {
+          out.unshift("first");
+          out.push("last");
+        }
+        return out;
+      }
+      function _pagingDraw(settings, host, opts) {
+        if (!settings._bInitComplete) {
+          return;
+        }
+        var plugin = opts.type ? DataTable.ext.pager[opts.type] : _pagingDynamic, aria = settings.oLanguage.oAria.paginate || {}, start = settings._iDisplayStart, len = settings._iDisplayLength, visRecords = settings.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = [], buttonEls = [], buttonsNested = plugin(opts).map(function(val) {
+          return val === "numbers" ? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers) : val;
+        });
+        buttons = buttons.concat.apply(buttons, buttonsNested);
+        for (var i2 = 0; i2 < buttons.length; i2++) {
+          var button = buttons[i2];
+          var btnInfo = _pagingButtonInfo(settings, button, page, pages);
+          var btn = _fnRenderer(settings, "pagingButton")(
+            settings,
+            button,
+            btnInfo.display,
+            btnInfo.active,
+            btnInfo.disabled
+          );
+          var ariaLabel = typeof button === "string" ? aria[button] : aria.number ? aria.number + (button + 1) : null;
+          $2(btn.clicker).attr({
+            "aria-controls": settings.sTableId,
+            "aria-disabled": btnInfo.disabled ? "true" : null,
+            "aria-current": btnInfo.active ? "page" : null,
+            "aria-label": ariaLabel,
+            "data-dt-idx": button,
+            "tabIndex": btnInfo.disabled ? -1 : settings.iTabIndex && btn.clicker[0].nodeName.toLowerCase() !== "span" ? settings.iTabIndex : null
+          });
+          if (typeof button !== "number") {
+            $2(btn.clicker).addClass(button);
+          }
+          _fnBindAction(
+            btn.clicker,
+            { action: button },
+            function(e) {
+              e.preventDefault();
+              _fnPageChange(settings, e.data.action, true);
+            }
+          );
+          buttonEls.push(btn.display);
+        }
+        var wrapped = _fnRenderer(settings, "pagingContainer")(
+          settings,
+          buttonEls
+        );
+        var activeEl = host.find(document2.activeElement).data("dt-idx");
+        host.empty().append(wrapped);
+        if (activeEl !== void 0) {
+          host.find("[data-dt-idx=" + activeEl + "]").trigger("focus");
+        }
+        if (buttonEls.length) {
+          var outerHeight = $2(buttonEls[0]).outerHeight();
+          if (opts.buttons > 1 && outerHeight > 0 && $2(host).height() >= outerHeight * 2 - 10) {
+            _pagingDraw(settings, host, $2.extend({}, opts, { buttons: opts.buttons - 2 }));
+          }
+        }
+      }
+      function _pagingButtonInfo(settings, button, page, pages) {
+        var lang = settings.oLanguage.oPaginate;
+        var o = {
+          display: "",
+          active: false,
+          disabled: false
+        };
+        switch (button) {
+          case "ellipsis":
+            o.display = "&#x2026;";
+            break;
+          case "first":
+            o.display = lang.sFirst;
+            if (page === 0) {
+              o.disabled = true;
+            }
+            break;
+          case "previous":
+            o.display = lang.sPrevious;
+            if (page === 0) {
+              o.disabled = true;
+            }
+            break;
+          case "next":
+            o.display = lang.sNext;
+            if (pages === 0 || page === pages - 1) {
+              o.disabled = true;
+            }
+            break;
+          case "last":
+            o.display = lang.sLast;
+            if (pages === 0 || page === pages - 1) {
+              o.disabled = true;
+            }
+            break;
+          default:
+            if (typeof button === "number") {
+              o.display = settings.fnFormatNumber(button + 1);
+              if (page === button) {
+                o.active = true;
+              }
+            }
+            break;
+        }
+        return o;
+      }
+      function _pagingNumbers(page, pages, buttons, addFirstLast) {
+        var numbers = [], half = Math.floor(buttons / 2), before = addFirstLast ? 2 : 1, after = addFirstLast ? 1 : 0;
+        if (pages <= buttons) {
+          numbers = _range(0, pages);
+        } else if (buttons === 1) {
+          numbers = [page];
+        } else if (buttons === 3) {
+          if (page <= 1) {
+            numbers = [0, 1, "ellipsis"];
+          } else if (page >= pages - 2) {
+            numbers = _range(pages - 2, pages);
+            numbers.unshift("ellipsis");
+          } else {
+            numbers = ["ellipsis", page, "ellipsis"];
+          }
+        } else if (page <= half) {
+          numbers = _range(0, buttons - before);
+          numbers.push("ellipsis");
+          if (addFirstLast) {
+            numbers.push(pages - 1);
+          }
+        } else if (page >= pages - 1 - half) {
+          numbers = _range(pages - (buttons - before), pages);
+          numbers.unshift("ellipsis");
+          if (addFirstLast) {
+            numbers.unshift(0);
+          }
+        } else {
+          numbers = _range(page - half + before, page + half - after);
+          numbers.push("ellipsis");
+          numbers.unshift("ellipsis");
+          if (addFirstLast) {
+            numbers.push(pages - 1);
+            numbers.unshift(0);
+          }
+        }
+        return numbers;
+      }
+      var __lengthCounter = 0;
+      DataTable.feature.register("pageLength", function(settings, opts) {
+        var features = settings.oFeatures;
+        if (!features.bPaginate || !features.bLengthChange) {
+          return null;
+        }
+        opts = $2.extend({
+          menu: settings.aLengthMenu,
+          text: settings.oLanguage.sLengthMenu
+        }, opts);
+        var classes = settings.oClasses.length, tableId = settings.sTableId, menu = opts.menu, lengths = [], language = [], i2;
+        if (Array.isArray(menu[0])) {
+          lengths = menu[0];
+          language = menu[1];
+        } else {
+          for (i2 = 0; i2 < menu.length; i2++) {
+            if ($2.isPlainObject(menu[i2])) {
+              lengths.push(menu[i2].value);
+              language.push(menu[i2].label);
+            } else {
+              lengths.push(menu[i2]);
+              language.push(menu[i2]);
+            }
+          }
+        }
+        var end = opts.text.match(/_MENU_$/);
+        var start = opts.text.match(/^_MENU_/);
+        var removed = opts.text.replace(/_MENU_/, "");
+        var str = "<label>" + opts.text + "</label>";
+        if (start) {
+          str = "_MENU_<label>" + removed + "</label>";
+        } else if (end) {
+          str = "<label>" + removed + "</label>_MENU_";
+        }
+        var tmpId = "tmp-" + +new Date();
+        var div = $2("<div/>").addClass(classes.container).append(
+          str.replace("_MENU_", '<span id="' + tmpId + '"></span>')
+        );
+        var textNodes = [];
+        Array.prototype.slice.call(div.find("label")[0].childNodes).forEach(function(el) {
+          if (el.nodeType === Node.TEXT_NODE) {
+            textNodes.push({
+              el,
+              text: el.textContent
+            });
+          }
+        });
+        var updateEntries = function(len) {
+          textNodes.forEach(function(node) {
+            node.el.textContent = _fnMacros(settings, node.text, len);
+          });
+        };
+        var select = $2("<select/>", {
+          "aria-controls": tableId,
+          "class": classes.select
+        });
+        for (i2 = 0; i2 < lengths.length; i2++) {
+          var label = settings.api.i18n("lengthLabels." + lengths[i2], null);
+          if (label === null) {
+            label = typeof language[i2] === "number" ? settings.fnFormatNumber(language[i2]) : language[i2];
+          }
+          select[0][i2] = new Option(label, lengths[i2]);
+        }
+        div.find("label").attr("for", "dt-length-" + __lengthCounter);
+        select.attr("id", "dt-length-" + __lengthCounter);
+        __lengthCounter++;
+        div.find("#" + tmpId).replaceWith(select);
+        $2("select", div).val(settings._iDisplayLength).on("change.DT", function() {
+          _fnLengthChange(settings, $2(this).val());
+          _fnDraw(settings);
+        });
+        $2(settings.nTable).on("length.dt.DT", function(e, s, len) {
+          if (settings === s) {
+            $2("select", div).val(len);
+            updateEntries(len);
+          }
+        });
+        updateEntries(settings._iDisplayLength);
+        return div;
+      }, "l");
       $2.fn.dataTable = DataTable;
       DataTable.$ = $2;
       $2.fn.dataTableSettings = DataTable.settings;
@@ -11838,148 +12826,8 @@ var require_jquery_dataTables = __commonJS({
   }
 });
 
-// node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js
-var require_dataTables_bootstrap4 = __commonJS({
-  "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"(exports, module) {
-    (function(factory) {
-      if (typeof define === "function" && define.amd) {
-        define(["jquery", "datatables.net"], function($2) {
-          return factory($2, window, document);
-        });
-      } else if (typeof exports === "object") {
-        var jq = require_jquery();
-        var cjsRequires = function(root, $2) {
-          if (!$2.fn.dataTable) {
-            require_jquery_dataTables()(root, $2);
-          }
-        };
-        if (typeof window === "undefined") {
-          module.exports = function(root, $2) {
-            if (!root) {
-              root = window;
-            }
-            if (!$2) {
-              $2 = jq(root);
-            }
-            cjsRequires(root, $2);
-            return factory($2, root, root.document);
-          };
-        } else {
-          cjsRequires(window, jq);
-          module.exports = factory(jq, window, window.document);
-        }
-      } else {
-        factory(jQuery, window, document);
-      }
-    })(function($2, window2, document2, undefined2) {
-      "use strict";
-      var DataTable = $2.fn.dataTable;
-      $2.extend(true, DataTable.defaults, {
-        dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        renderer: "bootstrap"
-      });
-      $2.extend(DataTable.ext.classes, {
-        sWrapper: "dataTables_wrapper dt-bootstrap4",
-        sFilterInput: "form-control form-control-sm",
-        sLengthSelect: "custom-select custom-select-sm form-control form-control-sm",
-        sProcessing: "dataTables_processing card",
-        sPageButton: "paginate_button page-item"
-      });
-      DataTable.ext.renderer.pageButton.bootstrap = function(settings, host, idx, buttons, page, pages) {
-        var api = new DataTable.Api(settings);
-        var classes = settings.oClasses;
-        var lang = settings.oLanguage.oPaginate;
-        var aria = settings.oLanguage.oAria.paginate || {};
-        var btnDisplay, btnClass;
-        var attach = function(container, buttons2) {
-          var i, ien, node, button;
-          var clickHandler = function(e) {
-            e.preventDefault();
-            if (!$2(e.currentTarget).hasClass("disabled") && api.page() != e.data.action) {
-              api.page(e.data.action).draw("page");
-            }
-          };
-          for (i = 0, ien = buttons2.length; i < ien; i++) {
-            button = buttons2[i];
-            if (Array.isArray(button)) {
-              attach(container, button);
-            } else {
-              btnDisplay = "";
-              btnClass = "";
-              switch (button) {
-                case "ellipsis":
-                  btnDisplay = "&#x2026;";
-                  btnClass = "disabled";
-                  break;
-                case "first":
-                  btnDisplay = lang.sFirst;
-                  btnClass = button + (page > 0 ? "" : " disabled");
-                  break;
-                case "previous":
-                  btnDisplay = lang.sPrevious;
-                  btnClass = button + (page > 0 ? "" : " disabled");
-                  break;
-                case "next":
-                  btnDisplay = lang.sNext;
-                  btnClass = button + (page < pages - 1 ? "" : " disabled");
-                  break;
-                case "last":
-                  btnDisplay = lang.sLast;
-                  btnClass = button + (page < pages - 1 ? "" : " disabled");
-                  break;
-                default:
-                  btnDisplay = button + 1;
-                  btnClass = page === button ? "active" : "";
-                  break;
-              }
-              if (btnDisplay) {
-                var disabled = btnClass.indexOf("disabled") !== -1;
-                node = $2("<li>", {
-                  "class": classes.sPageButton + " " + btnClass,
-                  "id": idx === 0 && typeof button === "string" ? settings.sTableId + "_" + button : null
-                }).append(
-                  $2("<a>", {
-                    "href": disabled ? null : "#",
-                    "aria-controls": settings.sTableId,
-                    "aria-disabled": disabled ? "true" : null,
-                    "aria-label": aria[button],
-                    "role": "link",
-                    "aria-current": btnClass === "active" ? "page" : null,
-                    "data-dt-idx": button,
-                    "tabindex": disabled ? -1 : settings.iTabIndex,
-                    "class": "page-link"
-                  }).html(btnDisplay)
-                ).appendTo(container);
-                settings.oApi._fnBindAction(
-                  node,
-                  { action: button },
-                  clickHandler
-                );
-              }
-            }
-          }
-        };
-        var activeEl;
-        try {
-          activeEl = $2(host).find(document2.activeElement).data("dt-idx");
-        } catch (e) {
-        }
-        attach(
-          $2(host).empty().html('<ul class="pagination"/>').children("ul"),
-          buttons
-        );
-        if (activeEl !== undefined2) {
-          $2(host).find("[data-dt-idx=" + activeEl + "]").trigger("focus");
-        }
-      };
-      return DataTable;
-    });
-  }
-});
-
 // app/javascript/products_index.js
-var import_datatables = __toESM(require_jquery_dataTables());
-var import_dataTables = __toESM(require_dataTables_bootstrap4());
+var import_datatables = __toESM(require_dataTables());
 jQuery(function() {
   $("#productTable").DataTable();
 });
@@ -11993,10 +12841,7 @@ jQuery(function() {
  *
  * Date: 2023-08-28T13:37Z
  */
-/*! DataTables 1.13.7
- * ©2008-2023 SpryMedia Ltd - datatables.net/license
- */
-/*! DataTables Bootstrap 4 integration
- * ©2011-2017 SpryMedia Ltd - datatables.net/license
+/*! DataTables 2.3.7
+ * © SpryMedia Ltd - datatables.net/license
  */
 //# sourceMappingURL=products_index.js.map

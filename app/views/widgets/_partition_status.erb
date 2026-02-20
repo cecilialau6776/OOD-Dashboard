@@ -1,11 +1,11 @@
-<h3 class="font-weight-bold mb-3 d-flex justify-content-between align-items-center">
+<h3 class="fw-bold mb-3 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <i class="fas fa-server text-primary"></i>
         <span class="mx-2">System Status</span>
         <a href="<%= Configuration.partition_status_info_url %>" 
            class="ms-1" 
            style="color: #6c757d; font-size: 1.1rem;"
-           data-toggle="tooltip" 
+           data-bs-toggle="tooltip" 
            title="Click to learn more about partitions on <%= Configuration.cluster_name %>"
            aria-label="Documentation about partitions on <%= Configuration.cluster_name %>"
            target="_blank">
@@ -80,7 +80,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center h-100">
             <div class="position-relative mb-3">
                 <div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
             <p class="text-muted mb-0">Loading partition status...</p>
@@ -116,8 +116,8 @@
                                     <div class="mb-2">
                                         <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
                                             <div style="font-size: 1rem;">
-                                                <span class="font-weight-bold">${row.allocated_cores}</span> / 
-                                                <span class="font-weight-bold">${row.total_cores - row.other_cores}</span> cores in use
+                                                <span class="fw-bold">${row.allocated_cores}</span> / 
+                                                <span class="fw-bold">${row.total_cores - row.other_cores}</span> cores in use
                                                 <span class="text-muted">(${row.free_cores} available)</span>
                                             </div>
                                             <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
@@ -132,11 +132,11 @@
                                         </div>
                                         <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
                                             <div>
-                                                <span class="font-weight-bold">${(row.total_cores - row.other_cores) === 0 ? 0 : Math.floor((row.allocated_cores/(row.total_cores - row.other_cores))*100)}</span>% utilization
+                                                <span class="fw-bold">${(row.total_cores - row.other_cores) === 0 ? 0 : Math.floor((row.allocated_cores/(row.total_cores - row.other_cores))*100)}</span>% utilization
                                             </div>
                                             ${row.other_nodes > 0 ? 
                                             `<div>
-                                                <span class="font-weight-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
+                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
                                             </div>` 
                                             : ''}
                                         </div>
@@ -149,8 +149,8 @@
                                     <div class="mb-2">
                                         <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
                                             <div style="font-size: 1rem;">
-                                                <span class="font-weight-bold">${row.allocated_gpus}</span> / 
-                                                <span class="font-weight-bold">${availableGpus}</span> GPUs in use
+                                                <span class="fw-bold">${row.allocated_gpus}</span> / 
+                                                <span class="fw-bold">${availableGpus}</span> GPUs in use
                                                 <span class="text-muted">(${availableGpus - row.allocated_gpus} available)</span>
                                             </div>
                                             <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
@@ -165,12 +165,12 @@
                                         </div>
                                         <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
                                             <div>
-                                                <span class="font-weight-bold">${availableGpus === 0 ? 0 : Math.floor(utilizationRatio * 100)}</span>% utilization
+                                                <span class="fw-bold">${availableGpus === 0 ? 0 : Math.floor(utilizationRatio * 100)}</span>% utilization
                                             </div>`;
                                 })() + `
                                             ${row.other_nodes > 0 ? 
                                             `<div>
-                                                <span class="font-weight-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
+                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
                                             </div>` 
                                             : ''}
                                         </div>
@@ -179,8 +179,8 @@
                                     <div class="mb-2">
                                         <div class="mb-2">
                                             <div style="font-size: 1rem;">
-                                                <span class="font-weight-bold">${row.allocated_nodes}</span> / 
-                                                <span class="font-weight-bold">${row.total_nodes - row.other_nodes}</span> nodes in use
+                                                <span class="fw-bold">${row.allocated_nodes}</span> / 
+                                                <span class="fw-bold">${row.total_nodes - row.other_nodes}</span> nodes in use
                                                 <span class="text-muted">(${row.free_nodes} available)</span>
                                             </div>
                                         </div>
@@ -192,11 +192,11 @@
                                         </div>
                                         <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
                                             <div>
-                                                <span class="font-weight-bold">${(row.total_nodes - row.other_nodes) === 0 ? 0 : Math.floor((row.allocated_nodes/(row.total_nodes - row.other_nodes))*100)}</span>% utilization
+                                                <span class="fw-bold">${(row.total_nodes - row.other_nodes) === 0 ? 0 : Math.floor((row.allocated_nodes/(row.total_nodes - row.other_nodes))*100)}</span>% utilization
                                             </div>
                                             ${row.other_nodes > 0 ? 
                                             `<div>
-                                                <span class="font-weight-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
+                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
                                             </div>` 
                                             : ''}
                                         </div>
@@ -229,7 +229,7 @@
                         onmouseover="this.style.background='hsl(210 40% 98%)'; this.style.borderColor='hsl(214.3 31.8% 85%)'"
                         onmouseout="this.style.background='hsl(0 0% 100%)'; this.style.borderColor='hsl(214.3 31.8% 91.4%)'"
                         onclick="load_partition_status(true)">
-                    <i class="fas fa-sync-alt mr-1"></i> Retry
+                    <i class="fas fa-sync-alt me-1"></i> Retry
                 </button>
             </div>
             `;

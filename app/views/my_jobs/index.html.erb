@@ -1,6 +1,6 @@
 <div class="card border-0 bg-transparent pt-2">
   <div class="card-body bg-transparent pt-2">
-    <h3 class="font-weight-bold mb-3">
+    <h3 class="fw-bold mb-3">
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
@@ -61,7 +61,7 @@
                 let efficiencyWarning = "";
                 if (isLowTimeEff(row) || isLowCPUMemEff(row)) {
                     efficiencyWarning = `
-                        <i role="button" class="efficiency-warning fa fa-warning text-warning" data-toggle="tooltip" title="You requested significantly more resources than you used. Click to learn more."></i>
+                        <i role="button" class="efficiency-warning fa fa-warning text-warning" data-bs-toggle="tooltip" title="You requested significantly more resources than you used. Click to learn more."></i>
                     `;
                 }
                 return `<span class="text-nowrap">${data + linkToSession + efficiencyWarning}</span>`
@@ -174,20 +174,20 @@
                 var state_verbose = (SIMPLE_JOB_STATE_CODES[data.split(" ")[0]] || JOB_STATE_CODES[data.split(" ")[0]] || "--").replaceAll(/"/g, "&quot;");
                 var reason_verbose = (SIMPLE_JOB_REASON_CODES[row[getColIndex("Reason")].split(" ")[0]] || JOB_REASON_CODES[row[getColIndex("Reason")].split(" ")[0]] || "--").replaceAll(/"/g, "&quot;");
                 return `<a
-                            class="job-state-filter badge badge-primary p-2 shadow-sm" 
+                            class="job-state-filter badge text-bg-primary p-2 shadow-sm" 
                             style="font-size: 14px; color: ${JOB_STATE_COLORS[data.split(" ")[0]]?.fg}; background-color: ${JOB_STATE_COLORS[data.split(" ")[0]]?.bg};" 
-                            data-toggle="tooltip" 
-                            data-placement="top" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top" 
                             title="${state_verbose + (row[getColIndex("Requeue Count")] ? `\nRequeued ${row[getColIndex("Requeue Count")]} time(s)` : "")}">
                         ${data + (row[getColIndex("Requeue Count")] ? ` (${row[getColIndex("Requeue Count")]})` : "")}
                     </a>` +
                     (row[getColIndex("Reason")] !== "None" && reason_verbose !== "--" ? 
                         `<span class="text-nowrap"> due to
                             <span 
-                                class="job-reason-filter badge badge-pill badge-secondary shadow-sm"
+                                class="job-reason-filter badge rounded-pill text-bg-secondary shadow-sm"
                                 style="font-size: 0.9rem;"
-                                data-toggle="tooltip" 
-                                data-placement="top" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-placement="top" 
                                 title="${reason_verbose}">
                                 ${row[getColIndex("Reason")]}
                             </span>
@@ -304,8 +304,8 @@
                         <button class="connect-to-job-button btn btn-sm btn-info shadow-none" title="Copy Connect to Job Shell Command">
                             <i class="fas fa-plug"></i>
                         </button>
-                        <button type="button" class="btn btn-sm btn-info shadow-none dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
+                        <button type="button" class="btn btn-sm btn-info shadow-none dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
                             ${nodes.map((node) => {
@@ -541,7 +541,7 @@
 
     // Enable bootstrap tooltips
     function enableTooltips() {
-        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+        $('[data-bs-toggle="tooltip"]').tooltip({ boundary: 'window' });
     }
 
     const getCancelJobButtonText = () => `<span><i class="fas fa-trash-alt"></i> Cancel ${getSelectedRows().count()} job(s)</span>`;
@@ -569,13 +569,13 @@
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-3">
                             <div class="card border-0 bg-transparent">
-                                <a class="btn font-weight-bold shadow-sm" style="background-color: #ebd99f; color: black;" href="<%= url_for "performance_metrics" %>"><i class="fas fa-external-link-alt"></i> Job Performance Metrics</a>
+                                <a class="btn fw-bold shadow-sm" style="background-color: #ebd99f; color: black;" href="<%= url_for "performance_metrics" %>"><i class="fas fa-external-link-alt"></i> Job Performance Metrics</a>
                                 <div class="form-check form-check-inline d-none">
                                     <input class="form-check-input" type="checkbox" id="global-data-chart-toggle">
                                     <label class="form-check-label" for="global-data-chart-toggle">Use global data</label>
                                 </div>
                                 <div class="dropdown mt-3">
-                                    <button class="btn dropdown-toggle font-weight-bold w-100 shadow-sm" style="background-color: #ebd99f; color: black;" type="button" id="chart-dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn dropdown-toggle fw-bold w-100 shadow-sm" style="background-color: #ebd99f; color: black;" type="button" id="chart-dropdown-button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-chart-bar"></i> ${getSelectedChart().title}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="chart-dropdown-button">
@@ -586,16 +586,16 @@
                                         }
                                     </div>
                                 </div>
-                                <span class="mt-2 mb-0 font-weight-bold">Select a date/time range:</span>
+                                <span class="mt-2 mb-0 fw-bold">Select a date/time range:</span>
                                 <div id="datetime-range-selector" class="d-flex align-items-center" style="margin-top: 5px; background: transparent; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" aria-label="Select date and time range" aria-haspopup="dialog">
                                     <i class="fa fa-calendar"></i>&nbsp;&nbsp;
                                     <span id="datetime-range-selector-text"></span>
-                                    <span class="ml-auto">
-                                        <span class="sr-only">Toggle dropdown</span>
+                                    <span class="ms-auto">
+                                        <span class="visually-hidden">Toggle dropdown</span>
                                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div id="last-updated-text" class="d-none text-center font-weight-bold mt-0 pt-2 pb-1">
+                                <div id="last-updated-text" class="d-none text-center fw-bold mt-0 pt-2 pb-1">
                                     Last Updated: ${moment().format('YYYY-MM-DD HH:mm:ss')}
                                 </div>
                             </div>
@@ -608,7 +608,7 @@
                         <div class="col">
                             <ul class="nav nav-tabs bg-transparent" id="tablist">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link h5 bg-transparent" id="allocation-jobs-tab" title="View jobs from all of my accounts started by any user" data-toggle="tooltip">Account Jobs</a>
+                                    <a href="" class="nav-link h5 bg-transparent" id="allocation-jobs-tab" title="View jobs from all of my accounts started by any user" data-bs-toggle="tooltip">Account Jobs</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="" class="nav-link h5 active bg-transparent" id="my-jobs-tab">My Jobs</a>
@@ -658,7 +658,7 @@
                         return `
                             <nav class="nav px-0">
                                 <div class="d-flex align-items-center mb-auto mt-1">
-                                    <select id="page-length-select" class="form-control form-control-sm mr-2 my-1 w-auto shadow-none bg-transparent" style="color: inherit;">
+                                    <select id="page-length-select" class="form-select form-select-sm me-2 my-1 w-auto shadow-none bg-transparent" style="color: inherit;">
                                         <option value="10" selected>10</option>
                                         <option value="15">15</option>
                                         <option value="25">25</option>
@@ -684,7 +684,7 @@
                                                 <i class="fas fa-tachometer-alt"></i> Toggle Efficiency Data
                                             </button>
 
-                                            <button class="btn shadow-sm m-1" style="background-color: #ddb945; color: black;" type="button" data-toggle="collapse" data-target="#more-table-buttons" aria-expanded="false" aria-controls="more-table-buttons">
+                                            <button class="btn shadow-sm m-1" style="background-color: #ddb945; color: black;" type="button" data-bs-toggle="collapse" data-bs-target="#more-table-buttons" aria-expanded="false" aria-controls="more-table-buttons">
                                                 <i class="fa fa-bars"></i>
                                             </button>
                                         </div>
@@ -697,7 +697,7 @@
                                                     <i class="fa fa-th"></i> Toggle Table Size
                                                 </button>
                                                 <div class="dropdown d-inline-block">
-                                                    <button id="export-data-dropdown-button" class="btn dropdown-toggle shadow-sm m-1" style="background-color: #ddb945; color: black;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button id="export-data-dropdown-button" class="btn dropdown-toggle shadow-sm m-1" style="background-color: #ddb945; color: black;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-file-export"></i> Export as
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="export-data-dropdown-button">
@@ -713,10 +713,10 @@
                                     </div>
                                 </div>
                                 
-                                <form class="form-inline mb-auto mt-1">
+                                <form class="d-flex align-items-center mb-auto mt-1">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input bg-transparent" type="checkbox" id="regex-search-toggle">
-                                        <label class="form-check-label" for="regex-search-toggle" title="When checked, use regular expressions. (i.e. type 'cancelled|running' to filter by both cancelled and running jobs)" data-toggle="tooltip">Regex?</label>
+                                        <label class="form-check-label" for="regex-search-toggle" title="When checked, use regular expressions. (i.e. type 'cancelled|running' to filter by both cancelled and running jobs)" data-bs-toggle="tooltip">Regex?</label>
                                     </div>
                                     <input class="form-control shadow-none m-1 bg-transparent" id="my-jobs-search" type="search" placeholder="Search" aria-label="Search" style="color: inherit;">
                                 </form>
@@ -745,7 +745,7 @@
             });
 
             getCurrentTable().on("search", () => {
-                $('[data-toggle="tooltip"]').tooltip('dispose');
+                $('[data-bs-toggle="tooltip"]').tooltip('dispose');
                 enableTooltips();
             });
 
@@ -944,8 +944,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">${modalTitle}</h5>
-                                    <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <button type="button" class="close close-btn" data-bs-dismiss="modal" aria-label="Close">
+                                    
                                     </button>
                                 </div>
                                 ${modalMsg ? `
@@ -955,7 +955,7 @@
                                 ` : ""}
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" id="confirm-btn">Confirm</button>
-                                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -1126,7 +1126,7 @@
 
             // Enable tooltips when changing pages or filters
             getCurrentTable().on("draw", () => {
-                $('[data-toggle="tooltip"]').tooltip('dispose');
+                $('[data-bs-toggle="tooltip"]').tooltip('dispose');
                 enableTooltips();
                 refreshSelectedChart();
                 setupPerRowEventListeners();
@@ -1216,7 +1216,7 @@
                     var selectedRows = getSelectedRows().data().pluck(getColIndex("Job ID")).toArray();
                     getCurrentTable().clear();
                     getCurrentTable().rows.add(extractTableData(data));
-                    $('[data-toggle="tooltip"]').tooltip('dispose');
+                    $('[data-bs-toggle="tooltip"]').tooltip('dispose');
                     var scrollTop = $(window).scrollTop();
                     getCurrentTable().draw(false);
                     expandedRows.forEach(function(jobId) {
@@ -1370,7 +1370,7 @@
                         <div class="d-flex align-items-center">
                             <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
                             &nbsp;
-                            <strong class="mr-1">Loading job info for ${jobId}...</strong>
+                            <strong class="me-1">Loading job info for ${jobId}...</strong>
                         </div>
                     </div>
                 `).show();
@@ -1410,7 +1410,7 @@
                 $.each(data, (key, val) => {
                     const trEl = $(`
                         <tr>
-                            <td class="font-weight-bold text-nowrap">${key}</td>
+                            <td class="fw-bold text-nowrap">${key}</td>
                             <td class="w-100">${val}</td>
                         </tr>
                     `);
@@ -1456,7 +1456,7 @@
             <div class="d-flex justify-content-center">
                 <div class="d-flex align-items-center">
                     <div class="spinner-border" style="width: 3rem; height: 3rem; border-width: 0.5rem" role="status">
-                        <span class="sr-only">Loading...</span>
+                        <span class="visually-hidden">Loading...</span>
                     </div>
                     <div class="h1">&nbsp;Loading...</div>
                 </div>

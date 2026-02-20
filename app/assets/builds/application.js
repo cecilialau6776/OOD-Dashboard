@@ -23,17 +23,17 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 // node_modules/jquery/dist/jquery.js
 var require_jquery = __commonJS({
   "node_modules/jquery/dist/jquery.js"(exports, module) {
-    (function(global2, factory) {
+    (function(global, factory) {
       "use strict";
       if (typeof module === "object" && typeof module.exports === "object") {
-        module.exports = global2.document ? factory(global2, true) : function(w) {
+        module.exports = global.document ? factory(global, true) : function(w) {
           if (!w.document) {
             throw new Error("jQuery requires a window with a document");
           }
           return factory(w);
         };
       } else {
-        factory(global2);
+        factory(global);
       }
     })(typeof window !== "undefined" ? window : exports, function(window2, noGlobal) {
       "use strict";
@@ -6476,9 +6476,9 @@ var require_rails = __commonJS({
   }
 });
 
-// node_modules/datatables.net/js/jquery.dataTables.js
-var require_jquery_dataTables = __commonJS({
-  "node_modules/datatables.net/js/jquery.dataTables.js"(exports, module) {
+// node_modules/datatables.net/js/dataTables.js
+var require_dataTables = __commonJS({
+  "node_modules/datatables.net/js/dataTables.js"(exports, module) {
     (function(factory) {
       "use strict";
       if (typeof define === "function" && define.amd) {
@@ -6503,193 +6503,56 @@ var require_jquery_dataTables = __commonJS({
       } else {
         window.DataTable = factory(jQuery, window, document);
       }
-    })(function($3, window2, document2, undefined2) {
+    })(function($3, window2, document2) {
       "use strict";
-      var DataTable = function(selector, options) {
-        if (DataTable.factory(selector, options)) {
-          return DataTable;
+      var DataTable2 = function(selector, options) {
+        if (DataTable2.factory(selector, options)) {
+          return DataTable2;
         }
-        if (this instanceof DataTable) {
+        if (this instanceof DataTable2) {
           return $3(selector).DataTable(options);
         } else {
           options = selector;
         }
-        this.$ = function(sSelector, oOpts) {
-          return this.api(true).$(sSelector, oOpts);
-        };
-        this._ = function(sSelector, oOpts) {
-          return this.api(true).rows(sSelector, oOpts).data();
-        };
-        this.api = function(traditional) {
-          return traditional ? new _Api(
-            _fnSettingsFromNode(this[_ext.iApiIndex])
-          ) : new _Api(this);
-        };
-        this.fnAddData = function(data, redraw) {
-          var api = this.api(true);
-          var rows = Array.isArray(data) && (Array.isArray(data[0]) || $3.isPlainObject(data[0])) ? api.rows.add(data) : api.row.add(data);
-          if (redraw === undefined2 || redraw) {
-            api.draw();
-          }
-          return rows.flatten().toArray();
-        };
-        this.fnAdjustColumnSizing = function(bRedraw) {
-          var api = this.api(true).columns.adjust();
-          var settings = api.settings()[0];
-          var scroll = settings.oScroll;
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw(false);
-          } else if (scroll.sX !== "" || scroll.sY !== "") {
-            _fnScrollDraw(settings);
-          }
-        };
-        this.fnClearTable = function(bRedraw) {
-          var api = this.api(true).clear();
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw();
-          }
-        };
-        this.fnClose = function(nTr) {
-          this.api(true).row(nTr).child.hide();
-        };
-        this.fnDeleteRow = function(target, callback, redraw) {
-          var api = this.api(true);
-          var rows = api.rows(target);
-          var settings = rows.settings()[0];
-          var data = settings.aoData[rows[0][0]];
-          rows.remove();
-          if (callback) {
-            callback.call(this, settings, data);
-          }
-          if (redraw === undefined2 || redraw) {
-            api.draw();
-          }
-          return data;
-        };
-        this.fnDestroy = function(remove) {
-          this.api(true).destroy(remove);
-        };
-        this.fnDraw = function(complete) {
-          this.api(true).draw(complete);
-        };
-        this.fnFilter = function(sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive) {
-          var api = this.api(true);
-          if (iColumn === null || iColumn === undefined2) {
-            api.search(sInput, bRegex, bSmart, bCaseInsensitive);
-          } else {
-            api.column(iColumn).search(sInput, bRegex, bSmart, bCaseInsensitive);
-          }
-          api.draw();
-        };
-        this.fnGetData = function(src, col) {
-          var api = this.api(true);
-          if (src !== undefined2) {
-            var type = src.nodeName ? src.nodeName.toLowerCase() : "";
-            return col !== undefined2 || type == "td" || type == "th" ? api.cell(src, col).data() : api.row(src).data() || null;
-          }
-          return api.data().toArray();
-        };
-        this.fnGetNodes = function(iRow) {
-          var api = this.api(true);
-          return iRow !== undefined2 ? api.row(iRow).node() : api.rows().nodes().flatten().toArray();
-        };
-        this.fnGetPosition = function(node) {
-          var api = this.api(true);
-          var nodeName = node.nodeName.toUpperCase();
-          if (nodeName == "TR") {
-            return api.row(node).index();
-          } else if (nodeName == "TD" || nodeName == "TH") {
-            var cell = api.cell(node).index();
-            return [
-              cell.row,
-              cell.columnVisible,
-              cell.column
-            ];
-          }
-          return null;
-        };
-        this.fnIsOpen = function(nTr) {
-          return this.api(true).row(nTr).child.isShown();
-        };
-        this.fnOpen = function(nTr, mHtml, sClass) {
-          return this.api(true).row(nTr).child(mHtml, sClass).show().child()[0];
-        };
-        this.fnPageChange = function(mAction, bRedraw) {
-          var api = this.api(true).page(mAction);
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw(false);
-          }
-        };
-        this.fnSetColumnVis = function(iCol, bShow, bRedraw) {
-          var api = this.api(true).column(iCol).visible(bShow);
-          if (bRedraw === undefined2 || bRedraw) {
-            api.columns.adjust().draw();
-          }
-        };
-        this.fnSettings = function() {
-          return _fnSettingsFromNode(this[_ext.iApiIndex]);
-        };
-        this.fnSort = function(aaSort) {
-          this.api(true).order(aaSort).draw();
-        };
-        this.fnSortListener = function(nNode, iColumn, fnCallback) {
-          this.api(true).order.listener(nNode, iColumn, fnCallback);
-        };
-        this.fnUpdate = function(mData, mRow, iColumn, bRedraw, bAction) {
-          var api = this.api(true);
-          if (iColumn === undefined2 || iColumn === null) {
-            api.row(mRow).data(mData);
-          } else {
-            api.cell(mRow, iColumn).data(mData);
-          }
-          if (bAction === undefined2 || bAction) {
-            api.columns.adjust();
-          }
-          if (bRedraw === undefined2 || bRedraw) {
-            api.draw();
-          }
-          return 0;
-        };
-        this.fnVersionCheck = _ext.fnVersionCheck;
         var _that = this;
-        var emptyInit = options === undefined2;
+        var emptyInit = options === void 0;
         var len = this.length;
         if (emptyInit) {
           options = {};
         }
-        this.oApi = this.internal = _ext.internal;
-        for (var fn in DataTable.ext.internal) {
-          if (fn) {
-            this[fn] = _fnExternApiFunc(fn);
-          }
-        }
+        this.api = function() {
+          return new _Api(this);
+        };
         this.each(function() {
           var o = {};
           var oInit = len > 1 ? _fnExtend(o, options, true) : options;
-          var i2 = 0, iLen, j, jLen, k, kLen;
+          var i2 = 0, iLen;
           var sId = this.getAttribute("id");
-          var bInitHandedOff = false;
-          var defaults = DataTable.defaults;
+          var defaults = DataTable2.defaults;
           var $this = $3(this);
           if (this.nodeName.toLowerCase() != "table") {
             _fnLog(null, 0, "Non-table node initialisation (" + this.nodeName + ")", 2);
             return;
           }
+          if (oInit.on && oInit.on.options) {
+            _fnListener($this, "options", oInit.on.options);
+          }
+          $this.trigger("options.dt", oInit);
           _fnCompatOpts(defaults);
           _fnCompatCols(defaults.column);
           _fnCamelToHungarian(defaults, defaults, true);
           _fnCamelToHungarian(defaults.column, defaults.column, true);
-          _fnCamelToHungarian(defaults, $3.extend(oInit, $this.data()), true);
-          var allSettings = DataTable.settings;
+          _fnCamelToHungarian(defaults, $3.extend(oInit, _fnEscapeObject($this.data())), true);
+          var allSettings = DataTable2.settings;
           for (i2 = 0, iLen = allSettings.length; i2 < iLen; i2++) {
             var s = allSettings[i2];
             if (s.nTable == this || s.nTHead && s.nTHead.parentNode == this || s.nTFoot && s.nTFoot.parentNode == this) {
-              var bRetrieve = oInit.bRetrieve !== undefined2 ? oInit.bRetrieve : defaults.bRetrieve;
-              var bDestroy = oInit.bDestroy !== undefined2 ? oInit.bDestroy : defaults.bDestroy;
+              var bRetrieve = oInit.bRetrieve !== void 0 ? oInit.bRetrieve : defaults.bRetrieve;
+              var bDestroy = oInit.bDestroy !== void 0 ? oInit.bDestroy : defaults.bDestroy;
               if (emptyInit || bRetrieve) {
                 return s.oInstance;
               } else if (bDestroy) {
-                s.oInstance.fnDestroy();
+                new DataTable2.Api(s).destroy();
                 break;
               } else {
                 _fnLog(s, 0, "Cannot reinitialise DataTable", 3);
@@ -6702,23 +6565,27 @@ var require_jquery_dataTables = __commonJS({
             }
           }
           if (sId === null || sId === "") {
-            sId = "DataTables_Table_" + DataTable.ext._unique++;
+            sId = "DataTables_Table_" + DataTable2.ext._unique++;
             this.id = sId;
           }
-          var oSettings = $3.extend(true, {}, DataTable.models.oSettings, {
+          $this.children("colgroup").remove();
+          var oSettings = $3.extend(true, {}, DataTable2.models.oSettings, {
             "sDestroyWidth": $this[0].style.width,
             "sInstance": sId,
-            "sTableId": sId
+            "sTableId": sId,
+            colgroup: $3("<colgroup>"),
+            fastData: function(row, column, type) {
+              return _fnGetCellData(oSettings, row, column, type);
+            }
           });
           oSettings.nTable = this;
-          oSettings.oApi = _that.internal;
           oSettings.oInit = oInit;
           allSettings.push(oSettings);
+          oSettings.api = new _Api(oSettings);
           oSettings.oInstance = _that.length === 1 ? _that : $this.dataTable();
           _fnCompatOpts(oInit);
-          _fnLanguageCompat(oInit.oLanguage);
           if (oInit.aLengthMenu && !oInit.iDisplayLength) {
-            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : oInit.aLengthMenu[0];
+            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : $3.isPlainObject(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0].value : oInit.aLengthMenu[0];
           }
           oInit = _fnExtend($3.extend(true, {}, defaults), oInit);
           _fnMap(oSettings.oFeatures, oInit, [
@@ -6735,26 +6602,30 @@ var require_jquery_dataTables = __commonJS({
             "bDeferRender"
           ]);
           _fnMap(oSettings, oInit, [
-            "asStripeClasses",
             "ajax",
-            "fnServerData",
             "fnFormatNumber",
             "sServerMethod",
             "aaSorting",
             "aaSortingFixed",
             "aLengthMenu",
             "sPaginationType",
-            "sAjaxSource",
-            "sAjaxDataProp",
             "iStateDuration",
-            "sDom",
             "bSortCellsTop",
             "iTabIndex",
+            "sDom",
             "fnStateLoadCallback",
             "fnStateSaveCallback",
             "renderer",
             "searchDelay",
             "rowId",
+            "caption",
+            "layout",
+            "orderDescReverse",
+            "orderIndicators",
+            "orderHandler",
+            "titleRow",
+            "typeDetect",
+            "columnTitleTag",
             ["iCookieDuration", "iStateDuration"],
             ["oSearch", "oPreviousSearch"],
             ["aoSearchCols", "aoPreSearchCols"],
@@ -6767,88 +6638,57 @@ var require_jquery_dataTables = __commonJS({
             ["bScrollCollapse", "bCollapse"]
           ]);
           _fnMap(oSettings.oLanguage, oInit, "fnInfoCallback");
-          _fnCallbackReg(oSettings, "aoDrawCallback", oInit.fnDrawCallback, "user");
-          _fnCallbackReg(oSettings, "aoServerParams", oInit.fnServerParams, "user");
-          _fnCallbackReg(oSettings, "aoStateSaveParams", oInit.fnStateSaveParams, "user");
-          _fnCallbackReg(oSettings, "aoStateLoadParams", oInit.fnStateLoadParams, "user");
-          _fnCallbackReg(oSettings, "aoStateLoaded", oInit.fnStateLoaded, "user");
-          _fnCallbackReg(oSettings, "aoRowCallback", oInit.fnRowCallback, "user");
-          _fnCallbackReg(oSettings, "aoRowCreatedCallback", oInit.fnCreatedRow, "user");
-          _fnCallbackReg(oSettings, "aoHeaderCallback", oInit.fnHeaderCallback, "user");
-          _fnCallbackReg(oSettings, "aoFooterCallback", oInit.fnFooterCallback, "user");
-          _fnCallbackReg(oSettings, "aoInitComplete", oInit.fnInitComplete, "user");
-          _fnCallbackReg(oSettings, "aoPreDrawCallback", oInit.fnPreDrawCallback, "user");
+          _fnCallbackReg(oSettings, "aoDrawCallback", oInit.fnDrawCallback);
+          _fnCallbackReg(oSettings, "aoStateSaveParams", oInit.fnStateSaveParams);
+          _fnCallbackReg(oSettings, "aoStateLoadParams", oInit.fnStateLoadParams);
+          _fnCallbackReg(oSettings, "aoStateLoaded", oInit.fnStateLoaded);
+          _fnCallbackReg(oSettings, "aoRowCallback", oInit.fnRowCallback);
+          _fnCallbackReg(oSettings, "aoRowCreatedCallback", oInit.fnCreatedRow);
+          _fnCallbackReg(oSettings, "aoHeaderCallback", oInit.fnHeaderCallback);
+          _fnCallbackReg(oSettings, "aoFooterCallback", oInit.fnFooterCallback);
+          _fnCallbackReg(oSettings, "aoInitComplete", oInit.fnInitComplete);
+          _fnCallbackReg(oSettings, "aoPreDrawCallback", oInit.fnPreDrawCallback);
           oSettings.rowIdFn = _fnGetObjectDataFn(oInit.rowId);
+          if (oInit.on) {
+            Object.keys(oInit.on).forEach(function(key) {
+              _fnListener($this, key, oInit.on[key]);
+            });
+          }
           _fnBrowserDetect(oSettings);
           var oClasses = oSettings.oClasses;
-          $3.extend(oClasses, DataTable.ext.classes, oInit.oClasses);
-          $this.addClass(oClasses.sTable);
-          if (oSettings.iInitDisplayStart === undefined2) {
+          $3.extend(oClasses, DataTable2.ext.classes, oInit.oClasses);
+          $this.addClass(oClasses.table);
+          if (!oSettings.oFeatures.bPaginate) {
+            oInit.iDisplayStart = 0;
+          }
+          if (oSettings.iInitDisplayStart === void 0) {
             oSettings.iInitDisplayStart = oInit.iDisplayStart;
             oSettings._iDisplayStart = oInit.iDisplayStart;
           }
-          if (oInit.iDeferLoading !== null) {
-            oSettings.bDeferLoading = true;
-            var tmp = Array.isArray(oInit.iDeferLoading);
-            oSettings._iRecordsDisplay = tmp ? oInit.iDeferLoading[0] : oInit.iDeferLoading;
-            oSettings._iRecordsTotal = tmp ? oInit.iDeferLoading[1] : oInit.iDeferLoading;
+          var defer = oInit.iDeferLoading;
+          if (defer !== null) {
+            oSettings.deferLoading = true;
+            var tmp = Array.isArray(defer);
+            oSettings._iRecordsDisplay = tmp ? defer[0] : defer;
+            oSettings._iRecordsTotal = tmp ? defer[1] : defer;
           }
-          var oLanguage = oSettings.oLanguage;
-          $3.extend(true, oLanguage, oInit.oLanguage);
-          if (oLanguage.sUrl) {
-            $3.ajax({
-              dataType: "json",
-              url: oLanguage.sUrl,
-              success: function(json) {
-                _fnCamelToHungarian(defaults.oLanguage, json);
-                _fnLanguageCompat(json);
-                $3.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
-                _fnCallbackFire(oSettings, null, "i18n", [oSettings]);
-                _fnInitialise(oSettings);
-              },
-              error: function() {
-                _fnInitialise(oSettings);
-              }
-            });
-            bInitHandedOff = true;
-          } else {
-            _fnCallbackFire(oSettings, null, "i18n", [oSettings]);
-          }
-          if (oInit.asStripeClasses === null) {
-            oSettings.asStripeClasses = [
-              oClasses.sStripeOdd,
-              oClasses.sStripeEven
-            ];
-          }
-          var stripeClasses = oSettings.asStripeClasses;
-          var rowOne = $this.children("tbody").find("tr").eq(0);
-          if ($3.inArray(true, $3.map(stripeClasses, function(el, i3) {
-            return rowOne.hasClass(el);
-          })) !== -1) {
-            $3("tbody tr", this).removeClass(stripeClasses.join(" "));
-            oSettings.asDestroyStripes = stripeClasses.slice();
-          }
-          var anThs = [];
-          var aoColumnsInit;
-          var nThead = this.getElementsByTagName("thead");
-          if (nThead.length !== 0) {
-            _fnDetectHeader(oSettings.aoHeader, nThead[0]);
-            anThs = _fnGetUniqueThs(oSettings);
-          }
-          if (oInit.aoColumns === null) {
-            aoColumnsInit = [];
-            for (i2 = 0, iLen = anThs.length; i2 < iLen; i2++) {
-              aoColumnsInit.push(null);
+          var columnsInit = [];
+          var thead = this.getElementsByTagName("thead");
+          var initHeaderLayout = _fnDetectHeader(oSettings, thead[0]);
+          if (oInit.aoColumns) {
+            columnsInit = oInit.aoColumns;
+          } else if (initHeaderLayout.length) {
+            for (i2 = 0, iLen = initHeaderLayout[0].length; i2 < iLen; i2++) {
+              columnsInit.push(null);
             }
-          } else {
-            aoColumnsInit = oInit.aoColumns;
           }
-          for (i2 = 0, iLen = aoColumnsInit.length; i2 < iLen; i2++) {
-            _fnAddColumn(oSettings, anThs ? anThs[i2] : null);
+          for (i2 = 0, iLen = columnsInit.length; i2 < iLen; i2++) {
+            _fnAddColumn(oSettings);
           }
-          _fnApplyColumnDefs(oSettings, oInit.aoColumnDefs, aoColumnsInit, function(iCol, oDef) {
+          _fnApplyColumnDefs(oSettings, oInit.aoColumnDefs, columnsInit, initHeaderLayout, function(iCol, oDef) {
             _fnColumnOptions(oSettings, iCol, oDef);
           });
+          var rowOne = $this.children("tbody").find("tr:first-child").eq(0);
           if (rowOne.length) {
             var a = function(cell, name) {
               return cell.getAttribute("data-" + name) !== null ? name : null;
@@ -6864,9 +6704,9 @@ var require_jquery_dataTables = __commonJS({
                 if (sort !== null || filter !== null) {
                   col.mData = {
                     _: i3 + ".display",
-                    sort: sort !== null ? i3 + ".@data-" + sort : undefined2,
-                    type: sort !== null ? i3 + ".@data-" + sort : undefined2,
-                    filter: filter !== null ? i3 + ".@data-" + filter : undefined2
+                    sort: sort !== null ? i3 + ".@data-" + sort : void 0,
+                    type: sort !== null ? i3 + ".@data-" + sort : void 0,
+                    filter: filter !== null ? i3 + ".@data-" + filter : void 0
                   };
                   col._isArrayHost = true;
                   _fnColumnOptions(oSettings, i3);
@@ -6874,88 +6714,206 @@ var require_jquery_dataTables = __commonJS({
               }
             });
           }
+          _fnCallbackReg(oSettings, "aoDrawCallback", _fnSaveState);
           var features = oSettings.oFeatures;
-          var loadedInit = function() {
-            if (oInit.aaSorting === undefined2) {
-              var sorting = oSettings.aaSorting;
-              for (i2 = 0, iLen = sorting.length; i2 < iLen; i2++) {
-                sorting[i2][1] = oSettings.aoColumns[i2].asSorting[0];
-              }
-            }
-            _fnSortingClasses(oSettings);
-            if (features.bSort) {
-              _fnCallbackReg(oSettings, "aoDrawCallback", function() {
-                if (oSettings.bSorted) {
-                  var aSort = _fnSortFlatten(oSettings);
-                  var sortedColumns = {};
-                  $3.each(aSort, function(i3, val) {
-                    sortedColumns[val.src] = val.dir;
-                  });
-                  _fnCallbackFire(oSettings, null, "order", [oSettings, aSort, sortedColumns]);
-                  _fnSortAria(oSettings);
-                }
-              });
-            }
-            _fnCallbackReg(oSettings, "aoDrawCallback", function() {
-              if (oSettings.bSorted || _fnDataSource(oSettings) === "ssp" || features.bDeferRender) {
-                _fnSortingClasses(oSettings);
-              }
-            }, "sc");
-            var captions = $this.children("caption").each(function() {
-              this._captionSide = $3(this).css("caption-side");
-            });
-            var thead = $this.children("thead");
-            if (thead.length === 0) {
-              thead = $3("<thead/>").appendTo($this);
-            }
-            oSettings.nTHead = thead[0];
-            var tbody = $this.children("tbody");
-            if (tbody.length === 0) {
-              tbody = $3("<tbody/>").insertAfter(thead);
-            }
-            oSettings.nTBody = tbody[0];
-            var tfoot = $this.children("tfoot");
-            if (tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "")) {
-              tfoot = $3("<tfoot/>").appendTo($this);
-            }
-            if (tfoot.length === 0 || tfoot.children().length === 0) {
-              $this.addClass(oClasses.sNoFooter);
-            } else if (tfoot.length > 0) {
-              oSettings.nTFoot = tfoot[0];
-              _fnDetectHeader(oSettings.aoFooter, oSettings.nTFoot);
-            }
-            if (oInit.aaData) {
-              for (i2 = 0; i2 < oInit.aaData.length; i2++) {
-                _fnAddData(oSettings, oInit.aaData[i2]);
-              }
-            } else if (oSettings.bDeferLoading || _fnDataSource(oSettings) == "dom") {
-              _fnAddTr(oSettings, $3(oSettings.nTBody).children("tr"));
-            }
-            oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-            oSettings.bInitialised = true;
-            if (bInitHandedOff === false) {
-              _fnInitialise(oSettings);
-            }
-          };
-          _fnCallbackReg(oSettings, "aoDrawCallback", _fnSaveState, "state_save");
           if (oInit.bStateSave) {
             features.bStateSave = true;
-            _fnLoadState(oSettings, oInit, loadedInit);
+          }
+          if (oInit.aaSorting === void 0) {
+            var sorting = oSettings.aaSorting;
+            for (i2 = 0, iLen = sorting.length; i2 < iLen; i2++) {
+              sorting[i2][1] = oSettings.aoColumns[i2].asSorting[0];
+            }
+          }
+          _fnSortingClasses(oSettings);
+          _fnCallbackReg(oSettings, "aoDrawCallback", function() {
+            if (oSettings.bSorted || _fnDataSource(oSettings) === "ssp" || features.bDeferRender) {
+              _fnSortingClasses(oSettings);
+            }
+          });
+          var caption = $this.children("caption");
+          if (oSettings.caption) {
+            if (caption.length === 0) {
+              caption = $3("<caption/>").prependTo($this);
+            }
+            caption.html(oSettings.caption);
+          }
+          if (caption.length) {
+            caption[0]._captionSide = caption.css("caption-side");
+            oSettings.captionNode = caption[0];
+          }
+          if (caption.length) {
+            oSettings.colgroup.insertAfter(caption);
           } else {
-            loadedInit();
+            oSettings.colgroup.prependTo(oSettings.nTable);
+          }
+          if (thead.length === 0) {
+            thead = $3("<thead/>").appendTo($this);
+          }
+          oSettings.nTHead = thead[0];
+          var tbody = $this.children("tbody");
+          if (tbody.length === 0) {
+            tbody = $3("<tbody/>").insertAfter(thead);
+          }
+          oSettings.nTBody = tbody[0];
+          var tfoot = $this.children("tfoot");
+          if (tfoot.length === 0) {
+            tfoot = $3("<tfoot/>").appendTo($this);
+          }
+          oSettings.nTFoot = tfoot[0];
+          oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+          oSettings.bInitialised = true;
+          var oLanguage = oSettings.oLanguage;
+          $3.extend(true, oLanguage, oInit.oLanguage);
+          if (oLanguage.sUrl) {
+            $3.ajax({
+              dataType: "json",
+              url: oLanguage.sUrl,
+              success: function(json) {
+                _fnCamelToHungarian(defaults.oLanguage, json);
+                $3.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
+                _fnCallbackFire(oSettings, null, "i18n", [oSettings], true);
+                _fnInitialise(oSettings);
+              },
+              error: function() {
+                _fnLog(oSettings, 0, "i18n file loading error", 21);
+                _fnInitialise(oSettings);
+              }
+            });
+          } else {
+            _fnCallbackFire(oSettings, null, "i18n", [oSettings], true);
+            _fnInitialise(oSettings);
           }
         });
         _that = null;
         return this;
       };
+      DataTable2.ext = _ext = {
+        builder: "-source-",
+        buttons: {},
+        ccContent: {},
+        classes: {},
+        errMode: "alert",
+        escape: {
+          attributes: false
+        },
+        feature: [],
+        features: {},
+        search: [],
+        selector: {
+          cell: [],
+          column: [],
+          row: []
+        },
+        legacy: {
+          ajax: null
+        },
+        pager: {},
+        renderer: {
+          pageButton: {},
+          header: {}
+        },
+        order: {},
+        type: {
+          className: {},
+          detect: [],
+          render: {},
+          search: {},
+          order: {}
+        },
+        _unique: 0,
+        fnVersionCheck: DataTable2.fnVersionCheck,
+        iApiIndex: 0,
+        sVersion: DataTable2.version
+      };
+      $3.extend(_ext, {
+        afnFiltering: _ext.search,
+        aTypes: _ext.type.detect,
+        ofnSearch: _ext.type.search,
+        oSort: _ext.type.order,
+        afnSortData: _ext.order,
+        aoFeatures: _ext.feature,
+        oStdClasses: _ext.classes,
+        oPagination: _ext.pager
+      });
+      $3.extend(DataTable2.ext.classes, {
+        container: "dt-container",
+        empty: {
+          row: "dt-empty"
+        },
+        info: {
+          container: "dt-info"
+        },
+        layout: {
+          row: "dt-layout-row",
+          cell: "dt-layout-cell",
+          tableRow: "dt-layout-table",
+          tableCell: "",
+          start: "dt-layout-start",
+          end: "dt-layout-end",
+          full: "dt-layout-full"
+        },
+        length: {
+          container: "dt-length",
+          select: "dt-input"
+        },
+        order: {
+          canAsc: "dt-orderable-asc",
+          canDesc: "dt-orderable-desc",
+          isAsc: "dt-ordering-asc",
+          isDesc: "dt-ordering-desc",
+          none: "dt-orderable-none",
+          position: "sorting_"
+        },
+        processing: {
+          container: "dt-processing"
+        },
+        scrolling: {
+          body: "dt-scroll-body",
+          container: "dt-scroll",
+          footer: {
+            self: "dt-scroll-foot",
+            inner: "dt-scroll-footInner"
+          },
+          header: {
+            self: "dt-scroll-head",
+            inner: "dt-scroll-headInner"
+          }
+        },
+        search: {
+          container: "dt-search",
+          input: "dt-input"
+        },
+        table: "dataTable",
+        tbody: {
+          cell: "",
+          row: ""
+        },
+        thead: {
+          cell: "",
+          row: ""
+        },
+        tfoot: {
+          cell: "",
+          row: ""
+        },
+        paging: {
+          active: "current",
+          button: "dt-paging-button",
+          container: "dt-paging",
+          disabled: "disabled",
+          nav: ""
+        }
+      });
       var _ext;
       var _Api;
       var _api_register;
       var _api_registerPlural;
       var _re_dic = {};
       var _re_new_lines = /[\r\n\u2028]/g;
-      var _re_html = /<.*?>/g;
-      var _re_date = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/;
+      var _re_html = /<([^>]*>)/g;
+      var _max_str_len = Math.pow(2, 28);
+      var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
       var _re_escape_regex = new RegExp("(\\" + ["/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-"].join("|\\") + ")", "g");
       var _re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
       var _empty = function(d) {
@@ -6971,13 +6929,13 @@ var require_jquery_dataTables = __commonJS({
         }
         return typeof num2 === "string" && decimalPoint !== "." ? num2.replace(/\./g, "").replace(_re_dic[decimalPoint], ".") : num2;
       };
-      var _isNumber = function(d, decimalPoint, formatted) {
+      var _isNumber = function(d, decimalPoint, formatted, allowEmpty) {
         var type = typeof d;
         var strType = type === "string";
         if (type === "number" || type === "bigint") {
           return true;
         }
-        if (_empty(d)) {
+        if (allowEmpty && _empty(d)) {
           return true;
         }
         if (decimalPoint && strType) {
@@ -6991,24 +6949,27 @@ var require_jquery_dataTables = __commonJS({
       var _isHtml = function(d) {
         return _empty(d) || typeof d === "string";
       };
-      var _htmlNumeric = function(d, decimalPoint, formatted) {
-        if (_empty(d)) {
+      var _htmlNumeric = function(d, decimalPoint, formatted, allowEmpty) {
+        if (allowEmpty && _empty(d)) {
           return true;
         }
+        if (typeof d === "string" && d.match(/<(input|select)/i)) {
+          return null;
+        }
         var html = _isHtml(d);
-        return !html ? null : _isNumber(_stripHtml(d), decimalPoint, formatted) ? true : null;
+        return !html ? null : _isNumber(_stripHtml(d), decimalPoint, formatted, allowEmpty) ? true : null;
       };
       var _pluck = function(a, prop, prop2) {
         var out = [];
-        var i2 = 0, ien = a.length;
-        if (prop2 !== undefined2) {
-          for (; i2 < ien; i2++) {
+        var i2 = 0, iLen = a.length;
+        if (prop2 !== void 0) {
+          for (; i2 < iLen; i2++) {
             if (a[i2] && a[i2][prop]) {
               out.push(a[i2][prop][prop2]);
             }
           }
         } else {
-          for (; i2 < ien; i2++) {
+          for (; i2 < iLen; i2++) {
             if (a[i2]) {
               out.push(a[i2][prop]);
             }
@@ -7018,16 +6979,18 @@ var require_jquery_dataTables = __commonJS({
       };
       var _pluck_order = function(a, order, prop, prop2) {
         var out = [];
-        var i2 = 0, ien = order.length;
-        if (prop2 !== undefined2) {
-          for (; i2 < ien; i2++) {
-            if (a[order[i2]][prop]) {
+        var i2 = 0, iLen = order.length;
+        if (prop2 !== void 0) {
+          for (; i2 < iLen; i2++) {
+            if (a[order[i2]] && a[order[i2]][prop]) {
               out.push(a[order[i2]][prop][prop2]);
             }
           }
         } else {
-          for (; i2 < ien; i2++) {
-            out.push(a[order[i2]][prop]);
+          for (; i2 < iLen; i2++) {
+            if (a[order[i2]]) {
+              out.push(a[order[i2]][prop]);
+            }
           }
         }
         return out;
@@ -7035,7 +6998,7 @@ var require_jquery_dataTables = __commonJS({
       var _range = function(len, start2) {
         var out = [];
         var end;
-        if (start2 === undefined2) {
+        if (start2 === void 0) {
           start2 = 0;
           end = len;
         } else {
@@ -7049,15 +7012,40 @@ var require_jquery_dataTables = __commonJS({
       };
       var _removeEmpty = function(a) {
         var out = [];
-        for (var i2 = 0, ien = a.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = a.length; i2 < iLen; i2++) {
           if (a[i2]) {
             out.push(a[i2]);
           }
         }
         return out;
       };
-      var _stripHtml = function(d) {
-        return d.replace(_re_html, "").replace(/<script/i, "");
+      var _stripHtml = function(input, replacement) {
+        if (!input || typeof input !== "string") {
+          return input;
+        }
+        if (input.length > _max_str_len) {
+          throw new Error("Exceeded max str len");
+        }
+        var previous;
+        input = input.replace(_re_html, replacement || "");
+        do {
+          previous = input;
+          input = input.replace(/<script/i, "");
+        } while (input !== previous);
+        return previous;
+      };
+      var _escapeHtml = function(d) {
+        if (Array.isArray(d)) {
+          d = d.join(",");
+        }
+        return typeof d === "string" ? d.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : d;
+      };
+      var _normalize = function(str, both) {
+        if (typeof str !== "string") {
+          return str;
+        }
+        var res = str.normalize ? str.normalize("NFD") : str;
+        return res.length !== str.length ? (both === true ? str + " " : "") + res.replace(/[\u0300-\u036f]/g, "") : res;
       };
       var _areAllUnique = function(src) {
         if (src.length < 2) {
@@ -7065,7 +7053,7 @@ var require_jquery_dataTables = __commonJS({
         }
         var sorted = src.slice().sort();
         var last = sorted[0];
-        for (var i2 = 1, ien = sorted.length; i2 < ien; i2++) {
+        for (var i2 = 1, iLen = sorted.length; i2 < iLen; i2++) {
           if (sorted[i2] === last) {
             return false;
           }
@@ -7074,12 +7062,15 @@ var require_jquery_dataTables = __commonJS({
         return true;
       };
       var _unique = function(src) {
+        if (Array.from && Set) {
+          return Array.from(new Set(src));
+        }
         if (_areAllUnique(src)) {
           return src.slice();
         }
-        var out = [], val, i2, ien = src.length, j, k = 0;
+        var out = [], val, i2, iLen = src.length, j, k = 0;
         again:
-          for (i2 = 0; i2 < ien; i2++) {
+          for (i2 = 0; i2 < iLen; i2++) {
             val = src[i2];
             for (j = 0; j < k; j++) {
               if (out[j] === val) {
@@ -7101,37 +7092,42 @@ var require_jquery_dataTables = __commonJS({
         }
         return out;
       };
-      var _includes = function(search, start2) {
-        if (start2 === undefined2) {
-          start2 = 0;
+      function _addClass(el, name) {
+        if (name) {
+          name.split(" ").forEach(function(n) {
+            if (n) {
+              el.classList.add(n);
+            }
+          });
         }
-        return this.indexOf(search, start2) !== -1;
-      };
-      if (!Array.isArray) {
-        Array.isArray = function(arg) {
-          return Object.prototype.toString.call(arg) === "[object Array]";
-        };
       }
-      if (!Array.prototype.includes) {
-        Array.prototype.includes = _includes;
-      }
-      if (!String.prototype.trim) {
-        String.prototype.trim = function() {
-          return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-        };
-      }
-      if (!String.prototype.includes) {
-        String.prototype.includes = _includes;
-      }
-      DataTable.util = {
+      DataTable2.util = {
+        diacritics: function(mixed, both) {
+          var type = typeof mixed;
+          if (type !== "function") {
+            return _normalize(mixed, both);
+          }
+          _normalize = mixed;
+        },
+        debounce: function(fn, timeout) {
+          var timer;
+          return function() {
+            var that = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+              fn.apply(that, args);
+            }, timeout || 250);
+          };
+        },
         throttle: function(fn, freq) {
-          var frequency = freq !== undefined2 ? freq : 200, last, timer;
+          var frequency = freq !== void 0 ? freq : 200, last, timer;
           return function() {
             var that = this, now = +new Date(), args = arguments;
             if (last && now < last + frequency) {
               clearTimeout(timer);
               timer = setTimeout(function() {
-                last = undefined2;
+                last = void 0;
                 fn.apply(that, args);
               }, frequency);
             } else {
@@ -7145,7 +7141,7 @@ var require_jquery_dataTables = __commonJS({
         },
         set: function(source) {
           if ($3.isPlainObject(source)) {
-            return DataTable.util.set(source._);
+            return DataTable2.util.set(source._);
           } else if (source === null) {
             return function() {
             };
@@ -7184,7 +7180,7 @@ var require_jquery_dataTables = __commonJS({
                   a[i2] = a[i2].replace(__reFn, "");
                   data = data[a[i2]](val);
                 }
-                if (data[a[i2]] === null || data[a[i2]] === undefined2) {
+                if (data[a[i2]] === null || data[a[i2]] === void 0) {
                   data[a[i2]] = {};
                 }
                 data = data[a[i2]];
@@ -7209,12 +7205,12 @@ var require_jquery_dataTables = __commonJS({
             var o = {};
             $3.each(source, function(key, val) {
               if (val) {
-                o[key] = DataTable.util.get(val);
+                o[key] = DataTable2.util.get(val);
               }
             });
             return function(data, type, row, meta) {
               var t = o[type] || o._;
-              return t !== undefined2 ? t(data, type, row, meta) : data;
+              return t !== void 0 ? t(data, type, row, meta) : data;
             };
           } else if (source === null) {
             return function(data) {
@@ -7255,8 +7251,8 @@ var require_jquery_dataTables = __commonJS({
                   }
                   if (data === null || data[a[i2]] === null) {
                     return null;
-                  } else if (data === undefined2 || data[a[i2]] === undefined2) {
-                    return undefined2;
+                  } else if (data === void 0 || data[a[i2]] === void 0) {
+                    return void 0;
                   }
                   data = data[a[i2]];
                 }
@@ -7267,15 +7263,36 @@ var require_jquery_dataTables = __commonJS({
               return fetchData(data, type, source);
             };
           } else {
-            return function(data, type) {
+            return function(data) {
               return data[source];
             };
           }
-        }
+        },
+        stripHtml: function(mixed, replacement) {
+          var type = typeof mixed;
+          if (type === "function") {
+            _stripHtml = mixed;
+            return;
+          } else if (type === "string") {
+            return _stripHtml(mixed, replacement);
+          }
+          return mixed;
+        },
+        escapeHtml: function(mixed) {
+          var type = typeof mixed;
+          if (type === "function") {
+            _escapeHtml = mixed;
+            return;
+          } else if (type === "string" || Array.isArray(mixed)) {
+            return _escapeHtml(mixed);
+          }
+          return mixed;
+        },
+        unique: _unique
       };
       function _fnHungarianMap(o) {
         var hungarian = "a aa ai ao as b fn i m o s ", match, newKey, map = {};
-        $3.each(o, function(key, val) {
+        $3.each(o, function(key) {
           match = key.match(/^([^A-Z]+?)([A-Z])/);
           if (match && hungarian.indexOf(match[1] + " ") !== -1) {
             newKey = key.replace(match[0], match[2].toLowerCase());
@@ -7292,9 +7309,9 @@ var require_jquery_dataTables = __commonJS({
           _fnHungarianMap(src);
         }
         var hungarianKey;
-        $3.each(user, function(key, val) {
+        $3.each(user, function(key) {
           hungarianKey = src._hungarianMap[key];
-          if (hungarianKey !== undefined2 && (force || user[hungarianKey] === undefined2)) {
+          if (hungarianKey !== void 0 && (force || user[hungarianKey] === void 0)) {
             if (hungarianKey.charAt(0) === "o") {
               if (!user[hungarianKey]) {
                 user[hungarianKey] = {};
@@ -7307,31 +7324,8 @@ var require_jquery_dataTables = __commonJS({
           }
         });
       }
-      function _fnLanguageCompat(lang) {
-        var defaults = DataTable.defaults.oLanguage;
-        var defaultDecimal = defaults.sDecimal;
-        if (defaultDecimal) {
-          _addNumericSort(defaultDecimal);
-        }
-        if (lang) {
-          var zeroRecords = lang.sZeroRecords;
-          if (!lang.sEmptyTable && zeroRecords && defaults.sEmptyTable === "No data available in table") {
-            _fnMap(lang, lang, "sZeroRecords", "sEmptyTable");
-          }
-          if (!lang.sLoadingRecords && zeroRecords && defaults.sLoadingRecords === "Loading...") {
-            _fnMap(lang, lang, "sZeroRecords", "sLoadingRecords");
-          }
-          if (lang.sInfoThousands) {
-            lang.sThousands = lang.sInfoThousands;
-          }
-          var decimal = lang.sDecimal;
-          if (decimal && defaultDecimal !== decimal) {
-            _addNumericSort(decimal);
-          }
-        }
-      }
       var _fnCompatMap = function(o, knew, old) {
-        if (o[knew] !== undefined2) {
+        if (o[knew] !== void 0) {
           o[old] = o[knew];
         }
       };
@@ -7352,13 +7346,30 @@ var require_jquery_dataTables = __commonJS({
         if (typeof init.scrollX === "boolean") {
           init.scrollX = init.scrollX ? "100%" : "";
         }
+        if (typeof init.bSort === "object") {
+          init.orderIndicators = init.bSort.indicators !== void 0 ? init.bSort.indicators : true;
+          init.orderHandler = init.bSort.handler !== void 0 ? init.bSort.handler : true;
+          init.bSort = true;
+        } else if (init.bSort === false) {
+          init.orderIndicators = false;
+          init.orderHandler = false;
+        } else if (init.bSort === true) {
+          init.orderIndicators = true;
+          init.orderHandler = true;
+        }
+        if (typeof init.bSortCellsTop === "boolean") {
+          init.titleRow = init.bSortCellsTop;
+        }
         var searchCols = init.aoSearchCols;
         if (searchCols) {
-          for (var i2 = 0, ien = searchCols.length; i2 < ien; i2++) {
+          for (var i2 = 0, iLen = searchCols.length; i2 < iLen; i2++) {
             if (searchCols[i2]) {
-              _fnCamelToHungarian(DataTable.models.oSearch, searchCols[i2]);
+              _fnCamelToHungarian(DataTable2.models.oSearch, searchCols[i2]);
             }
           }
+        }
+        if (init.serverSide && !init.searchDelay) {
+          init.searchDelay = 400;
         }
       }
       function _fnCompatCols(init) {
@@ -7372,13 +7383,13 @@ var require_jquery_dataTables = __commonJS({
         }
       }
       function _fnBrowserDetect(settings) {
-        if (!DataTable.__browser) {
+        if (!DataTable2.__browser) {
           var browser = {};
-          DataTable.__browser = browser;
+          DataTable2.__browser = browser;
           var n = $3("<div/>").css({
             position: "fixed",
             top: 0,
-            left: $3(window2).scrollLeft() * -1,
+            left: -1 * window2.pageXOffset,
             height: 1,
             width: 1,
             overflow: "hidden"
@@ -7399,60 +7410,32 @@ var require_jquery_dataTables = __commonJS({
           var outer = n.children();
           var inner = outer.children();
           browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
-          browser.bScrollOversize = inner[0].offsetWidth === 100 && outer[0].clientWidth !== 100;
           browser.bScrollbarLeft = Math.round(inner.offset().left) !== 1;
-          browser.bBounding = n[0].getBoundingClientRect().width ? true : false;
           n.remove();
         }
-        $3.extend(settings.oBrowser, DataTable.__browser);
-        settings.oScroll.iBarWidth = DataTable.__browser.barWidth;
+        $3.extend(settings.oBrowser, DataTable2.__browser);
+        settings.oScroll.iBarWidth = DataTable2.__browser.barWidth;
       }
-      function _fnReduce(that, fn, init, start2, end, inc) {
-        var i2 = start2, value, isSet = false;
-        if (init !== undefined2) {
-          value = init;
-          isSet = true;
-        }
-        while (i2 !== end) {
-          if (!that.hasOwnProperty(i2)) {
-            continue;
-          }
-          value = isSet ? fn(value, that[i2], i2, that) : that[i2];
-          isSet = true;
-          i2 += inc;
-        }
-        return value;
-      }
-      function _fnAddColumn(oSettings, nTh) {
-        var oDefaults = DataTable.defaults.column;
+      function _fnAddColumn(oSettings) {
+        var oDefaults = DataTable2.defaults.column;
         var iCol = oSettings.aoColumns.length;
-        var oCol = $3.extend({}, DataTable.models.oColumn, oDefaults, {
-          "nTh": nTh ? nTh : document2.createElement("th"),
-          "sTitle": oDefaults.sTitle ? oDefaults.sTitle : nTh ? nTh.innerHTML : "",
+        var oCol = $3.extend({}, DataTable2.models.oColumn, oDefaults, {
           "aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
           "mData": oDefaults.mData ? oDefaults.mData : iCol,
-          idx: iCol
+          idx: iCol,
+          searchFixed: {},
+          colEl: $3("<col>").attr("data-dt-column", iCol)
         });
         oSettings.aoColumns.push(oCol);
         var searchCols = oSettings.aoPreSearchCols;
-        searchCols[iCol] = $3.extend({}, DataTable.models.oSearch, searchCols[iCol]);
-        _fnColumnOptions(oSettings, iCol, $3(nTh).data());
+        searchCols[iCol] = $3.extend({}, DataTable2.models.oSearch, searchCols[iCol]);
       }
       function _fnColumnOptions(oSettings, iCol, oOptions) {
         var oCol = oSettings.aoColumns[iCol];
-        var oClasses = oSettings.oClasses;
-        var th = $3(oCol.nTh);
-        if (!oCol.sWidthOrig) {
-          oCol.sWidthOrig = th.attr("width") || null;
-          var t = (th.attr("style") || "").match(/width:\s*(\d+[pxem%]+)/);
-          if (t) {
-            oCol.sWidthOrig = t[1];
-          }
-        }
-        if (oOptions !== undefined2 && oOptions !== null) {
+        if (oOptions !== void 0 && oOptions !== null) {
           _fnCompatCols(oOptions);
-          _fnCamelToHungarian(DataTable.defaults.column, oOptions, true);
-          if (oOptions.mDataProp !== undefined2 && !oOptions.mData) {
+          _fnCamelToHungarian(DataTable2.defaults.column, oOptions, true);
+          if (oOptions.mDataProp !== void 0 && !oOptions.mData) {
             oOptions.mData = oOptions.mDataProp;
           }
           if (oOptions.sType) {
@@ -7461,34 +7444,33 @@ var require_jquery_dataTables = __commonJS({
           if (oOptions.className && !oOptions.sClass) {
             oOptions.sClass = oOptions.className;
           }
-          if (oOptions.sClass) {
-            th.addClass(oOptions.sClass);
-          }
           var origClass = oCol.sClass;
           $3.extend(oCol, oOptions);
           _fnMap(oCol, oOptions, "sWidth", "sWidthOrig");
           if (origClass !== oCol.sClass) {
             oCol.sClass = origClass + " " + oCol.sClass;
           }
-          if (oOptions.iDataSort !== undefined2) {
+          if (oOptions.iDataSort !== void 0) {
             oCol.aDataSort = [oOptions.iDataSort];
           }
           _fnMap(oCol, oOptions, "aDataSort");
-          if (!oCol.ariaTitle) {
-            oCol.ariaTitle = th.attr("aria-label");
-          }
         }
         var mDataSrc = oCol.mData;
         var mData = _fnGetObjectDataFn(mDataSrc);
-        var mRender = oCol.mRender ? _fnGetObjectDataFn(oCol.mRender) : null;
+        if (oCol.mRender && Array.isArray(oCol.mRender)) {
+          var copy = oCol.mRender.slice();
+          var name = copy.shift();
+          oCol.mRender = DataTable2.render[name].apply(window2, copy);
+        }
+        oCol._render = oCol.mRender ? _fnGetObjectDataFn(oCol.mRender) : null;
         var attrTest = function(src) {
           return typeof src === "string" && src.indexOf("@") !== -1;
         };
         oCol._bAttrSrc = $3.isPlainObject(mDataSrc) && (attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter));
         oCol._setter = null;
         oCol.fnGetData = function(rowData, type, meta) {
-          var innerData = mData(rowData, type, undefined2, meta);
-          return mRender && type ? mRender(innerData, type, rowData, meta) : innerData;
+          var innerData = mData(rowData, type, void 0, meta);
+          return oCol._render && type ? oCol._render(innerData, type, rowData, meta) : innerData;
         };
         oCol.fnSetData = function(rowData, val, meta) {
           return _fnSetObjectDataFn(mDataSrc)(rowData, val, meta);
@@ -7498,37 +7480,26 @@ var require_jquery_dataTables = __commonJS({
         }
         if (!oSettings.oFeatures.bSort) {
           oCol.bSortable = false;
-          th.addClass(oClasses.sSortableNone);
-        }
-        var bAsc = $3.inArray("asc", oCol.asSorting) !== -1;
-        var bDesc = $3.inArray("desc", oCol.asSorting) !== -1;
-        if (!oCol.bSortable || !bAsc && !bDesc) {
-          oCol.sSortingClass = oClasses.sSortableNone;
-          oCol.sSortingClassJUI = "";
-        } else if (bAsc && !bDesc) {
-          oCol.sSortingClass = oClasses.sSortableAsc;
-          oCol.sSortingClassJUI = oClasses.sSortJUIAscAllowed;
-        } else if (!bAsc && bDesc) {
-          oCol.sSortingClass = oClasses.sSortableDesc;
-          oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
-        } else {
-          oCol.sSortingClass = oClasses.sSortable;
-          oCol.sSortingClassJUI = oClasses.sSortJUI;
         }
       }
       function _fnAdjustColumnSizing(settings) {
-        if (settings.oFeatures.bAutoWidth !== false) {
-          var columns = settings.aoColumns;
-          _fnCalculateColumnWidths(settings);
-          for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-            columns[i2].nTh.style.width = columns[i2].sWidth;
-          }
-        }
+        _fnCalculateColumnWidths(settings);
+        _fnColumnSizes(settings);
         var scroll = settings.oScroll;
         if (scroll.sY !== "" || scroll.sX !== "") {
           _fnScrollDraw(settings);
         }
         _fnCallbackFire(settings, null, "column-sizing", [settings]);
+      }
+      function _fnColumnSizes(settings) {
+        var cols = settings.aoColumns;
+        for (var i2 = 0; i2 < cols.length; i2++) {
+          var width = _fnColumnsSumWidth(settings, [i2], false, false);
+          cols[i2].colEl.css("width", width);
+          if (settings.oScroll.sX) {
+            cols[i2].colEl.css("min-width", width);
+          }
+        }
       }
       function _fnVisibleToColumnIndex(oSettings, iMatch) {
         var aiVis = _fnGetColumns(oSettings, "bVisible");
@@ -7536,53 +7507,82 @@ var require_jquery_dataTables = __commonJS({
       }
       function _fnColumnIndexToVisible(oSettings, iMatch) {
         var aiVis = _fnGetColumns(oSettings, "bVisible");
-        var iPos = $3.inArray(iMatch, aiVis);
+        var iPos = aiVis.indexOf(iMatch);
         return iPos !== -1 ? iPos : null;
       }
-      function _fnVisbleColumns(oSettings) {
+      function _fnVisibleColumns(settings) {
+        var layout = settings.aoHeader;
+        var columns = settings.aoColumns;
         var vis = 0;
-        $3.each(oSettings.aoColumns, function(i2, col) {
-          if (col.bVisible && $3(col.nTh).css("display") !== "none") {
-            vis++;
+        if (layout.length) {
+          for (var i2 = 0, iLen = layout[0].length; i2 < iLen; i2++) {
+            if (columns[i2].bVisible && $3(layout[0][i2].cell).css("display") !== "none") {
+              vis++;
+            }
           }
-        });
+        }
         return vis;
       }
       function _fnGetColumns(oSettings, sParam) {
         var a = [];
-        $3.map(oSettings.aoColumns, function(val, i2) {
+        oSettings.aoColumns.map(function(val, i2) {
           if (val[sParam]) {
             a.push(i2);
           }
         });
         return a;
       }
+      function _typeResult(typeDetect, res) {
+        return res === true ? typeDetect._name : res;
+      }
       function _fnColumnTypes(settings) {
         var columns = settings.aoColumns;
         var data = settings.aoData;
-        var types = DataTable.ext.type.detect;
-        var i2, ien, j, jen, k, ken;
-        var col, cell, detectedType, cache;
-        for (i2 = 0, ien = columns.length; i2 < ien; i2++) {
+        var types = DataTable2.ext.type.detect;
+        var i2, iLen, j, jen, k, ken;
+        var col, detectedType, cache;
+        for (i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
           col = columns[i2];
           cache = [];
           if (!col.sType && col._sManualType) {
             col.sType = col._sManualType;
           } else if (!col.sType) {
+            if (!settings.typeDetect) {
+              return;
+            }
             for (j = 0, jen = types.length; j < jen; j++) {
+              var typeDetect = types[j];
+              var oneOf = typeDetect.oneOf;
+              var allOf = typeDetect.allOf || typeDetect;
+              var init = typeDetect.init;
+              var one = false;
+              detectedType = null;
+              if (init) {
+                detectedType = _typeResult(typeDetect, init(settings, col, i2));
+                if (detectedType) {
+                  col.sType = detectedType;
+                  break;
+                }
+              }
               for (k = 0, ken = data.length; k < ken; k++) {
-                if (cache[k] === undefined2) {
+                if (!data[k]) {
+                  continue;
+                }
+                if (cache[k] === void 0) {
                   cache[k] = _fnGetCellData(settings, k, i2, "type");
                 }
-                detectedType = types[j](cache[k], settings);
-                if (!detectedType && j !== types.length - 1) {
+                if (oneOf && !one) {
+                  one = _typeResult(typeDetect, oneOf(cache[k], settings));
+                }
+                detectedType = _typeResult(typeDetect, allOf(cache[k], settings));
+                if (!detectedType && j !== types.length - 3) {
                   break;
                 }
                 if (detectedType === "html" && !_empty(cache[k])) {
                   break;
                 }
               }
-              if (detectedType) {
+              if (oneOf && one && detectedType || !oneOf && detectedType) {
                 col.sType = detectedType;
                 break;
               }
@@ -7591,30 +7591,81 @@ var require_jquery_dataTables = __commonJS({
               col.sType = "string";
             }
           }
+          var autoClass = _ext.type.className[col.sType];
+          if (autoClass) {
+            _columnAutoClass(settings.aoHeader, i2, autoClass);
+            _columnAutoClass(settings.aoFooter, i2, autoClass);
+          }
+          var renderer = _ext.type.render[col.sType];
+          if (renderer && !col._render) {
+            col._render = DataTable2.util.get(renderer);
+            _columnAutoRender(settings, i2);
+          }
         }
       }
-      function _fnApplyColumnDefs(oSettings, aoColDefs, aoCols, fn) {
+      function _columnAutoRender(settings, colIdx) {
+        var data = settings.aoData;
+        for (var i2 = 0; i2 < data.length; i2++) {
+          if (data[i2].nTr) {
+            var display = _fnGetCellData(settings, i2, colIdx, "display");
+            data[i2].displayData[colIdx] = display;
+            _fnWriteCell(data[i2].anCells[colIdx], display);
+          }
+        }
+      }
+      function _columnAutoClass(container, colIdx, className) {
+        container.forEach(function(row) {
+          if (row[colIdx] && row[colIdx].unique) {
+            _addClass(row[colIdx].cell, className);
+          }
+        });
+      }
+      function _fnApplyColumnDefs(oSettings, aoColDefs, aoCols, headerLayout, fn) {
         var i2, iLen, j, jLen, k, kLen, def;
         var columns = oSettings.aoColumns;
+        if (aoCols) {
+          for (i2 = 0, iLen = aoCols.length; i2 < iLen; i2++) {
+            if (aoCols[i2] && aoCols[i2].name) {
+              columns[i2].sName = aoCols[i2].name;
+            }
+          }
+        }
         if (aoColDefs) {
           for (i2 = aoColDefs.length - 1; i2 >= 0; i2--) {
             def = aoColDefs[i2];
-            var aTargets = def.target !== undefined2 ? def.target : def.targets !== undefined2 ? def.targets : def.aTargets;
+            var aTargets = def.target !== void 0 ? def.target : def.targets !== void 0 ? def.targets : def.aTargets;
             if (!Array.isArray(aTargets)) {
               aTargets = [aTargets];
             }
             for (j = 0, jLen = aTargets.length; j < jLen; j++) {
-              if (typeof aTargets[j] === "number" && aTargets[j] >= 0) {
-                while (columns.length <= aTargets[j]) {
+              var target = aTargets[j];
+              if (typeof target === "number" && target >= 0) {
+                while (columns.length <= target) {
                   _fnAddColumn(oSettings);
                 }
-                fn(aTargets[j], def);
-              } else if (typeof aTargets[j] === "number" && aTargets[j] < 0) {
-                fn(columns.length + aTargets[j], def);
-              } else if (typeof aTargets[j] === "string") {
+                fn(target, def);
+              } else if (typeof target === "number" && target < 0) {
+                fn(columns.length + target, def);
+              } else if (typeof target === "string") {
                 for (k = 0, kLen = columns.length; k < kLen; k++) {
-                  if (aTargets[j] == "_all" || $3(columns[k].nTh).hasClass(aTargets[j])) {
+                  if (target === "_all") {
                     fn(k, def);
+                  } else if (target.indexOf(":name") !== -1) {
+                    if (columns[k].sName === target.replace(":name", "")) {
+                      fn(k, def);
+                    }
+                  } else {
+                    headerLayout.forEach(function(row) {
+                      if (row[k]) {
+                        var cell = $3(row[k].cell);
+                        if (target.match(/^[a-z][\w-]*$/i)) {
+                          target = "." + target;
+                        }
+                        if (cell.is(target)) {
+                          fn(k, def);
+                        }
+                      }
+                    });
                   }
                 }
               }
@@ -7627,28 +7678,64 @@ var require_jquery_dataTables = __commonJS({
           }
         }
       }
-      function _fnAddData(oSettings, aDataIn, nTr, anTds) {
-        var iRow = oSettings.aoData.length;
-        var oData = $3.extend(true, {}, DataTable.models.oRow, {
-          src: nTr ? "dom" : "data",
-          idx: iRow
+      function _fnColumnsSumWidth(settings, targets, original, incVisible) {
+        if (!Array.isArray(targets)) {
+          targets = _fnColumnsFromHeader(targets);
+        }
+        var sum = 0;
+        var unit;
+        var columns = settings.aoColumns;
+        for (var i2 = 0, iLen = targets.length; i2 < iLen; i2++) {
+          var column = columns[targets[i2]];
+          var definedWidth = original ? column.sWidthOrig : column.sWidth;
+          if (!incVisible && column.bVisible === false) {
+            continue;
+          }
+          if (definedWidth === null || definedWidth === void 0) {
+            return null;
+          } else if (typeof definedWidth === "number") {
+            unit = "px";
+            sum += definedWidth;
+          } else {
+            var matched = definedWidth.match(/([\d\.]+)([^\d]*)/);
+            if (matched) {
+              sum += matched[1] * 1;
+              unit = matched.length === 3 ? matched[2] : "px";
+            }
+          }
+        }
+        return sum + unit;
+      }
+      function _fnColumnsFromHeader(cell) {
+        var attr = $3(cell).closest("[data-dt-column]").attr("data-dt-column");
+        if (!attr) {
+          return [];
+        }
+        return attr.split(",").map(function(val) {
+          return val * 1;
         });
-        oData._aData = aDataIn;
-        oSettings.aoData.push(oData);
-        var nTd, sThisType;
-        var columns = oSettings.aoColumns;
+      }
+      function _fnAddData(settings, dataIn, tr, tds) {
+        var rowIdx = settings.aoData.length;
+        var rowModel = $3.extend(true, {}, DataTable2.models.oRow, {
+          src: tr ? "dom" : "data",
+          idx: rowIdx
+        });
+        rowModel._aData = dataIn;
+        settings.aoData.push(rowModel);
+        var columns = settings.aoColumns;
         for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
           columns[i2].sType = null;
         }
-        oSettings.aiDisplayMaster.push(iRow);
-        var id = oSettings.rowIdFn(aDataIn);
-        if (id !== undefined2) {
-          oSettings.aIds[id] = oData;
+        settings.aiDisplayMaster.push(rowIdx);
+        var id = settings.rowIdFn(dataIn);
+        if (id !== void 0) {
+          settings.aIds[id] = rowModel;
         }
-        if (nTr || !oSettings.oFeatures.bDeferRender) {
-          _fnCreateTr(oSettings, iRow, nTr, anTds);
+        if (tr || !settings.oFeatures.bDeferRender) {
+          _fnCreateTr(settings, rowIdx, tr, tds);
         }
-        return iRow;
+        return rowIdx;
       }
       function _fnAddTr(settings, trs) {
         var row;
@@ -7660,35 +7747,36 @@ var require_jquery_dataTables = __commonJS({
           return _fnAddData(settings, row.data, el, row.cells);
         });
       }
-      function _fnNodeToDataIndex(oSettings, n) {
-        return n._DT_RowIndex !== undefined2 ? n._DT_RowIndex : null;
-      }
-      function _fnNodeToColumnIndex(oSettings, iRow, n) {
-        return $3.inArray(n, oSettings.aoData[iRow].anCells);
-      }
       function _fnGetCellData(settings, rowIdx, colIdx, type) {
         if (type === "search") {
           type = "filter";
         } else if (type === "order") {
           type = "sort";
         }
+        var row = settings.aoData[rowIdx];
+        if (!row) {
+          return void 0;
+        }
         var draw = settings.iDraw;
         var col = settings.aoColumns[colIdx];
-        var rowData = settings.aoData[rowIdx]._aData;
+        var rowData = row._aData;
         var defaultContent = col.sDefaultContent;
         var cellData = col.fnGetData(rowData, type, {
           settings,
           row: rowIdx,
           col: colIdx
         });
-        if (cellData === undefined2) {
+        if (type !== "display" && cellData && typeof cellData === "object" && cellData.nodeName) {
+          cellData = cellData.innerHTML;
+        }
+        if (cellData === void 0) {
           if (settings.iDrawError != draw && defaultContent === null) {
             _fnLog(settings, 0, "Requested unknown parameter " + (typeof col.mData == "function" ? "{function}" : "'" + col.mData + "'") + " for row " + rowIdx + ", column " + colIdx, 4);
             settings.iDrawError = draw;
           }
           return defaultContent;
         }
-        if ((cellData === rowData || cellData === null) && defaultContent !== null && type !== undefined2) {
+        if ((cellData === rowData || cellData === null) && defaultContent !== null && type !== void 0) {
           cellData = defaultContent;
         } else if (typeof cellData === "function") {
           return cellData.call(rowData);
@@ -7697,9 +7785,9 @@ var require_jquery_dataTables = __commonJS({
           return "";
         }
         if (type === "filter") {
-          var fomatters = DataTable.ext.type.search;
-          if (fomatters[col.sType]) {
-            cellData = fomatters[col.sType](cellData);
+          var formatters = DataTable2.ext.type.search;
+          if (formatters[col.sType]) {
+            cellData = formatters[col.sType](cellData);
           }
         }
         return cellData;
@@ -7713,15 +7801,23 @@ var require_jquery_dataTables = __commonJS({
           col: colIdx
         });
       }
+      function _fnWriteCell(td, val) {
+        if (val && typeof val === "object" && val.nodeName) {
+          $3(td).empty().append(val);
+        } else {
+          td.innerHTML = val;
+        }
+      }
       var __reArray = /\[.*?\]$/;
       var __reFn = /\(\)$/;
       function _fnSplitObjNotation(str) {
-        return $3.map(str.match(/(\\.|[^\.])+/g) || [""], function(s) {
+        var parts = str.match(/(\\.|[^.])+/g) || [""];
+        return parts.map(function(s) {
           return s.replace(/\\\./g, ".");
         });
       }
-      var _fnGetObjectDataFn = DataTable.util.get;
-      var _fnSetObjectDataFn = DataTable.util.set;
+      var _fnGetObjectDataFn = DataTable2.util.get;
+      var _fnSetObjectDataFn = DataTable2.util.set;
       function _fnGetDataMaster(settings) {
         return _pluck(settings.aoData, "_aData");
       }
@@ -7731,62 +7827,47 @@ var require_jquery_dataTables = __commonJS({
         settings.aiDisplay.length = 0;
         settings.aIds = {};
       }
-      function _fnDeleteIndex(a, iTarget, splice) {
-        var iTargetIndex = -1;
-        for (var i2 = 0, iLen = a.length; i2 < iLen; i2++) {
-          if (a[i2] == iTarget) {
-            iTargetIndex = i2;
-          } else if (a[i2] > iTarget) {
-            a[i2]--;
-          }
-        }
-        if (iTargetIndex != -1 && splice === undefined2) {
-          a.splice(iTargetIndex, 1);
-        }
-      }
       function _fnInvalidate(settings, rowIdx, src, colIdx) {
         var row = settings.aoData[rowIdx];
-        var i2, ien;
-        var cellWrite = function(cell, col) {
-          while (cell.childNodes.length) {
-            cell.removeChild(cell.firstChild);
-          }
-          cell.innerHTML = _fnGetCellData(settings, rowIdx, col, "display");
-        };
+        var i2, iLen;
+        row._aSortData = null;
+        row._aFilterData = null;
+        row.displayData = null;
         if (src === "dom" || (!src || src === "auto") && row.src === "dom") {
           row._aData = _fnGetRowElements(
             settings,
             row,
             colIdx,
-            colIdx === undefined2 ? undefined2 : row._aData
+            colIdx === void 0 ? void 0 : row._aData
           ).data;
         } else {
           var cells = row.anCells;
+          var display = _fnGetRowDisplay(settings, rowIdx);
           if (cells) {
-            if (colIdx !== undefined2) {
-              cellWrite(cells[colIdx], colIdx);
+            if (colIdx !== void 0) {
+              _fnWriteCell(cells[colIdx], display[colIdx]);
             } else {
-              for (i2 = 0, ien = cells.length; i2 < ien; i2++) {
-                cellWrite(cells[i2], i2);
+              for (i2 = 0, iLen = cells.length; i2 < iLen; i2++) {
+                _fnWriteCell(cells[i2], display[i2]);
               }
             }
           }
         }
-        row._aSortData = null;
-        row._aFilterData = null;
         var cols = settings.aoColumns;
-        if (colIdx !== undefined2) {
+        if (colIdx !== void 0) {
           cols[colIdx].sType = null;
+          cols[colIdx].wideStrings = null;
         } else {
-          for (i2 = 0, ien = cols.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = cols.length; i2 < iLen; i2++) {
             cols[i2].sType = null;
+            cols[i2].wideStrings = null;
           }
           _fnRowAttributes(settings, row);
         }
       }
       function _fnGetRowElements(settings, row, colIdx, d) {
-        var tds = [], td = row.firstChild, name, col, o, i2 = 0, contents, columns = settings.aoColumns, objectRead = settings._rowReadObject;
-        d = d !== undefined2 ? d : objectRead ? {} : [];
+        var tds = [], td = row.firstChild, name, col, i2 = 0, contents, columns = settings.aoColumns, objectRead = settings._rowReadObject;
+        d = d !== void 0 ? d : objectRead ? {} : [];
         var attr = function(str, td2) {
           if (typeof str === "string") {
             var idx = str.indexOf("@");
@@ -7798,7 +7879,7 @@ var require_jquery_dataTables = __commonJS({
           }
         };
         var cellProcess = function(cell) {
-          if (colIdx === undefined2 || colIdx === i2) {
+          if (colIdx === void 0 || colIdx === i2) {
             col = columns[i2];
             contents = cell.innerHTML.trim();
             if (col && col._bAttrSrc) {
@@ -7847,17 +7928,31 @@ var require_jquery_dataTables = __commonJS({
           cells: tds
         };
       }
+      function _fnGetRowDisplay(settings, rowIdx) {
+        var rowModal = settings.aoData[rowIdx];
+        var columns = settings.aoColumns;
+        if (!rowModal.displayData) {
+          rowModal.displayData = [];
+          for (var colIdx = 0, len = columns.length; colIdx < len; colIdx++) {
+            rowModal.displayData.push(
+              _fnGetCellData(settings, rowIdx, colIdx, "display")
+            );
+          }
+        }
+        return rowModal.displayData;
+      }
       function _fnCreateTr(oSettings, iRow, nTrIn, anTds) {
-        var row = oSettings.aoData[iRow], rowData = row._aData, cells = [], nTr, nTd, oCol, i2, iLen, create;
+        var row = oSettings.aoData[iRow], rowData = row._aData, cells = [], nTr, nTd, oCol, i2, iLen, create, trClass = oSettings.oClasses.tbody.row;
         if (row.nTr === null) {
           nTr = nTrIn || document2.createElement("tr");
           row.nTr = nTr;
           row.anCells = cells;
+          _addClass(nTr, trClass);
           nTr._DT_RowIndex = iRow;
           _fnRowAttributes(oSettings, row);
           for (i2 = 0, iLen = oSettings.aoColumns.length; i2 < iLen; i2++) {
             oCol = oSettings.aoColumns[i2];
-            create = nTrIn ? false : true;
+            create = nTrIn && anTds[i2] ? false : true;
             nTd = create ? document2.createElement(oCol.sCellType) : anTds[i2];
             if (!nTd) {
               _fnLog(oSettings, 0, "Incorrect column count", 18);
@@ -7867,15 +7962,14 @@ var require_jquery_dataTables = __commonJS({
               column: i2
             };
             cells.push(nTd);
+            var display = _fnGetRowDisplay(oSettings, iRow);
             if (create || (oCol.mRender || oCol.mData !== i2) && (!$3.isPlainObject(oCol.mData) || oCol.mData._ !== i2 + ".display")) {
-              nTd.innerHTML = _fnGetCellData(oSettings, iRow, i2, "display");
+              _fnWriteCell(nTd, display[i2]);
             }
-            if (oCol.sClass) {
-              nTd.className += " " + oCol.sClass;
-            }
-            if (oCol.bVisible && !nTrIn) {
+            _addClass(nTd, oCol.sClass);
+            if (oCol.bVisible && create) {
               nTr.appendChild(nTd);
-            } else if (!oCol.bVisible && nTrIn) {
+            } else if (!oCol.bVisible && !create) {
               nTd.parentNode.removeChild(nTd);
             }
             if (oCol.fnCreatedCell) {
@@ -7889,7 +7983,9 @@ var require_jquery_dataTables = __commonJS({
               );
             }
           }
-          _fnCallbackFire(oSettings, "aoRowCreatedCallback", null, [nTr, rowData, iRow, cells]);
+          _fnCallbackFire(oSettings, "aoRowCreatedCallback", "row-created", [nTr, rowData, iRow, cells]);
+        } else {
+          _addClass(row.nTr, trClass);
         }
       }
       function _fnRowAttributes(settings, row) {
@@ -7913,105 +8009,109 @@ var require_jquery_dataTables = __commonJS({
           }
         }
       }
-      function _fnBuildHead(oSettings) {
-        var i2, ien, cell, row, column;
-        var thead = oSettings.nTHead;
-        var tfoot = oSettings.nTFoot;
-        var createHeader = $3("th, td", thead).length === 0;
-        var classes = oSettings.oClasses;
-        var columns = oSettings.aoColumns;
-        if (createHeader) {
-          row = $3("<tr/>").appendTo(thead);
-        }
-        for (i2 = 0, ien = columns.length; i2 < ien; i2++) {
-          column = columns[i2];
-          cell = $3(column.nTh).addClass(column.sClass);
-          if (createHeader) {
-            cell.appendTo(row);
-          }
-          if (oSettings.oFeatures.bSort) {
-            cell.addClass(column.sSortingClass);
-            if (column.bSortable !== false) {
-              cell.attr("tabindex", oSettings.iTabIndex).attr("aria-controls", oSettings.sTableId);
-              _fnSortAttachListener(oSettings, column.nTh, i2);
-            }
-          }
-          if (column.sTitle != cell[0].innerHTML) {
-            cell.html(column.sTitle);
-          }
-          _fnRenderer(oSettings, "header")(
-            oSettings,
-            cell,
-            column,
-            classes
-          );
-        }
-        if (createHeader) {
-          _fnDetectHeader(oSettings.aoHeader, thead);
-        }
-        $3(thead).children("tr").children("th, td").addClass(classes.sHeaderTH);
-        $3(tfoot).children("tr").children("th, td").addClass(classes.sFooterTH);
-        if (tfoot !== null) {
-          var cells = oSettings.aoFooter[0];
-          for (i2 = 0, ien = cells.length; i2 < ien; i2++) {
-            column = columns[i2];
-            if (column) {
-              column.nTf = cells[i2].cell;
-              if (column.sClass) {
-                $3(column.nTf).addClass(column.sClass);
-              }
-            } else {
-              _fnLog(oSettings, 0, "Incorrect column count", 18);
-            }
-          }
-        }
-      }
-      function _fnDrawHead(oSettings, aoSource, bIncludeHidden) {
-        var i2, iLen, j, jLen, k, kLen, n, nLocalTr;
-        var aoLocal = [];
-        var aApplied = [];
-        var iColumns = oSettings.aoColumns.length;
-        var iRowspan, iColspan;
-        if (!aoSource) {
+      function _fnBuildHead(settings, side) {
+        var classes = settings.oClasses;
+        var columns = settings.aoColumns;
+        var i2, iLen, row;
+        var target = side === "header" ? settings.nTHead : settings.nTFoot;
+        var titleProp = side === "header" ? "sTitle" : side;
+        if (!target) {
           return;
         }
-        if (bIncludeHidden === undefined2) {
-          bIncludeHidden = false;
-        }
-        for (i2 = 0, iLen = aoSource.length; i2 < iLen; i2++) {
-          aoLocal[i2] = aoSource[i2].slice();
-          aoLocal[i2].nTr = aoSource[i2].nTr;
-          for (j = iColumns - 1; j >= 0; j--) {
-            if (!oSettings.aoColumns[j].bVisible && !bIncludeHidden) {
-              aoLocal[i2].splice(j, 1);
+        if (side === "header" || _pluck(settings.aoColumns, titleProp).join("")) {
+          row = $3("tr", target);
+          if (!row.length) {
+            row = $3("<tr/>").appendTo(target);
+          }
+          if (row.length === 1) {
+            var cellCount = 0;
+            $3("td, th", row).each(function() {
+              cellCount += this.colSpan;
+            });
+            for (i2 = cellCount, iLen = columns.length; i2 < iLen; i2++) {
+              $3("<th/>").html(columns[i2][titleProp] || "").appendTo(row);
             }
           }
-          aApplied.push([]);
         }
-        for (i2 = 0, iLen = aoLocal.length; i2 < iLen; i2++) {
-          nLocalTr = aoLocal[i2].nTr;
-          if (nLocalTr) {
-            while (n = nLocalTr.firstChild) {
-              nLocalTr.removeChild(n);
-            }
-          }
-          for (j = 0, jLen = aoLocal[i2].length; j < jLen; j++) {
-            iRowspan = 1;
-            iColspan = 1;
-            if (aApplied[i2][j] === undefined2) {
-              nLocalTr.appendChild(aoLocal[i2][j].cell);
-              aApplied[i2][j] = 1;
-              while (aoLocal[i2 + iRowspan] !== undefined2 && aoLocal[i2][j].cell == aoLocal[i2 + iRowspan][j].cell) {
-                aApplied[i2 + iRowspan][j] = 1;
-                iRowspan++;
+        var detected = _fnDetectHeader(settings, target, true);
+        if (side === "header") {
+          settings.aoHeader = detected;
+          $3("tr", target).addClass(classes.thead.row);
+        } else {
+          settings.aoFooter = detected;
+          $3("tr", target).addClass(classes.tfoot.row);
+        }
+        $3(target).children("tr").children("th, td").each(function() {
+          _fnRenderer(settings, side)(
+            settings,
+            $3(this),
+            classes
+          );
+        });
+      }
+      function _fnHeaderLayout(settings, source, incColumns) {
+        var row, column, cell;
+        var local = [];
+        var structure = [];
+        var columns = settings.aoColumns;
+        var columnCount = columns.length;
+        var rowspan, colspan;
+        if (!source) {
+          return;
+        }
+        if (!incColumns) {
+          incColumns = _range(columnCount).filter(function(idx) {
+            return columns[idx].bVisible;
+          });
+        }
+        for (row = 0; row < source.length; row++) {
+          local[row] = source[row].slice().filter(function(cell2, i2) {
+            return incColumns.includes(i2);
+          });
+          structure.push([]);
+        }
+        for (row = 0; row < local.length; row++) {
+          for (column = 0; column < local[row].length; column++) {
+            rowspan = 1;
+            colspan = 1;
+            if (structure[row][column] === void 0) {
+              cell = local[row][column].cell;
+              while (local[row + rowspan] !== void 0 && local[row][column].cell == local[row + rowspan][column].cell) {
+                structure[row + rowspan][column] = null;
+                rowspan++;
               }
-              while (aoLocal[i2][j + iColspan] !== undefined2 && aoLocal[i2][j].cell == aoLocal[i2][j + iColspan].cell) {
-                for (k = 0; k < iRowspan; k++) {
-                  aApplied[i2 + k][j + iColspan] = 1;
+              while (local[row][column + colspan] !== void 0 && local[row][column].cell == local[row][column + colspan].cell) {
+                for (var k = 0; k < rowspan; k++) {
+                  structure[row + k][column + colspan] = null;
                 }
-                iColspan++;
+                colspan++;
               }
-              $3(aoLocal[i2][j].cell).attr("rowspan", iRowspan).attr("colspan", iColspan);
+              var titleSpan = $3(".dt-column-title", cell);
+              structure[row][column] = {
+                cell,
+                colspan,
+                rowspan,
+                title: titleSpan.length ? titleSpan.html() : $3(cell).html()
+              };
+            }
+          }
+        }
+        return structure;
+      }
+      function _fnDrawHead(settings, source) {
+        var layout = _fnHeaderLayout(settings, source);
+        var tr, n;
+        for (var row = 0; row < source.length; row++) {
+          tr = source[row].row;
+          if (tr) {
+            while (n = tr.firstChild) {
+              tr.removeChild(n);
+            }
+          }
+          for (var column = 0; column < layout[row].length; column++) {
+            var point = layout[row][column];
+            if (point) {
+              $3(point.cell).appendTo(tr).attr("rowspan", point.rowspan).attr("colspan", point.colspan);
             }
           }
         }
@@ -8019,27 +8119,29 @@ var require_jquery_dataTables = __commonJS({
       function _fnDraw(oSettings, ajaxComplete) {
         _fnStart(oSettings);
         var aPreDraw = _fnCallbackFire(oSettings, "aoPreDrawCallback", "preDraw", [oSettings]);
-        if ($3.inArray(false, aPreDraw) !== -1) {
+        if (aPreDraw.indexOf(false) !== -1) {
           _fnProcessingDisplay(oSettings, false);
           return;
         }
         var anRows = [];
         var iRowCount = 0;
-        var asStripeClasses = oSettings.asStripeClasses;
-        var iStripes = asStripeClasses.length;
-        var oLang = oSettings.oLanguage;
         var bServerSide = _fnDataSource(oSettings) == "ssp";
         var aiDisplay = oSettings.aiDisplay;
         var iDisplayStart = oSettings._iDisplayStart;
         var iDisplayEnd = oSettings.fnDisplayEnd();
+        var columns = oSettings.aoColumns;
+        var body = $3(oSettings.nTBody);
         oSettings.bDrawing = true;
-        if (oSettings.bDeferLoading) {
-          oSettings.bDeferLoading = false;
+        if (oSettings.deferLoading) {
+          oSettings.deferLoading = false;
           oSettings.iDraw++;
           _fnProcessingDisplay(oSettings, false);
         } else if (!bServerSide) {
           oSettings.iDraw++;
         } else if (!oSettings.bDestroying && !ajaxComplete) {
+          if (oSettings.iDraw === 0) {
+            body.empty().append(_emptyRow(oSettings));
+          }
           _fnAjaxUpdate(oSettings);
           return;
         }
@@ -8049,16 +8151,18 @@ var require_jquery_dataTables = __commonJS({
           for (var j = iStart; j < iEnd; j++) {
             var iDataIndex = aiDisplay[j];
             var aoData = oSettings.aoData[iDataIndex];
+            if (aoData === null) {
+              continue;
+            }
             if (aoData.nTr === null) {
               _fnCreateTr(oSettings, iDataIndex);
             }
             var nRow = aoData.nTr;
-            if (iStripes !== 0) {
-              var sStripe = asStripeClasses[iRowCount % iStripes];
-              if (aoData._sRowStripe != sStripe) {
-                $3(nRow).removeClass(aoData._sRowStripe).addClass(sStripe);
-                aoData._sRowStripe = sStripe;
-              }
+            for (var i2 = 0; i2 < columns.length; i2++) {
+              var col = columns[i2];
+              var td = aoData.anCells[i2];
+              _addClass(td, _ext.type.className[col.sType]);
+              _addClass(td, oSettings.oClasses.tbody.cell);
             }
             _fnCallbackFire(
               oSettings,
@@ -8070,17 +8174,7 @@ var require_jquery_dataTables = __commonJS({
             iRowCount++;
           }
         } else {
-          var sZero = oLang.sZeroRecords;
-          if (oSettings.iDraw == 1 && _fnDataSource(oSettings) == "ajax") {
-            sZero = oLang.sLoadingRecords;
-          } else if (oLang.sEmptyTable && oSettings.fnRecordsTotal() === 0) {
-            sZero = oLang.sEmptyTable;
-          }
-          anRows[0] = $3("<tr/>", { "class": iStripes ? asStripeClasses[0] : "" }).append($3("<td />", {
-            "valign": "top",
-            "colSpan": _fnVisbleColumns(oSettings),
-            "class": oSettings.oClasses.sRowEmpty
-          }).html(sZero))[0];
+          anRows[0] = _emptyRow(oSettings);
         }
         _fnCallbackFire(oSettings, "aoHeaderCallback", "header", [
           $3(oSettings.nTHead).children("tr")[0],
@@ -8096,198 +8190,346 @@ var require_jquery_dataTables = __commonJS({
           iDisplayEnd,
           aiDisplay
         ]);
-        var body = $3(oSettings.nTBody);
-        body.children().detach();
-        body.append($3(anRows));
-        _fnCallbackFire(oSettings, "aoDrawCallback", "draw", [oSettings]);
+        if (body[0].replaceChildren) {
+          body[0].replaceChildren.apply(body[0], anRows);
+        } else {
+          body.children().detach();
+          body.append($3(anRows));
+        }
+        $3(oSettings.nTableWrapper).toggleClass("dt-empty-footer", $3("tr", oSettings.nTFoot).length === 0);
+        _fnCallbackFire(oSettings, "aoDrawCallback", "draw", [oSettings], true);
         oSettings.bSorted = false;
         oSettings.bFiltered = false;
         oSettings.bDrawing = false;
       }
-      function _fnReDraw(settings, holdPosition) {
+      function _fnReDraw(settings, holdPosition, recompute) {
         var features = settings.oFeatures, sort = features.bSort, filter = features.bFilter;
-        if (sort) {
-          _fnSort(settings);
-        }
-        if (filter) {
-          _fnFilterComplete(settings, settings.oPreviousSearch);
-        } else {
-          settings.aiDisplay = settings.aiDisplayMaster.slice();
+        if (recompute === void 0 || recompute === true) {
+          _fnColumnTypes(settings);
+          if (sort) {
+            _fnSort(settings);
+          }
+          if (filter) {
+            _fnFilterComplete(settings, settings.oPreviousSearch);
+          } else {
+            settings.aiDisplay = settings.aiDisplayMaster.slice();
+          }
         }
         if (holdPosition !== true) {
           settings._iDisplayStart = 0;
         }
         settings._drawHold = holdPosition;
         _fnDraw(settings);
-        settings._drawHold = false;
-      }
-      function _fnAddOptionsHtml(oSettings) {
-        var classes = oSettings.oClasses;
-        var table = $3(oSettings.nTable);
-        var holding = $3("<div/>").insertBefore(table);
-        var features = oSettings.oFeatures;
-        var insert = $3("<div/>", {
-          id: oSettings.sTableId + "_wrapper",
-          "class": classes.sWrapper + (oSettings.nTFoot ? "" : " " + classes.sNoFooter)
+        settings.api.one("draw", function() {
+          settings._drawHold = false;
         });
-        oSettings.nHolding = holding[0];
-        oSettings.nTableWrapper = insert[0];
-        oSettings.nTableReinsertBefore = oSettings.nTable.nextSibling;
-        var aDom = oSettings.sDom.split("");
-        var featureNode, cOption, nNewNode, cNext, sAttr, j;
-        for (var i2 = 0; i2 < aDom.length; i2++) {
-          featureNode = null;
-          cOption = aDom[i2];
-          if (cOption == "<") {
-            nNewNode = $3("<div/>")[0];
-            cNext = aDom[i2 + 1];
-            if (cNext == "'" || cNext == '"') {
-              sAttr = "";
-              j = 2;
-              while (aDom[i2 + j] != cNext) {
-                sAttr += aDom[i2 + j];
-                j++;
-              }
-              if (sAttr == "H") {
-                sAttr = classes.sJUIHeader;
-              } else if (sAttr == "F") {
-                sAttr = classes.sJUIFooter;
-              }
-              if (sAttr.indexOf(".") != -1) {
-                var aSplit = sAttr.split(".");
-                nNewNode.id = aSplit[0].substr(1, aSplit[0].length - 1);
-                nNewNode.className = aSplit[1];
-              } else if (sAttr.charAt(0) == "#") {
-                nNewNode.id = sAttr.substr(1, sAttr.length - 1);
-              } else {
-                nNewNode.className = sAttr;
-              }
-              i2 += j;
+      }
+      function _emptyRow(settings) {
+        var oLang = settings.oLanguage;
+        var zero = oLang.sZeroRecords;
+        var dataSrc = _fnDataSource(settings);
+        if ((dataSrc === "ssp" || dataSrc === "ajax") && !settings.json) {
+          zero = oLang.sLoadingRecords;
+        } else if (oLang.sEmptyTable && settings.fnRecordsTotal() === 0) {
+          zero = oLang.sEmptyTable;
+        }
+        return $3("<tr/>").append($3("<td />", {
+          "colSpan": _fnVisibleColumns(settings),
+          "class": settings.oClasses.empty.row
+        }).html(zero))[0];
+      }
+      function _layoutItems(row, align, items) {
+        if (Array.isArray(items)) {
+          for (var i2 = 0; i2 < items.length; i2++) {
+            _layoutItems(row, align, items[i2]);
+          }
+          return;
+        }
+        var rowCell = row[align];
+        if ($3.isPlainObject(items)) {
+          if (items.features) {
+            if (items.rowId) {
+              row.id = items.rowId;
             }
-            insert.append(nNewNode);
-            insert = $3(nNewNode);
-          } else if (cOption == ">") {
-            insert = insert.parent();
-          } else if (cOption == "l" && features.bPaginate && features.bLengthChange) {
-            featureNode = _fnFeatureHtmlLength(oSettings);
-          } else if (cOption == "f" && features.bFilter) {
-            featureNode = _fnFeatureHtmlFilter(oSettings);
-          } else if (cOption == "r" && features.bProcessing) {
-            featureNode = _fnFeatureHtmlProcessing(oSettings);
-          } else if (cOption == "t") {
-            featureNode = _fnFeatureHtmlTable(oSettings);
-          } else if (cOption == "i" && features.bInfo) {
-            featureNode = _fnFeatureHtmlInfo(oSettings);
-          } else if (cOption == "p" && features.bPaginate) {
-            featureNode = _fnFeatureHtmlPaginate(oSettings);
-          } else if (DataTable.ext.feature.length !== 0) {
-            var aoFeatures = DataTable.ext.feature;
-            for (var k = 0, kLen = aoFeatures.length; k < kLen; k++) {
-              if (cOption == aoFeatures[k].cFeature) {
-                featureNode = aoFeatures[k].fnInit(oSettings);
-                break;
+            if (items.rowClass) {
+              row.className = items.rowClass;
+            }
+            rowCell.id = items.id;
+            rowCell.className = items.className;
+            _layoutItems(row, align, items.features);
+          } else {
+            Object.keys(items).map(function(key) {
+              rowCell.contents.push({
+                feature: key,
+                opts: items[key]
+              });
+            });
+          }
+        } else {
+          rowCell.contents.push(items);
+        }
+      }
+      function _layoutGetRow(rows, rowNum, align) {
+        var row;
+        for (var i2 = 0; i2 < rows.length; i2++) {
+          row = rows[i2];
+          if (row.rowNum === rowNum) {
+            if (align === "full" && row.full || (align === "start" || align === "end") && (row.start || row.end)) {
+              if (!row[align]) {
+                row[align] = {
+                  contents: []
+                };
               }
+              return row;
             }
           }
-          if (featureNode) {
-            var aanFeatures = oSettings.aanFeatures;
-            if (!aanFeatures[cOption]) {
-              aanFeatures[cOption] = [];
+        }
+        row = {
+          rowNum
+        };
+        row[align] = {
+          contents: []
+        };
+        rows.push(row);
+        return row;
+      }
+      function _layoutArray(settings, layout, side) {
+        var rows = [];
+        $3.each(layout, function(pos, items) {
+          if (items === null) {
+            return;
+          }
+          var parts = pos.match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
+          var rowNum = parts[2] ? parts[2] * 1 : 0;
+          var align = parts[3] ? parts[3].toLowerCase() : "full";
+          if (parts[1] !== side) {
+            return;
+          }
+          var row2 = _layoutGetRow(rows, rowNum, align);
+          _layoutItems(row2, align, items);
+        });
+        rows.sort(function(a, b) {
+          var order1 = a.rowNum;
+          var order2 = b.rowNum;
+          if (order1 === order2) {
+            var ret = a.full && !b.full ? -1 : 1;
+            return side === "bottom" ? ret * -1 : ret;
+          }
+          return order2 - order1;
+        });
+        if (side === "bottom") {
+          rows.reverse();
+        }
+        for (var row = 0; row < rows.length; row++) {
+          delete rows[row].rowNum;
+          _layoutResolve(settings, rows[row]);
+        }
+        return rows;
+      }
+      function _layoutResolve(settings, row) {
+        var getFeature = function(feature, opts) {
+          if (!_ext.features[feature]) {
+            _fnLog(settings, 0, "Unknown feature: " + feature);
+          }
+          return _ext.features[feature].apply(this, [settings, opts]);
+        };
+        var resolve = function(item) {
+          if (!row[item]) {
+            return;
+          }
+          var line = row[item].contents;
+          for (var i2 = 0, iLen = line.length; i2 < iLen; i2++) {
+            if (!line[i2]) {
+              continue;
+            } else if (typeof line[i2] === "string") {
+              line[i2] = getFeature(line[i2], null);
+            } else if ($3.isPlainObject(line[i2])) {
+              line[i2] = getFeature(line[i2].feature, line[i2].opts);
+            } else if (typeof line[i2].node === "function") {
+              line[i2] = line[i2].node(settings);
+            } else if (typeof line[i2] === "function") {
+              var inst = line[i2](settings);
+              line[i2] = typeof inst.node === "function" ? inst.node() : inst;
             }
-            aanFeatures[cOption].push(featureNode);
+          }
+        };
+        resolve("start");
+        resolve("end");
+        resolve("full");
+      }
+      function _fnAddOptionsHtml(settings) {
+        var classes = settings.oClasses;
+        var table = $3(settings.nTable);
+        var insert = $3("<div/>").attr({
+          id: settings.sTableId + "_wrapper",
+          "class": classes.container
+        }).insertBefore(table);
+        settings.nTableWrapper = insert[0];
+        if (settings.sDom) {
+          _fnLayoutDom(settings, settings.sDom, insert);
+        } else {
+          var top = _layoutArray(settings, settings.layout, "top");
+          var bottom = _layoutArray(settings, settings.layout, "bottom");
+          var renderer = _fnRenderer(settings, "layout");
+          top.forEach(function(item) {
+            renderer(settings, insert, item);
+          });
+          renderer(settings, insert, {
+            full: {
+              table: true,
+              contents: [_fnFeatureHtmlTable(settings)]
+            }
+          });
+          bottom.forEach(function(item) {
+            renderer(settings, insert, item);
+          });
+        }
+        _processingHtml(settings);
+      }
+      function _fnLayoutDom(settings, dom, insert) {
+        var parts = dom.match(/(".*?")|('.*?')|./g);
+        var featureNode, option, newNode, next, attr;
+        for (var i2 = 0; i2 < parts.length; i2++) {
+          featureNode = null;
+          option = parts[i2];
+          if (option == "<") {
+            newNode = $3("<div/>");
+            next = parts[i2 + 1];
+            if (next[0] == "'" || next[0] == '"') {
+              attr = next.replace(/['"]/g, "");
+              var id = "", className;
+              if (attr.indexOf(".") != -1) {
+                var split = attr.split(".");
+                id = split[0];
+                className = split[1];
+              } else if (attr[0] == "#") {
+                id = attr;
+              } else {
+                className = attr;
+              }
+              newNode.attr("id", id.substring(1)).addClass(className);
+              i2++;
+            }
+            insert.append(newNode);
+            insert = newNode;
+          } else if (option == ">") {
+            insert = insert.parent();
+          } else if (option == "t") {
+            featureNode = _fnFeatureHtmlTable(settings);
+          } else {
+            DataTable2.ext.feature.forEach(function(feature) {
+              if (option == feature.cFeature) {
+                featureNode = feature.fnInit(settings);
+              }
+            });
+          }
+          if (featureNode) {
             insert.append(featureNode);
           }
         }
-        holding.replaceWith(insert);
-        oSettings.nHolding = null;
       }
-      function _fnDetectHeader(aLayout, nThead) {
-        var nTrs = $3(nThead).children("tr");
-        var nTr, nCell;
-        var i2, k, l, iLen, jLen, iColShifted, iColumn, iColspan, iRowspan;
-        var bUnique;
-        var fnShiftCol = function(a, i3, j) {
+      function _fnDetectHeader(settings, thead, write) {
+        var columns = settings.aoColumns;
+        var rows = $3(thead).children("tr");
+        var row, cell;
+        var i2, k, l, iLen, shifted, column, colspan, rowspan;
+        var titleRow = settings.titleRow;
+        var isHeader = thead && thead.nodeName.toLowerCase() === "thead";
+        var layout = [];
+        var unique;
+        var shift = function(a, i3, j) {
           var k2 = a[i3];
           while (k2[j]) {
             j++;
           }
           return j;
         };
-        aLayout.splice(0, aLayout.length);
-        for (i2 = 0, iLen = nTrs.length; i2 < iLen; i2++) {
-          aLayout.push([]);
+        for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
+          layout.push([]);
         }
-        for (i2 = 0, iLen = nTrs.length; i2 < iLen; i2++) {
-          nTr = nTrs[i2];
-          iColumn = 0;
-          nCell = nTr.firstChild;
-          while (nCell) {
-            if (nCell.nodeName.toUpperCase() == "TD" || nCell.nodeName.toUpperCase() == "TH") {
-              iColspan = nCell.getAttribute("colspan") * 1;
-              iRowspan = nCell.getAttribute("rowspan") * 1;
-              iColspan = !iColspan || iColspan === 0 || iColspan === 1 ? 1 : iColspan;
-              iRowspan = !iRowspan || iRowspan === 0 || iRowspan === 1 ? 1 : iRowspan;
-              iColShifted = fnShiftCol(aLayout, i2, iColumn);
-              bUnique = iColspan === 1 ? true : false;
-              for (l = 0; l < iColspan; l++) {
-                for (k = 0; k < iRowspan; k++) {
-                  aLayout[i2 + k][iColShifted + l] = {
-                    "cell": nCell,
-                    "unique": bUnique
-                  };
-                  aLayout[i2 + k].nTr = nTr;
+        for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
+          row = rows[i2];
+          column = 0;
+          cell = row.firstChild;
+          while (cell) {
+            if (cell.nodeName.toUpperCase() == "TD" || cell.nodeName.toUpperCase() == "TH") {
+              var cols = [];
+              var jqCell = $3(cell);
+              colspan = cell.getAttribute("colspan") * 1;
+              rowspan = cell.getAttribute("rowspan") * 1;
+              colspan = !colspan || colspan === 0 || colspan === 1 ? 1 : colspan;
+              rowspan = !rowspan || rowspan === 0 || rowspan === 1 ? 1 : rowspan;
+              shifted = shift(layout, i2, column);
+              unique = colspan === 1 ? true : false;
+              if (write) {
+                if (unique) {
+                  _fnColumnOptions(settings, shifted, _fnEscapeObject(jqCell.data()));
+                  var columnDef = columns[shifted];
+                  var width = cell.getAttribute("width") || null;
+                  var t = cell.style.width.match(/width:\s*(\d+[pxem%]+)/);
+                  if (t) {
+                    width = t[1];
+                  }
+                  columnDef.sWidthOrig = columnDef.sWidth || width;
+                  if (isHeader) {
+                    if (columnDef.sTitle !== null && !columnDef.autoTitle) {
+                      if (titleRow === true && i2 === 0 || titleRow === false && i2 === rows.length - 1 || titleRow === i2 || titleRow === null) {
+                        cell.innerHTML = columnDef.sTitle;
+                      }
+                    }
+                    if (!columnDef.sTitle && unique) {
+                      columnDef.sTitle = _stripHtml(cell.innerHTML);
+                      columnDef.autoTitle = true;
+                    }
+                  } else {
+                    if (columnDef.footer) {
+                      cell.innerHTML = columnDef.footer;
+                    }
+                  }
+                  if (!columnDef.ariaTitle) {
+                    columnDef.ariaTitle = jqCell.attr("aria-label") || columnDef.sTitle;
+                  }
+                  if (columnDef.className) {
+                    jqCell.addClass(columnDef.className);
+                  }
+                }
+                if ($3(".dt-column-title", cell).length === 0) {
+                  $3(document2.createElement(settings.columnTitleTag)).addClass("dt-column-title").append(cell.childNodes).appendTo(cell);
+                }
+                if (settings.orderIndicators && isHeader && jqCell.filter(":not([data-dt-order=disable])").length !== 0 && jqCell.parent(":not([data-dt-order=disable])").length !== 0 && $3(".dt-column-order", cell).length === 0) {
+                  $3(document2.createElement(settings.columnTitleTag)).addClass("dt-column-order").appendTo(cell);
+                }
+                var headerFooter = isHeader ? "header" : "footer";
+                if ($3("div.dt-column-" + headerFooter, cell).length === 0) {
+                  $3("<div>").addClass("dt-column-" + headerFooter).append(cell.childNodes).appendTo(cell);
                 }
               }
+              for (l = 0; l < colspan; l++) {
+                for (k = 0; k < rowspan; k++) {
+                  layout[i2 + k][shifted + l] = {
+                    cell,
+                    unique
+                  };
+                  layout[i2 + k].row = row;
+                }
+                cols.push(shifted + l);
+              }
+              cell.setAttribute("data-dt-column", _unique(cols).join(","));
             }
-            nCell = nCell.nextSibling;
+            cell = cell.nextSibling;
           }
         }
-      }
-      function _fnGetUniqueThs(oSettings, nHeader, aLayout) {
-        var aReturn = [];
-        if (!aLayout) {
-          aLayout = oSettings.aoHeader;
-          if (nHeader) {
-            aLayout = [];
-            _fnDetectHeader(aLayout, nHeader);
-          }
-        }
-        for (var i2 = 0, iLen = aLayout.length; i2 < iLen; i2++) {
-          for (var j = 0, jLen = aLayout[i2].length; j < jLen; j++) {
-            if (aLayout[i2][j].unique && (!aReturn[j] || !oSettings.bSortCellsTop)) {
-              aReturn[j] = aLayout[i2][j].cell;
-            }
-          }
-        }
-        return aReturn;
+        return layout;
       }
       function _fnStart(oSettings) {
         var bServerSide = _fnDataSource(oSettings) == "ssp";
         var iInitDisplayStart = oSettings.iInitDisplayStart;
-        if (iInitDisplayStart !== undefined2 && iInitDisplayStart !== -1) {
+        if (iInitDisplayStart !== void 0 && iInitDisplayStart !== -1) {
           oSettings._iDisplayStart = bServerSide ? iInitDisplayStart : iInitDisplayStart >= oSettings.fnRecordsDisplay() ? 0 : iInitDisplayStart;
           oSettings.iInitDisplayStart = -1;
         }
       }
       function _fnBuildAjax(oSettings, data, fn) {
-        _fnCallbackFire(oSettings, "aoServerParams", "serverParams", [data]);
-        if (data && Array.isArray(data)) {
-          var tmp = {};
-          var rbracket = /(.*?)\[\]$/;
-          $3.each(data, function(key, val) {
-            var match = val.name.match(rbracket);
-            if (match) {
-              var name = match[0];
-              if (!tmp[name]) {
-                tmp[name] = [];
-              }
-              tmp[name].push(val.value);
-            } else {
-              tmp[val.name] = val.value;
-            }
-          });
-          data = tmp;
-        }
         var ajaxData;
         var ajax2 = oSettings.ajax;
         var instance = oSettings.oInstance;
@@ -8301,8 +8543,14 @@ var require_jquery_dataTables = __commonJS({
           if (error) {
             _fnLog(oSettings, 0, error);
           }
+          if (json.d && typeof json.d === "string") {
+            try {
+              json = JSON.parse(json.d);
+            } catch (e) {
+            }
+          }
           oSettings.json = json;
-          _fnCallbackFire(oSettings, null, "xhr", [oSettings, json, oSettings.jqXHR]);
+          _fnCallbackFire(oSettings, null, "xhr", [oSettings, json, oSettings.jqXHR], true);
           fn(json);
         };
         if ($3.isPlainObject(ajax2) && ajax2.data) {
@@ -8312,14 +8560,21 @@ var require_jquery_dataTables = __commonJS({
           delete ajax2.data;
         }
         var baseAjax = {
-          "data": data,
-          "success": callback,
-          "dataType": "json",
-          "cache": false,
-          "type": oSettings.sServerMethod,
-          "error": function(xhr, error, thrown) {
-            var ret = _fnCallbackFire(oSettings, null, "xhr", [oSettings, null, oSettings.jqXHR]);
-            if ($3.inArray(true, ret) === -1) {
+          url: typeof ajax2 === "string" ? ajax2 : "",
+          data,
+          success: callback,
+          dataType: "json",
+          cache: false,
+          type: oSettings.sServerMethod,
+          error: function(xhr, error) {
+            var ret = _fnCallbackFire(
+              oSettings,
+              null,
+              "xhr",
+              [oSettings, null, oSettings.jqXHR],
+              true
+            );
+            if (ret.indexOf(true) === -1) {
               if (error == "parsererror") {
                 _fnLog(oSettings, 0, "Invalid JSON response", 1);
               } else if (xhr.readyState === 4) {
@@ -8329,115 +8584,88 @@ var require_jquery_dataTables = __commonJS({
             _fnProcessingDisplay(oSettings, false);
           }
         };
+        if ($3.isPlainObject(ajax2)) {
+          $3.extend(baseAjax, ajax2);
+        }
         oSettings.oAjaxData = data;
-        _fnCallbackFire(oSettings, null, "preXhr", [oSettings, data]);
-        if (oSettings.fnServerData) {
-          oSettings.fnServerData.call(
-            instance,
-            oSettings.sAjaxSource,
-            $3.map(data, function(val, key) {
-              return { name: key, value: val };
-            }),
-            callback,
-            oSettings
-          );
-        } else if (oSettings.sAjaxSource || typeof ajax2 === "string") {
-          oSettings.jqXHR = $3.ajax($3.extend(baseAjax, {
-            url: ajax2 || oSettings.sAjaxSource
-          }));
-        } else if (typeof ajax2 === "function") {
+        _fnCallbackFire(oSettings, null, "preXhr", [oSettings, data, baseAjax], true);
+        if (baseAjax.submitAs === "json" && typeof data === "object") {
+          baseAjax.data = JSON.stringify(data);
+          if (!baseAjax.contentType) {
+            baseAjax.contentType = "application/json; charset=utf-8";
+          }
+        }
+        if (typeof ajax2 === "function") {
           oSettings.jqXHR = ajax2.call(instance, data, callback, oSettings);
+        } else if (ajax2.url === "") {
+          var empty = {};
+          _fnAjaxDataSrc(oSettings, empty, []);
+          callback(empty);
         } else {
-          oSettings.jqXHR = $3.ajax($3.extend(baseAjax, ajax2));
+          oSettings.jqXHR = $3.ajax(baseAjax);
+        }
+        if (ajaxData) {
           ajax2.data = ajaxData;
         }
       }
       function _fnAjaxUpdate(settings) {
         settings.iDraw++;
         _fnProcessingDisplay(settings, true);
-        var drawHold = settings._drawHold;
-        _fnBuildAjax(
-          settings,
-          _fnAjaxParameters(settings),
-          function(json) {
-            settings._drawHold = drawHold;
-            _fnAjaxUpdateDraw(settings, json);
-            settings._drawHold = false;
-          }
-        );
+        _fnBuildAjax(settings, _fnAjaxParameters(settings), function(json) {
+          _fnAjaxUpdateDraw(settings, json);
+        });
       }
       function _fnAjaxParameters(settings) {
-        var columns = settings.aoColumns, columnCount = columns.length, features = settings.oFeatures, preSearch = settings.oPreviousSearch, preColSearch = settings.aoPreSearchCols, i2, data = [], dataProp, column, columnSearch, sort = _fnSortFlatten(settings), displayStart = settings._iDisplayStart, displayLength = features.bPaginate !== false ? settings._iDisplayLength : -1;
-        var param = function(name, value) {
-          data.push({ "name": name, "value": value });
+        var columns = settings.aoColumns, features = settings.oFeatures, preSearch = settings.oPreviousSearch, preColSearch = settings.aoPreSearchCols, colData = function(idx, prop) {
+          return typeof columns[idx][prop] === "function" ? "function" : columns[idx][prop];
         };
-        param("sEcho", settings.iDraw);
-        param("iColumns", columnCount);
-        param("sColumns", _pluck(columns, "sName").join(","));
-        param("iDisplayStart", displayStart);
-        param("iDisplayLength", displayLength);
-        var d = {
+        return {
           draw: settings.iDraw,
-          columns: [],
-          order: [],
-          start: displayStart,
-          length: displayLength,
+          columns: columns.map(function(column, i2) {
+            return {
+              data: colData(i2, "mData"),
+              name: column.sName,
+              searchable: column.bSearchable,
+              orderable: column.bSortable,
+              search: {
+                value: preColSearch[i2].search,
+                regex: preColSearch[i2].regex,
+                fixed: Object.keys(column.searchFixed).map(function(name) {
+                  return {
+                    name,
+                    term: typeof column.searchFixed[name] !== "function" ? column.searchFixed[name].toString() : "function"
+                  };
+                })
+              }
+            };
+          }),
+          order: _fnSortFlatten(settings).map(function(val) {
+            return {
+              column: val.col,
+              dir: val.dir,
+              name: colData(val.col, "sName")
+            };
+          }),
+          start: settings._iDisplayStart,
+          length: features.bPaginate ? settings._iDisplayLength : -1,
           search: {
-            value: preSearch.sSearch,
-            regex: preSearch.bRegex
+            value: preSearch.search,
+            regex: preSearch.regex,
+            fixed: Object.keys(settings.searchFixed).map(function(name) {
+              return {
+                name,
+                term: typeof settings.searchFixed[name] !== "function" ? settings.searchFixed[name].toString() : "function"
+              };
+            })
           }
         };
-        for (i2 = 0; i2 < columnCount; i2++) {
-          column = columns[i2];
-          columnSearch = preColSearch[i2];
-          dataProp = typeof column.mData == "function" ? "function" : column.mData;
-          d.columns.push({
-            data: dataProp,
-            name: column.sName,
-            searchable: column.bSearchable,
-            orderable: column.bSortable,
-            search: {
-              value: columnSearch.sSearch,
-              regex: columnSearch.bRegex
-            }
-          });
-          param("mDataProp_" + i2, dataProp);
-          if (features.bFilter) {
-            param("sSearch_" + i2, columnSearch.sSearch);
-            param("bRegex_" + i2, columnSearch.bRegex);
-            param("bSearchable_" + i2, column.bSearchable);
-          }
-          if (features.bSort) {
-            param("bSortable_" + i2, column.bSortable);
-          }
-        }
-        if (features.bFilter) {
-          param("sSearch", preSearch.sSearch);
-          param("bRegex", preSearch.bRegex);
-        }
-        if (features.bSort) {
-          $3.each(sort, function(i3, val) {
-            d.order.push({ column: val.col, dir: val.dir });
-            param("iSortCol_" + i3, val.col);
-            param("sSortDir_" + i3, val.dir);
-          });
-          param("iSortingCols", sort.length);
-        }
-        var legacy = DataTable.ext.legacy.ajax;
-        if (legacy === null) {
-          return settings.sAjaxSource ? data : d;
-        }
-        return legacy ? data : d;
       }
       function _fnAjaxUpdateDraw(settings, json) {
-        var compat = function(old, modern) {
-          return json[old] !== undefined2 ? json[old] : json[modern];
-        };
         var data = _fnAjaxDataSrc(settings, json);
-        var draw = compat("sEcho", "draw");
-        var recordsTotal = compat("iTotalRecords", "recordsTotal");
-        var recordsFiltered = compat("iTotalDisplayRecords", "recordsFiltered");
-        if (draw !== undefined2) {
+        var draw = _fnAjaxDataSrcParam(settings, "draw", json);
+        var recordsTotal = _fnAjaxDataSrcParam(settings, "recordsTotal", json);
+        var recordsFiltered = _fnAjaxDataSrcParam(settings, "recordsFiltered", json);
+        if (draw !== void 0) {
           if (draw * 1 < settings.iDraw) {
             return;
           }
@@ -8449,121 +8677,80 @@ var require_jquery_dataTables = __commonJS({
         _fnClearTable(settings);
         settings._iRecordsTotal = parseInt(recordsTotal, 10);
         settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
-        for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
           _fnAddData(settings, data[i2]);
         }
         settings.aiDisplay = settings.aiDisplayMaster.slice();
+        _fnColumnTypes(settings);
         _fnDraw(settings, true);
-        if (!settings._bInitComplete) {
-          _fnInitComplete(settings, json);
-        }
+        _fnInitComplete(settings);
         _fnProcessingDisplay(settings, false);
       }
-      function _fnAjaxDataSrc(oSettings, json, write) {
-        var dataSrc = $3.isPlainObject(oSettings.ajax) && oSettings.ajax.dataSrc !== undefined2 ? oSettings.ajax.dataSrc : oSettings.sAjaxDataProp;
+      function _fnAjaxDataSrc(settings, json, write) {
+        var dataProp = "data";
+        if ($3.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== void 0) {
+          var dataSrc = settings.ajax.dataSrc;
+          if (typeof dataSrc === "string" || typeof dataSrc === "function") {
+            dataProp = dataSrc;
+          } else if (dataSrc.data !== void 0) {
+            dataProp = dataSrc.data;
+          }
+        }
         if (!write) {
-          if (dataSrc === "data") {
-            return json.aaData || json[dataSrc];
+          if (dataProp === "data") {
+            return json.aaData || json[dataProp];
           }
-          return dataSrc !== "" ? _fnGetObjectDataFn(dataSrc)(json) : json;
+          return dataProp !== "" ? _fnGetObjectDataFn(dataProp)(json) : json;
         }
-        _fnSetObjectDataFn(dataSrc)(json, write);
+        _fnSetObjectDataFn(dataProp)(json, write);
       }
-      function _fnFeatureHtmlFilter(settings) {
-        var classes = settings.oClasses;
-        var tableId = settings.sTableId;
-        var language = settings.oLanguage;
-        var previousSearch = settings.oPreviousSearch;
-        var features = settings.aanFeatures;
-        var input = '<input type="search" class="' + classes.sFilterInput + '"/>';
-        var str = language.sSearch;
-        str = str.match(/_INPUT_/) ? str.replace("_INPUT_", input) : str + input;
-        var filter = $3("<div/>", {
-          "id": !features.f ? tableId + "_filter" : null,
-          "class": classes.sFilter
-        }).append($3("<label/>").append(str));
-        var searchFn = function(event) {
-          var n = features.f;
-          var val = !this.value ? "" : this.value;
-          if (previousSearch["return"] && event.key !== "Enter") {
-            return;
-          }
-          if (val != previousSearch.sSearch) {
-            _fnFilterComplete(settings, {
-              "sSearch": val,
-              "bRegex": previousSearch.bRegex,
-              "bSmart": previousSearch.bSmart,
-              "bCaseInsensitive": previousSearch.bCaseInsensitive,
-              "return": previousSearch["return"]
-            });
-            settings._iDisplayStart = 0;
-            _fnDraw(settings);
-          }
-        };
-        var searchDelay = settings.searchDelay !== null ? settings.searchDelay : _fnDataSource(settings) === "ssp" ? 400 : 0;
-        var jqFilter = $3("input", filter).val(previousSearch.sSearch).attr("placeholder", language.sSearchPlaceholder).on(
-          "keyup.DT search.DT input.DT paste.DT cut.DT",
-          searchDelay ? _fnThrottle(searchFn, searchDelay) : searchFn
-        ).on("mouseup.DT", function(e) {
-          setTimeout(function() {
-            searchFn.call(jqFilter[0], e);
-          }, 10);
-        }).on("keypress.DT", function(e) {
-          if (e.keyCode == 13) {
-            return false;
-          }
-        }).attr("aria-controls", tableId);
-        $3(settings.nTable).on("search.dt.DT", function(ev, s) {
-          if (settings === s) {
-            try {
-              if (jqFilter[0] !== document2.activeElement) {
-                jqFilter.val(previousSearch.sSearch);
-              }
-            } catch (e) {
-            }
-          }
-        });
-        return filter[0];
+      function _fnAjaxDataSrcParam(settings, param, json) {
+        var dataSrc = $3.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+        if (dataSrc && dataSrc[param]) {
+          return _fnGetObjectDataFn(dataSrc[param])(json);
+        }
+        var old = "";
+        if (param === "draw") {
+          old = "sEcho";
+        } else if (param === "recordsTotal") {
+          old = "iTotalRecords";
+        } else if (param === "recordsFiltered") {
+          old = "iTotalDisplayRecords";
+        }
+        return json[old] !== void 0 ? json[old] : json[param];
       }
-      function _fnFilterComplete(oSettings, oInput, iForce) {
-        var oPrevSearch = oSettings.oPreviousSearch;
-        var aoPrevSearch = oSettings.aoPreSearchCols;
-        var fnSaveFilter = function(oFilter) {
-          oPrevSearch.sSearch = oFilter.sSearch;
-          oPrevSearch.bRegex = oFilter.bRegex;
-          oPrevSearch.bSmart = oFilter.bSmart;
-          oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
-          oPrevSearch["return"] = oFilter["return"];
-        };
-        var fnRegex = function(o) {
-          return o.bEscapeRegex !== undefined2 ? !o.bEscapeRegex : o.bRegex;
-        };
-        _fnColumnTypes(oSettings);
-        if (_fnDataSource(oSettings) != "ssp") {
-          _fnFilter(oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive);
-          fnSaveFilter(oInput);
-          for (var i2 = 0; i2 < aoPrevSearch.length; i2++) {
-            _fnFilterColumn(
-              oSettings,
-              aoPrevSearch[i2].sSearch,
-              i2,
-              fnRegex(aoPrevSearch[i2]),
-              aoPrevSearch[i2].bSmart,
-              aoPrevSearch[i2].bCaseInsensitive
+      function _fnFilterComplete(settings, input) {
+        var columnsSearch = settings.aoPreSearchCols;
+        if (_fnDataSource(settings) != "ssp") {
+          _fnFilterData(settings);
+          settings.aiDisplay = settings.aiDisplayMaster.slice();
+          _fnFilter(settings.aiDisplay, settings, input.search, input);
+          $3.each(settings.searchFixed, function(name, term) {
+            _fnFilter(settings.aiDisplay, settings, term, {});
+          });
+          for (var i2 = 0; i2 < columnsSearch.length; i2++) {
+            var col = columnsSearch[i2];
+            _fnFilter(
+              settings.aiDisplay,
+              settings,
+              col.search,
+              col,
+              i2
             );
+            $3.each(settings.aoColumns[i2].searchFixed, function(name, term) {
+              _fnFilter(settings.aiDisplay, settings, term, {}, i2);
+            });
           }
-          _fnFilterCustom(oSettings);
-        } else {
-          fnSaveFilter(oInput);
+          _fnFilterCustom(settings);
         }
-        oSettings.bFiltered = true;
-        _fnCallbackFire(oSettings, null, "search", [oSettings]);
+        settings.bFiltered = true;
+        _fnCallbackFire(settings, null, "search", [settings]);
       }
       function _fnFilterCustom(settings) {
-        var filters = DataTable.ext.search;
+        var filters = DataTable2.ext.search;
         var displayRows = settings.aiDisplay;
         var row, rowIdx;
-        for (var i2 = 0, ien = filters.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = filters.length; i2 < iLen; i2++) {
           var rows = [];
           for (var j = 0, jen = displayRows.length; j < jen; j++) {
             rowIdx = displayRows[j];
@@ -8573,83 +8760,99 @@ var require_jquery_dataTables = __commonJS({
             }
           }
           displayRows.length = 0;
-          $3.merge(displayRows, rows);
+          _fnArrayApply(displayRows, rows);
         }
       }
-      function _fnFilterColumn(settings, searchStr, colIdx, regex, smart, caseInsensitive) {
-        if (searchStr === "") {
+      function _fnFilter(searchRows, settings, input, options, column) {
+        if (input === "") {
           return;
         }
-        var data;
-        var out = [];
-        var display = settings.aiDisplay;
-        var rpSearch = _fnFilterCreateSearch(searchStr, regex, smart, caseInsensitive);
-        for (var i2 = 0; i2 < display.length; i2++) {
-          data = settings.aoData[display[i2]]._aFilterData[colIdx];
-          if (rpSearch.test(data)) {
-            out.push(display[i2]);
+        var i2 = 0;
+        var matched = [];
+        var searchFunc = typeof input === "function" ? input : null;
+        var rpSearch = input instanceof RegExp ? input : searchFunc ? null : _fnFilterCreateSearch(input, options);
+        for (i2 = 0; i2 < searchRows.length; i2++) {
+          var row = settings.aoData[searchRows[i2]];
+          var data = column === void 0 ? row._sFilterRow : row._aFilterData[column];
+          if (searchFunc && searchFunc(data, row._aData, searchRows[i2], column) || rpSearch && rpSearch.test(data)) {
+            matched.push(searchRows[i2]);
           }
         }
-        settings.aiDisplay = out;
+        searchRows.length = matched.length;
+        for (i2 = 0; i2 < matched.length; i2++) {
+          searchRows[i2] = matched[i2];
+        }
       }
-      function _fnFilter(settings, input, force, regex, smart, caseInsensitive) {
-        var rpSearch = _fnFilterCreateSearch(input, regex, smart, caseInsensitive);
-        var prevSearch = settings.oPreviousSearch.sSearch;
-        var displayMaster = settings.aiDisplayMaster;
-        var display, invalidated, i2;
-        var filtered = [];
-        if (DataTable.ext.search.length !== 0) {
-          force = true;
+      function _fnFilterCreateSearch(search, inOpts) {
+        var not = [];
+        var options = $3.extend({}, {
+          boundary: false,
+          caseInsensitive: true,
+          exact: false,
+          regex: false,
+          smart: true
+        }, inOpts);
+        if (typeof search !== "string") {
+          search = search.toString();
         }
-        invalidated = _fnFilterData(settings);
-        if (input.length <= 0) {
-          settings.aiDisplay = displayMaster.slice();
-        } else {
-          if (invalidated || force || regex || prevSearch.length > input.length || input.indexOf(prevSearch) !== 0 || settings.bSorted) {
-            settings.aiDisplay = displayMaster.slice();
-          }
-          display = settings.aiDisplay;
-          for (i2 = 0; i2 < display.length; i2++) {
-            if (rpSearch.test(settings.aoData[display[i2]]._sFilterRow)) {
-              filtered.push(display[i2]);
+        search = _normalize(search);
+        if (options.exact) {
+          return new RegExp(
+            "^" + _fnEscapeRegex(search) + "$",
+            options.caseInsensitive ? "i" : ""
+          );
+        }
+        search = options.regex ? search : _fnEscapeRegex(search);
+        if (options.smart) {
+          var parts = search.match(/!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [""];
+          var a = parts.map(function(word) {
+            var negative = false;
+            var m2;
+            if (word.charAt(0) === "!") {
+              negative = true;
+              word = word.substring(1);
             }
-          }
-          settings.aiDisplay = filtered;
-        }
-      }
-      function _fnFilterCreateSearch(search, regex, smart, caseInsensitive) {
-        search = regex ? search : _fnEscapeRegex(search);
-        if (smart) {
-          var a = $3.map(search.match(/["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [""], function(word) {
             if (word.charAt(0) === '"') {
-              var m2 = word.match(/^"(.*)"$/);
+              m2 = word.match(/^"(.*)"$/);
               word = m2 ? m2[1] : word;
             } else if (word.charAt(0) === "\u201C") {
-              var m2 = word.match(/^\u201C(.*)\u201D$/);
+              m2 = word.match(/^\u201C(.*)\u201D$/);
               word = m2 ? m2[1] : word;
             }
-            return word.replace('"', "");
+            if (negative) {
+              if (word.length > 1) {
+                not.push("(?!" + word + ")");
+              }
+              word = "";
+            }
+            return word.replace(/"/g, "");
           });
-          search = "^(?=.*?" + a.join(")(?=.*?") + ").*$";
+          var match = not.length ? not.join("") : "";
+          var boundary = options.boundary ? "\\b" : "";
+          search = "^(?=.*?" + boundary + a.join(")(?=.*?" + boundary) + ")(" + match + ".)*$";
         }
-        return new RegExp(search, caseInsensitive ? "i" : "");
+        return new RegExp(search, options.caseInsensitive ? "i" : "");
       }
-      var _fnEscapeRegex = DataTable.util.escapeRegex;
+      var _fnEscapeRegex = DataTable2.util.escapeRegex;
       var __filter_div = $3("<div>")[0];
-      var __filter_div_textContent = __filter_div.textContent !== undefined2;
+      var __filter_div_textContent = __filter_div.textContent !== void 0;
       function _fnFilterData(settings) {
         var columns = settings.aoColumns;
+        var data = settings.aoData;
         var column;
-        var i2, j, ien, jen, filterData, cellData, row;
+        var j, jen, filterData, cellData, row;
         var wasInvalidated = false;
-        for (i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          row = settings.aoData[i2];
+        for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
+          if (!data[rowIdx]) {
+            continue;
+          }
+          row = data[rowIdx];
           if (!row._aFilterData) {
             filterData = [];
             for (j = 0, jen = columns.length; j < jen; j++) {
               column = columns[j];
               if (column.bSearchable) {
-                cellData = _fnGetCellData(settings, i2, j, "filter");
+                cellData = _fnGetCellData(settings, rowIdx, j, "filter");
                 if (cellData === null) {
                   cellData = "";
                 }
@@ -8675,188 +8878,71 @@ var require_jquery_dataTables = __commonJS({
         }
         return wasInvalidated;
       }
-      function _fnSearchToCamel(obj) {
-        return {
-          search: obj.sSearch,
-          smart: obj.bSmart,
-          regex: obj.bRegex,
-          caseInsensitive: obj.bCaseInsensitive
-        };
-      }
-      function _fnSearchToHung(obj) {
-        return {
-          sSearch: obj.search,
-          bSmart: obj.smart,
-          bRegex: obj.regex,
-          bCaseInsensitive: obj.caseInsensitive
-        };
-      }
-      function _fnFeatureHtmlInfo(settings) {
-        var tid = settings.sTableId, nodes = settings.aanFeatures.i, n = $3("<div/>", {
-          "class": settings.oClasses.sInfo,
-          "id": !nodes ? tid + "_info" : null
-        });
-        if (!nodes) {
-          settings.aoDrawCallback.push({
-            "fn": _fnUpdateInfo,
-            "sName": "information"
-          });
-          n.attr("role", "status").attr("aria-live", "polite");
-          $3(settings.nTable).attr("aria-describedby", tid + "_info");
-        }
-        return n[0];
-      }
-      function _fnUpdateInfo(settings) {
-        var nodes = settings.aanFeatures.i;
-        if (nodes.length === 0) {
-          return;
-        }
-        var lang = settings.oLanguage, start2 = settings._iDisplayStart + 1, end = settings.fnDisplayEnd(), max = settings.fnRecordsTotal(), total = settings.fnRecordsDisplay(), out = total ? lang.sInfo : lang.sInfoEmpty;
-        if (total !== max) {
-          out += " " + lang.sInfoFiltered;
-        }
-        out += lang.sInfoPostFix;
-        out = _fnInfoMacros(settings, out);
-        var callback = lang.fnInfoCallback;
-        if (callback !== null) {
-          out = callback.call(
-            settings.oInstance,
-            settings,
-            start2,
-            end,
-            max,
-            total,
-            out
-          );
-        }
-        $3(nodes).html(out);
-      }
-      function _fnInfoMacros(settings, str) {
-        var formatter = settings.fnFormatNumber, start2 = settings._iDisplayStart + 1, len = settings._iDisplayLength, vis = settings.fnRecordsDisplay(), all = len === -1;
-        return str.replace(/_START_/g, formatter.call(settings, start2)).replace(/_END_/g, formatter.call(settings, settings.fnDisplayEnd())).replace(/_MAX_/g, formatter.call(settings, settings.fnRecordsTotal())).replace(/_TOTAL_/g, formatter.call(settings, vis)).replace(/_PAGE_/g, formatter.call(settings, all ? 1 : Math.ceil(start2 / len))).replace(/_PAGES_/g, formatter.call(settings, all ? 1 : Math.ceil(vis / len)));
-      }
       function _fnInitialise(settings) {
-        var i2, iLen, iAjaxStart = settings.iInitDisplayStart;
-        var columns = settings.aoColumns, column;
-        var features = settings.oFeatures;
-        var deferLoading = settings.bDeferLoading;
+        var i2;
+        var init = settings.oInit;
+        var deferLoading = settings.deferLoading;
+        var dataSrc = _fnDataSource(settings);
         if (!settings.bInitialised) {
           setTimeout(function() {
             _fnInitialise(settings);
           }, 200);
           return;
         }
-        _fnAddOptionsHtml(settings);
-        _fnBuildHead(settings);
-        _fnDrawHead(settings, settings.aoHeader);
-        _fnDrawHead(settings, settings.aoFooter);
-        _fnProcessingDisplay(settings, true);
-        if (features.bAutoWidth) {
-          _fnCalculateColumnWidths(settings);
-        }
-        for (i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-          column = columns[i2];
-          if (column.sWidth) {
-            column.nTh.style.width = _fnStringToCss(column.sWidth);
+        _fnBuildHead(settings, "header");
+        _fnBuildHead(settings, "footer");
+        _fnLoadState(settings, init, function() {
+          _fnDrawHead(settings, settings.aoHeader);
+          _fnDrawHead(settings, settings.aoFooter);
+          var iAjaxStart = settings.iInitDisplayStart;
+          if (init.aaData) {
+            for (i2 = 0; i2 < init.aaData.length; i2++) {
+              _fnAddData(settings, init.aaData[i2]);
+            }
+          } else if (deferLoading || dataSrc == "dom") {
+            _fnAddTr(settings, $3(settings.nTBody).children("tr"));
           }
-        }
-        _fnCallbackFire(settings, null, "preInit", [settings]);
-        _fnReDraw(settings);
-        var dataSrc = _fnDataSource(settings);
-        if (dataSrc != "ssp" || deferLoading) {
-          if (dataSrc == "ajax") {
-            _fnBuildAjax(settings, [], function(json) {
-              var aData = _fnAjaxDataSrc(settings, json);
-              for (i2 = 0; i2 < aData.length; i2++) {
-                _fnAddData(settings, aData[i2]);
-              }
-              settings.iInitDisplayStart = iAjaxStart;
-              _fnReDraw(settings);
+          settings.aiDisplay = settings.aiDisplayMaster.slice();
+          _fnAddOptionsHtml(settings);
+          _fnSortInit(settings);
+          _colGroup(settings);
+          _fnProcessingDisplay(settings, true);
+          _fnCallbackFire(settings, null, "preInit", [settings], true);
+          _fnReDraw(settings);
+          if (dataSrc != "ssp" || deferLoading) {
+            if (dataSrc == "ajax") {
+              _fnBuildAjax(settings, {}, function(json) {
+                var aData = _fnAjaxDataSrc(settings, json);
+                for (i2 = 0; i2 < aData.length; i2++) {
+                  _fnAddData(settings, aData[i2]);
+                }
+                settings.iInitDisplayStart = iAjaxStart;
+                _fnReDraw(settings);
+                _fnProcessingDisplay(settings, false);
+                _fnInitComplete(settings);
+              }, settings);
+            } else {
+              _fnInitComplete(settings);
               _fnProcessingDisplay(settings, false);
-              _fnInitComplete(settings, json);
-            }, settings);
-          } else {
-            _fnProcessingDisplay(settings, false);
-            _fnInitComplete(settings);
+            }
           }
-        }
+        });
       }
-      function _fnInitComplete(settings, json) {
-        settings._bInitComplete = true;
-        if (json || settings.oInit.aaData) {
-          _fnAdjustColumnSizing(settings);
+      function _fnInitComplete(settings) {
+        if (settings._bInitComplete) {
+          return;
         }
-        _fnCallbackFire(settings, null, "plugin-init", [settings, json]);
-        _fnCallbackFire(settings, "aoInitComplete", "init", [settings, json]);
+        var args = [settings, settings.json];
+        settings._bInitComplete = true;
+        _fnAdjustColumnSizing(settings);
+        _fnCallbackFire(settings, null, "plugin-init", args, true);
+        _fnCallbackFire(settings, "aoInitComplete", "init", args, true);
       }
       function _fnLengthChange(settings, val) {
         var len = parseInt(val, 10);
         settings._iDisplayLength = len;
         _fnLengthOverflow(settings);
         _fnCallbackFire(settings, null, "length", [settings, len]);
-      }
-      function _fnFeatureHtmlLength(settings) {
-        var classes = settings.oClasses, tableId = settings.sTableId, menu = settings.aLengthMenu, d2 = Array.isArray(menu[0]), lengths = d2 ? menu[0] : menu, language = d2 ? menu[1] : menu;
-        var select = $3("<select/>", {
-          "name": tableId + "_length",
-          "aria-controls": tableId,
-          "class": classes.sLengthSelect
-        });
-        for (var i2 = 0, ien = lengths.length; i2 < ien; i2++) {
-          select[0][i2] = new Option(
-            typeof language[i2] === "number" ? settings.fnFormatNumber(language[i2]) : language[i2],
-            lengths[i2]
-          );
-        }
-        var div = $3("<div><label/></div>").addClass(classes.sLength);
-        if (!settings.aanFeatures.l) {
-          div[0].id = tableId + "_length";
-        }
-        div.children().append(
-          settings.oLanguage.sLengthMenu.replace("_MENU_", select[0].outerHTML)
-        );
-        $3("select", div).val(settings._iDisplayLength).on("change.DT", function(e) {
-          _fnLengthChange(settings, $3(this).val());
-          _fnDraw(settings);
-        });
-        $3(settings.nTable).on("length.dt.DT", function(e, s, len) {
-          if (settings === s) {
-            $3("select", div).val(len);
-          }
-        });
-        return div[0];
-      }
-      function _fnFeatureHtmlPaginate(settings) {
-        var type = settings.sPaginationType, plugin = DataTable.ext.pager[type], modern = typeof plugin === "function", redraw = function(settings2) {
-          _fnDraw(settings2);
-        }, node = $3("<div/>").addClass(settings.oClasses.sPaging + type)[0], features = settings.aanFeatures;
-        if (!modern) {
-          plugin.fnInit(settings, node, redraw);
-        }
-        if (!features.p) {
-          node.id = settings.sTableId + "_paginate";
-          settings.aoDrawCallback.push({
-            "fn": function(settings2) {
-              if (modern) {
-                var start2 = settings2._iDisplayStart, len = settings2._iDisplayLength, visRecords = settings2.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start2 / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = plugin(page, pages), i2, ien;
-                for (i2 = 0, ien = features.p.length; i2 < ien; i2++) {
-                  _fnRenderer(settings2, "pageButton")(
-                    settings2,
-                    features.p[i2],
-                    i2,
-                    buttons,
-                    page,
-                    pages
-                  );
-                }
-              } else {
-                plugin.fnUpdate(settings2, redraw);
-              }
-            },
-            "sName": "pagination"
-          });
-        }
-        return node;
       }
       function _fnPageChange(settings, action, redraw) {
         var start2 = settings._iDisplayStart, len = settings._iDisplayLength, records = settings.fnRecordsDisplay();
@@ -8880,33 +8966,54 @@ var require_jquery_dataTables = __commonJS({
           }
         } else if (action == "last") {
           start2 = Math.floor((records - 1) / len) * len;
+        } else if (action === "ellipsis") {
+          return;
         } else {
           _fnLog(settings, 0, "Unknown paging action: " + action, 5);
         }
         var changed = settings._iDisplayStart !== start2;
         settings._iDisplayStart = start2;
-        if (changed) {
-          _fnCallbackFire(settings, null, "page", [settings]);
-          if (redraw) {
-            _fnDraw(settings);
-          }
-        } else {
-          _fnCallbackFire(settings, null, "page-nc", [settings]);
+        _fnCallbackFire(settings, null, changed ? "page" : "page-nc", [settings]);
+        if (changed && redraw) {
+          _fnDraw(settings);
         }
         return changed;
       }
-      function _fnFeatureHtmlProcessing(settings) {
-        return $3("<div/>", {
-          "id": !settings.aanFeatures.r ? settings.sTableId + "_processing" : null,
-          "class": settings.oClasses.sProcessing,
-          "role": "status"
-        }).html(settings.oLanguage.sProcessing).append("<div><div></div><div></div><div></div><div></div></div>").insertBefore(settings.nTable)[0];
+      function _processingHtml(settings) {
+        var table = settings.nTable;
+        var scrolling = settings.oScroll.sX !== "" || settings.oScroll.sY !== "";
+        if (settings.oFeatures.bProcessing) {
+          var n = $3("<div/>", {
+            "id": settings.sTableId + "_processing",
+            "class": settings.oClasses.processing.container,
+            "role": "status"
+          }).html(settings.oLanguage.sProcessing).append("<div><div></div><div></div><div></div><div></div></div>");
+          if (scrolling) {
+            n.prependTo($3("div.dt-scroll", settings.nTableWrapper));
+          } else {
+            n.insertBefore(table);
+          }
+          $3(table).on("processing.dt.DT", function(e, s, show) {
+            n.css("display", show ? "block" : "none");
+          });
+        }
       }
       function _fnProcessingDisplay(settings, show) {
-        if (settings.oFeatures.bProcessing) {
-          $3(settings.aanFeatures.r).css("display", show ? "block" : "none");
+        if (settings.bDrawing && show === false) {
+          return;
         }
         _fnCallbackFire(settings, null, "processing", [settings, show]);
+      }
+      function _fnProcessingRun(settings, enable, run) {
+        if (!enable) {
+          run();
+        } else {
+          _fnProcessingDisplay(settings, true);
+          setTimeout(function() {
+            run();
+            _fnProcessingDisplay(settings, false);
+          }, 0);
+        }
       }
       function _fnFeatureHtmlTable(settings) {
         var table = $3(settings.nTable);
@@ -8916,9 +9023,9 @@ var require_jquery_dataTables = __commonJS({
         }
         var scrollX = scroll.sX;
         var scrollY = scroll.sY;
-        var classes = settings.oClasses;
-        var caption = table.children("caption");
-        var captionSide = caption.length ? caption[0]._captionSide : null;
+        var classes = settings.oClasses.scrolling;
+        var caption = settings.captionNode;
+        var captionSide = caption ? caption._captionSide : null;
         var headerClone = $3(table[0].cloneNode(false));
         var footerClone = $3(table[0].cloneNode(false));
         var footer = table.children("tfoot");
@@ -8929,14 +9036,14 @@ var require_jquery_dataTables = __commonJS({
         if (!footer.length) {
           footer = null;
         }
-        var scroller = $3(_div, { "class": classes.sScrollWrapper }).append(
-          $3(_div, { "class": classes.sScrollHead }).css({
+        var scroller = $3(_div, { "class": classes.container }).append(
+          $3(_div, { "class": classes.header.self }).css({
             overflow: "hidden",
             position: "relative",
             border: 0,
             width: scrollX ? size(scrollX) : "100%"
           }).append(
-            $3(_div, { "class": classes.sScrollHeadInner }).css({
+            $3(_div, { "class": classes.header.inner }).css({
               "box-sizing": "content-box",
               width: scroll.sXInner || "100%"
             }).append(
@@ -8946,7 +9053,7 @@ var require_jquery_dataTables = __commonJS({
             )
           )
         ).append(
-          $3(_div, { "class": classes.sScrollBody }).css({
+          $3(_div, { "class": classes.body }).css({
             position: "relative",
             overflow: "auto",
             width: size(scrollX)
@@ -8954,12 +9061,12 @@ var require_jquery_dataTables = __commonJS({
         );
         if (footer) {
           scroller.append(
-            $3(_div, { "class": classes.sScrollFoot }).css({
+            $3(_div, { "class": classes.footer.self }).css({
               overflow: "hidden",
               border: 0,
               width: scrollX ? size(scrollX) : "100%"
             }).append(
-              $3(_div, { "class": classes.sScrollFootInner }).append(
+              $3(_div, { "class": classes.footer.inner }).append(
                 footerClone.removeAttr("id").css("margin-left", 0).append(captionSide === "bottom" ? caption : null).append(
                   table.children("tfoot")
                 )
@@ -8971,15 +9078,20 @@ var require_jquery_dataTables = __commonJS({
         var scrollHead = children[0];
         var scrollBody = children[1];
         var scrollFoot = footer ? children[2] : null;
-        if (scrollX) {
-          $3(scrollBody).on("scroll.DT", function(e) {
-            var scrollLeft = this.scrollLeft;
-            scrollHead.scrollLeft = scrollLeft;
-            if (footer) {
-              scrollFoot.scrollLeft = scrollLeft;
-            }
-          });
-        }
+        $3(scrollBody).on("scroll.DT", function() {
+          var scrollLeft = this.scrollLeft;
+          scrollHead.scrollLeft = scrollLeft;
+          if (footer) {
+            scrollFoot.scrollLeft = scrollLeft;
+          }
+        });
+        $3("th, td", scrollHead).on("focus", function() {
+          var scrollLeft = scrollHead.scrollLeft;
+          scrollBody.scrollLeft = scrollLeft;
+          if (footer) {
+            scrollBody.scrollLeft = scrollLeft;
+          }
+        });
         $3(scrollBody).css("max-height", scrollY);
         if (!scroll.bCollapse) {
           $3(scrollBody).css("height", scrollY);
@@ -8987,23 +9099,13 @@ var require_jquery_dataTables = __commonJS({
         settings.nScrollHead = scrollHead;
         settings.nScrollBody = scrollBody;
         settings.nScrollFoot = scrollFoot;
-        settings.aoDrawCallback.push({
-          "fn": _fnScrollDraw,
-          "sName": "scrolling"
-        });
+        settings.aoDrawCallback.push(_fnScrollDraw);
         return scroller[0];
       }
       function _fnScrollDraw(settings) {
-        var scroll = settings.oScroll, scrollX = scroll.sX, scrollXInner = scroll.sXInner, scrollY = scroll.sY, barWidth = scroll.iBarWidth, divHeader = $3(settings.nScrollHead), divHeaderStyle = divHeader[0].style, divHeaderInner = divHeader.children("div"), divHeaderInnerStyle = divHeaderInner[0].style, divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $3(divBodyEl), divBodyStyle = divBodyEl.style, divFooter = $3(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $3(settings.nTHead), table = $3(settings.nTable), tableEl = table[0], tableStyle = tableEl.style, footer = settings.nTFoot ? $3(settings.nTFoot) : null, browser = settings.oBrowser, ie67 = browser.bScrollOversize, dtHeaderCells = _pluck(settings.aoColumns, "nTh"), headerTrgEls, footerTrgEls, headerSrcEls, footerSrcEls, headerCopy, footerCopy, headerWidths = [], footerWidths = [], headerContent = [], footerContent = [], idx, correction, sanityWidth, zeroOut = function(nSizer) {
-          var style = nSizer.style;
-          style.paddingTop = "0";
-          style.paddingBottom = "0";
-          style.borderTopWidth = "0";
-          style.borderBottomWidth = "0";
-          style.height = 0;
-        };
+        var scroll = settings.oScroll, barWidth = scroll.iBarWidth, divHeader = $3(settings.nScrollHead), divHeaderInner = divHeader.children("div"), divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $3(divBodyEl), divFooter = $3(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $3(settings.nTHead), table = $3(settings.nTable), footer = settings.nTFoot && $3("th, td", settings.nTFoot).length ? $3(settings.nTFoot) : null, browser = settings.oBrowser, headerCopy, footerCopy;
         var scrollBarVis = divBodyEl.scrollHeight > divBodyEl.clientHeight;
-        if (settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== undefined2) {
+        if (settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== void 0) {
           settings.scrollBarVis = scrollBarVis;
           _fnAdjustColumnSizing(settings);
           return;
@@ -9011,276 +9113,243 @@ var require_jquery_dataTables = __commonJS({
           settings.scrollBarVis = scrollBarVis;
         }
         table.children("thead, tfoot").remove();
-        if (footer) {
-          footerCopy = footer.clone().prependTo(table);
-          footerTrgEls = footer.find("tr");
-          footerSrcEls = footerCopy.find("tr");
-          footerCopy.find("[id]").removeAttr("id");
-        }
         headerCopy = header.clone().prependTo(table);
-        headerTrgEls = header.find("tr");
-        headerSrcEls = headerCopy.find("tr");
         headerCopy.find("th, td").removeAttr("tabindex");
         headerCopy.find("[id]").removeAttr("id");
-        if (!scrollX) {
-          divBodyStyle.width = "100%";
-          divHeader[0].style.width = "100%";
+        if (footer) {
+          footerCopy = footer.clone().prependTo(table);
+          footerCopy.find("[id]").removeAttr("id");
         }
-        $3.each(_fnGetUniqueThs(settings, headerCopy), function(i2, el) {
-          idx = _fnVisibleToColumnIndex(settings, i2);
-          el.style.width = settings.aoColumns[idx].sWidth;
+        if (settings.aiDisplay.length) {
+          var firstTr = null;
+          var start2 = _fnDataSource(settings) !== "ssp" ? settings._iDisplayStart : 0;
+          for (i2 = start2; i2 < start2 + settings.aiDisplay.length; i2++) {
+            var idx = settings.aiDisplay[i2];
+            var tr = settings.aoData[idx].nTr;
+            if (tr) {
+              firstTr = tr;
+              break;
+            }
+          }
+          if (firstTr) {
+            var colSizes = $3(firstTr).children("th, td").map(function(vis) {
+              return {
+                idx: _fnVisibleToColumnIndex(settings, vis),
+                width: $3(this).outerWidth()
+              };
+            });
+            for (var i2 = 0; i2 < colSizes.length; i2++) {
+              var colEl = settings.aoColumns[colSizes[i2].idx].colEl[0];
+              var colWidth = colEl.style.width.replace("px", "");
+              if (colWidth !== colSizes[i2].width) {
+                colEl.style.width = colSizes[i2].width + "px";
+                if (scroll.sX) {
+                  colEl.style.minWidth = colSizes[i2].width + "px";
+                }
+              }
+            }
+          }
+        }
+        divHeaderTable.find("colgroup").remove();
+        divHeaderTable.append(settings.colgroup.clone());
+        if (footer) {
+          divFooterTable.find("colgroup").remove();
+          divFooterTable.append(settings.colgroup.clone());
+        }
+        $3("th, td", headerCopy).each(function() {
+          $3(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
         });
         if (footer) {
-          _fnApplyToChildren(function(n) {
-            n.style.width = "";
-          }, footerSrcEls);
+          $3("th, td", footerCopy).each(function() {
+            $3(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+          });
         }
-        sanityWidth = table.outerWidth();
-        if (scrollX === "") {
-          tableStyle.width = "100%";
-          if (ie67 && (table.find("tbody").height() > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll")) {
-            tableStyle.width = _fnStringToCss(table.outerWidth() - barWidth);
-          }
-          sanityWidth = table.outerWidth();
-        } else if (scrollXInner !== "") {
-          tableStyle.width = _fnStringToCss(scrollXInner);
-          sanityWidth = table.outerWidth();
-        }
-        _fnApplyToChildren(zeroOut, headerSrcEls);
-        _fnApplyToChildren(function(nSizer) {
-          var style = window2.getComputedStyle ? window2.getComputedStyle(nSizer).width : _fnStringToCss($3(nSizer).width());
-          headerContent.push(nSizer.innerHTML);
-          headerWidths.push(style);
-        }, headerSrcEls);
-        _fnApplyToChildren(function(nToSize, i2) {
-          nToSize.style.width = headerWidths[i2];
-        }, headerTrgEls);
-        $3(headerSrcEls).css("height", 0);
+        var isScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css("overflow-y") == "scroll";
+        var paddingSide = "padding" + (browser.bScrollbarLeft ? "Left" : "Right");
+        var outerWidth = table.outerWidth();
+        divHeaderTable.css("width", _fnStringToCss(outerWidth));
+        divHeaderInner.css("width", _fnStringToCss(outerWidth)).css(paddingSide, isScrolling ? barWidth + "px" : "0px");
         if (footer) {
-          _fnApplyToChildren(zeroOut, footerSrcEls);
-          _fnApplyToChildren(function(nSizer) {
-            footerContent.push(nSizer.innerHTML);
-            footerWidths.push(_fnStringToCss($3(nSizer).css("width")));
-          }, footerSrcEls);
-          _fnApplyToChildren(function(nToSize, i2) {
-            nToSize.style.width = footerWidths[i2];
-          }, footerTrgEls);
-          $3(footerSrcEls).height(0);
+          divFooterTable.css("width", _fnStringToCss(outerWidth));
+          divFooterInner.css("width", _fnStringToCss(outerWidth)).css(paddingSide, isScrolling ? barWidth + "px" : "0px");
         }
-        _fnApplyToChildren(function(nSizer, i2) {
-          nSizer.innerHTML = '<div class="dataTables_sizing">' + headerContent[i2] + "</div>";
-          nSizer.childNodes[0].style.height = "0";
-          nSizer.childNodes[0].style.overflow = "hidden";
-          nSizer.style.width = headerWidths[i2];
-        }, headerSrcEls);
-        if (footer) {
-          _fnApplyToChildren(function(nSizer, i2) {
-            nSizer.innerHTML = '<div class="dataTables_sizing">' + footerContent[i2] + "</div>";
-            nSizer.childNodes[0].style.height = "0";
-            nSizer.childNodes[0].style.overflow = "hidden";
-            nSizer.style.width = footerWidths[i2];
-          }, footerSrcEls);
-        }
-        if (Math.round(table.outerWidth()) < Math.round(sanityWidth)) {
-          correction = divBodyEl.scrollHeight > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll" ? sanityWidth + barWidth : sanityWidth;
-          if (ie67 && (divBodyEl.scrollHeight > divBodyEl.offsetHeight || divBody.css("overflow-y") == "scroll")) {
-            tableStyle.width = _fnStringToCss(correction - barWidth);
-          }
-          if (scrollX === "" || scrollXInner !== "") {
-            _fnLog(settings, 1, "Possible column misalignment", 6);
-          }
-        } else {
-          correction = "100%";
-        }
-        divBodyStyle.width = _fnStringToCss(correction);
-        divHeaderStyle.width = _fnStringToCss(correction);
-        if (footer) {
-          settings.nScrollFoot.style.width = _fnStringToCss(correction);
-        }
-        if (!scrollY) {
-          if (ie67) {
-            divBodyStyle.height = _fnStringToCss(tableEl.offsetHeight + barWidth);
-          }
-        }
-        var iOuterWidth = table.outerWidth();
-        divHeaderTable[0].style.width = _fnStringToCss(iOuterWidth);
-        divHeaderInnerStyle.width = _fnStringToCss(iOuterWidth);
-        var bScrolling = table.height() > divBodyEl.clientHeight || divBody.css("overflow-y") == "scroll";
-        var padding = "padding" + (browser.bScrollbarLeft ? "Left" : "Right");
-        divHeaderInnerStyle[padding] = bScrolling ? barWidth + "px" : "0px";
-        if (footer) {
-          divFooterTable[0].style.width = _fnStringToCss(iOuterWidth);
-          divFooterInner[0].style.width = _fnStringToCss(iOuterWidth);
-          divFooterInner[0].style[padding] = bScrolling ? barWidth + "px" : "0px";
-        }
-        table.children("colgroup").insertBefore(table.children("thead"));
+        table.children("colgroup").prependTo(table);
         divBody.trigger("scroll");
         if ((settings.bSorted || settings.bFiltered) && !settings._drawHold) {
           divBodyEl.scrollTop = 0;
         }
       }
-      function _fnApplyToChildren(fn, an1, an2) {
-        var index = 0, i2 = 0, iLen = an1.length;
-        var nNode1, nNode2;
-        while (i2 < iLen) {
-          nNode1 = an1[i2].firstChild;
-          nNode2 = an2 ? an2[i2].firstChild : null;
-          while (nNode1) {
-            if (nNode1.nodeType === 1) {
-              if (an2) {
-                fn(nNode1, nNode2, index);
-              } else {
-                fn(nNode1, index);
-              }
-              index++;
-            }
-            nNode1 = nNode1.nextSibling;
-            nNode2 = an2 ? nNode2.nextSibling : null;
-          }
-          i2++;
+      function _fnCalculateColumnWidths(settings) {
+        if (!settings.oFeatures.bAutoWidth) {
+          return;
         }
-      }
-      var __re_html_remove = /<.*?>/g;
-      function _fnCalculateColumnWidths(oSettings) {
-        var table = oSettings.nTable, columns = oSettings.aoColumns, scroll = oSettings.oScroll, scrollY = scroll.sY, scrollX = scroll.sX, scrollXInner = scroll.sXInner, columnCount = columns.length, visibleColumns = _fnGetColumns(oSettings, "bVisible"), headerCells = $3("th", oSettings.nTHead), tableWidthAttr = table.getAttribute("width"), tableContainer = table.parentNode, userInputs = false, i2, column, columnIdx, width, outerWidth, browser = oSettings.oBrowser, ie67 = browser.bScrollOversize;
+        var table = settings.nTable, columns = settings.aoColumns, scroll = settings.oScroll, scrollY = scroll.sY, scrollX = scroll.sX, scrollXInner = scroll.sXInner, visibleColumns = _fnGetColumns(settings, "bVisible"), tableWidthAttr = table.getAttribute("width"), tableContainer = table.parentNode, i2, j, column, columnIdx;
         var styleWidth = table.style.width;
+        var containerWidth = _fnWrapperWidth(settings);
+        if (containerWidth === settings.containerWidth) {
+          return false;
+        }
+        settings.containerWidth = containerWidth;
+        if (!styleWidth && !tableWidthAttr) {
+          table.style.width = "100%";
+          styleWidth = "100%";
+        }
         if (styleWidth && styleWidth.indexOf("%") !== -1) {
           tableWidthAttr = styleWidth;
         }
-        var sizes = _fnConvertToWidth(_pluck(columns, "sWidthOrig"), tableContainer);
-        for (i2 = 0; i2 < visibleColumns.length; i2++) {
-          column = columns[visibleColumns[i2]];
-          if (column.sWidth !== null) {
-            column.sWidth = sizes[i2];
-            userInputs = true;
-          }
-        }
-        if (ie67 || !userInputs && !scrollX && !scrollY && columnCount == _fnVisbleColumns(oSettings) && columnCount == headerCells.length) {
-          for (i2 = 0; i2 < columnCount; i2++) {
-            var colIdx = _fnVisibleToColumnIndex(oSettings, i2);
-            if (colIdx !== null) {
-              columns[colIdx].sWidth = _fnStringToCss(headerCells.eq(i2).width());
-            }
-          }
-        } else {
-          var tmpTable = $3(table).clone().css("visibility", "hidden").removeAttr("id");
-          tmpTable.find("tbody tr").remove();
-          var tr = $3("<tr/>").appendTo(tmpTable.find("tbody"));
-          tmpTable.find("thead, tfoot").remove();
-          tmpTable.append($3(oSettings.nTHead).clone()).append($3(oSettings.nTFoot).clone());
-          tmpTable.find("tfoot th, tfoot td").css("width", "");
-          headerCells = _fnGetUniqueThs(oSettings, tmpTable.find("thead")[0]);
-          for (i2 = 0; i2 < visibleColumns.length; i2++) {
-            column = columns[visibleColumns[i2]];
-            headerCells[i2].style.width = column.sWidthOrig !== null && column.sWidthOrig !== "" ? _fnStringToCss(column.sWidthOrig) : "";
-            if (column.sWidthOrig && scrollX) {
-              $3(headerCells[i2]).append($3("<div/>").css({
-                width: column.sWidthOrig,
+        _fnCallbackFire(
+          settings,
+          null,
+          "column-calc",
+          { visible: visibleColumns },
+          false
+        );
+        var tmpTable = $3(table.cloneNode()).css("visibility", "hidden").css("margin", 0).removeAttr("id");
+        tmpTable.append("<tbody/>");
+        tmpTable.append($3(settings.nTHead).clone()).append($3(settings.nTFoot).clone());
+        tmpTable.find("tfoot th, tfoot td").css("width", "");
+        tmpTable.find("thead th, thead td").each(function() {
+          var width = _fnColumnsSumWidth(settings, this, true, false);
+          if (width) {
+            this.style.width = width;
+            if (scrollX) {
+              this.style.minWidth = width;
+              $3(this).append($3("<div/>").css({
+                width,
                 margin: 0,
                 padding: 0,
                 border: 0,
                 height: 1
               }));
             }
+          } else {
+            this.style.width = "";
           }
-          if (oSettings.aoData.length) {
-            for (i2 = 0; i2 < visibleColumns.length; i2++) {
-              columnIdx = visibleColumns[i2];
-              column = columns[columnIdx];
-              $3(_fnGetWidestNode(oSettings, columnIdx)).clone(false).append(column.sContentPadding).appendTo(tr);
-            }
-          }
-          $3("[name]", tmpTable).removeAttr("name");
-          var holder = $3("<div/>").css(
-            scrollX || scrollY ? {
-              position: "absolute",
-              top: 0,
-              left: 0,
-              height: 1,
-              right: 0,
-              overflow: "hidden"
-            } : {}
-          ).append(tmpTable).appendTo(tableContainer);
-          if (scrollX && scrollXInner) {
-            tmpTable.width(scrollXInner);
-          } else if (scrollX) {
-            tmpTable.css("width", "auto");
-            tmpTable.removeAttr("width");
-            if (tmpTable.width() < tableContainer.clientWidth && tableWidthAttr) {
-              tmpTable.width(tableContainer.clientWidth);
-            }
-          } else if (scrollY) {
-            tmpTable.width(tableContainer.clientWidth);
-          } else if (tableWidthAttr) {
-            tmpTable.width(tableWidthAttr);
-          }
-          var total = 0;
-          for (i2 = 0; i2 < visibleColumns.length; i2++) {
-            var cell = $3(headerCells[i2]);
-            var border = cell.outerWidth() - cell.width();
-            var bounding = browser.bBounding ? Math.ceil(headerCells[i2].getBoundingClientRect().width) : cell.outerWidth();
-            total += bounding;
-            columns[visibleColumns[i2]].sWidth = _fnStringToCss(bounding - border);
-          }
-          table.style.width = _fnStringToCss(total);
-          holder.remove();
+        });
+        var longestData = [];
+        for (i2 = 0; i2 < visibleColumns.length; i2++) {
+          longestData.push(_fnGetWideStrings(settings, visibleColumns[i2]));
         }
+        if (longestData.length) {
+          for (i2 = 0; i2 < longestData[0].length; i2++) {
+            var tr = $3("<tr/>").appendTo(tmpTable.find("tbody"));
+            for (j = 0; j < visibleColumns.length; j++) {
+              columnIdx = visibleColumns[j];
+              column = columns[columnIdx];
+              var longest = longestData[j][i2] || "";
+              var autoClass = _ext.type.className[column.sType];
+              var padding = column.sContentPadding || (scrollX ? "-" : "");
+              var text = longest + padding;
+              var insert = longest.indexOf("<") === -1 && longest.indexOf("&") === -1 ? document2.createTextNode(text) : text;
+              $3("<td/>").addClass(autoClass).addClass(column.sClass).append(insert).appendTo(tr);
+            }
+          }
+        }
+        $3("[name]", tmpTable).removeAttr("name");
+        var holder = $3("<div/>").css(
+          scrollX || scrollY ? {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: 1,
+            right: 0,
+            overflow: "hidden"
+          } : {}
+        ).append(tmpTable).appendTo(tableContainer);
+        if (scrollX && scrollXInner) {
+          tmpTable.width(scrollXInner);
+        } else if (scrollX) {
+          tmpTable.css("width", "auto");
+          tmpTable.removeAttr("width");
+          if (tmpTable.outerWidth() < tableContainer.clientWidth && tableWidthAttr) {
+            tmpTable.outerWidth(tableContainer.clientWidth);
+          }
+        } else if (scrollY) {
+          tmpTable.outerWidth(tableContainer.clientWidth);
+        } else if (tableWidthAttr) {
+          tmpTable.outerWidth(tableWidthAttr);
+        }
+        var total = 0;
+        var bodyCells = tmpTable.find("tbody tr").eq(0).children();
+        for (i2 = 0; i2 < visibleColumns.length; i2++) {
+          var bounding = bodyCells[i2].getBoundingClientRect().width;
+          total += bounding;
+          columns[visibleColumns[i2]].sWidth = _fnStringToCss(bounding);
+        }
+        table.style.width = _fnStringToCss(total);
+        holder.remove();
         if (tableWidthAttr) {
           table.style.width = _fnStringToCss(tableWidthAttr);
         }
-        if ((tableWidthAttr || scrollX) && !oSettings._reszEvt) {
-          var bindResize = function() {
-            $3(window2).on("resize.DT-" + oSettings.sInstance, _fnThrottle(function() {
-              _fnAdjustColumnSizing(oSettings);
-            }));
-          };
-          if (ie67) {
-            setTimeout(bindResize, 1e3);
+        if ((tableWidthAttr || scrollX) && !settings._reszEvt) {
+          var resize = DataTable2.util.throttle(function() {
+            var newWidth = _fnWrapperWidth(settings);
+            if (!settings.bDestroying && newWidth !== 0) {
+              _fnAdjustColumnSizing(settings);
+            }
+          });
+          if (window2.ResizeObserver) {
+            var first = $3(settings.nTableWrapper).is(":visible");
+            var resizer = $3("<div>").css({
+              width: "100%",
+              height: 0
+            }).addClass("dt-autosize").appendTo(settings.nTableWrapper);
+            settings.resizeObserver = new ResizeObserver(function(e) {
+              if (first) {
+                first = false;
+              } else {
+                resize();
+              }
+            });
+            settings.resizeObserver.observe(resizer[0]);
           } else {
-            bindResize();
+            $3(window2).on("resize.DT-" + settings.sInstance, resize);
           }
-          oSettings._reszEvt = true;
+          settings._reszEvt = true;
         }
       }
-      var _fnThrottle = DataTable.util.throttle;
-      function _fnConvertToWidth(widths, parent) {
-        var els = [];
-        var results = [];
-        for (var i2 = 0; i2 < widths.length; i2++) {
-          if (widths[i2]) {
-            els.push(
-              $3("<div/>").css("width", _fnStringToCss(widths[i2])).appendTo(parent || document2.body)
-            );
-          } else {
-            els.push(null);
+      function _fnWrapperWidth(settings) {
+        return $3(settings.nTableWrapper).is(":visible") ? $3(settings.nTableWrapper).width() : 0;
+      }
+      function _fnGetWideStrings(settings, colIdx) {
+        var column = settings.aoColumns[colIdx];
+        if (!column.wideStrings) {
+          var allStrings = [];
+          var collection = [];
+          for (var i2 = 0, iLen = settings.aiDisplayMaster.length; i2 < iLen; i2++) {
+            var rowIdx = settings.aiDisplayMaster[i2];
+            var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
+            var cellString = data && typeof data === "object" && data.nodeType ? data.innerHTML : data + "";
+            cellString = cellString.replace(/id=".*?"/g, "").replace(/name=".*?"/g, "");
+            cellString = cellString.replace(/<script.*?<\/script>/gi, " ");
+            var noHtml = _stripHtml(cellString, " ").replace(/&nbsp;/g, " ");
+            collection.push({
+              str: cellString,
+              len: noHtml.length
+            });
+            allStrings.push(noHtml);
+          }
+          collection.sort(function(a, b) {
+            return b.len - a.len;
+          }).splice(3);
+          column.wideStrings = collection.map(function(item) {
+            return item.str;
+          });
+          let parts = allStrings.join(" ").split(" ");
+          parts.sort(function(a, b) {
+            return b.length - a.length;
+          });
+          if (parts.length) {
+            column.wideStrings.push(parts[0]);
+          }
+          if (parts.length > 1) {
+            column.wideStrings.push(parts[1]);
+          }
+          if (parts.length > 2) {
+            column.wideStrings.push(parts[3]);
           }
         }
-        for (var i2 = 0; i2 < widths.length; i2++) {
-          results.push(els[i2] ? els[i2][0].offsetWidth : null);
-        }
-        $3(els).remove();
-        return results;
-      }
-      function _fnGetWidestNode(settings, colIdx) {
-        var idx = _fnGetMaxLenString(settings, colIdx);
-        if (idx < 0) {
-          return null;
-        }
-        var data = settings.aoData[idx];
-        return !data.nTr ? $3("<td/>").html(_fnGetCellData(settings, idx, colIdx, "display"))[0] : data.anCells[colIdx];
-      }
-      function _fnGetMaxLenString(settings, colIdx) {
-        var s, max = -1, maxIdx = -1;
-        for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          s = _fnGetCellData(settings, i2, colIdx, "display") + "";
-          s = s.replace(__re_html_remove, "");
-          s = s.replace(/&nbsp;/g, " ");
-          if (s.length > max) {
-            max = s.length;
-            maxIdx = i2;
-          }
-        }
-        return maxIdx;
+        return column.wideStrings;
       }
       function _fnStringToCss(s) {
         if (s === null) {
@@ -9291,153 +9360,249 @@ var require_jquery_dataTables = __commonJS({
         }
         return s.match(/\d$/) ? s + "px" : s;
       }
-      function _fnSortFlatten(settings) {
-        var i2, iLen, k, kLen, aSort = [], aiOrig = [], aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $3.isPlainObject(fixed), nestedSort = [], add = function(a) {
-          if (a.length && !Array.isArray(a[0])) {
-            nestedSort.push(a);
+      function _colGroup(settings) {
+        var cols = settings.aoColumns;
+        settings.colgroup.empty();
+        for (i = 0; i < cols.length; i++) {
+          if (cols[i].bVisible) {
+            settings.colgroup.append(cols[i].colEl);
+          }
+        }
+      }
+      function _fnSortInit(settings) {
+        var target = settings.nTHead;
+        var headerRows = target.querySelectorAll("tr");
+        var titleRow = settings.titleRow;
+        var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
+        if (titleRow === true) {
+          target = headerRows[0];
+        } else if (titleRow === false) {
+          target = headerRows[headerRows.length - 1];
+        } else if (titleRow !== null) {
+          target = headerRows[titleRow];
+        }
+        if (settings.orderHandler) {
+          _fnSortAttachListener(
+            settings,
+            target,
+            target === settings.nTHead ? "tr" + notSelector + " th" + notSelector + ", tr" + notSelector + " td" + notSelector : "th" + notSelector + ", td" + notSelector
+          );
+        }
+        var order = [];
+        _fnSortResolve(settings, order, settings.aaSorting);
+        settings.aaSorting = order;
+      }
+      function _fnSortAttachListener(settings, node, selector, column, callback) {
+        _fnBindAction(node, selector, function(e) {
+          var run = false;
+          var columns = column === void 0 ? _fnColumnsFromHeader(e.target) : typeof column === "function" ? column() : Array.isArray(column) ? column : [column];
+          if (columns.length) {
+            for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
+              var ret = _fnSortAdd(settings, columns[i2], i2, e.shiftKey);
+              if (ret !== false) {
+                run = true;
+              }
+              if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === "") {
+                break;
+              }
+            }
+            if (run) {
+              _fnProcessingRun(settings, true, function() {
+                _fnSort(settings);
+                _fnSortDisplay(settings, settings.aiDisplay);
+                _fnReDraw(settings, false, false);
+                if (callback) {
+                  callback();
+                }
+              });
+            }
+          }
+        });
+      }
+      function _fnSortDisplay(settings, display) {
+        if (display.length < 2) {
+          return;
+        }
+        var master = settings.aiDisplayMaster;
+        var masterMap = {};
+        var map = {};
+        var i2;
+        for (i2 = 0; i2 < master.length; i2++) {
+          masterMap[master[i2]] = i2;
+        }
+        for (i2 = 0; i2 < display.length; i2++) {
+          map[display[i2]] = masterMap[display[i2]];
+        }
+        display.sort(function(a, b) {
+          return map[a] - map[b];
+        });
+      }
+      function _fnSortResolve(settings, nestedSort, sort) {
+        var push = function(a) {
+          if ($3.isPlainObject(a)) {
+            if (a.idx !== void 0) {
+              nestedSort.push([a.idx, a.dir]);
+            } else if (a.name) {
+              var cols = _pluck(settings.aoColumns, "sName");
+              var idx = cols.indexOf(a.name);
+              if (idx !== -1) {
+                nestedSort.push([idx, a.dir]);
+              }
+            }
           } else {
-            $3.merge(nestedSort, a);
+            nestedSort.push(a);
           }
         };
+        if ($3.isPlainObject(sort)) {
+          push(sort);
+        } else if (sort.length && typeof sort[0] === "number") {
+          push(sort);
+        } else if (sort.length) {
+          for (var z = 0; z < sort.length; z++) {
+            push(sort[z]);
+          }
+        }
+      }
+      function _fnSortFlatten(settings) {
+        var i2, k, kLen, aSort = [], extSort = DataTable2.ext.type.order, aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $3.isPlainObject(fixed), nestedSort = [];
+        if (!settings.oFeatures.bSort) {
+          return aSort;
+        }
         if (Array.isArray(fixed)) {
-          add(fixed);
+          _fnSortResolve(settings, nestedSort, fixed);
         }
         if (fixedObj && fixed.pre) {
-          add(fixed.pre);
+          _fnSortResolve(settings, nestedSort, fixed.pre);
         }
-        add(settings.aaSorting);
+        _fnSortResolve(settings, nestedSort, settings.aaSorting);
         if (fixedObj && fixed.post) {
-          add(fixed.post);
+          _fnSortResolve(settings, nestedSort, fixed.post);
         }
         for (i2 = 0; i2 < nestedSort.length; i2++) {
           srcCol = nestedSort[i2][0];
-          aDataSort = aoColumns[srcCol].aDataSort;
-          for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
-            iCol = aDataSort[k];
-            sType = aoColumns[iCol].sType || "string";
-            if (nestedSort[i2]._idx === undefined2) {
-              nestedSort[i2]._idx = $3.inArray(nestedSort[i2][1], aoColumns[iCol].asSorting);
+          if (aoColumns[srcCol]) {
+            aDataSort = aoColumns[srcCol].aDataSort;
+            for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
+              iCol = aDataSort[k];
+              sType = aoColumns[iCol].sType || "string";
+              if (nestedSort[i2]._idx === void 0) {
+                nestedSort[i2]._idx = aoColumns[iCol].asSorting.indexOf(nestedSort[i2][1]);
+              }
+              if (nestedSort[i2][1]) {
+                aSort.push({
+                  src: srcCol,
+                  col: iCol,
+                  dir: nestedSort[i2][1],
+                  index: nestedSort[i2]._idx,
+                  type: sType,
+                  formatter: extSort[sType + "-pre"],
+                  sorter: extSort[sType + "-" + nestedSort[i2][1]]
+                });
+              }
             }
-            aSort.push({
-              src: srcCol,
-              col: iCol,
-              dir: nestedSort[i2][1],
-              index: nestedSort[i2]._idx,
-              type: sType,
-              formatter: DataTable.ext.type.order[sType + "-pre"]
-            });
           }
         }
         return aSort;
       }
-      function _fnSort(oSettings) {
-        var i2, ien, iLen, j, jLen, k, kLen, sDataType, nTh, aiOrig = [], oExtSort = DataTable.ext.type.order, aoData = oSettings.aoData, aoColumns = oSettings.aoColumns, aDataSort, data, iCol, sType, oSort, formatters = 0, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
+      function _fnSort(oSettings, col, dir) {
+        var i2, iLen, aiOrig = [], extSort = DataTable2.ext.type.order, aoData = oSettings.aoData, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
         _fnColumnTypes(oSettings);
-        aSort = _fnSortFlatten(oSettings);
-        for (i2 = 0, ien = aSort.length; i2 < ien; i2++) {
+        if (col !== void 0) {
+          var srcCol = oSettings.aoColumns[col];
+          aSort = [{
+            src: col,
+            col,
+            dir,
+            index: 0,
+            type: srcCol.sType,
+            formatter: extSort[srcCol.sType + "-pre"],
+            sorter: extSort[srcCol.sType + "-" + dir]
+          }];
+          displayMaster = displayMaster.slice();
+        } else {
+          aSort = _fnSortFlatten(oSettings);
+        }
+        for (i2 = 0, iLen = aSort.length; i2 < iLen; i2++) {
           sortCol = aSort[i2];
-          if (sortCol.formatter) {
-            formatters++;
-          }
           _fnSortData(oSettings, sortCol.col);
         }
         if (_fnDataSource(oSettings) != "ssp" && aSort.length !== 0) {
           for (i2 = 0, iLen = displayMaster.length; i2 < iLen; i2++) {
-            aiOrig[displayMaster[i2]] = i2;
+            aiOrig[i2] = i2;
           }
-          if (formatters === aSort.length) {
-            displayMaster.sort(function(a, b) {
-              var x, y, k2, test, sort, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
-              for (k2 = 0; k2 < len; k2++) {
-                sort = aSort[k2];
-                x = dataA[sort.col];
-                y = dataB[sort.col];
+          if (aSort.length && aSort[0].dir === "desc" && oSettings.orderDescReverse) {
+            aiOrig.reverse();
+          }
+          displayMaster.sort(function(a, b) {
+            var x, y, k, test, sort, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
+            for (k = 0; k < len; k++) {
+              sort = aSort[k];
+              x = dataA[sort.col];
+              y = dataB[sort.col];
+              if (sort.sorter) {
+                test = sort.sorter(x, y);
+                if (test !== 0) {
+                  return test;
+                }
+              } else {
                 test = x < y ? -1 : x > y ? 1 : 0;
                 if (test !== 0) {
                   return sort.dir === "asc" ? test : -test;
                 }
               }
-              x = aiOrig[a];
-              y = aiOrig[b];
-              return x < y ? -1 : x > y ? 1 : 0;
-            });
-          } else {
-            displayMaster.sort(function(a, b) {
-              var x, y, k2, l, test, sort, fn, len = aSort.length, dataA = aoData[a]._aSortData, dataB = aoData[b]._aSortData;
-              for (k2 = 0; k2 < len; k2++) {
-                sort = aSort[k2];
-                x = dataA[sort.col];
-                y = dataB[sort.col];
-                fn = oExtSort[sort.type + "-" + sort.dir] || oExtSort["string-" + sort.dir];
-                test = fn(x, y);
-                if (test !== 0) {
-                  return test;
-                }
-              }
-              x = aiOrig[a];
-              y = aiOrig[b];
-              return x < y ? -1 : x > y ? 1 : 0;
-            });
-          }
-        }
-        oSettings.bSorted = true;
-      }
-      function _fnSortAria(settings) {
-        var label;
-        var nextSort;
-        var columns = settings.aoColumns;
-        var aSort = _fnSortFlatten(settings);
-        var oAria = settings.oLanguage.oAria;
-        for (var i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
-          var col = columns[i2];
-          var asSorting = col.asSorting;
-          var sTitle = col.ariaTitle || col.sTitle.replace(/<.*?>/g, "");
-          var th = col.nTh;
-          th.removeAttribute("aria-sort");
-          if (col.bSortable) {
-            if (aSort.length > 0 && aSort[0].col == i2) {
-              th.setAttribute("aria-sort", aSort[0].dir == "asc" ? "ascending" : "descending");
-              nextSort = asSorting[aSort[0].index + 1] || asSorting[0];
-            } else {
-              nextSort = asSorting[0];
             }
-            label = sTitle + (nextSort === "asc" ? oAria.sSortAscending : oAria.sSortDescending);
-          } else {
-            label = sTitle;
-          }
-          th.setAttribute("aria-label", label);
+            x = aiOrig[a];
+            y = aiOrig[b];
+            return x < y ? -1 : x > y ? 1 : 0;
+          });
+        } else if (aSort.length === 0) {
+          displayMaster.sort(function(x, y) {
+            return x < y ? -1 : x > y ? 1 : 0;
+          });
         }
+        if (col === void 0) {
+          oSettings.bSorted = true;
+          oSettings.sortDetails = aSort;
+          _fnCallbackFire(oSettings, null, "order", [oSettings, aSort]);
+        }
+        return displayMaster;
       }
-      function _fnSortListener(settings, colIdx, append, callback) {
+      function _fnSortAdd(settings, colIdx, addIndex, shift) {
         var col = settings.aoColumns[colIdx];
         var sorting = settings.aaSorting;
         var asSorting = col.asSorting;
         var nextSortIdx;
         var next = function(a, overflow) {
           var idx = a._idx;
-          if (idx === undefined2) {
-            idx = $3.inArray(a[1], asSorting);
+          if (idx === void 0) {
+            idx = asSorting.indexOf(a[1]);
           }
           return idx + 1 < asSorting.length ? idx + 1 : overflow ? null : 0;
         };
+        if (!col.bSortable) {
+          return false;
+        }
         if (typeof sorting[0] === "number") {
           sorting = settings.aaSorting = [sorting];
         }
-        if (append && settings.oFeatures.bSortMulti) {
-          var sortIdx = $3.inArray(colIdx, _pluck(sorting, "0"));
+        if ((shift || addIndex) && settings.oFeatures.bSortMulti) {
+          var sortIdx = _pluck(sorting, "0").indexOf(colIdx);
           if (sortIdx !== -1) {
             nextSortIdx = next(sorting[sortIdx], true);
             if (nextSortIdx === null && sorting.length === 1) {
               nextSortIdx = 0;
             }
-            if (nextSortIdx === null) {
+            if (nextSortIdx === null || asSorting[nextSortIdx] === "") {
               sorting.splice(sortIdx, 1);
             } else {
               sorting[sortIdx][1] = asSorting[nextSortIdx];
               sorting[sortIdx]._idx = nextSortIdx;
             }
-          } else {
+          } else if (shift) {
             sorting.push([colIdx, asSorting[0], 0]);
+            sorting[sorting.length - 1]._idx = 0;
+          } else {
+            sorting.push([colIdx, sorting[0][1], 0]);
             sorting[sorting.length - 1]._idx = 0;
           }
         } else if (sorting.length && sorting[0][0] == colIdx) {
@@ -9450,70 +9615,51 @@ var require_jquery_dataTables = __commonJS({
           sorting.push([colIdx, asSorting[0]]);
           sorting[0]._idx = 0;
         }
-        _fnReDraw(settings);
-        if (typeof callback == "function") {
-          callback(settings);
-        }
-      }
-      function _fnSortAttachListener(settings, attachTo, colIdx, callback) {
-        var col = settings.aoColumns[colIdx];
-        _fnBindAction(attachTo, {}, function(e) {
-          if (col.bSortable === false) {
-            return;
-          }
-          if (settings.oFeatures.bProcessing) {
-            _fnProcessingDisplay(settings, true);
-            setTimeout(function() {
-              _fnSortListener(settings, colIdx, e.shiftKey, callback);
-              if (_fnDataSource(settings) !== "ssp") {
-                _fnProcessingDisplay(settings, false);
-              }
-            }, 0);
-          } else {
-            _fnSortListener(settings, colIdx, e.shiftKey, callback);
-          }
-        });
       }
       function _fnSortingClasses(settings) {
         var oldSort = settings.aLastSort;
-        var sortClass = settings.oClasses.sSortColumn;
+        var sortClass = settings.oClasses.order.position;
         var sort = _fnSortFlatten(settings);
         var features = settings.oFeatures;
-        var i2, ien, colIdx;
+        var i2, iLen, colIdx;
         if (features.bSort && features.bSortClasses) {
-          for (i2 = 0, ien = oldSort.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = oldSort.length; i2 < iLen; i2++) {
             colIdx = oldSort[i2].src;
             $3(_pluck(settings.aoData, "anCells", colIdx)).removeClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
-          for (i2 = 0, ien = sort.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = sort.length; i2 < iLen; i2++) {
             colIdx = sort[i2].src;
             $3(_pluck(settings.aoData, "anCells", colIdx)).addClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
         }
         settings.aLastSort = sort;
       }
-      function _fnSortData(settings, idx) {
-        var column = settings.aoColumns[idx];
-        var customSort = DataTable.ext.order[column.sSortDataType];
+      function _fnSortData(settings, colIdx) {
+        var column = settings.aoColumns[colIdx];
+        var customSort = DataTable2.ext.order[column.sSortDataType];
         var customData;
         if (customSort) {
           customData = customSort.call(
             settings.oInstance,
             settings,
-            idx,
-            _fnColumnIndexToVisible(settings, idx)
+            colIdx,
+            _fnColumnIndexToVisible(settings, colIdx)
           );
         }
         var row, cellData;
-        var formatter = DataTable.ext.type.order[column.sType + "-pre"];
-        for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-          row = settings.aoData[i2];
+        var formatter = DataTable2.ext.type.order[column.sType + "-pre"];
+        var data = settings.aoData;
+        for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
+          if (!data[rowIdx]) {
+            continue;
+          }
+          row = data[rowIdx];
           if (!row._aSortData) {
             row._aSortData = [];
           }
-          if (!row._aSortData[idx] || customSort) {
-            cellData = customSort ? customData[i2] : _fnGetCellData(settings, i2, idx, "sort");
-            row._aSortData[idx] = formatter ? formatter(cellData) : cellData;
+          if (!row._aSortData[colIdx] || customSort) {
+            cellData = customSort ? customData[rowIdx] : _fnGetCellData(settings, rowIdx, colIdx, "sort");
+            row._aSortData[colIdx] = formatter ? formatter(cellData, settings) : cellData;
           }
         }
       }
@@ -9521,16 +9667,22 @@ var require_jquery_dataTables = __commonJS({
         if (settings._bLoadingState) {
           return;
         }
+        var sorting = [];
+        _fnSortResolve(settings, sorting, settings.aaSorting);
+        var columns = settings.aoColumns;
         var state = {
           time: +new Date(),
           start: settings._iDisplayStart,
           length: settings._iDisplayLength,
-          order: $3.extend(true, [], settings.aaSorting),
-          search: _fnSearchToCamel(settings.oPreviousSearch),
-          columns: $3.map(settings.aoColumns, function(col, i2) {
+          order: sorting.map(function(sort) {
+            return columns[sort[0]] && columns[sort[0]].sName ? [columns[sort[0]].sName, sort[1]] : sort.slice();
+          }),
+          search: $3.extend({}, settings.oPreviousSearch),
+          columns: settings.aoColumns.map(function(col, i2) {
             return {
+              name: col.sName,
               visible: col.bVisible,
-              search: _fnSearchToCamel(settings.aoPreSearchCols[i2])
+              search: $3.extend({}, settings.aoPreSearchCols[i2])
             };
           })
         };
@@ -9540,7 +9692,7 @@ var require_jquery_dataTables = __commonJS({
           settings.fnStateSaveCallback.call(settings.oInstance, settings, state);
         }
       }
-      function _fnLoadState(settings, oInit, callback) {
+      function _fnLoadState(settings, init, callback) {
         if (!settings.oFeatures.bStateSave) {
           callback();
           return;
@@ -9549,23 +9701,18 @@ var require_jquery_dataTables = __commonJS({
           _fnImplementState(settings, state2, callback);
         };
         var state = settings.fnStateLoadCallback.call(settings.oInstance, settings, loaded);
-        if (state !== undefined2) {
+        if (state !== void 0) {
           _fnImplementState(settings, state, callback);
         }
         return true;
       }
       function _fnImplementState(settings, s, callback) {
-        var i2, ien;
+        var i2, iLen;
         var columns = settings.aoColumns;
+        var currentNames = _pluck(settings.aoColumns, "sName");
         settings._bLoadingState = true;
-        var api = settings._bInitComplete ? new DataTable.Api(settings) : null;
+        var api = settings._bInitComplete ? new DataTable2.Api(settings) : null;
         if (!s || !s.time) {
-          settings._bLoadingState = false;
-          callback();
-          return;
-        }
-        var abStateLoad = _fnCallbackFire(settings, "aoStateLoadParams", "stateLoadParams", [settings, s]);
-        if ($3.inArray(false, abStateLoad) !== -1) {
           settings._bLoadingState = false;
           callback();
           return;
@@ -9576,20 +9723,22 @@ var require_jquery_dataTables = __commonJS({
           callback();
           return;
         }
-        if (s.columns && columns.length !== s.columns.length) {
+        var abStateLoad = _fnCallbackFire(settings, "aoStateLoadParams", "stateLoadParams", [settings, s]);
+        if (abStateLoad.indexOf(false) !== -1) {
           settings._bLoadingState = false;
           callback();
           return;
         }
         settings.oLoadedState = $3.extend(true, {}, s);
-        if (s.length !== undefined2) {
+        _fnCallbackFire(settings, null, "stateLoadInit", [settings, s], true);
+        if (s.length !== void 0) {
           if (api) {
             api.page.len(s.length);
           } else {
             settings._iDisplayLength = s.length;
           }
         }
-        if (s.start !== undefined2) {
+        if (s.start !== void 0) {
           if (api === null) {
             settings._iDisplayStart = s.start;
             settings.iInitDisplayStart = s.start;
@@ -9597,44 +9746,67 @@ var require_jquery_dataTables = __commonJS({
             _fnPageChange(settings, s.start / settings._iDisplayLength);
           }
         }
-        if (s.order !== undefined2) {
+        if (s.order !== void 0) {
           settings.aaSorting = [];
           $3.each(s.order, function(i3, col2) {
-            settings.aaSorting.push(
-              col2[0] >= columns.length ? [0, col2[1]] : col2
-            );
+            var set2 = [col2[0], col2[1]];
+            if (typeof col2[0] === "string") {
+              var idx2 = currentNames.indexOf(col2[0]);
+              if (idx2 < 0) {
+                return;
+              }
+              set2[0] = idx2;
+            } else if (set2[0] >= columns.length) {
+              return;
+            }
+            settings.aaSorting.push(set2);
           });
         }
-        if (s.search !== undefined2) {
-          $3.extend(settings.oPreviousSearch, _fnSearchToHung(s.search));
+        if (s.search !== void 0) {
+          $3.extend(settings.oPreviousSearch, s.search);
         }
         if (s.columns) {
-          for (i2 = 0, ien = s.columns.length; i2 < ien; i2++) {
-            var col = s.columns[i2];
-            if (col.visible !== undefined2) {
-              if (api) {
-                api.column(i2).visible(col.visible, false);
+          var set = s.columns;
+          var incoming = _pluck(s.columns, "name");
+          if (incoming.join("").length && incoming.join("") !== currentNames.join("")) {
+            set = [];
+            for (i2 = 0; i2 < currentNames.length; i2++) {
+              if (currentNames[i2] != "") {
+                var idx = incoming.indexOf(currentNames[i2]);
+                if (idx >= 0) {
+                  set.push(s.columns[idx]);
+                } else {
+                  set.push({});
+                }
               } else {
-                columns[i2].bVisible = col.visible;
+                set.push({});
               }
             }
-            if (col.search !== undefined2) {
-              $3.extend(settings.aoPreSearchCols[i2], _fnSearchToHung(col.search));
-            }
           }
-          if (api) {
-            api.columns.adjust();
+          if (set.length === columns.length) {
+            for (i2 = 0, iLen = set.length; i2 < iLen; i2++) {
+              var col = set[i2];
+              if (col.visible !== void 0) {
+                if (api) {
+                  api.column(i2).visible(col.visible, false);
+                } else {
+                  columns[i2].bVisible = col.visible;
+                }
+              }
+              if (col.search !== void 0) {
+                $3.extend(settings.aoPreSearchCols[i2], col.search);
+              }
+            }
+            if (api) {
+              api.one("draw", function() {
+                api.columns.adjust();
+              });
+            }
           }
         }
         settings._bLoadingState = false;
         _fnCallbackFire(settings, "aoStateLoaded", "stateLoaded", [settings, s]);
         callback();
-      }
-      ;
-      function _fnSettingsFromNode(table) {
-        var settings = DataTable.settings;
-        var idx = $3.inArray(table, _pluck(settings, "nTable"));
-        return idx !== -1 ? settings[idx] : null;
       }
       function _fnLog(settings, level, msg, tn) {
         msg = "DataTables warning: " + (settings ? "table id=" + settings.sTableId + " - " : "") + msg;
@@ -9642,10 +9814,10 @@ var require_jquery_dataTables = __commonJS({
           msg += ". For more information about this error, please see https://datatables.net/tn/" + tn;
         }
         if (!level) {
-          var ext = DataTable.ext;
+          var ext = DataTable2.ext;
           var type = ext.sErrMode || ext.errMode;
           if (settings) {
-            _fnCallbackFire(settings, null, "error", [settings, tn, msg]);
+            _fnCallbackFire(settings, null, "dt-error", [settings, tn, msg], true);
           }
           if (type == "alert") {
             alert(msg);
@@ -9669,17 +9841,17 @@ var require_jquery_dataTables = __commonJS({
           });
           return;
         }
-        if (mappedName === undefined2) {
+        if (mappedName === void 0) {
           mappedName = name;
         }
-        if (src[name] !== undefined2) {
+        if (src[name] !== void 0) {
           ret[mappedName] = src[name];
         }
       }
       function _fnExtend(out, extender, breakRefs) {
         var val;
         for (var prop in extender) {
-          if (extender.hasOwnProperty(prop)) {
+          if (Object.prototype.hasOwnProperty.call(extender, prop)) {
             val = extender[prop];
             if ($3.isPlainObject(val)) {
               if (!$3.isPlainObject(out[prop])) {
@@ -9695,39 +9867,36 @@ var require_jquery_dataTables = __commonJS({
         }
         return out;
       }
-      function _fnBindAction(n, oData, fn) {
-        $3(n).on("click.DT", oData, function(e) {
-          $3(n).trigger("blur");
+      function _fnBindAction(n, selector, fn) {
+        $3(n).on("click.DT", selector, function(e) {
           fn(e);
-        }).on("keypress.DT", oData, function(e) {
+        }).on("keypress.DT", selector, function(e) {
           if (e.which === 13) {
             e.preventDefault();
             fn(e);
           }
-        }).on("selectstart.DT", function() {
+        }).on("selectstart.DT", selector, function() {
           return false;
         });
       }
-      function _fnCallbackReg(oSettings, sStore, fn, sName) {
+      function _fnCallbackReg(settings, store, fn) {
         if (fn) {
-          oSettings[sStore].push({
-            "fn": fn,
-            "sName": sName
-          });
+          settings[store].push(fn);
         }
       }
-      function _fnCallbackFire(settings, callbackArr, eventName, args) {
+      function _fnCallbackFire(settings, callbackArr, eventName, args, bubbles) {
         var ret = [];
         if (callbackArr) {
-          ret = $3.map(settings[callbackArr].slice().reverse(), function(val, i2) {
-            return val.fn.apply(settings.oInstance, args);
+          ret = settings[callbackArr].slice().reverse().map(function(val) {
+            return val.apply(settings.oInstance, args);
           });
         }
         if (eventName !== null) {
           var e = $3.Event(eventName + ".dt");
           var table = $3(settings.nTable);
-          table.trigger(e, args);
-          if (table.parents("body").length === 0) {
+          e.dt = settings.api;
+          table[bubbles ? "trigger" : "triggerHandler"](e, args);
+          if (bubbles && table.parents("body").length === 0) {
             $3("body").trigger(e, args);
           }
           ret.push(e.result);
@@ -9747,7 +9916,7 @@ var require_jquery_dataTables = __commonJS({
       }
       function _fnRenderer(settings, type) {
         var renderer = settings.renderer;
-        var host = DataTable.ext.renderer[type];
+        var host = DataTable2.ext.renderer[type];
         if ($3.isPlainObject(renderer) && renderer[type]) {
           return host[renderer[type]] || host._;
         } else if (typeof renderer === "string") {
@@ -9758,44 +9927,74 @@ var require_jquery_dataTables = __commonJS({
       function _fnDataSource(settings) {
         if (settings.oFeatures.bServerSide) {
           return "ssp";
-        } else if (settings.ajax || settings.sAjaxSource) {
+        } else if (settings.ajax) {
           return "ajax";
         }
         return "dom";
+      }
+      function _fnMacros(settings, str, entries) {
+        var formatter = settings.fnFormatNumber, start2 = settings._iDisplayStart + 1, len = settings._iDisplayLength, vis = settings.fnRecordsDisplay(), max = settings.fnRecordsTotal(), all = len === -1;
+        return str.replace(/_START_/g, formatter.call(settings, start2)).replace(/_END_/g, formatter.call(settings, settings.fnDisplayEnd())).replace(/_MAX_/g, formatter.call(settings, max)).replace(/_TOTAL_/g, formatter.call(settings, vis)).replace(/_PAGE_/g, formatter.call(settings, all ? 1 : Math.ceil(start2 / len))).replace(/_PAGES_/g, formatter.call(settings, all ? 1 : Math.ceil(vis / len))).replace(/_ENTRIES_/g, settings.api.i18n("entries", "", entries)).replace(/_ENTRIES-MAX_/g, settings.api.i18n("entries", "", max)).replace(/_ENTRIES-TOTAL_/g, settings.api.i18n("entries", "", vis));
+      }
+      function _fnArrayApply(arr, data) {
+        if (!data) {
+          return;
+        }
+        if (data.length < 1e4) {
+          arr.push.apply(arr, data);
+        } else {
+          for (i = 0; i < data.length; i++) {
+            arr.push(data[i]);
+          }
+        }
+      }
+      function _fnListener(that, name, src) {
+        if (!Array.isArray(src)) {
+          src = [src];
+        }
+        for (i = 0; i < src.length; i++) {
+          that.on(name + ".dt", src[i]);
+        }
+      }
+      function _fnEscapeObject(obj) {
+        if (DataTable2.ext.escape.attributes) {
+          $3.each(obj, function(key, val) {
+            obj[key] = _escapeHtml(val);
+          });
+        }
+        return obj;
       }
       var __apiStruct = [];
       var __arrayProto = Array.prototype;
       var _toSettings = function(mixed) {
         var idx, jq;
-        var settings = DataTable.settings;
-        var tables = $3.map(settings, function(el, i2) {
-          return el.nTable;
-        });
+        var settings = DataTable2.settings;
+        var tables = _pluck(settings, "nTable");
         if (!mixed) {
           return [];
-        } else if (mixed.nTable && mixed.oApi) {
+        } else if (mixed.nTable && mixed.oFeatures) {
           return [mixed];
         } else if (mixed.nodeName && mixed.nodeName.toLowerCase() === "table") {
-          idx = $3.inArray(mixed, tables);
+          idx = tables.indexOf(mixed);
           return idx !== -1 ? [settings[idx]] : null;
         } else if (mixed && typeof mixed.settings === "function") {
           return mixed.settings().toArray();
         } else if (typeof mixed === "string") {
-          jq = $3(mixed);
+          jq = $3(mixed).get();
         } else if (mixed instanceof $3) {
-          jq = mixed;
+          jq = mixed.get();
         }
         if (jq) {
-          return jq.map(function(i2) {
-            idx = $3.inArray(this, tables);
-            return idx !== -1 ? settings[idx] : null;
-          }).toArray();
+          return settings.filter(function(v, idx2) {
+            return jq.includes(tables[idx2]);
+          });
         }
       };
       _Api = function(context, data) {
         if (!(this instanceof _Api)) {
           return new _Api(context, data);
         }
+        var i2;
         var settings = [];
         var ctxSettings = function(o) {
           var a = _toSettings(o);
@@ -9804,16 +10003,14 @@ var require_jquery_dataTables = __commonJS({
           }
         };
         if (Array.isArray(context)) {
-          for (var i2 = 0, ien = context.length; i2 < ien; i2++) {
+          for (i2 = 0; i2 < context.length; i2++) {
             ctxSettings(context[i2]);
           }
         } else {
           ctxSettings(context);
         }
-        this.context = _unique(settings);
-        if (data) {
-          $3.merge(this, data);
-        }
+        this.context = settings.length > 1 ? _unique(settings) : settings;
+        _fnArrayApply(this, data);
         this.selector = {
           rows: null,
           cols: null,
@@ -9821,18 +10018,17 @@ var require_jquery_dataTables = __commonJS({
         };
         _Api.extend(this, this, __apiStruct);
       };
-      DataTable.Api = _Api;
+      DataTable2.Api = _Api;
       $3.extend(_Api.prototype, {
         any: function() {
           return this.count() !== 0;
         },
-        concat: __arrayProto.concat,
         context: [],
         count: function() {
           return this.flatten().length;
         },
         each: function(fn) {
-          for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
+          for (var i2 = 0, iLen = this.length; i2 < iLen; i2++) {
             fn.call(this, this[i2], i2, this);
           }
           return this;
@@ -9842,52 +10038,42 @@ var require_jquery_dataTables = __commonJS({
           return ctx.length > idx ? new _Api(ctx[idx], this[idx]) : null;
         },
         filter: function(fn) {
-          var a = [];
-          if (__arrayProto.filter) {
-            a = __arrayProto.filter.call(this, fn, this);
-          } else {
-            for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
-              if (fn.call(this, this[i2], i2, this)) {
-                a.push(this[i2]);
-              }
-            }
-          }
+          var a = __arrayProto.filter.call(this, fn, this);
           return new _Api(this.context, a);
         },
         flatten: function() {
           var a = [];
           return new _Api(this.context, a.concat.apply(a, this.toArray()));
         },
-        join: __arrayProto.join,
-        indexOf: __arrayProto.indexOf || function(obj, start2) {
-          for (var i2 = start2 || 0, ien = this.length; i2 < ien; i2++) {
-            if (this[i2] === obj) {
-              return i2;
-            }
-          }
-          return -1;
+        get: function(idx) {
+          return this[idx];
         },
+        join: __arrayProto.join,
+        includes: function(find) {
+          return this.indexOf(find) === -1 ? false : true;
+        },
+        indexOf: __arrayProto.indexOf,
         iterator: function(flatten, type, fn, alwaysNew) {
-          var a = [], ret, i2, ien, j, jen, context = this.context, rows, items, item, selector = this.selector;
+          var a = [], ret, i2, iLen, j, jen, context = this.context, rows, items, item, selector = this.selector;
           if (typeof flatten === "string") {
             alwaysNew = fn;
             fn = type;
             type = flatten;
             flatten = false;
           }
-          for (i2 = 0, ien = context.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = context.length; i2 < iLen; i2++) {
             var apiInst = new _Api(context[i2]);
             if (type === "table") {
               ret = fn.call(apiInst, context[i2], i2);
-              if (ret !== undefined2) {
+              if (ret !== void 0) {
                 a.push(ret);
               }
             } else if (type === "columns" || type === "rows") {
               ret = fn.call(apiInst, context[i2], this[i2], i2);
-              if (ret !== undefined2) {
+              if (ret !== void 0) {
                 a.push(ret);
               }
-            } else if (type === "column" || type === "column-rows" || type === "row" || type === "cell") {
+            } else if (type === "every" || type === "column" || type === "column-rows" || type === "row" || type === "cell") {
               items = this[i2];
               if (type === "column-rows") {
                 rows = _selector_row_indexes(context[i2], selector.opts);
@@ -9899,7 +10085,7 @@ var require_jquery_dataTables = __commonJS({
                 } else {
                   ret = fn.call(apiInst, context[i2], item, i2, j, rows);
                 }
-                if (ret !== undefined2) {
+                if (ret !== void 0) {
                   a.push(ret);
                 }
               }
@@ -9915,35 +10101,22 @@ var require_jquery_dataTables = __commonJS({
           }
           return this;
         },
-        lastIndexOf: __arrayProto.lastIndexOf || function(obj, start2) {
-          return this.indexOf.apply(this.toArray.reverse(), arguments);
-        },
+        lastIndexOf: __arrayProto.lastIndexOf,
         length: 0,
         map: function(fn) {
-          var a = [];
-          if (__arrayProto.map) {
-            a = __arrayProto.map.call(this, fn, this);
-          } else {
-            for (var i2 = 0, ien = this.length; i2 < ien; i2++) {
-              a.push(fn.call(this, this[i2], i2));
-            }
-          }
+          var a = __arrayProto.map.call(this, fn, this);
           return new _Api(this.context, a);
         },
         pluck: function(prop) {
-          var fn = DataTable.util.get(prop);
+          var fn = DataTable2.util.get(prop);
           return this.map(function(el) {
             return fn(el);
           });
         },
         pop: __arrayProto.pop,
         push: __arrayProto.push,
-        reduce: __arrayProto.reduce || function(fn, init) {
-          return _fnReduce(this, fn, init, 0, this.length, 1);
-        },
-        reduceRight: __arrayProto.reduceRight || function(fn, init) {
-          return _fnReduce(this, fn, init, this.length - 1, -1, -1);
-        },
+        reduce: __arrayProto.reduce,
+        reduceRight: __arrayProto.reduceRight,
         reverse: __arrayProto.reverse,
         selector: null,
         shift: __arrayProto.shift,
@@ -9962,24 +10135,37 @@ var require_jquery_dataTables = __commonJS({
           return $3(this);
         },
         unique: function() {
-          return new _Api(this.context, _unique(this));
+          return new _Api(this.context, _unique(this.toArray()));
         },
         unshift: __arrayProto.unshift
       });
+      function _api_scope(scope, fn, struct) {
+        return function() {
+          var ret = fn.apply(scope || this, arguments);
+          _Api.extend(ret, ret, struct.methodExt);
+          return ret;
+        };
+      }
+      function _api_find(src, name) {
+        for (var i2 = 0, iLen = src.length; i2 < iLen; i2++) {
+          if (src[i2].name === name) {
+            return src[i2];
+          }
+        }
+        return null;
+      }
+      window2.__apiStruct = __apiStruct;
       _Api.extend = function(scope, obj, ext) {
         if (!ext.length || !obj || !(obj instanceof _Api) && !obj.__dt_wrapper) {
           return;
         }
-        var i2, ien, struct, methodScoping = function(scope2, fn, struc) {
-          return function() {
-            var ret = fn.apply(scope2, arguments);
-            _Api.extend(ret, ret, struc.methodExt);
-            return ret;
-          };
-        };
-        for (i2 = 0, ien = ext.length; i2 < ien; i2++) {
+        var i2, iLen, struct;
+        for (i2 = 0, iLen = ext.length; i2 < iLen; i2++) {
           struct = ext[i2];
-          obj[struct.name] = struct.type === "function" ? methodScoping(scope, struct.val, struct) : struct.type === "object" ? {} : struct.val;
+          if (struct.name === "__proto__") {
+            continue;
+          }
+          obj[struct.name] = struct.type === "function" ? _api_scope(scope, struct.val, struct) : struct.type === "object" ? {} : struct.val;
           obj[struct.name].__dt_wrapper = true;
           _Api.extend(scope, obj[struct.name], struct.propExt);
         }
@@ -9991,19 +10177,11 @@ var require_jquery_dataTables = __commonJS({
           }
           return;
         }
-        var i2, ien, heir = name.split("."), struct = __apiStruct, key, method;
-        var find = function(src2, name2) {
-          for (var i3 = 0, ien2 = src2.length; i3 < ien2; i3++) {
-            if (src2[i3].name === name2) {
-              return src2[i3];
-            }
-          }
-          return null;
-        };
-        for (i2 = 0, ien = heir.length; i2 < ien; i2++) {
+        var i2, iLen, heir = name.split("."), struct = __apiStruct, key, method;
+        for (i2 = 0, iLen = heir.length; i2 < iLen; i2++) {
           method = heir[i2].indexOf("()") !== -1;
           key = method ? heir[i2].replace("()", "") : heir[i2];
-          var src = find(struct, key);
+          var src = _api_find(struct, key);
           if (!src) {
             src = {
               name: key,
@@ -10014,7 +10192,7 @@ var require_jquery_dataTables = __commonJS({
             };
             struct.push(src);
           }
-          if (i2 === ien - 1) {
+          if (i2 === iLen - 1) {
             src.val = val;
             src.type = typeof val === "function" ? "function" : $3.isPlainObject(val) ? "object" : "other";
           } else {
@@ -10029,60 +10207,120 @@ var require_jquery_dataTables = __commonJS({
           if (ret === this) {
             return this;
           } else if (ret instanceof _Api) {
-            return ret.length ? Array.isArray(ret[0]) ? new _Api(ret.context, ret[0]) : ret[0] : undefined2;
+            return ret.length ? Array.isArray(ret[0]) ? new _Api(ret.context, ret[0]) : ret[0] : void 0;
           }
           return ret;
         });
       };
       var __table_selector = function(selector, a) {
         if (Array.isArray(selector)) {
-          return $3.map(selector, function(item) {
-            return __table_selector(item, a);
+          var result = [];
+          selector.forEach(function(sel) {
+            var inner = __table_selector(sel, a);
+            _fnArrayApply(result, inner);
+          });
+          return result.filter(function(item) {
+            return item;
           });
         }
         if (typeof selector === "number") {
           return [a[selector]];
         }
-        var nodes = $3.map(a, function(el, i2) {
+        var nodes = a.map(function(el) {
           return el.nTable;
         });
-        return $3(nodes).filter(selector).map(function(i2) {
-          var idx = $3.inArray(this, nodes);
+        return $3(nodes).filter(selector).map(function() {
+          var idx = nodes.indexOf(this);
           return a[idx];
         }).toArray();
       };
       _api_register("tables()", function(selector) {
-        return selector !== undefined2 && selector !== null ? new _Api(__table_selector(selector, this.context)) : this;
+        return selector !== void 0 && selector !== null ? new _Api(__table_selector(selector, this.context)) : this;
       });
       _api_register("table()", function(selector) {
         var tables = this.tables(selector);
         var ctx = tables.context;
         return ctx.length ? new _Api(ctx[0]) : tables;
       });
-      _api_registerPlural("tables().nodes()", "table().node()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTable;
-        }, 1);
+      [
+        ["nodes", "node", "nTable"],
+        ["body", "body", "nTBody"],
+        ["header", "header", "nTHead"],
+        ["footer", "footer", "nTFoot"]
+      ].forEach(function(item) {
+        _api_registerPlural(
+          "tables()." + item[0] + "()",
+          "table()." + item[1] + "()",
+          function() {
+            return this.iterator("table", function(ctx) {
+              return ctx[item[2]];
+            }, 1);
+          }
+        );
       });
-      _api_registerPlural("tables().body()", "table().body()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTBody;
-        }, 1);
-      });
-      _api_registerPlural("tables().header()", "table().header()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTHead;
-        }, 1);
-      });
-      _api_registerPlural("tables().footer()", "table().footer()", function() {
-        return this.iterator("table", function(ctx) {
-          return ctx.nTFoot;
-        }, 1);
+      [
+        ["header", "aoHeader"],
+        ["footer", "aoFooter"]
+      ].forEach(function(item) {
+        _api_register("table()." + item[0] + ".structure()", function(selector) {
+          var indexes = this.columns(selector).indexes().flatten().toArray();
+          var ctx = this.context[0];
+          var structure = _fnHeaderLayout(ctx, ctx[item[1]], indexes);
+          var orderedIndexes = indexes.slice().sort(function(a, b) {
+            return a - b;
+          });
+          return structure.map(function(row) {
+            return indexes.map(function(colIdx) {
+              return row[orderedIndexes.indexOf(colIdx)];
+            });
+          });
+        });
       });
       _api_registerPlural("tables().containers()", "table().container()", function() {
         return this.iterator("table", function(ctx) {
           return ctx.nTableWrapper;
         }, 1);
+      });
+      _api_register("tables().every()", function(fn) {
+        var that = this;
+        return this.iterator("table", function(s, i2) {
+          fn.call(that.table(i2), i2);
+        });
+      });
+      _api_register("caption()", function(value, side) {
+        var context = this.context;
+        if (value === void 0) {
+          var caption = context[0].captionNode;
+          return caption && context.length ? caption.innerHTML : null;
+        }
+        return this.iterator("table", function(ctx) {
+          var table = $3(ctx.nTable);
+          var caption2 = $3(ctx.captionNode);
+          var container = $3(ctx.nTableWrapper);
+          if (!caption2.length) {
+            caption2 = $3("<caption/>").html(value);
+            ctx.captionNode = caption2[0];
+            if (!side) {
+              table.prepend(caption2);
+              side = caption2.css("caption-side");
+            }
+          }
+          caption2.html(value);
+          if (side) {
+            caption2.css("caption-side", side);
+            caption2[0]._captionSide = side;
+          }
+          if (container.find("div.dataTables_scroll").length) {
+            var selector = side === "top" ? "Head" : "Foot";
+            container.find("div.dataTables_scroll" + selector + " table").prepend(caption2);
+          } else {
+            table.prepend(caption2);
+          }
+        }, 1);
+      });
+      _api_register("caption.node()", function() {
+        var ctx = this.context;
+        return ctx.length ? ctx[0].captionNode : null;
       });
       _api_register("draw()", function(paging) {
         return this.iterator("table", function(settings) {
@@ -10097,16 +10335,16 @@ var require_jquery_dataTables = __commonJS({
         });
       });
       _api_register("page()", function(action) {
-        if (action === undefined2) {
+        if (action === void 0) {
           return this.page.info().page;
         }
         return this.iterator("table", function(settings) {
           _fnPageChange(settings, action);
         });
       });
-      _api_register("page.info()", function(action) {
+      _api_register("page.info()", function() {
         if (this.context.length === 0) {
-          return undefined2;
+          return void 0;
         }
         var settings = this.context[0], start2 = settings._iDisplayStart, len = settings.oFeatures.bPaginate ? settings._iDisplayLength : -1, visRecords = settings.fnRecordsDisplay(), all = len === -1;
         return {
@@ -10121,8 +10359,8 @@ var require_jquery_dataTables = __commonJS({
         };
       });
       _api_register("page.len()", function(len) {
-        if (len === undefined2) {
-          return this.context.length !== 0 ? this.context[0]._iDisplayLength : undefined2;
+        if (len === void 0) {
+          return this.context.length !== 0 ? this.context[0]._iDisplayLength : void 0;
         }
         return this.iterator("table", function(settings) {
           _fnLengthChange(settings, len);
@@ -10143,13 +10381,14 @@ var require_jquery_dataTables = __commonJS({
           if (xhr && xhr.readyState !== 4) {
             xhr.abort();
           }
-          _fnBuildAjax(settings, [], function(json) {
+          _fnBuildAjax(settings, {}, function(json) {
             _fnClearTable(settings);
             var data = _fnAjaxDataSrc(settings, json);
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
               _fnAddData(settings, data[i2]);
             }
             _fnReDraw(settings, holdPosition);
+            _fnInitComplete(settings);
             _fnProcessingDisplay(settings, false);
           });
         }
@@ -10173,12 +10412,12 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("ajax.url()", function(url) {
         var ctx = this.context;
-        if (url === undefined2) {
+        if (url === void 0) {
           if (ctx.length === 0) {
-            return undefined2;
+            return void 0;
           }
           ctx = ctx[0];
-          return ctx.ajax ? $3.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax : ctx.sAjaxSource;
+          return $3.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
         }
         return this.iterator("table", function(settings) {
           if ($3.isPlainObject(settings.ajax)) {
@@ -10194,22 +10433,22 @@ var require_jquery_dataTables = __commonJS({
         });
       });
       var _selector_run = function(type, selector, selectFn, settings, opts) {
-        var out = [], res, a, i2, ien, j, jen, selectorType = typeof selector;
-        if (!selector || selectorType === "string" || selectorType === "function" || selector.length === undefined2) {
+        var out = [], res, i2, iLen, selectorType = typeof selector;
+        if (!selector || selectorType === "string" || selectorType === "function" || selector.length === void 0) {
           selector = [selector];
         }
-        for (i2 = 0, ien = selector.length; i2 < ien; i2++) {
-          a = selector[i2] && selector[i2].split && !selector[i2].match(/[\[\(:]/) ? selector[i2].split(",") : [selector[i2]];
-          for (j = 0, jen = a.length; j < jen; j++) {
-            res = selectFn(typeof a[j] === "string" ? a[j].trim() : a[j]);
-            if (res && res.length) {
-              out = out.concat(res);
-            }
+        for (i2 = 0, iLen = selector.length; i2 < iLen; i2++) {
+          res = selectFn(typeof selector[i2] === "string" ? selector[i2].trim() : selector[i2]);
+          res = res.filter(function(item) {
+            return item !== null && item !== void 0;
+          });
+          if (res && res.length) {
+            out = out.concat(res);
           }
         }
         var ext = _ext.selector[type];
         if (ext.length) {
-          for (i2 = 0, ien = ext.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = ext.length; i2 < iLen; i2++) {
             out = ext[i2](settings, opts, out);
           }
         }
@@ -10219,35 +10458,35 @@ var require_jquery_dataTables = __commonJS({
         if (!opts) {
           opts = {};
         }
-        if (opts.filter && opts.search === undefined2) {
+        if (opts.filter && opts.search === void 0) {
           opts.search = opts.filter;
         }
         return $3.extend({
+          columnOrder: "implied",
           search: "none",
           order: "current",
           page: "all"
         }, opts);
       };
-      var _selector_first = function(inst) {
-        for (var i2 = 0, ien = inst.length; i2 < ien; i2++) {
-          if (inst[i2].length > 0) {
-            inst[0] = inst[i2];
-            inst[0].length = 1;
-            inst.length = 1;
-            inst.context = [inst.context[i2]];
-            return inst;
-          }
+      var _selector_first = function(old) {
+        var inst = new _Api(old.context[0]);
+        if (old.length) {
+          inst.push(old[0]);
         }
-        inst.length = 0;
+        inst.selector = old.selector;
+        if (inst.length && inst[0].length > 1) {
+          inst[0].splice(1);
+        }
         return inst;
       };
       var _selector_row_indexes = function(settings, opts) {
-        var i2, ien, tmp, a = [], displayFiltered = settings.aiDisplay, displayMaster = settings.aiDisplayMaster;
+        var i2, iLen, tmp, a = [], displayFiltered = settings.aiDisplay, displayMaster = settings.aiDisplayMaster;
         var search = opts.search, order = opts.order, page = opts.page;
         if (_fnDataSource(settings) == "ssp") {
           return search === "removed" ? [] : _range(0, displayMaster.length);
-        } else if (page == "current") {
-          for (i2 = settings._iDisplayStart, ien = settings.fnDisplayEnd(); i2 < ien; i2++) {
+        }
+        if (page == "current") {
+          for (i2 = settings._iDisplayStart, iLen = settings.fnDisplayEnd(); i2 < iLen; i2++) {
             a.push(displayFiltered[i2]);
           }
         } else if (order == "current" || order == "applied") {
@@ -10257,21 +10496,38 @@ var require_jquery_dataTables = __commonJS({
             a = displayFiltered.slice();
           } else if (search == "removed") {
             var displayFilteredMap = {};
-            for (var i2 = 0, ien = displayFiltered.length; i2 < ien; i2++) {
+            for (i2 = 0, iLen = displayFiltered.length; i2 < iLen; i2++) {
               displayFilteredMap[displayFiltered[i2]] = null;
             }
-            a = $3.map(displayMaster, function(el) {
-              return !displayFilteredMap.hasOwnProperty(el) ? el : null;
+            displayMaster.forEach(function(item) {
+              if (!Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
+                a.push(item);
+              }
             });
           }
         } else if (order == "index" || order == "original") {
-          for (i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = settings.aoData.length; i2 < iLen; i2++) {
+            if (!settings.aoData[i2]) {
+              continue;
+            }
             if (search == "none") {
               a.push(i2);
             } else {
-              tmp = $3.inArray(i2, displayFiltered);
+              tmp = displayFiltered.indexOf(i2);
               if (tmp === -1 && search == "removed" || tmp >= 0 && search == "applied") {
                 a.push(i2);
+              }
+            }
+          }
+        } else if (typeof order === "number") {
+          var ordered = _fnSort(settings, order, "asc");
+          if (search === "none") {
+            a = ordered;
+          } else {
+            for (i2 = 0; i2 < ordered.length; i2++) {
+              tmp = displayFiltered.indexOf(ordered[i2]);
+              if (tmp === -1 && search == "removed" || tmp >= 0 && search == "applied") {
+                a.push(ordered[i2]);
               }
             }
           }
@@ -10282,7 +10538,6 @@ var require_jquery_dataTables = __commonJS({
         var rows;
         var run = function(sel) {
           var selInt = _intVal(sel);
-          var i2, ien;
           var aoData = settings.aoData;
           if (selInt !== null && !opts) {
             return [selInt];
@@ -10290,13 +10545,13 @@ var require_jquery_dataTables = __commonJS({
           if (!rows) {
             rows = _selector_row_indexes(settings, opts);
           }
-          if (selInt !== null && $3.inArray(selInt, rows) !== -1) {
+          if (selInt !== null && rows.indexOf(selInt) !== -1) {
             return [selInt];
-          } else if (sel === null || sel === undefined2 || sel === "") {
+          } else if (sel === null || sel === void 0 || sel === "") {
             return rows;
           }
           if (typeof sel === "function") {
-            return $3.map(rows, function(idx) {
+            return rows.map(function(idx) {
               var row = aoData[idx];
               return sel(idx, row._aData, row.nTr) ? idx : null;
             });
@@ -10304,7 +10559,7 @@ var require_jquery_dataTables = __commonJS({
           if (sel.nodeName) {
             var rowIdx = sel._DT_RowIndex;
             var cellIdx = sel._DT_CellIndex;
-            if (rowIdx !== undefined2) {
+            if (rowIdx !== void 0) {
               return aoData[rowIdx] && aoData[rowIdx].nTr === sel ? [rowIdx] : [];
             } else if (cellIdx) {
               return aoData[cellIdx.row] && aoData[cellIdx.row].nTr === sel.parentNode ? [cellIdx.row] : [];
@@ -10315,7 +10570,7 @@ var require_jquery_dataTables = __commonJS({
           }
           if (typeof sel === "string" && sel.charAt(0) === "#") {
             var rowObj = settings.aIds[sel.replace(/^#/, "")];
-            if (rowObj !== undefined2) {
+            if (rowObj !== void 0) {
               return [rowObj.idx];
             }
           }
@@ -10326,10 +10581,14 @@ var require_jquery_dataTables = __commonJS({
             return this._DT_RowIndex;
           }).toArray();
         };
-        return _selector_run("row", selector, run, settings, opts);
+        var matched = _selector_run("row", selector, run, settings, opts);
+        if (opts.order === "current" || opts.order === "applied") {
+          _fnSortDisplay(settings, matched);
+        }
+        return matched;
       };
       _api_register("rows()", function(selector, opts) {
-        if (selector === undefined2) {
+        if (selector === void 0) {
           selector = "";
         } else if ($3.isPlainObject(selector)) {
           opts = selector;
@@ -10345,7 +10604,7 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("rows().nodes()", function() {
         return this.iterator("row", function(settings, row) {
-          return settings.aoData[row].nTr || undefined2;
+          return settings.aoData[row].nTr || void 0;
         }, 1);
       });
       _api_register("rows().data()", function() {
@@ -10372,7 +10631,7 @@ var require_jquery_dataTables = __commonJS({
       _api_registerPlural("rows().ids()", "row().id()", function(hash) {
         var a = [];
         var context = this.context;
-        for (var i2 = 0, ien = context.length; i2 < ien; i2++) {
+        for (var i2 = 0, iLen = context.length; i2 < iLen; i2++) {
           for (var j = 0, jen = this[i2].length; j < jen; j++) {
             var id = context[i2].rowIdFn(context[i2].aoData[this[i2][j]]._aData);
             a.push((hash === true ? "#" : "") + id);
@@ -10381,49 +10640,30 @@ var require_jquery_dataTables = __commonJS({
         return new _Api(context, a);
       });
       _api_registerPlural("rows().remove()", "row().remove()", function() {
-        var that = this;
-        this.iterator("row", function(settings, row, thatIdx) {
+        this.iterator("row", function(settings, row) {
           var data = settings.aoData;
           var rowData = data[row];
-          var i2, ien, j, jen;
-          var loopRow, loopCells;
-          data.splice(row, 1);
-          for (i2 = 0, ien = data.length; i2 < ien; i2++) {
-            loopRow = data[i2];
-            loopCells = loopRow.anCells;
-            if (loopRow.nTr !== null) {
-              loopRow.nTr._DT_RowIndex = i2;
-            }
-            if (loopCells !== null) {
-              for (j = 0, jen = loopCells.length; j < jen; j++) {
-                loopCells[j]._DT_CellIndex.row = i2;
-              }
-            }
+          var idx = settings.aiDisplayMaster.indexOf(row);
+          if (idx !== -1) {
+            settings.aiDisplayMaster.splice(idx, 1);
           }
-          _fnDeleteIndex(settings.aiDisplayMaster, row);
-          _fnDeleteIndex(settings.aiDisplay, row);
-          _fnDeleteIndex(that[thatIdx], row, false);
           if (settings._iRecordsDisplay > 0) {
             settings._iRecordsDisplay--;
           }
           _fnLengthOverflow(settings);
           var id = settings.rowIdFn(rowData._aData);
-          if (id !== undefined2) {
+          if (id !== void 0) {
             delete settings.aIds[id];
           }
-        });
-        this.iterator("table", function(settings) {
-          for (var i2 = 0, ien = settings.aoData.length; i2 < ien; i2++) {
-            settings.aoData[i2].idx = i2;
-          }
+          data[row] = null;
         });
         return this;
       });
       _api_register("rows.add()", function(rows) {
         var newRows = this.iterator("table", function(settings) {
-          var row, i2, ien;
+          var row, i2, iLen;
           var out = [];
-          for (i2 = 0, ien = rows.length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
             row = rows[i2];
             if (row.nodeName && row.nodeName.toUpperCase() === "TR") {
               out.push(_fnAddTr(settings, row)[0]);
@@ -10435,7 +10675,7 @@ var require_jquery_dataTables = __commonJS({
         }, 1);
         var modRows = this.rows(-1);
         modRows.pop();
-        $3.merge(modRows, newRows);
+        _fnArrayApply(modRows, newRows);
         return modRows;
       });
       _api_register("row()", function(selector, opts) {
@@ -10443,8 +10683,8 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("row().data()", function(data) {
         var ctx = this.context;
-        if (data === undefined2) {
-          return ctx.length && this.length ? ctx[0].aoData[this[0]]._aData : undefined2;
+        if (data === void 0) {
+          return ctx.length && this.length && this[0].length ? ctx[0].aoData[this[0]]._aData : void 0;
         }
         var row = ctx[0].aoData[this[0]];
         row._aData = data;
@@ -10456,7 +10696,13 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("row().node()", function() {
         var ctx = this.context;
-        return ctx.length && this.length ? ctx[0].aoData[this[0]].nTr || null : null;
+        if (ctx.length && this.length && this[0].length) {
+          var row = ctx[0].aoData[this[0]];
+          if (row && row.nTr) {
+            return row.nTr;
+          }
+        }
+        return null;
       });
       _api_register("row.add()", function(row) {
         if (row instanceof $3 && row.length) {
@@ -10472,46 +10718,48 @@ var require_jquery_dataTables = __commonJS({
       });
       $3(document2).on("plugin-init.dt", function(e, context) {
         var api = new _Api(context);
-        var namespace = "on-plugin-init";
-        var stateSaveParamsEvent = "stateSaveParams." + namespace;
-        var destroyEvent = "destroy. " + namespace;
-        api.on(stateSaveParamsEvent, function(e2, settings, d) {
+        api.on("stateSaveParams.DT", function(e2, settings, d) {
           var idFn = settings.rowIdFn;
-          var data = settings.aoData;
+          var rows = settings.aiDisplayMaster;
           var ids = [];
-          for (var i2 = 0; i2 < data.length; i2++) {
-            if (data[i2]._detailsShow) {
-              ids.push("#" + idFn(data[i2]._aData));
+          for (var i2 = 0; i2 < rows.length; i2++) {
+            var rowIdx = rows[i2];
+            var data = settings.aoData[rowIdx];
+            if (data._detailsShow) {
+              ids.push("#" + idFn(data._aData));
             }
           }
           d.childRows = ids;
         });
-        api.on(destroyEvent, function() {
-          api.off(stateSaveParamsEvent + " " + destroyEvent);
+        api.on("stateLoaded.DT", function(e2, settings, state) {
+          __details_state_load(api, state);
         });
-        var loaded = api.state.loaded();
-        if (loaded && loaded.childRows) {
-          api.rows($3.map(loaded.childRows, function(id) {
-            return id.replace(/:/g, "\\:");
+        __details_state_load(api, api.state.loaded());
+      });
+      var __details_state_load = function(api, state) {
+        if (state && state.childRows) {
+          api.rows(state.childRows.map(function(id) {
+            return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, "$1\\:");
           })).every(function() {
-            _fnCallbackFire(context, null, "requestChild", [this]);
+            _fnCallbackFire(api.settings()[0], null, "requestChild", [this]);
           });
         }
-      });
+      };
       var __details_add = function(ctx, row, data, klass) {
         var rows = [];
         var addRow = function(r, k) {
           if (Array.isArray(r) || r instanceof $3) {
-            for (var i2 = 0, ien = r.length; i2 < ien; i2++) {
+            for (var i2 = 0, iLen = r.length; i2 < iLen; i2++) {
               addRow(r[i2], k);
             }
             return;
           }
           if (r.nodeName && r.nodeName.toLowerCase() === "tr") {
+            r.setAttribute("data-dt-row", row.idx);
             rows.push(r);
           } else {
-            var created = $3("<tr><td></td></tr>").addClass(k);
-            $3("td", created).addClass(k).html(r)[0].colSpan = _fnVisbleColumns(ctx);
+            var created = $3("<tr><td></td></tr>").attr("data-dt-row", row.idx).addClass(k);
+            $3("td", created).addClass(k).html(r)[0].colSpan = _fnVisibleColumns(ctx);
             rows.push(created[0]);
           }
         };
@@ -10524,7 +10772,7 @@ var require_jquery_dataTables = __commonJS({
           row._details.insertAfter(row.nTr);
         }
       };
-      var __details_state = DataTable.util.throttle(
+      var __details_state = DataTable2.util.throttle(
         function(ctx) {
           _fnSaveState(ctx[0]);
         },
@@ -10533,11 +10781,11 @@ var require_jquery_dataTables = __commonJS({
       var __details_remove = function(api, idx) {
         var ctx = api.context;
         if (ctx.length) {
-          var row = ctx[0].aoData[idx !== undefined2 ? idx : api[0]];
+          var row = ctx[0].aoData[idx !== void 0 ? idx : api[0]];
           if (row && row._details) {
-            row._details.remove();
-            row._detailsShow = undefined2;
-            row._details = undefined2;
+            row._details.detach();
+            row._detailsShow = void 0;
+            row._details = void 0;
             $3(row.nTr).removeClass("dt-hasChild");
             __details_state(ctx);
           }
@@ -10582,14 +10830,14 @@ var require_jquery_dataTables = __commonJS({
               }
             });
           });
-          api.on(colvisEvent, function(e, ctx, idx, vis) {
+          api.on(colvisEvent, function(e, ctx) {
             if (settings !== ctx) {
               return;
             }
-            var row, visible = _fnVisbleColumns(ctx);
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
+            var row, visible = _fnVisibleColumns(ctx);
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
               row = data[i2];
-              if (row._details) {
+              if (row && row._details) {
                 row._details.each(function() {
                   var el = $3(this).children("td");
                   if (el.length == 1) {
@@ -10603,8 +10851,8 @@ var require_jquery_dataTables = __commonJS({
             if (settings !== ctx) {
               return;
             }
-            for (var i2 = 0, ien = data.length; i2 < ien; i2++) {
-              if (data[i2]._details) {
+            for (var i2 = 0, iLen = data.length; i2 < iLen; i2++) {
+              if (data[i2] && data[i2]._details) {
                 __details_remove(api, i2);
               }
             }
@@ -10616,8 +10864,8 @@ var require_jquery_dataTables = __commonJS({
       var _child_mth = _child_obj + "()";
       _api_register(_child_mth, function(data, klass) {
         var ctx = this.context;
-        if (data === undefined2) {
-          return ctx.length && this.length ? ctx[0].aoData[this[0]]._details : undefined2;
+        if (data === void 0) {
+          return ctx.length && this.length && ctx[0].aoData[this[0]] ? ctx[0].aoData[this[0]]._details : void 0;
         } else if (data === true) {
           this.child.show();
         } else if (data === false) {
@@ -10630,7 +10878,7 @@ var require_jquery_dataTables = __commonJS({
       _api_register([
         _child_obj + ".show()",
         _child_mth + ".show()"
-      ], function(show) {
+      ], function() {
         __details_display(this, true);
         return this;
       });
@@ -10650,21 +10898,57 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register(_child_obj + ".isShown()", function() {
         var ctx = this.context;
-        if (ctx.length && this.length) {
+        if (ctx.length && this.length && ctx[0].aoData[this[0]]) {
           return ctx[0].aoData[this[0]]._detailsShow || false;
         }
         return false;
       });
-      var __re_column_selector = /^([^:]+):(name|visIdx|visible)$/;
-      var __columnData = function(settings, column, r1, r2, rows) {
+      var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
+      var __columnData = function(settings, column, r1, r2, rows, type) {
         var a = [];
-        for (var row = 0, ien = rows.length; row < ien; row++) {
-          a.push(_fnGetCellData(settings, rows[row], column));
+        for (var row = 0, iLen = rows.length; row < iLen; row++) {
+          a.push(_fnGetCellData(settings, rows[row], column, type));
         }
         return a;
       };
+      var __column_header = function(settings, column, row) {
+        var header = settings.aoHeader;
+        var titleRow = settings.titleRow;
+        var target = null;
+        if (row !== void 0) {
+          target = row;
+        } else if (titleRow === true) {
+          target = 0;
+        } else if (titleRow === false) {
+          target = header.length - 1;
+        } else if (titleRow !== null) {
+          target = titleRow;
+        } else {
+          for (var i2 = 0; i2 < header.length; i2++) {
+            if (header[i2][column].unique && $3(".dt-column-title", header[i2][column].cell).text()) {
+              target = i2;
+            }
+          }
+          if (target === null) {
+            target = 0;
+          }
+        }
+        return header[target][column].cell;
+      };
+      var __column_header_cells = function(header) {
+        var out = [];
+        for (var i2 = 0; i2 < header.length; i2++) {
+          for (var j = 0; j < header[i2].length; j++) {
+            var cell = header[i2][j].cell;
+            if (!out.includes(cell)) {
+              out.push(cell);
+            }
+          }
+        }
+        return out;
+      };
       var __column_selector = function(settings, selector, opts) {
-        var columns = settings.aoColumns, names = _pluck(columns, "sName"), nodes = _pluck(columns, "nTh");
+        var columns = settings.aoColumns, names, titles, nodes = __column_header_cells(settings.aoHeader);
         var run = function(s) {
           var selInt = _intVal(s);
           if (s === "") {
@@ -10677,11 +10961,11 @@ var require_jquery_dataTables = __commonJS({
           }
           if (typeof s === "function") {
             var rows = _selector_row_indexes(settings, opts);
-            return $3.map(columns, function(col, idx2) {
+            return columns.map(function(col, idx2) {
               return s(
                 idx2,
                 __columnData(settings, idx2, 0, 0, rows),
-                nodes[idx2]
+                __column_header(settings, idx2)
               ) ? idx2 : null;
             });
           }
@@ -10690,17 +10974,41 @@ var require_jquery_dataTables = __commonJS({
             switch (match[2]) {
               case "visIdx":
               case "visible":
-                var idx = parseInt(match[1], 10);
-                if (idx < 0) {
-                  var visColumns = $3.map(columns, function(col, i2) {
-                    return col.bVisible ? i2 : null;
-                  });
-                  return [visColumns[visColumns.length + idx]];
+                if (match[1] && match[1].match(/^\d+$/)) {
+                  var idx = parseInt(match[1], 10);
+                  if (idx < 0) {
+                    var visColumns = columns.map(function(col, i2) {
+                      return col.bVisible ? i2 : null;
+                    });
+                    return [visColumns[visColumns.length + idx]];
+                  }
+                  return [_fnVisibleToColumnIndex(settings, idx)];
                 }
-                return [_fnVisibleToColumnIndex(settings, idx)];
+                return columns.map(function(col, idx2) {
+                  if (!col.bVisible) {
+                    return null;
+                  }
+                  if (col.responsiveVisible === false) {
+                    return null;
+                  }
+                  if (match[1]) {
+                    return $3(nodes[idx2]).filter(match[1]).length > 0 ? idx2 : null;
+                  }
+                  return idx2;
+                });
               case "name":
-                return $3.map(names, function(name, i2) {
+                if (!names) {
+                  names = _pluck(columns, "sName");
+                }
+                return names.map(function(name, i2) {
                   return name === match[1] ? i2 : null;
+                });
+              case "title":
+                if (!titles) {
+                  titles = _pluck(columns, "sTitle");
+                }
+                return titles.map(function(title, i2) {
+                  return title === match[1] ? i2 : null;
                 });
               default:
                 return [];
@@ -10710,40 +11018,49 @@ var require_jquery_dataTables = __commonJS({
             return [s._DT_CellIndex.column];
           }
           var jqResult = $3(nodes).filter(s).map(function() {
-            return $3.inArray(this, nodes);
-          }).toArray();
+            return _fnColumnsFromHeader(this);
+          }).toArray().sort(function(a, b) {
+            return a - b;
+          });
           if (jqResult.length || !s.nodeName) {
             return jqResult;
           }
           var host = $3(s).closest("*[data-dt-column]");
           return host.length ? [host.data("dt-column")] : [];
         };
-        return _selector_run("column", selector, run, settings, opts);
+        var selected = _selector_run("column", selector, run, settings, opts);
+        return opts.columnOrder && opts.columnOrder === "index" ? selected.sort(function(a, b) {
+          return a - b;
+        }) : selected;
       };
       var __setColumnVis = function(settings, column, vis) {
-        var cols = settings.aoColumns, col = cols[column], data = settings.aoData, row, cells, i2, ien, tr;
-        if (vis === undefined2) {
+        var cols = settings.aoColumns, col = cols[column], data = settings.aoData, cells, i2, iLen, tr;
+        if (vis === void 0) {
           return col.bVisible;
         }
         if (col.bVisible === vis) {
-          return;
+          return false;
         }
         if (vis) {
-          var insertBefore = $3.inArray(true, _pluck(cols, "bVisible"), column + 1);
-          for (i2 = 0, ien = data.length; i2 < ien; i2++) {
-            tr = data[i2].nTr;
-            cells = data[i2].anCells;
-            if (tr) {
-              tr.insertBefore(cells[column], cells[insertBefore] || null);
+          var insertBefore = _pluck(cols, "bVisible").indexOf(true, column + 1);
+          for (i2 = 0, iLen = data.length; i2 < iLen; i2++) {
+            if (data[i2]) {
+              tr = data[i2].nTr;
+              cells = data[i2].anCells;
+              if (tr) {
+                tr.insertBefore(cells[column], cells[insertBefore] || null);
+              }
             }
           }
         } else {
           $3(_pluck(settings.aoData, "anCells", column)).detach();
         }
         col.bVisible = vis;
+        _colGroup(settings);
+        return true;
       };
       _api_register("columns()", function(selector, opts) {
-        if (selector === undefined2) {
+        if (selector === void 0) {
           selector = "";
         } else if ($3.isPlainObject(selector)) {
           opts = selector;
@@ -10757,18 +11074,27 @@ var require_jquery_dataTables = __commonJS({
         inst.selector.opts = opts;
         return inst;
       });
-      _api_registerPlural("columns().header()", "column().header()", function(selector, opts) {
+      _api_registerPlural("columns().header()", "column().header()", function(row) {
         return this.iterator("column", function(settings, column) {
-          return settings.aoColumns[column].nTh;
+          return __column_header(settings, column, row);
         }, 1);
       });
-      _api_registerPlural("columns().footer()", "column().footer()", function(selector, opts) {
+      _api_registerPlural("columns().footer()", "column().footer()", function(row) {
         return this.iterator("column", function(settings, column) {
-          return settings.aoColumns[column].nTf;
+          var footer = settings.aoFooter;
+          if (!footer.length) {
+            return null;
+          }
+          return settings.aoFooter[row !== void 0 ? row : 0][column].cell;
         }, 1);
       });
       _api_registerPlural("columns().data()", "column().data()", function() {
         return this.iterator("column-rows", __columnData, 1);
+      });
+      _api_registerPlural("columns().render()", "column().render()", function(type) {
+        return this.iterator("column-rows", function(settings, column, i2, j, rows) {
+          return __columnData(settings, column, i2, j, rows, type);
+        }, 1);
       });
       _api_registerPlural("columns().dataSrc()", "column().dataSrc()", function() {
         return this.iterator("column", function(settings, column) {
@@ -10785,36 +11111,89 @@ var require_jquery_dataTables = __commonJS({
           );
         }, 1);
       });
+      _api_registerPlural("columns().init()", "column().init()", function() {
+        return this.iterator("column", function(settings, column) {
+          return settings.aoColumns[column];
+        }, 1);
+      });
+      _api_registerPlural("columns().names()", "column().name()", function() {
+        return this.iterator("column", function(settings, column) {
+          return settings.aoColumns[column].sName;
+        }, 1);
+      });
       _api_registerPlural("columns().nodes()", "column().nodes()", function() {
         return this.iterator("column-rows", function(settings, column, i2, j, rows) {
           return _pluck_order(settings.aoData, rows, "anCells", column);
         }, 1);
       });
+      _api_registerPlural("columns().titles()", "column().title()", function(title, row) {
+        return this.iterator("column", function(settings, column) {
+          if (typeof title === "number") {
+            row = title;
+            title = void 0;
+          }
+          var span = $3(".dt-column-title", this.column(column).header(row));
+          if (title !== void 0) {
+            span.html(title);
+            return this;
+          }
+          return span.html();
+        }, 1);
+      });
+      _api_registerPlural("columns().types()", "column().type()", function() {
+        return this.iterator("column", function(settings, column) {
+          var colObj = settings.aoColumns[column];
+          var type = colObj.sType;
+          if (!type) {
+            _fnColumnTypes(settings);
+            type = colObj.sType;
+          }
+          return type;
+        }, 1);
+      });
       _api_registerPlural("columns().visible()", "column().visible()", function(vis, calc) {
         var that = this;
+        var changed = [];
         var ret = this.iterator("column", function(settings, column) {
-          if (vis === undefined2) {
+          if (vis === void 0) {
             return settings.aoColumns[column].bVisible;
           }
-          __setColumnVis(settings, column, vis);
+          if (__setColumnVis(settings, column, vis)) {
+            changed.push(column);
+          }
         });
-        if (vis !== undefined2) {
+        if (vis !== void 0) {
           this.iterator("table", function(settings) {
             _fnDrawHead(settings, settings.aoHeader);
             _fnDrawHead(settings, settings.aoFooter);
             if (!settings.aiDisplay.length) {
-              $3(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisbleColumns(settings));
+              $3(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisibleColumns(settings));
             }
             _fnSaveState(settings);
             that.iterator("column", function(settings2, column) {
-              _fnCallbackFire(settings2, null, "column-visibility", [settings2, column, vis, calc]);
+              if (changed.includes(column)) {
+                _fnCallbackFire(settings2, null, "column-visibility", [settings2, column, vis, calc]);
+              }
             });
-            if (calc === undefined2 || calc) {
+            if (changed.length && (calc === void 0 || calc)) {
               that.columns.adjust();
             }
           });
         }
         return ret;
+      });
+      _api_registerPlural("columns().widths()", "column().width()", function() {
+        var columns = this.columns(":visible").count();
+        var row = $3("<tr>").html("<td>" + Array(columns).join("</td><td>") + "</td>");
+        $3(this.table().body()).append(row);
+        var widths = row.children().map(function() {
+          return $3(this).outerWidth();
+        });
+        row.remove();
+        return this.iterator("column", function(settings, column) {
+          var visIdx = _fnColumnIndexToVisible(settings, column);
+          return visIdx !== null ? widths[visIdx] : 0;
+        }, 1);
       });
       _api_registerPlural("columns().indexes()", "column().index()", function(type) {
         return this.iterator("column", function(settings, column) {
@@ -10823,6 +11202,7 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("columns.adjust()", function() {
         return this.iterator("table", function(settings) {
+          settings.containerWidth = -1;
           _fnAdjustColumnSizing(settings);
         }, 1);
       });
@@ -10846,12 +11226,12 @@ var require_jquery_dataTables = __commonJS({
         var allCells = $3(_flatten([], cells));
         var row;
         var columns = settings.aoColumns.length;
-        var a, i2, ien, j, o, host;
+        var a, i2, iLen, j, o, host;
         var run = function(s) {
           var fnSelector = typeof s === "function";
-          if (s === null || s === undefined2 || fnSelector) {
+          if (s === null || s === void 0 || fnSelector) {
             a = [];
-            for (i2 = 0, ien = rows.length; i2 < ien; i2++) {
+            for (i2 = 0, iLen = rows.length; i2 < iLen; i2++) {
               row = rows[i2];
               for (j = 0; j < columns; j++) {
                 o = {
@@ -10871,7 +11251,7 @@ var require_jquery_dataTables = __commonJS({
             return a;
           }
           if ($3.isPlainObject(s)) {
-            return s.column !== undefined2 && s.row !== undefined2 && $3.inArray(s.row, rows) !== -1 ? [s] : [];
+            return s.column !== void 0 && s.row !== void 0 && rows.indexOf(s.row) !== -1 ? [s] : [];
           }
           var jqResult = allCells.filter(s).map(function(i3, el) {
             return {
@@ -10892,7 +11272,7 @@ var require_jquery_dataTables = __commonJS({
       };
       _api_register("cells()", function(rowSelector, columnSelector, opts) {
         if ($3.isPlainObject(rowSelector)) {
-          if (rowSelector.row === undefined2) {
+          if (rowSelector.row === void 0) {
             opts = rowSelector;
             rowSelector = null;
           } else {
@@ -10904,7 +11284,7 @@ var require_jquery_dataTables = __commonJS({
           opts = columnSelector;
           columnSelector = null;
         }
-        if (columnSelector === null || columnSelector === undefined2) {
+        if (columnSelector === null || columnSelector === void 0) {
           return this.iterator("table", function(settings) {
             return __cell_selector(settings, rowSelector, _selector_opts(opts));
           });
@@ -10916,10 +11296,10 @@ var require_jquery_dataTables = __commonJS({
         } : {};
         var columns = this.columns(columnSelector, internalOpts);
         var rows = this.rows(rowSelector, internalOpts);
-        var i2, ien, j, jen;
+        var i2, iLen, j, jen;
         var cellsNoOpts = this.iterator("table", function(settings, idx) {
           var a = [];
-          for (i2 = 0, ien = rows[idx].length; i2 < ien; i2++) {
+          for (i2 = 0, iLen = rows[idx].length; i2 < iLen; i2++) {
             for (j = 0, jen = columns[idx].length; j < jen; j++) {
               a.push({
                 row: rows[idx][i2],
@@ -10940,7 +11320,7 @@ var require_jquery_dataTables = __commonJS({
       _api_registerPlural("cells().nodes()", "cell().node()", function() {
         return this.iterator("cell", function(settings, row, column) {
           var data = settings.aoData[row];
-          return data && data.anCells ? data.anCells[column] : undefined2;
+          return data && data.anCells ? data.anCells[column] : void 0;
         }, 1);
       });
       _api_register("cells().data()", function() {
@@ -10979,8 +11359,8 @@ var require_jquery_dataTables = __commonJS({
       _api_register("cell().data()", function(data) {
         var ctx = this.context;
         var cell = this[0];
-        if (data === undefined2) {
-          return ctx.length && cell.length ? _fnGetCellData(ctx[0], cell[0].row, cell[0].column) : undefined2;
+        if (data === void 0) {
+          return ctx.length && cell.length ? _fnGetCellData(ctx[0], cell[0].row, cell[0].column) : void 0;
         }
         _fnSetCellData(ctx[0], cell[0].row, cell[0].column, data);
         _fnInvalidate(ctx[0], cell[0].row, "data", cell[0].column);
@@ -10988,27 +11368,30 @@ var require_jquery_dataTables = __commonJS({
       });
       _api_register("order()", function(order, dir) {
         var ctx = this.context;
-        if (order === undefined2) {
-          return ctx.length !== 0 ? ctx[0].aaSorting : undefined2;
+        var args = Array.prototype.slice.call(arguments);
+        if (order === void 0) {
+          return ctx.length !== 0 ? ctx[0].aaSorting : void 0;
         }
         if (typeof order === "number") {
           order = [[order, dir]];
-        } else if (order.length && !Array.isArray(order[0])) {
-          order = Array.prototype.slice.call(arguments);
+        } else if (args.length > 1) {
+          order = args;
         }
         return this.iterator("table", function(settings) {
-          settings.aaSorting = order.slice();
+          var resolved = [];
+          _fnSortResolve(settings, resolved, order);
+          settings.aaSorting = resolved;
         });
       });
       _api_register("order.listener()", function(node, column, callback) {
         return this.iterator("table", function(settings) {
-          _fnSortAttachListener(settings, node, column, callback);
+          _fnSortAttachListener(settings, node, {}, column, callback);
         });
       });
       _api_register("order.fixed()", function(set) {
         if (!set) {
           var ctx = this.context;
-          var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined2;
+          var fixed = ctx.length ? ctx[0].aaSortingFixed : void 0;
           return Array.isArray(fixed) ? { pre: fixed } : fixed;
         }
         return this.iterator("table", function(settings) {
@@ -11020,30 +11403,73 @@ var require_jquery_dataTables = __commonJS({
         "column().order()"
       ], function(dir) {
         var that = this;
-        return this.iterator("table", function(settings, i2) {
-          var sort = [];
-          $3.each(that[i2], function(j, col) {
-            sort.push([col, dir]);
+        if (!dir) {
+          return this.iterator("column", function(settings, idx) {
+            var sort = _fnSortFlatten(settings);
+            for (var i2 = 0, iLen = sort.length; i2 < iLen; i2++) {
+              if (sort[i2].col === idx) {
+                return sort[i2].dir;
+              }
+            }
+            return null;
+          }, 1);
+        } else {
+          return this.iterator("table", function(settings, i2) {
+            settings.aaSorting = that[i2].map(function(col) {
+              return [col, dir];
+            });
           });
-          settings.aaSorting = sort;
+        }
+      });
+      _api_registerPlural("columns().orderable()", "column().orderable()", function(directions) {
+        return this.iterator("column", function(settings, idx) {
+          var col = settings.aoColumns[idx];
+          return directions ? col.asSorting : col.bSortable;
+        }, 1);
+      });
+      _api_register("processing()", function(show) {
+        return this.iterator("table", function(ctx) {
+          _fnProcessingDisplay(ctx, show);
         });
       });
       _api_register("search()", function(input, regex, smart, caseInsen) {
         var ctx = this.context;
-        if (input === undefined2) {
-          return ctx.length !== 0 ? ctx[0].oPreviousSearch.sSearch : undefined2;
+        if (input === void 0) {
+          return ctx.length !== 0 ? ctx[0].oPreviousSearch.search : void 0;
         }
         return this.iterator("table", function(settings) {
           if (!settings.oFeatures.bFilter) {
             return;
           }
-          _fnFilterComplete(settings, $3.extend({}, settings.oPreviousSearch, {
-            "sSearch": input + "",
-            "bRegex": regex === null ? false : regex,
-            "bSmart": smart === null ? true : smart,
-            "bCaseInsensitive": caseInsen === null ? true : caseInsen
-          }), 1);
+          if (typeof regex === "object") {
+            _fnFilterComplete(settings, $3.extend(settings.oPreviousSearch, regex, {
+              search: input
+            }));
+          } else {
+            _fnFilterComplete(settings, $3.extend(settings.oPreviousSearch, {
+              search: input,
+              regex: regex === null ? false : regex,
+              smart: smart === null ? true : smart,
+              caseInsensitive: caseInsen === null ? true : caseInsen
+            }));
+          }
         });
+      });
+      _api_register("search.fixed()", function(name, search) {
+        var ret = this.iterator(true, "table", function(settings) {
+          var fixed = settings.searchFixed;
+          if (!name) {
+            return Object.keys(fixed);
+          } else if (search === void 0) {
+            return fixed[name];
+          } else if (search === null) {
+            delete fixed[name];
+          } else {
+            fixed[name] = search;
+          }
+          return this;
+        });
+        return name !== void 0 && search === void 0 ? ret[0] : ret;
       });
       _api_registerPlural(
         "columns().search()",
@@ -11051,24 +11477,62 @@ var require_jquery_dataTables = __commonJS({
         function(input, regex, smart, caseInsen) {
           return this.iterator("column", function(settings, column) {
             var preSearch = settings.aoPreSearchCols;
-            if (input === undefined2) {
-              return preSearch[column].sSearch;
+            if (input === void 0) {
+              return preSearch[column].search;
             }
             if (!settings.oFeatures.bFilter) {
               return;
             }
-            $3.extend(preSearch[column], {
-              "sSearch": input + "",
-              "bRegex": regex === null ? false : regex,
-              "bSmart": smart === null ? true : smart,
-              "bCaseInsensitive": caseInsen === null ? true : caseInsen
-            });
-            _fnFilterComplete(settings, settings.oPreviousSearch, 1);
+            if (typeof regex === "object") {
+              $3.extend(preSearch[column], regex, {
+                search: input
+              });
+            } else {
+              $3.extend(preSearch[column], {
+                search: input,
+                regex: regex === null ? false : regex,
+                smart: smart === null ? true : smart,
+                caseInsensitive: caseInsen === null ? true : caseInsen
+              });
+            }
+            _fnFilterComplete(settings, settings.oPreviousSearch);
           });
         }
       );
-      _api_register("state()", function() {
-        return this.context.length ? this.context[0].oSavedState : null;
+      _api_register(
+        [
+          "columns().search.fixed()",
+          "column().search.fixed()"
+        ],
+        function(name, search) {
+          var ret = this.iterator(true, "column", function(settings, colIdx) {
+            var fixed = settings.aoColumns[colIdx].searchFixed;
+            if (!name) {
+              return Object.keys(fixed);
+            } else if (search === void 0) {
+              return fixed[name] || null;
+            } else if (search === null) {
+              delete fixed[name];
+            } else {
+              fixed[name] = search;
+            }
+            return this;
+          });
+          return name !== void 0 && search === void 0 ? ret[0] : ret;
+        }
+      );
+      _api_register("state()", function(set, ignoreTime) {
+        if (!set) {
+          return this.context.length ? this.context[0].oSavedState : null;
+        }
+        var setMutate = $3.extend(true, {}, set);
+        return this.iterator("table", function(settings) {
+          if (ignoreTime !== false) {
+            setMutate.time = +new Date() + 100;
+          }
+          _fnImplementState(settings, setMutate, function() {
+          });
+        });
       });
       _api_register("state.clear()", function() {
         return this.iterator("table", function(settings) {
@@ -11083,17 +11547,50 @@ var require_jquery_dataTables = __commonJS({
           _fnSaveState(settings);
         });
       });
-      DataTable.use = function(module2, type) {
-        if (type === "lib" || module2.fn) {
+      var __bootstrap;
+      var __foundation;
+      DataTable2.use = function(arg1, arg2) {
+        var module2 = typeof arg1 === "string" ? arg2 : arg1;
+        var type = typeof arg2 === "string" ? arg2 : arg1;
+        if (module2 === void 0 && typeof type === "string") {
+          switch (type) {
+            case "lib":
+            case "jq":
+              return $3;
+            case "win":
+              return window2;
+            case "datetime":
+              return DataTable2.DateTime;
+            case "luxon":
+              return __luxon;
+            case "moment":
+              return __moment;
+            case "bootstrap":
+              return __bootstrap || window2.bootstrap;
+            case "foundation":
+              return __foundation || window2.Foundation;
+            default:
+              return null;
+          }
+        }
+        if (type === "lib" || type === "jq" || module2 && module2.fn && module2.fn.jquery) {
           $3 = module2;
-        } else if (type == "win" || module2.document) {
+        } else if (type === "win" || module2 && module2.document) {
           window2 = module2;
           document2 = module2.document;
-        } else if (type === "datetime" || module2.type === "DateTime") {
-          DataTable.DateTime = module2;
+        } else if (type === "datetime" || module2 && module2.type === "DateTime") {
+          DataTable2.DateTime = module2;
+        } else if (type === "luxon" || module2 && module2.FixedOffsetZone) {
+          __luxon = module2;
+        } else if (type === "moment" || module2 && module2.isMoment) {
+          __moment = module2;
+        } else if (type === "bootstrap" || module2 && module2.Modal && module2.Modal.NAME === "modal") {
+          __bootstrap = module2;
+        } else if (type === "foundation" || module2 && module2.Reveal) {
+          __foundation = module2;
         }
       };
-      DataTable.factory = function(root, jq) {
+      DataTable2.factory = function(root, jq) {
         var is = false;
         if (root && root.document) {
           window2 = root;
@@ -11105,8 +11602,8 @@ var require_jquery_dataTables = __commonJS({
         }
         return is;
       };
-      DataTable.versionCheck = DataTable.fnVersionCheck = function(version) {
-        var aThis = DataTable.version.split(".");
+      DataTable2.versionCheck = function(version, version2) {
+        var aThis = version2 ? version2.split(".") : DataTable2.version.split(".");
         var aThat = version.split(".");
         var iThis, iThat;
         for (var i2 = 0, iLen = aThat.length; i2 < iLen; i2++) {
@@ -11119,13 +11616,13 @@ var require_jquery_dataTables = __commonJS({
         }
         return true;
       };
-      DataTable.isDataTable = DataTable.fnIsDataTable = function(table) {
+      DataTable2.isDataTable = function(table) {
         var t = $3(table).get(0);
         var is = false;
-        if (table instanceof DataTable.Api) {
+        if (table instanceof DataTable2.Api) {
           return true;
         }
-        $3.each(DataTable.settings, function(i2, o) {
+        $3.each(DataTable2.settings, function(i2, o) {
           var head = o.nScrollHead ? $3("table", o.nScrollHead)[0] : null;
           var foot = o.nScrollFoot ? $3("table", o.nScrollFoot)[0] : null;
           if (o.nTable === t || head === t || foot === t) {
@@ -11134,20 +11631,20 @@ var require_jquery_dataTables = __commonJS({
         });
         return is;
       };
-      DataTable.tables = DataTable.fnTables = function(visible) {
+      DataTable2.tables = function(visible) {
         var api = false;
         if ($3.isPlainObject(visible)) {
           api = visible.api;
           visible = visible.visible;
         }
-        var a = $3.map(DataTable.settings, function(o) {
-          if (!visible || visible && $3(o.nTable).is(":visible")) {
-            return o.nTable;
-          }
+        var a = DataTable2.settings.filter(function(o) {
+          return !visible || visible && $3(o.nTable).is(":visible") ? true : false;
+        }).map(function(o) {
+          return o.nTable;
         });
         return api ? new _Api(a) : a;
       };
-      DataTable.camelToHungarian = _fnCamelToHungarian;
+      DataTable2.camelToHungarian = _fnCamelToHungarian;
       _api_register("$()", function(selector, opts) {
         var rows = this.rows(opts).nodes(), jqRows = $3(rows);
         return $3([].concat(
@@ -11158,7 +11655,7 @@ var require_jquery_dataTables = __commonJS({
       $3.each(["on", "one", "off"], function(i2, key) {
         _api_register(key + "()", function() {
           var args = Array.prototype.slice.call(arguments);
-          args[0] = $3.map(args[0].split(/\s/), function(e) {
+          args[0] = args[0].split(/\s/).map(function(e) {
             return !e.match(/\.dt\b/) ? e + ".dt" : e;
           }).join(" ");
           var inst = $3(this.tables().nodes());
@@ -11169,6 +11666,11 @@ var require_jquery_dataTables = __commonJS({
       _api_register("clear()", function() {
         return this.iterator("table", function(settings) {
           _fnClearTable(settings);
+        });
+      });
+      _api_register("error()", function(msg) {
+        return this.iterator("table", function(settings) {
+          _fnLog(settings, 0, msg);
         });
       });
       _api_register("settings()", function() {
@@ -11183,6 +11685,27 @@ var require_jquery_dataTables = __commonJS({
           return _pluck(settings.aoData, "_aData");
         }).flatten();
       });
+      _api_register("trigger()", function(name, args, bubbles) {
+        return this.iterator("table", function(settings) {
+          return _fnCallbackFire(settings, null, name, args, bubbles);
+        }).flatten();
+      });
+      _api_register("ready()", function(fn) {
+        var ctx = this.context;
+        if (!fn) {
+          return ctx.length ? ctx[0]._bInitComplete || false : null;
+        }
+        return this.tables().every(function() {
+          var api = this;
+          if (this.context[0]._bInitComplete) {
+            fn.call(api);
+          } else {
+            this.on("init.dt.DT", function() {
+              fn.call(api);
+            });
+          }
+        });
+      });
       _api_register("destroy()", function(remove) {
         remove = remove || false;
         return this.iterator("table", function(settings) {
@@ -11194,14 +11717,17 @@ var require_jquery_dataTables = __commonJS({
           var jqTable = $3(table);
           var jqTbody = $3(tbody);
           var jqWrapper = $3(settings.nTableWrapper);
-          var rows = $3.map(settings.aoData, function(r) {
-            return r.nTr;
+          var rows = settings.aoData.map(function(r) {
+            return r ? r.nTr : null;
           });
-          var i2, ien;
+          var orderClasses = classes.order;
           settings.bDestroying = true;
-          _fnCallbackFire(settings, "aoDestroyCallback", "destroy", [settings]);
+          _fnCallbackFire(settings, "aoDestroyCallback", "destroy", [settings], true);
           if (!remove) {
             new _Api(settings).columns().visible(true);
+          }
+          if (settings.resizeObserver) {
+            settings.resizeObserver.disconnect();
           }
           jqWrapper.off(".DT").find(":not(tbody *)").off(".DT");
           $3(window2).off(".DT-" + settings.sInstance);
@@ -11213,32 +11739,34 @@ var require_jquery_dataTables = __commonJS({
             jqTable.children("tfoot").detach();
             jqTable.append(tfoot);
           }
+          cleanHeader(thead, "header");
+          cleanHeader(tfoot, "footer");
+          settings.colgroup.remove();
           settings.aaSorting = [];
           settings.aaSortingFixed = [];
           _fnSortingClasses(settings);
-          $3(rows).removeClass(settings.asStripeClasses.join(" "));
-          $3("th, td", thead).removeClass(
-            classes.sSortable + " " + classes.sSortableAsc + " " + classes.sSortableDesc + " " + classes.sSortableNone
+          $3(jqTable).find("th, td").removeClass(
+            $3.map(DataTable2.ext.type.className, function(v) {
+              return v;
+            }).join(" ")
           );
+          $3("th, td", thead).removeClass(
+            orderClasses.none + " " + orderClasses.canAsc + " " + orderClasses.canDesc + " " + orderClasses.isAsc + " " + orderClasses.isDesc
+          ).css("width", "").removeAttr("aria-sort");
           jqTbody.children().detach();
           jqTbody.append(rows);
           var orig = settings.nTableWrapper.parentNode;
+          var insertBefore = settings.nTableWrapper.nextSibling;
           var removedMethod = remove ? "remove" : "detach";
           jqTable[removedMethod]();
           jqWrapper[removedMethod]();
           if (!remove && orig) {
-            orig.insertBefore(table, settings.nTableReinsertBefore);
-            jqTable.css("width", settings.sDestroyWidth).removeClass(classes.sTable);
-            ien = settings.asDestroyStripes.length;
-            if (ien) {
-              jqTbody.children().each(function(i3) {
-                $3(this).addClass(settings.asDestroyStripes[i3 % ien]);
-              });
-            }
+            orig.insertBefore(table, insertBefore);
+            jqTable.css("width", settings.sDestroyWidth).removeClass(classes.table);
           }
-          var idx = $3.inArray(settings, DataTable.settings);
+          var idx = DataTable2.settings.indexOf(settings);
           if (idx !== -1) {
-            DataTable.settings.splice(idx, 1);
+            DataTable2.settings.splice(idx, 1);
           }
         });
       });
@@ -11246,54 +11774,62 @@ var require_jquery_dataTables = __commonJS({
         _api_register(type + "s().every()", function(fn) {
           var opts = this.selector.opts;
           var api = this;
-          return this.iterator(type, function(settings, arg1, arg2, arg3, arg4) {
-            fn.call(
-              api[type](
-                arg1,
-                type === "cell" ? arg2 : opts,
-                type === "cell" ? opts : undefined2
-              ),
-              arg1,
-              arg2,
-              arg3,
-              arg4
-            );
+          var inst;
+          var counter = 0;
+          return this.iterator("every", function(settings, selectedIdx, tableIdx) {
+            inst = api[type](selectedIdx, opts);
+            if (type === "cell") {
+              fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
+            } else {
+              fn.call(inst, selectedIdx, tableIdx, counter);
+            }
+            counter++;
           });
         });
       });
       _api_register("i18n()", function(token, def, plural) {
         var ctx = this.context[0];
         var resolved = _fnGetObjectDataFn(token)(ctx.oLanguage);
-        if (resolved === undefined2) {
+        if (resolved === void 0) {
           resolved = def;
         }
-        if (plural !== undefined2 && $3.isPlainObject(resolved)) {
-          resolved = resolved[plural] !== undefined2 ? resolved[plural] : resolved._;
+        if ($3.isPlainObject(resolved)) {
+          resolved = plural !== void 0 && resolved[plural] !== void 0 ? resolved[plural] : plural === false ? resolved : resolved._;
         }
         return typeof resolved === "string" ? resolved.replace("%d", plural) : resolved;
       });
-      DataTable.version = "1.13.7";
-      DataTable.settings = [];
-      DataTable.models = {};
-      DataTable.models.oSearch = {
-        "bCaseInsensitive": true,
-        "sSearch": "",
-        "bRegex": false,
-        "bSmart": true,
+      function cleanHeader(node, className) {
+        $3(node).find(".dt-column-order").remove();
+        $3(node).find(".dt-column-title").each(function() {
+          var title = $3(this).html();
+          $3(this).parent().parent().append(title);
+          $3(this).remove();
+        });
+        $3(node).find("div.dt-column-" + className).remove();
+        $3("th, td", node).removeAttr("data-dt-column");
+      }
+      DataTable2.version = "2.3.7";
+      DataTable2.settings = [];
+      DataTable2.models = {};
+      DataTable2.models.oSearch = {
+        "caseInsensitive": true,
+        "search": "",
+        "regex": false,
+        "smart": true,
         "return": false
       };
-      DataTable.models.oRow = {
+      DataTable2.models.oRow = {
         "nTr": null,
         "anCells": null,
         "_aData": [],
         "_aSortData": null,
         "_aFilterData": null,
         "_sFilterRow": null,
-        "_sRowStripe": "",
         "src": null,
-        "idx": -1
+        "idx": -1,
+        displayData: null
       };
-      DataTable.models.oColumn = {
+      DataTable2.models.oColumn = {
         "idx": null,
         "aDataSort": null,
         "asSorting": null,
@@ -11307,21 +11843,20 @@ var require_jquery_dataTables = __commonJS({
         "fnSetData": null,
         "mData": null,
         "mRender": null,
-        "nTh": null,
-        "nTf": null,
         "sClass": null,
         "sContentPadding": null,
         "sDefaultContent": null,
         "sName": null,
         "sSortDataType": "std",
         "sSortingClass": null,
-        "sSortingClassJUI": null,
         "sTitle": null,
         "sType": null,
         "sWidth": null,
-        "sWidthOrig": null
+        "sWidthOrig": null,
+        wideStrings: null,
+        searchFixed: null
       };
-      DataTable.defaults = {
+      DataTable2.defaults = {
         "aaData": null,
         "aaSorting": [[0, "asc"]],
         "aaSortingFixed": [],
@@ -11330,9 +11865,8 @@ var require_jquery_dataTables = __commonJS({
         "aoColumns": null,
         "aoColumnDefs": null,
         "aoSearchCols": [],
-        "asStripeClasses": null,
         "bAutoWidth": true,
-        "bDeferRender": false,
+        "bDeferRender": true,
         "bDestroy": false,
         "bFilter": true,
         "bInfo": true,
@@ -11344,7 +11878,8 @@ var require_jquery_dataTables = __commonJS({
         "bServerSide": false,
         "bSort": true,
         "bSortMulti": true,
-        "bSortCellsTop": false,
+        "bSortCellsTop": null,
+        titleRow: null,
         "bSortClasses": true,
         "bStateSave": false,
         "fnCreatedRow": null,
@@ -11361,8 +11896,6 @@ var require_jquery_dataTables = __commonJS({
         "fnInitComplete": null,
         "fnPreDrawCallback": null,
         "fnRowCallback": null,
-        "fnServerData": null,
-        "fnServerParams": null,
         "fnStateLoadCallback": function(settings) {
           try {
             return JSON.parse(
@@ -11387,30 +11920,44 @@ var require_jquery_dataTables = __commonJS({
         },
         "fnStateSaveParams": null,
         "iStateDuration": 7200,
-        "iDeferLoading": null,
         "iDisplayLength": 10,
         "iDisplayStart": 0,
         "iTabIndex": 0,
         "oClasses": {},
         "oLanguage": {
           "oAria": {
-            "sSortAscending": ": activate to sort column ascending",
-            "sSortDescending": ": activate to sort column descending"
+            "orderable": ": Activate to sort",
+            "orderableReverse": ": Activate to invert sorting",
+            "orderableRemove": ": Activate to remove sorting",
+            paginate: {
+              first: "First",
+              last: "Last",
+              next: "Next",
+              previous: "Previous",
+              number: ""
+            }
           },
           "oPaginate": {
-            "sFirst": "First",
-            "sLast": "Last",
-            "sNext": "Next",
-            "sPrevious": "Previous"
+            "sFirst": "\xAB",
+            "sLast": "\xBB",
+            "sNext": "\u203A",
+            "sPrevious": "\u2039"
+          },
+          entries: {
+            _: "entries",
+            1: "entry"
+          },
+          lengthLabels: {
+            "-1": "All"
           },
           "sEmptyTable": "No data available in table",
-          "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-          "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-          "sInfoFiltered": "(filtered from _MAX_ total entries)",
+          "sInfo": "Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_",
+          "sInfoEmpty": "Showing 0 to 0 of 0 _ENTRIES-TOTAL_",
+          "sInfoFiltered": "(filtered from _MAX_ total _ENTRIES-MAX_)",
           "sInfoPostFix": "",
           "sDecimal": "",
           "sThousands": ",",
-          "sLengthMenu": "Show _MENU_ entries",
+          "sLengthMenu": "_MENU_ _ENTRIES_ per page",
           "sLoadingRecords": "Loading...",
           "sProcessing": "",
           "sSearch": "Search:",
@@ -11418,24 +11965,34 @@ var require_jquery_dataTables = __commonJS({
           "sUrl": "",
           "sZeroRecords": "No matching records found"
         },
-        "oSearch": $3.extend({}, DataTable.models.oSearch),
-        "sAjaxDataProp": "data",
-        "sAjaxSource": null,
-        "sDom": "lfrtip",
+        orderDescReverse: true,
+        "oSearch": $3.extend({}, DataTable2.models.oSearch),
+        layout: {
+          topStart: "pageLength",
+          topEnd: "search",
+          bottomStart: "info",
+          bottomEnd: "paging"
+        },
+        "sDom": null,
         "searchDelay": null,
-        "sPaginationType": "simple_numbers",
+        "sPaginationType": "",
         "sScrollX": "",
         "sScrollXInner": "",
         "sScrollY": "",
         "sServerMethod": "GET",
         "renderer": null,
-        "rowId": "DT_RowId"
+        "rowId": "DT_RowId",
+        "caption": null,
+        iDeferLoading: null,
+        on: null,
+        columnTitleTag: "span"
       };
-      _fnHungarianMap(DataTable.defaults);
-      DataTable.defaults.column = {
+      _fnHungarianMap(DataTable2.defaults);
+      DataTable2.defaults.column = {
         "aDataSort": null,
         "iDataSort": -1,
-        "asSorting": ["asc", "desc"],
+        ariaTitle: "",
+        "asSorting": ["asc", "desc", ""],
         "bSearchable": true,
         "bSortable": true,
         "bVisible": true,
@@ -11452,14 +12009,14 @@ var require_jquery_dataTables = __commonJS({
         "sType": null,
         "sWidth": null
       };
-      _fnHungarianMap(DataTable.defaults.column);
-      DataTable.models.oSettings = {
+      _fnHungarianMap(DataTable2.defaults.column);
+      DataTable2.models.oSettings = {
         "oFeatures": {
           "bAutoWidth": null,
           "bDeferRender": null,
           "bFilter": null,
-          "bInfo": null,
-          "bLengthChange": null,
+          "bInfo": true,
+          "bLengthChange": true,
           "bPaginate": null,
           "bProcessing": null,
           "bServerSide": null,
@@ -11479,9 +12036,7 @@ var require_jquery_dataTables = __commonJS({
           "fnInfoCallback": null
         },
         "oBrowser": {
-          "bScrollOversize": false,
           "bScrollbarLeft": false,
-          "bBounding": false,
           "barWidth": 0
         },
         "ajax": null,
@@ -11494,11 +12049,10 @@ var require_jquery_dataTables = __commonJS({
         "aoHeader": [],
         "aoFooter": [],
         "oPreviousSearch": {},
+        searchFixed: {},
         "aoPreSearchCols": [],
         "aaSorting": null,
         "aaSortingFixed": [],
-        "asStripeClasses": null,
-        "asDestroyStripes": [],
         "sDestroyWidth": 0,
         "aoRowCallback": [],
         "aoHeaderCallback": [],
@@ -11516,24 +12070,21 @@ var require_jquery_dataTables = __commonJS({
         "nTFoot": null,
         "nTBody": null,
         "nTableWrapper": null,
-        "bDeferLoading": false,
         "bInitialised": false,
         "aoOpenRows": [],
         "sDom": null,
         "searchDelay": null,
         "sPaginationType": "two_button",
+        pagingControls: 0,
         "iStateDuration": 0,
         "aoStateSave": [],
         "aoStateLoad": [],
         "oSavedState": null,
         "oLoadedState": null,
-        "sAjaxSource": null,
-        "sAjaxDataProp": null,
+        "bAjaxDataGet": true,
         "jqXHR": null,
-        "json": undefined2,
-        "oAjaxData": undefined2,
-        "fnServerData": null,
-        "aoServerParams": [],
+        "json": void 0,
+        "oAjaxData": void 0,
         "sServerMethod": null,
         "fnFormatNumber": null,
         "aLengthMenu": null,
@@ -11572,395 +12123,127 @@ var require_jquery_dataTables = __commonJS({
         "aLastSort": [],
         "oPlugins": {},
         "rowIdFn": null,
-        "rowId": null
+        "rowId": null,
+        caption: "",
+        captionNode: null,
+        colgroup: null,
+        deferLoading: null,
+        typeDetect: true,
+        resizeObserver: null,
+        containerWidth: -1,
+        orderDescReverse: null,
+        orderIndicators: true,
+        orderHandler: true,
+        titleRow: null,
+        columnTitleTag: "span"
       };
-      DataTable.ext = _ext = {
-        buttons: {},
-        classes: {},
-        builder: "-source-",
-        errMode: "alert",
-        feature: [],
-        search: [],
-        selector: {
-          cell: [],
-          column: [],
-          row: []
-        },
-        internal: {},
-        legacy: {
-          ajax: null
-        },
-        pager: {},
-        renderer: {
-          pageButton: {},
-          header: {}
-        },
-        order: {},
-        type: {
-          detect: [],
-          search: {},
-          order: {}
-        },
-        _unique: 0,
-        fnVersionCheck: DataTable.fnVersionCheck,
-        iApiIndex: 0,
-        oJUIClasses: {},
-        sVersion: DataTable.version
-      };
-      $3.extend(_ext, {
-        afnFiltering: _ext.search,
-        aTypes: _ext.type.detect,
-        ofnSearch: _ext.type.search,
-        oSort: _ext.type.order,
-        afnSortData: _ext.order,
-        aoFeatures: _ext.feature,
-        oApi: _ext.internal,
-        oStdClasses: _ext.classes,
-        oPagination: _ext.pager
-      });
-      $3.extend(DataTable.ext.classes, {
-        "sTable": "dataTable",
-        "sNoFooter": "no-footer",
-        "sPageButton": "paginate_button",
-        "sPageButtonActive": "current",
-        "sPageButtonDisabled": "disabled",
-        "sStripeOdd": "odd",
-        "sStripeEven": "even",
-        "sRowEmpty": "dataTables_empty",
-        "sWrapper": "dataTables_wrapper",
-        "sFilter": "dataTables_filter",
-        "sInfo": "dataTables_info",
-        "sPaging": "dataTables_paginate paging_",
-        "sLength": "dataTables_length",
-        "sProcessing": "dataTables_processing",
-        "sSortAsc": "sorting_asc",
-        "sSortDesc": "sorting_desc",
-        "sSortable": "sorting",
-        "sSortableAsc": "sorting_desc_disabled",
-        "sSortableDesc": "sorting_asc_disabled",
-        "sSortableNone": "sorting_disabled",
-        "sSortColumn": "sorting_",
-        "sFilterInput": "",
-        "sLengthSelect": "",
-        "sScrollWrapper": "dataTables_scroll",
-        "sScrollHead": "dataTables_scrollHead",
-        "sScrollHeadInner": "dataTables_scrollHeadInner",
-        "sScrollBody": "dataTables_scrollBody",
-        "sScrollFoot": "dataTables_scrollFoot",
-        "sScrollFootInner": "dataTables_scrollFootInner",
-        "sHeaderTH": "",
-        "sFooterTH": "",
-        "sSortJUIAsc": "",
-        "sSortJUIDesc": "",
-        "sSortJUI": "",
-        "sSortJUIAscAllowed": "",
-        "sSortJUIDescAllowed": "",
-        "sSortJUIWrapper": "",
-        "sSortIcon": "",
-        "sJUIHeader": "",
-        "sJUIFooter": ""
-      });
-      var extPagination = DataTable.ext.pager;
-      function _numbers(page, pages) {
-        var numbers = [], buttons = extPagination.numbers_length, half = Math.floor(buttons / 2), i2 = 1;
-        if (pages <= buttons) {
-          numbers = _range(0, pages);
-        } else if (page <= half) {
-          numbers = _range(0, buttons - 2);
-          numbers.push("ellipsis");
-          numbers.push(pages - 1);
-        } else if (page >= pages - 1 - half) {
-          numbers = _range(pages - (buttons - 2), pages);
-          numbers.splice(0, 0, "ellipsis");
-          numbers.splice(0, 0, 0);
-        } else {
-          numbers = _range(page - half + 2, page + half - 1);
-          numbers.push("ellipsis");
-          numbers.push(pages - 1);
-          numbers.splice(0, 0, "ellipsis");
-          numbers.splice(0, 0, 0);
-        }
-        numbers.DT_el = "span";
-        return numbers;
-      }
+      var extPagination = DataTable2.ext.pager;
       $3.extend(extPagination, {
-        simple: function(page, pages) {
+        simple: function() {
           return ["previous", "next"];
         },
-        full: function(page, pages) {
+        full: function() {
           return ["first", "previous", "next", "last"];
         },
-        numbers: function(page, pages) {
-          return [_numbers(page, pages)];
+        numbers: function() {
+          return ["numbers"];
         },
-        simple_numbers: function(page, pages) {
-          return ["previous", _numbers(page, pages), "next"];
+        simple_numbers: function() {
+          return ["previous", "numbers", "next"];
         },
-        full_numbers: function(page, pages) {
-          return ["first", "previous", _numbers(page, pages), "next", "last"];
+        full_numbers: function() {
+          return ["first", "previous", "numbers", "next", "last"];
         },
-        first_last_numbers: function(page, pages) {
-          return ["first", _numbers(page, pages), "last"];
+        first_last: function() {
+          return ["first", "last"];
         },
-        _numbers,
+        first_last_numbers: function() {
+          return ["first", "numbers", "last"];
+        },
+        _numbers: _pagingNumbers,
         numbers_length: 7
       });
-      $3.extend(true, DataTable.ext.renderer, {
-        pageButton: {
-          _: function(settings, host, idx, buttons, page, pages) {
-            var classes = settings.oClasses;
-            var lang = settings.oLanguage.oPaginate;
-            var aria = settings.oLanguage.oAria.paginate || {};
-            var btnDisplay, btnClass;
-            var attach = function(container, buttons2) {
-              var i2, ien, node, button;
-              var disabledClass = classes.sPageButtonDisabled;
-              var clickHandler = function(e) {
-                _fnPageChange(settings, e.data.action, true);
-              };
-              for (i2 = 0, ien = buttons2.length; i2 < ien; i2++) {
-                button = buttons2[i2];
-                if (Array.isArray(button)) {
-                  var inner = $3("<" + (button.DT_el || "div") + "/>").appendTo(container);
-                  attach(inner, button);
-                } else {
-                  var disabled = false;
-                  btnDisplay = null;
-                  btnClass = button;
-                  switch (button) {
-                    case "ellipsis":
-                      container.append('<span class="ellipsis">&#x2026;</span>');
-                      break;
-                    case "first":
-                      btnDisplay = lang.sFirst;
-                      if (page === 0) {
-                        disabled = true;
-                      }
-                      break;
-                    case "previous":
-                      btnDisplay = lang.sPrevious;
-                      if (page === 0) {
-                        disabled = true;
-                      }
-                      break;
-                    case "next":
-                      btnDisplay = lang.sNext;
-                      if (pages === 0 || page === pages - 1) {
-                        disabled = true;
-                      }
-                      break;
-                    case "last":
-                      btnDisplay = lang.sLast;
-                      if (pages === 0 || page === pages - 1) {
-                        disabled = true;
-                      }
-                      break;
-                    default:
-                      btnDisplay = settings.fnFormatNumber(button + 1);
-                      btnClass = page === button ? classes.sPageButtonActive : "";
-                      break;
-                  }
-                  if (btnDisplay !== null) {
-                    var tag = settings.oInit.pagingTag || "a";
-                    if (disabled) {
-                      btnClass += " " + disabledClass;
-                    }
-                    node = $3("<" + tag + ">", {
-                      "class": classes.sPageButton + " " + btnClass,
-                      "aria-controls": settings.sTableId,
-                      "aria-disabled": disabled ? "true" : null,
-                      "aria-label": aria[button],
-                      "role": "link",
-                      "aria-current": btnClass === classes.sPageButtonActive ? "page" : null,
-                      "data-dt-idx": button,
-                      "tabindex": disabled ? -1 : settings.iTabIndex,
-                      "id": idx === 0 && typeof button === "string" ? settings.sTableId + "_" + button : null
-                    }).html(btnDisplay).appendTo(container);
-                    _fnBindAction(
-                      node,
-                      { action: button },
-                      clickHandler
-                    );
-                  }
-                }
-              }
+      $3.extend(true, DataTable2.ext.renderer, {
+        pagingButton: {
+          _: function(settings, buttonType, content, active, disabled) {
+            var classes = settings.oClasses.paging;
+            var btnClasses = [classes.button];
+            var btn;
+            if (active) {
+              btnClasses.push(classes.active);
+            }
+            if (disabled) {
+              btnClasses.push(classes.disabled);
+            }
+            if (buttonType === "ellipsis") {
+              btn = $3('<span class="ellipsis"></span>').html(content)[0];
+            } else {
+              btn = $3("<button>", {
+                class: btnClasses.join(" "),
+                role: "link",
+                type: "button"
+              }).html(content);
+            }
+            return {
+              display: btn,
+              clicker: btn
             };
-            var activeEl;
-            try {
-              activeEl = $3(host).find(document2.activeElement).data("dt-idx");
-            } catch (e) {
-            }
-            attach($3(host).empty(), buttons);
-            if (activeEl !== undefined2) {
-              $3(host).find("[data-dt-idx=" + activeEl + "]").trigger("focus");
-            }
+          }
+        },
+        pagingContainer: {
+          _: function(settings, buttons) {
+            return buttons;
           }
         }
       });
-      $3.extend(DataTable.ext.type.detect, [
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _isNumber(d, decimal) ? "num" + decimal : null;
-        },
-        function(d, settings) {
-          if (d && !(d instanceof Date) && !_re_date.test(d)) {
-            return null;
+      var _filterString = function(stripHtml, normalize) {
+        return function(str) {
+          if (_empty(str) || typeof str !== "string") {
+            return str;
           }
-          var parsed = Date.parse(d);
-          return parsed !== null && !isNaN(parsed) || _empty(d) ? "date" : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _isNumber(d, decimal, true) ? "num-fmt" + decimal : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _htmlNumeric(d, decimal) ? "html-num" + decimal : null;
-        },
-        function(d, settings) {
-          var decimal = settings.oLanguage.sDecimal;
-          return _htmlNumeric(d, decimal, true) ? "html-num-fmt" + decimal : null;
-        },
-        function(d, settings) {
-          return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1 ? "html" : null;
-        }
-      ]);
-      $3.extend(DataTable.ext.type.search, {
-        html: function(data) {
-          return _empty(data) ? data : typeof data === "string" ? data.replace(_re_new_lines, " ").replace(_re_html, "") : "";
-        },
-        string: function(data) {
-          return _empty(data) ? data : typeof data === "string" ? data.replace(_re_new_lines, " ") : data;
-        }
-      });
-      var __numericReplace = function(d, decimalPlace, re1, re2) {
-        if (d !== 0 && (!d || d === "-")) {
-          return -Infinity;
-        }
-        var type = typeof d;
-        if (type === "number" || type === "bigint") {
-          return d;
-        }
-        if (decimalPlace) {
-          d = _numToDecimal(d, decimalPlace);
-        }
-        if (d.replace) {
-          if (re1) {
-            d = d.replace(re1, "");
+          str = str.replace(_re_new_lines, " ");
+          if (stripHtml) {
+            str = _stripHtml(str);
           }
-          if (re2) {
-            d = d.replace(re2, "");
+          if (normalize) {
+            str = _normalize(str, false);
           }
-        }
-        return d * 1;
+          return str;
+        };
       };
-      function _addNumericSort(decimalPlace) {
-        $3.each(
-          {
-            "num": function(d) {
-              return __numericReplace(d, decimalPlace);
-            },
-            "num-fmt": function(d) {
-              return __numericReplace(d, decimalPlace, _re_formatted_numeric);
-            },
-            "html-num": function(d) {
-              return __numericReplace(d, decimalPlace, _re_html);
-            },
-            "html-num-fmt": function(d) {
-              return __numericReplace(d, decimalPlace, _re_html, _re_formatted_numeric);
-            }
-          },
-          function(key, fn) {
-            _ext.type.order[key + decimalPlace + "-pre"] = fn;
-            if (key.match(/^html\-/)) {
-              _ext.type.search[key + decimalPlace] = _ext.type.search.html;
-            }
-          }
-        );
-      }
-      $3.extend(_ext.type.order, {
-        "date-pre": function(d) {
-          var ts = Date.parse(d);
-          return isNaN(ts) ? -Infinity : ts;
-        },
-        "html-pre": function(a) {
-          return _empty(a) ? "" : a.replace ? a.replace(/<.*?>/g, "").toLowerCase() : a + "";
-        },
-        "string-pre": function(a) {
-          return _empty(a) ? "" : typeof a === "string" ? a.toLowerCase() : !a.toString ? "" : a.toString();
-        },
-        "string-asc": function(x, y) {
-          return x < y ? -1 : x > y ? 1 : 0;
-        },
-        "string-desc": function(x, y) {
-          return x < y ? 1 : x > y ? -1 : 0;
+      function __mld(dtLib, momentFn, luxonFn, dateFn, arg1) {
+        if (__moment) {
+          return dtLib[momentFn](arg1);
+        } else if (__luxon) {
+          return dtLib[luxonFn](arg1);
         }
-      });
-      _addNumericSort("");
-      $3.extend(true, DataTable.ext.renderer, {
-        header: {
-          _: function(settings, cell, column, classes) {
-            $3(settings.nTable).on("order.dt.DT", function(e, ctx, sorting, columns) {
-              if (settings !== ctx) {
-                return;
-              }
-              var colIdx = column.idx;
-              cell.removeClass(
-                classes.sSortAsc + " " + classes.sSortDesc
-              ).addClass(
-                columns[colIdx] == "asc" ? classes.sSortAsc : columns[colIdx] == "desc" ? classes.sSortDesc : column.sSortingClass
-              );
-            });
-          },
-          jqueryui: function(settings, cell, column, classes) {
-            $3("<div/>").addClass(classes.sSortJUIWrapper).append(cell.contents()).append(
-              $3("<span/>").addClass(classes.sSortIcon + " " + column.sSortingClassJUI)
-            ).appendTo(cell);
-            $3(settings.nTable).on("order.dt.DT", function(e, ctx, sorting, columns) {
-              if (settings !== ctx) {
-                return;
-              }
-              var colIdx = column.idx;
-              cell.removeClass(classes.sSortAsc + " " + classes.sSortDesc).addClass(
-                columns[colIdx] == "asc" ? classes.sSortAsc : columns[colIdx] == "desc" ? classes.sSortDesc : column.sSortingClass
-              );
-              cell.find("span." + classes.sSortIcon).removeClass(
-                classes.sSortJUIAsc + " " + classes.sSortJUIDesc + " " + classes.sSortJUI + " " + classes.sSortJUIAscAllowed + " " + classes.sSortJUIDescAllowed
-              ).addClass(
-                columns[colIdx] == "asc" ? classes.sSortJUIAsc : columns[colIdx] == "desc" ? classes.sSortJUIDesc : column.sSortingClassJUI
-              );
-            });
-          }
-        }
-      });
-      var __htmlEscapeEntities = function(d) {
-        if (Array.isArray(d)) {
-          d = d.join(",");
-        }
-        return typeof d === "string" ? d.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : d;
-      };
-      function __mld(dt, momentFn, luxonFn, dateFn, arg1) {
-        if (window2.moment) {
-          return dt[momentFn](arg1);
-        } else if (window2.luxon) {
-          return dt[luxonFn](arg1);
-        }
-        return dateFn ? dt[dateFn](arg1) : dt;
+        return dateFn ? dtLib[dateFn](arg1) : dtLib;
       }
       var __mlWarning = false;
+      var __luxon;
+      var __moment;
+      function resolveWindowLibs() {
+        if (window2.luxon && !__luxon) {
+          __luxon = window2.luxon;
+        }
+        if (window2.moment && !__moment) {
+          __moment = window2.moment;
+        }
+      }
       function __mldObj(d, format, locale) {
         var dt;
-        if (window2.moment) {
-          dt = window2.moment.utc(d, format, locale, true);
+        resolveWindowLibs();
+        if (__moment) {
+          dt = __moment.utc(d, format, locale, true);
           if (!dt.isValid()) {
             return null;
           }
-        } else if (window2.luxon) {
-          dt = format && typeof d === "string" ? window2.luxon.DateTime.fromFormat(d, format) : window2.luxon.DateTime.fromISO(d);
+        } else if (__luxon) {
+          dt = format && typeof d === "string" ? __luxon.DateTime.fromFormat(d, format) : __luxon.DateTime.fromISO(d);
           if (!dt.isValid) {
             return null;
           }
-          dt.setLocale(locale);
+          dt = dt.setLocale(locale);
         } else if (!format) {
           dt = new Date(d);
         } else {
@@ -11986,24 +12269,22 @@ var require_jquery_dataTables = __commonJS({
             to = from;
             from = null;
           }
-          var typeName = "datetime-" + to;
-          if (!DataTable.ext.type.order[typeName]) {
-            DataTable.ext.type.detect.unshift(function(d) {
-              return d === typeName ? typeName : false;
+          var typeName = "datetime" + (to ? "-" + to : "");
+          if (!DataTable2.ext.type.order[typeName + "-pre"]) {
+            DataTable2.type(typeName, {
+              detect: function(d) {
+                return d === typeName ? typeName : false;
+              },
+              order: {
+                pre: function(d) {
+                  return d.valueOf();
+                }
+              },
+              className: "dt-right"
             });
-            DataTable.ext.type.order[typeName + "-asc"] = function(a, b) {
-              var x = a.valueOf();
-              var y = b.valueOf();
-              return x === y ? 0 : x < y ? -1 : 1;
-            };
-            DataTable.ext.type.order[typeName + "-desc"] = function(a, b) {
-              var x = a.valueOf();
-              var y = b.valueOf();
-              return x === y ? 0 : x > y ? -1 : 1;
-            };
           }
           return function(d, type) {
-            if (d === null || d === undefined2) {
+            if (d === null || d === void 0) {
               if (def === "--now") {
                 var local = new Date();
                 d = new Date(Date.UTC(
@@ -12034,14 +12315,17 @@ var require_jquery_dataTables = __commonJS({
             if (type === "sort") {
               return dt;
             }
-            var formatted = to === null ? __mld(dt, "toDate", "toJSDate", "")[localeString]() : __mld(dt, "format", "toFormat", "toISOString", to);
-            return type === "display" ? __htmlEscapeEntities(formatted) : formatted;
+            var formatted = to === null ? __mld(dt, "toDate", "toJSDate", "")[localeString](
+              navigator.language,
+              { timeZone: "UTC" }
+            ) : __mld(dt, "format", "toFormat", "toISOString", to);
+            return type === "display" ? _escapeHtml(formatted) : formatted;
           };
         };
       }
       var __thousands = ",";
       var __decimal = ".";
-      if (window2.Intl !== undefined2) {
+      if (window2.Intl !== void 0) {
         try {
           var num = new Intl.NumberFormat().formatToParts(100000.1);
           for (var i = 0; i < num.length; i++) {
@@ -12054,30 +12338,35 @@ var require_jquery_dataTables = __commonJS({
         } catch (e) {
         }
       }
-      DataTable.datetime = function(format, locale) {
-        var typeName = "datetime-detect-" + format;
+      DataTable2.datetime = function(format, locale) {
+        var typeName = "datetime-" + format;
         if (!locale) {
           locale = "en";
         }
-        if (!DataTable.ext.type.order[typeName]) {
-          DataTable.ext.type.detect.unshift(function(d) {
-            var dt = __mldObj(d, format, locale);
-            return d === "" || dt ? typeName : false;
+        if (!DataTable2.ext.type.order[typeName]) {
+          DataTable2.type(typeName, {
+            detect: function(d) {
+              var dt = __mldObj(d, format, locale);
+              return d === "" || dt ? typeName : false;
+            },
+            order: {
+              pre: function(d) {
+                return __mldObj(d, format, locale) || 0;
+              }
+            },
+            className: "dt-right"
           });
-          DataTable.ext.type.order[typeName + "-pre"] = function(d) {
-            return __mldObj(d, format, locale) || 0;
-          };
         }
       };
-      DataTable.render = {
+      DataTable2.render = {
         date: __mlHelper("toLocaleDateString"),
         datetime: __mlHelper("toLocaleString"),
         time: __mlHelper("toLocaleTimeString"),
         number: function(thousands, decimal, precision, prefix, postfix) {
-          if (thousands === null || thousands === undefined2) {
+          if (thousands === null || thousands === void 0) {
             thousands = __thousands;
           }
-          if (decimal === null || decimal === undefined2) {
+          if (decimal === null || decimal === void 0) {
             decimal = __decimal;
           }
           return {
@@ -12090,8 +12379,13 @@ var require_jquery_dataTables = __commonJS({
               }
               var negative = d < 0 ? "-" : "";
               var flo = parseFloat(d);
+              var abs = Math.abs(flo);
+              if (abs >= 1e11 || abs < 1e-4 && abs !== 0) {
+                var exp = flo.toExponential(precision).split(/e\+?/);
+                return exp[0] + " x 10<sup>" + exp[1] + "</sup>";
+              }
               if (isNaN(flo)) {
-                return __htmlEscapeEntities(d);
+                return _escapeHtml(d);
               }
               flo = flo.toFixed(precision);
               d = Math.abs(flo);
@@ -12109,263 +12403,818 @@ var require_jquery_dataTables = __commonJS({
         },
         text: function() {
           return {
-            display: __htmlEscapeEntities,
-            filter: __htmlEscapeEntities
+            display: _escapeHtml,
+            filter: _escapeHtml
           };
         }
       };
-      function _fnExternApiFunc(fn) {
-        return function() {
-          var args = [_fnSettingsFromNode(this[DataTable.ext.iApiIndex])].concat(
-            Array.prototype.slice.call(arguments)
-          );
-          return DataTable.ext.internal[fn].apply(this, args);
+      var _extTypes = DataTable2.ext.type;
+      DataTable2.type = function(name, prop, val) {
+        if (!prop) {
+          return {
+            className: _extTypes.className[name],
+            detect: _extTypes.detect.find(function(fn) {
+              return fn._name === name;
+            }),
+            order: {
+              pre: _extTypes.order[name + "-pre"],
+              asc: _extTypes.order[name + "-asc"],
+              desc: _extTypes.order[name + "-desc"]
+            },
+            render: _extTypes.render[name],
+            search: _extTypes.search[name]
+          };
+        }
+        var setProp = function(prop2, propVal) {
+          _extTypes[prop2][name] = propVal;
         };
-      }
-      $3.extend(DataTable.ext.internal, {
-        _fnExternApiFunc,
-        _fnBuildAjax,
-        _fnAjaxUpdate,
-        _fnAjaxParameters,
-        _fnAjaxUpdateDraw,
-        _fnAjaxDataSrc,
-        _fnAddColumn,
-        _fnColumnOptions,
-        _fnAdjustColumnSizing,
-        _fnVisibleToColumnIndex,
-        _fnColumnIndexToVisible,
-        _fnVisbleColumns,
-        _fnGetColumns,
-        _fnColumnTypes,
-        _fnApplyColumnDefs,
-        _fnHungarianMap,
-        _fnCamelToHungarian,
-        _fnLanguageCompat,
-        _fnBrowserDetect,
-        _fnAddData,
-        _fnAddTr,
-        _fnNodeToDataIndex,
-        _fnNodeToColumnIndex,
-        _fnGetCellData,
-        _fnSetCellData,
-        _fnSplitObjNotation,
-        _fnGetObjectDataFn,
-        _fnSetObjectDataFn,
-        _fnGetDataMaster,
-        _fnClearTable,
-        _fnDeleteIndex,
-        _fnInvalidate,
-        _fnGetRowElements,
-        _fnCreateTr,
-        _fnBuildHead,
-        _fnDrawHead,
-        _fnDraw,
-        _fnReDraw,
-        _fnAddOptionsHtml,
-        _fnDetectHeader,
-        _fnGetUniqueThs,
-        _fnFeatureHtmlFilter,
-        _fnFilterComplete,
-        _fnFilterCustom,
-        _fnFilterColumn,
-        _fnFilter,
-        _fnFilterCreateSearch,
-        _fnEscapeRegex,
-        _fnFilterData,
-        _fnFeatureHtmlInfo,
-        _fnUpdateInfo,
-        _fnInfoMacros,
-        _fnInitialise,
-        _fnInitComplete,
-        _fnLengthChange,
-        _fnFeatureHtmlLength,
-        _fnFeatureHtmlPaginate,
-        _fnPageChange,
-        _fnFeatureHtmlProcessing,
-        _fnProcessingDisplay,
-        _fnFeatureHtmlTable,
-        _fnScrollDraw,
-        _fnApplyToChildren,
-        _fnCalculateColumnWidths,
-        _fnThrottle,
-        _fnConvertToWidth,
-        _fnGetWidestNode,
-        _fnGetMaxLenString,
-        _fnStringToCss,
-        _fnSortFlatten,
-        _fnSort,
-        _fnSortAria,
-        _fnSortListener,
-        _fnSortAttachListener,
-        _fnSortingClasses,
-        _fnSortData,
-        _fnSaveState,
-        _fnLoadState,
-        _fnImplementState,
-        _fnSettingsFromNode,
-        _fnLog,
-        _fnMap,
-        _fnBindAction,
-        _fnCallbackReg,
-        _fnCallbackFire,
-        _fnLengthOverflow,
-        _fnRenderer,
-        _fnDataSource,
-        _fnRowAttributes,
-        _fnExtend,
-        _fnCalculateEnd: function() {
+        var setDetect = function(detect) {
+          Object.defineProperty(detect, "_name", { value: name });
+          var idx = _extTypes.detect.findIndex(function(item) {
+            return item._name === name;
+          });
+          if (idx === -1) {
+            _extTypes.detect.unshift(detect);
+          } else {
+            _extTypes.detect.splice(idx, 1, detect);
+          }
+        };
+        var setOrder = function(obj) {
+          _extTypes.order[name + "-pre"] = obj.pre;
+          _extTypes.order[name + "-asc"] = obj.asc;
+          _extTypes.order[name + "-desc"] = obj.desc;
+        };
+        if (val === void 0) {
+          val = prop;
+          prop = null;
+        }
+        if (prop === "className") {
+          setProp("className", val);
+        } else if (prop === "detect") {
+          setDetect(val);
+        } else if (prop === "order") {
+          setOrder(val);
+        } else if (prop === "render") {
+          setProp("render", val);
+        } else if (prop === "search") {
+          setProp("search", val);
+        } else if (!prop) {
+          if (val.className) {
+            setProp("className", val.className);
+          }
+          if (val.detect !== void 0) {
+            setDetect(val.detect);
+          }
+          if (val.order) {
+            setOrder(val.order);
+          }
+          if (val.render !== void 0) {
+            setProp("render", val.render);
+          }
+          if (val.search !== void 0) {
+            setProp("search", val.search);
+          }
+        }
+      };
+      DataTable2.types = function() {
+        return _extTypes.detect.map(function(fn) {
+          return fn._name;
+        });
+      };
+      var __diacriticSort = function(a, b) {
+        a = a !== null && a !== void 0 ? a.toString().toLowerCase() : "";
+        b = b !== null && b !== void 0 ? b.toString().toLowerCase() : "";
+        return a.localeCompare(b, navigator.languages[0] || navigator.language, {
+          numeric: true,
+          ignorePunctuation: true
+        });
+      };
+      var __diacriticHtmlSort = function(a, b) {
+        a = _stripHtml(a);
+        b = _stripHtml(b);
+        return __diacriticSort(a, b);
+      };
+      DataTable2.type("string", {
+        detect: function() {
+          return "string";
+        },
+        order: {
+          pre: function(a) {
+            return _empty(a) && typeof a !== "boolean" ? "" : typeof a === "string" ? a.toLowerCase() : !a.toString ? "" : a.toString();
+          }
+        },
+        search: _filterString(false, true)
+      });
+      DataTable2.type("string-utf8", {
+        detect: {
+          allOf: function(d) {
+            return true;
+          },
+          oneOf: function(d) {
+            return !_empty(d) && navigator.languages && typeof d === "string" && d.match(/[^\x00-\x7F]/);
+          }
+        },
+        order: {
+          asc: __diacriticSort,
+          desc: function(a, b) {
+            return __diacriticSort(a, b) * -1;
+          }
+        },
+        search: _filterString(false, true)
+      });
+      DataTable2.type("html", {
+        detect: {
+          allOf: function(d) {
+            return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
+          },
+          oneOf: function(d) {
+            return !_empty(d) && typeof d === "string" && d.indexOf("<") !== -1;
+          }
+        },
+        order: {
+          pre: function(a) {
+            return _empty(a) ? "" : a.replace ? _stripHtml(a).trim().toLowerCase() : a + "";
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable2.type("html-utf8", {
+        detect: {
+          allOf: function(d) {
+            return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
+          },
+          oneOf: function(d) {
+            return navigator.languages && !_empty(d) && typeof d === "string" && d.indexOf("<") !== -1 && typeof d === "string" && d.match(/[^\x00-\x7F]/);
+          }
+        },
+        order: {
+          asc: __diacriticHtmlSort,
+          desc: function(a, b) {
+            return __diacriticHtmlSort(a, b) * -1;
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable2.type("date", {
+        className: "dt-type-date",
+        detect: {
+          allOf: function(d) {
+            if (d && !(d instanceof Date) && !_re_date.test(d)) {
+              return null;
+            }
+            var parsed = Date.parse(d);
+            return parsed !== null && !isNaN(parsed) || _empty(d);
+          },
+          oneOf: function(d) {
+            return d instanceof Date || typeof d === "string" && _re_date.test(d);
+          }
+        },
+        order: {
+          pre: function(d) {
+            var ts = Date.parse(d);
+            return isNaN(ts) ? -Infinity : ts;
+          }
         }
       });
-      $3.fn.dataTable = DataTable;
-      DataTable.$ = $3;
-      $3.fn.dataTableSettings = DataTable.settings;
-      $3.fn.dataTableExt = DataTable.ext;
+      DataTable2.type("html-num-fmt", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, true, false);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, true, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_html, _re_formatted_numeric);
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable2.type("html-num", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, false, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _htmlNumeric(d, decimal, false, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_html);
+          }
+        },
+        search: _filterString(true, true)
+      });
+      DataTable2.type("num-fmt", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, true, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, true, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp, _re_formatted_numeric);
+          }
+        }
+      });
+      DataTable2.type("num", {
+        className: "dt-type-numeric",
+        detect: {
+          allOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, false, true);
+          },
+          oneOf: function(d, settings) {
+            var decimal = settings.oLanguage.sDecimal;
+            return _isNumber(d, decimal, false, false);
+          }
+        },
+        order: {
+          pre: function(d, s) {
+            var dp = s.oLanguage.sDecimal;
+            return __numericReplace(d, dp);
+          }
+        }
+      });
+      var __numericReplace = function(d, decimalPlace, re1, re2) {
+        if (d !== 0 && (!d || d === "-")) {
+          return -Infinity;
+        }
+        var type = typeof d;
+        if (type === "number" || type === "bigint") {
+          return d;
+        }
+        if (decimalPlace) {
+          d = _numToDecimal(d, decimalPlace);
+        }
+        if (d.replace) {
+          if (re1) {
+            d = d.replace(re1, "");
+          }
+          if (re2) {
+            d = d.replace(re2, "");
+          }
+        }
+        return d * 1;
+      };
+      $3.extend(true, DataTable2.ext.renderer, {
+        footer: {
+          _: function(settings, cell, classes) {
+            cell.addClass(classes.tfoot.cell);
+          }
+        },
+        header: {
+          _: function(settings, cell, classes) {
+            cell.addClass(classes.thead.cell);
+            if (!settings.oFeatures.bSort) {
+              cell.addClass(classes.order.none);
+            }
+            var titleRow = settings.titleRow;
+            var headerRows = cell.closest("thead").find("tr");
+            var rowIdx = cell.parent().index();
+            if (cell.attr("data-dt-order") === "disable" || cell.parent().attr("data-dt-order") === "disable" || titleRow === true && rowIdx !== 0 || titleRow === false && rowIdx !== headerRows.length - 1 || typeof titleRow === "number" && rowIdx !== titleRow) {
+              return;
+            }
+            $3(settings.nTable).on("order.dt.DT column-visibility.dt.DT", function(e, ctx, column) {
+              if (settings !== ctx) {
+                return;
+              }
+              var sorting = ctx.sortDetails;
+              if (!sorting) {
+                return;
+              }
+              var orderedColumns = _pluck(sorting, "col");
+              if (e.type === "column-visibility" && !orderedColumns.includes(column)) {
+                return;
+              }
+              var i2;
+              var orderClasses = classes.order;
+              var columns = ctx.api.columns(cell);
+              var col = settings.aoColumns[columns.flatten()[0]];
+              var orderable = columns.orderable().includes(true);
+              var ariaType = "";
+              var indexes = columns.indexes();
+              var sortDirs = columns.orderable(true).flatten();
+              var tabIndex = settings.iTabIndex;
+              var canOrder = ctx.orderHandler && orderable;
+              cell.removeClass(
+                orderClasses.isAsc + " " + orderClasses.isDesc
+              ).toggleClass(orderClasses.none, !orderable).toggleClass(orderClasses.canAsc, canOrder && sortDirs.includes("asc")).toggleClass(orderClasses.canDesc, canOrder && sortDirs.includes("desc"));
+              var isOrdering = true;
+              for (i2 = 0; i2 < indexes.length; i2++) {
+                if (!orderedColumns.includes(indexes[i2])) {
+                  isOrdering = false;
+                }
+              }
+              if (isOrdering) {
+                var orderDirs = columns.order();
+                cell.addClass(
+                  orderDirs.includes("asc") ? orderClasses.isAsc : "" + orderDirs.includes("desc") ? orderClasses.isDesc : ""
+                );
+              }
+              var firstVis = -1;
+              for (i2 = 0; i2 < orderedColumns.length; i2++) {
+                if (settings.aoColumns[orderedColumns[i2]].bVisible) {
+                  firstVis = orderedColumns[i2];
+                  break;
+                }
+              }
+              if (indexes[0] == firstVis) {
+                var firstSort = sorting[0];
+                var sortOrder = col.asSorting;
+                cell.attr("aria-sort", firstSort.dir === "asc" ? "ascending" : "descending");
+                ariaType = !sortOrder[firstSort.index + 1] ? "Remove" : "Reverse";
+              } else {
+                cell.removeAttr("aria-sort");
+              }
+              if (orderable) {
+                var orderSpan = cell.find(".dt-column-order");
+                orderSpan.attr("role", "button").attr(
+                  "aria-label",
+                  orderable ? col.ariaTitle + ctx.api.i18n("oAria.orderable" + ariaType) : col.ariaTitle
+                );
+                if (tabIndex !== -1) {
+                  orderSpan.attr("tabindex", tabIndex);
+                }
+              }
+            });
+          }
+        },
+        layout: {
+          _: function(settings, container, items) {
+            var classes = settings.oClasses.layout;
+            var row = $3("<div/>").attr("id", items.id || null).addClass(items.className || classes.row).appendTo(container);
+            DataTable2.ext.renderer.layout._forLayoutRow(items, function(key, val) {
+              if (key === "id" || key === "className") {
+                return;
+              }
+              var klass = "";
+              if (val.table) {
+                row.addClass(classes.tableRow);
+                klass += classes.tableCell + " ";
+              }
+              if (key === "start") {
+                klass += classes.start;
+              } else if (key === "end") {
+                klass += classes.end;
+              } else {
+                klass += classes.full;
+              }
+              $3("<div/>").attr({
+                id: val.id || null,
+                "class": val.className ? val.className : classes.cell + " " + klass
+              }).append(val.contents).appendTo(row);
+            });
+          },
+          _forLayoutRow: function(items, fn) {
+            var layoutEnum = function(x) {
+              switch (x) {
+                case "":
+                  return 0;
+                case "start":
+                  return 1;
+                case "end":
+                  return 2;
+                default:
+                  return 3;
+              }
+            };
+            Object.keys(items).sort(function(a, b) {
+              return layoutEnum(a) - layoutEnum(b);
+            }).forEach(function(key) {
+              fn(key, items[key]);
+            });
+          }
+        }
+      });
+      DataTable2.feature = {};
+      DataTable2.feature.register = function(name, cb, legacy) {
+        DataTable2.ext.features[name] = cb;
+        if (legacy) {
+          _ext.feature.push({
+            cFeature: legacy,
+            fnInit: cb
+          });
+        }
+      };
+      function _divProp(el, prop, val) {
+        if (val) {
+          el[prop] = val;
+        }
+      }
+      DataTable2.feature.register("div", function(settings, opts) {
+        var n = $3("<div>")[0];
+        if (opts) {
+          _divProp(n, "className", opts.className);
+          _divProp(n, "id", opts.id);
+          _divProp(n, "innerHTML", opts.html);
+          _divProp(n, "textContent", opts.text);
+        }
+        return n;
+      });
+      DataTable2.feature.register("info", function(settings, opts) {
+        if (!settings.oFeatures.bInfo) {
+          return null;
+        }
+        var lang = settings.oLanguage, tid = settings.sTableId, n = $3("<div/>", {
+          "class": settings.oClasses.info.container
+        });
+        opts = $3.extend({
+          callback: lang.fnInfoCallback,
+          empty: lang.sInfoEmpty,
+          postfix: lang.sInfoPostFix,
+          search: lang.sInfoFiltered,
+          text: lang.sInfo
+        }, opts);
+        settings.aoDrawCallback.push(function(s) {
+          _fnUpdateInfo(s, opts, n);
+        });
+        if (!settings._infoEl) {
+          n.attr({
+            "aria-live": "polite",
+            id: tid + "_info",
+            role: "status"
+          });
+          $3(settings.nTable).attr("aria-describedby", tid + "_info");
+          settings._infoEl = n;
+        }
+        return n;
+      }, "i");
+      function _fnUpdateInfo(settings, opts, node) {
+        var start2 = settings._iDisplayStart + 1, end = settings.fnDisplayEnd(), max = settings.fnRecordsTotal(), total = settings.fnRecordsDisplay(), out = total ? opts.text : opts.empty;
+        if (total !== max) {
+          out += " " + opts.search;
+        }
+        out += opts.postfix;
+        out = _fnMacros(settings, out);
+        if (opts.callback) {
+          out = opts.callback.call(
+            settings.oInstance,
+            settings,
+            start2,
+            end,
+            max,
+            total,
+            out
+          );
+        }
+        node.html(out);
+        _fnCallbackFire(settings, null, "info", [settings, node[0], out]);
+      }
+      var __searchCounter = 0;
+      DataTable2.feature.register("search", function(settings, opts) {
+        if (!settings.oFeatures.bFilter) {
+          return null;
+        }
+        var classes = settings.oClasses.search;
+        var tableId = settings.sTableId;
+        var language = settings.oLanguage;
+        var previousSearch = settings.oPreviousSearch;
+        var input = '<input type="search" class="' + classes.input + '"/>';
+        opts = $3.extend({
+          placeholder: language.sSearchPlaceholder,
+          processing: false,
+          text: language.sSearch
+        }, opts);
+        if (opts.text.indexOf("_INPUT_") === -1) {
+          opts.text += "_INPUT_";
+        }
+        opts.text = _fnMacros(settings, opts.text);
+        var end = opts.text.match(/_INPUT_$/);
+        var start2 = opts.text.match(/^_INPUT_/);
+        var removed = opts.text.replace(/_INPUT_/, "");
+        var str = "<label>" + opts.text + "</label>";
+        if (start2) {
+          str = "_INPUT_<label>" + removed + "</label>";
+        } else if (end) {
+          str = "<label>" + removed + "</label>_INPUT_";
+        }
+        var filter = $3("<div>").addClass(classes.container).append(str.replace(/_INPUT_/, input));
+        filter.find("label").attr("for", "dt-search-" + __searchCounter);
+        filter.find("input").attr("id", "dt-search-" + __searchCounter);
+        __searchCounter++;
+        var searchFn = function(event) {
+          var val = this.value;
+          if (previousSearch.return && event.key !== "Enter") {
+            return;
+          }
+          if (val != previousSearch.search) {
+            _fnProcessingRun(settings, opts.processing, function() {
+              previousSearch.search = val;
+              _fnFilterComplete(settings, previousSearch);
+              settings._iDisplayStart = 0;
+              _fnDraw(settings);
+            });
+          }
+        };
+        var searchDelay = settings.searchDelay !== null ? settings.searchDelay : 0;
+        var jqFilter = $3("input", filter).val(previousSearch.search).attr("placeholder", opts.placeholder).on(
+          "keyup.DT search.DT input.DT paste.DT cut.DT",
+          searchDelay ? DataTable2.util.debounce(searchFn, searchDelay) : searchFn
+        ).on("mouseup.DT", function(e) {
+          setTimeout(function() {
+            searchFn.call(jqFilter[0], e);
+          }, 10);
+        }).on("keypress.DT", function(e) {
+          if (e.keyCode == 13) {
+            return false;
+          }
+        }).attr("aria-controls", tableId);
+        $3(settings.nTable).on("search.dt.DT", function(ev, s) {
+          if (settings === s && jqFilter[0] !== document2.activeElement) {
+            jqFilter.val(
+              typeof previousSearch.search !== "function" ? previousSearch.search : ""
+            );
+          }
+        });
+        return filter;
+      }, "f");
+      DataTable2.feature.register("paging", function(settings, opts) {
+        if (!settings.oFeatures.bPaginate) {
+          return null;
+        }
+        opts = $3.extend({
+          buttons: DataTable2.ext.pager.numbers_length,
+          type: settings.sPaginationType,
+          boundaryNumbers: true,
+          firstLast: true,
+          previousNext: true,
+          numbers: true
+        }, opts);
+        var host = $3("<div/>").addClass(settings.oClasses.paging.container + (opts.type ? " paging_" + opts.type : "")).append(
+          $3("<nav>").attr("aria-label", "pagination").addClass(settings.oClasses.paging.nav)
+        );
+        var draw = function() {
+          _pagingDraw(settings, host.children(), opts);
+        };
+        settings.aoDrawCallback.push(draw);
+        $3(settings.nTable).on("column-sizing.dt.DT", draw);
+        return host;
+      }, "p");
+      function _pagingDynamic(opts) {
+        var out = [];
+        if (opts.numbers) {
+          out.push("numbers");
+        }
+        if (opts.previousNext) {
+          out.unshift("previous");
+          out.push("next");
+        }
+        if (opts.firstLast) {
+          out.unshift("first");
+          out.push("last");
+        }
+        return out;
+      }
+      function _pagingDraw(settings, host, opts) {
+        if (!settings._bInitComplete) {
+          return;
+        }
+        var plugin = opts.type ? DataTable2.ext.pager[opts.type] : _pagingDynamic, aria = settings.oLanguage.oAria.paginate || {}, start2 = settings._iDisplayStart, len = settings._iDisplayLength, visRecords = settings.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start2 / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = [], buttonEls = [], buttonsNested = plugin(opts).map(function(val) {
+          return val === "numbers" ? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers) : val;
+        });
+        buttons = buttons.concat.apply(buttons, buttonsNested);
+        for (var i2 = 0; i2 < buttons.length; i2++) {
+          var button = buttons[i2];
+          var btnInfo = _pagingButtonInfo(settings, button, page, pages);
+          var btn = _fnRenderer(settings, "pagingButton")(
+            settings,
+            button,
+            btnInfo.display,
+            btnInfo.active,
+            btnInfo.disabled
+          );
+          var ariaLabel = typeof button === "string" ? aria[button] : aria.number ? aria.number + (button + 1) : null;
+          $3(btn.clicker).attr({
+            "aria-controls": settings.sTableId,
+            "aria-disabled": btnInfo.disabled ? "true" : null,
+            "aria-current": btnInfo.active ? "page" : null,
+            "aria-label": ariaLabel,
+            "data-dt-idx": button,
+            "tabIndex": btnInfo.disabled ? -1 : settings.iTabIndex && btn.clicker[0].nodeName.toLowerCase() !== "span" ? settings.iTabIndex : null
+          });
+          if (typeof button !== "number") {
+            $3(btn.clicker).addClass(button);
+          }
+          _fnBindAction(
+            btn.clicker,
+            { action: button },
+            function(e) {
+              e.preventDefault();
+              _fnPageChange(settings, e.data.action, true);
+            }
+          );
+          buttonEls.push(btn.display);
+        }
+        var wrapped = _fnRenderer(settings, "pagingContainer")(
+          settings,
+          buttonEls
+        );
+        var activeEl = host.find(document2.activeElement).data("dt-idx");
+        host.empty().append(wrapped);
+        if (activeEl !== void 0) {
+          host.find("[data-dt-idx=" + activeEl + "]").trigger("focus");
+        }
+        if (buttonEls.length) {
+          var outerHeight = $3(buttonEls[0]).outerHeight();
+          if (opts.buttons > 1 && outerHeight > 0 && $3(host).height() >= outerHeight * 2 - 10) {
+            _pagingDraw(settings, host, $3.extend({}, opts, { buttons: opts.buttons - 2 }));
+          }
+        }
+      }
+      function _pagingButtonInfo(settings, button, page, pages) {
+        var lang = settings.oLanguage.oPaginate;
+        var o = {
+          display: "",
+          active: false,
+          disabled: false
+        };
+        switch (button) {
+          case "ellipsis":
+            o.display = "&#x2026;";
+            break;
+          case "first":
+            o.display = lang.sFirst;
+            if (page === 0) {
+              o.disabled = true;
+            }
+            break;
+          case "previous":
+            o.display = lang.sPrevious;
+            if (page === 0) {
+              o.disabled = true;
+            }
+            break;
+          case "next":
+            o.display = lang.sNext;
+            if (pages === 0 || page === pages - 1) {
+              o.disabled = true;
+            }
+            break;
+          case "last":
+            o.display = lang.sLast;
+            if (pages === 0 || page === pages - 1) {
+              o.disabled = true;
+            }
+            break;
+          default:
+            if (typeof button === "number") {
+              o.display = settings.fnFormatNumber(button + 1);
+              if (page === button) {
+                o.active = true;
+              }
+            }
+            break;
+        }
+        return o;
+      }
+      function _pagingNumbers(page, pages, buttons, addFirstLast) {
+        var numbers = [], half = Math.floor(buttons / 2), before = addFirstLast ? 2 : 1, after = addFirstLast ? 1 : 0;
+        if (pages <= buttons) {
+          numbers = _range(0, pages);
+        } else if (buttons === 1) {
+          numbers = [page];
+        } else if (buttons === 3) {
+          if (page <= 1) {
+            numbers = [0, 1, "ellipsis"];
+          } else if (page >= pages - 2) {
+            numbers = _range(pages - 2, pages);
+            numbers.unshift("ellipsis");
+          } else {
+            numbers = ["ellipsis", page, "ellipsis"];
+          }
+        } else if (page <= half) {
+          numbers = _range(0, buttons - before);
+          numbers.push("ellipsis");
+          if (addFirstLast) {
+            numbers.push(pages - 1);
+          }
+        } else if (page >= pages - 1 - half) {
+          numbers = _range(pages - (buttons - before), pages);
+          numbers.unshift("ellipsis");
+          if (addFirstLast) {
+            numbers.unshift(0);
+          }
+        } else {
+          numbers = _range(page - half + before, page + half - after);
+          numbers.push("ellipsis");
+          numbers.unshift("ellipsis");
+          if (addFirstLast) {
+            numbers.push(pages - 1);
+            numbers.unshift(0);
+          }
+        }
+        return numbers;
+      }
+      var __lengthCounter = 0;
+      DataTable2.feature.register("pageLength", function(settings, opts) {
+        var features = settings.oFeatures;
+        if (!features.bPaginate || !features.bLengthChange) {
+          return null;
+        }
+        opts = $3.extend({
+          menu: settings.aLengthMenu,
+          text: settings.oLanguage.sLengthMenu
+        }, opts);
+        var classes = settings.oClasses.length, tableId = settings.sTableId, menu = opts.menu, lengths = [], language = [], i2;
+        if (Array.isArray(menu[0])) {
+          lengths = menu[0];
+          language = menu[1];
+        } else {
+          for (i2 = 0; i2 < menu.length; i2++) {
+            if ($3.isPlainObject(menu[i2])) {
+              lengths.push(menu[i2].value);
+              language.push(menu[i2].label);
+            } else {
+              lengths.push(menu[i2]);
+              language.push(menu[i2]);
+            }
+          }
+        }
+        var end = opts.text.match(/_MENU_$/);
+        var start2 = opts.text.match(/^_MENU_/);
+        var removed = opts.text.replace(/_MENU_/, "");
+        var str = "<label>" + opts.text + "</label>";
+        if (start2) {
+          str = "_MENU_<label>" + removed + "</label>";
+        } else if (end) {
+          str = "<label>" + removed + "</label>_MENU_";
+        }
+        var tmpId = "tmp-" + +new Date();
+        var div = $3("<div/>").addClass(classes.container).append(
+          str.replace("_MENU_", '<span id="' + tmpId + '"></span>')
+        );
+        var textNodes = [];
+        Array.prototype.slice.call(div.find("label")[0].childNodes).forEach(function(el) {
+          if (el.nodeType === Node.TEXT_NODE) {
+            textNodes.push({
+              el,
+              text: el.textContent
+            });
+          }
+        });
+        var updateEntries = function(len) {
+          textNodes.forEach(function(node) {
+            node.el.textContent = _fnMacros(settings, node.text, len);
+          });
+        };
+        var select = $3("<select/>", {
+          "aria-controls": tableId,
+          "class": classes.select
+        });
+        for (i2 = 0; i2 < lengths.length; i2++) {
+          var label = settings.api.i18n("lengthLabels." + lengths[i2], null);
+          if (label === null) {
+            label = typeof language[i2] === "number" ? settings.fnFormatNumber(language[i2]) : language[i2];
+          }
+          select[0][i2] = new Option(label, lengths[i2]);
+        }
+        div.find("label").attr("for", "dt-length-" + __lengthCounter);
+        select.attr("id", "dt-length-" + __lengthCounter);
+        __lengthCounter++;
+        div.find("#" + tmpId).replaceWith(select);
+        $3("select", div).val(settings._iDisplayLength).on("change.DT", function() {
+          _fnLengthChange(settings, $3(this).val());
+          _fnDraw(settings);
+        });
+        $3(settings.nTable).on("length.dt.DT", function(e, s, len) {
+          if (settings === s) {
+            $3("select", div).val(len);
+            updateEntries(len);
+          }
+        });
+        updateEntries(settings._iDisplayLength);
+        return div;
+      }, "l");
+      $3.fn.dataTable = DataTable2;
+      DataTable2.$ = $3;
+      $3.fn.dataTableSettings = DataTable2.settings;
+      $3.fn.dataTableExt = DataTable2.ext;
       $3.fn.DataTable = function(opts) {
         return $3(this).dataTable(opts).api();
       };
-      $3.each(DataTable, function(prop, val) {
+      $3.each(DataTable2, function(prop, val) {
         $3.fn.DataTable[prop] = val;
       });
-      return DataTable;
-    });
-  }
-});
-
-// node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js
-var require_dataTables_bootstrap4 = __commonJS({
-  "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"(exports, module) {
-    (function(factory) {
-      if (typeof define === "function" && define.amd) {
-        define(["jquery", "datatables.net"], function($3) {
-          return factory($3, window, document);
-        });
-      } else if (typeof exports === "object") {
-        var jq = require_jquery();
-        var cjsRequires = function(root, $3) {
-          if (!$3.fn.dataTable) {
-            require_jquery_dataTables()(root, $3);
-          }
-        };
-        if (typeof window === "undefined") {
-          module.exports = function(root, $3) {
-            if (!root) {
-              root = window;
-            }
-            if (!$3) {
-              $3 = jq(root);
-            }
-            cjsRequires(root, $3);
-            return factory($3, root, root.document);
-          };
-        } else {
-          cjsRequires(window, jq);
-          module.exports = factory(jq, window, window.document);
-        }
-      } else {
-        factory(jQuery, window, document);
-      }
-    })(function($3, window2, document2, undefined2) {
-      "use strict";
-      var DataTable = $3.fn.dataTable;
-      $3.extend(true, DataTable.defaults, {
-        dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        renderer: "bootstrap"
-      });
-      $3.extend(DataTable.ext.classes, {
-        sWrapper: "dataTables_wrapper dt-bootstrap4",
-        sFilterInput: "form-control form-control-sm",
-        sLengthSelect: "custom-select custom-select-sm form-control form-control-sm",
-        sProcessing: "dataTables_processing card",
-        sPageButton: "paginate_button page-item"
-      });
-      DataTable.ext.renderer.pageButton.bootstrap = function(settings, host, idx, buttons, page, pages) {
-        var api = new DataTable.Api(settings);
-        var classes = settings.oClasses;
-        var lang = settings.oLanguage.oPaginate;
-        var aria = settings.oLanguage.oAria.paginate || {};
-        var btnDisplay, btnClass;
-        var attach = function(container, buttons2) {
-          var i, ien, node, button;
-          var clickHandler = function(e) {
-            e.preventDefault();
-            if (!$3(e.currentTarget).hasClass("disabled") && api.page() != e.data.action) {
-              api.page(e.data.action).draw("page");
-            }
-          };
-          for (i = 0, ien = buttons2.length; i < ien; i++) {
-            button = buttons2[i];
-            if (Array.isArray(button)) {
-              attach(container, button);
-            } else {
-              btnDisplay = "";
-              btnClass = "";
-              switch (button) {
-                case "ellipsis":
-                  btnDisplay = "&#x2026;";
-                  btnClass = "disabled";
-                  break;
-                case "first":
-                  btnDisplay = lang.sFirst;
-                  btnClass = button + (page > 0 ? "" : " disabled");
-                  break;
-                case "previous":
-                  btnDisplay = lang.sPrevious;
-                  btnClass = button + (page > 0 ? "" : " disabled");
-                  break;
-                case "next":
-                  btnDisplay = lang.sNext;
-                  btnClass = button + (page < pages - 1 ? "" : " disabled");
-                  break;
-                case "last":
-                  btnDisplay = lang.sLast;
-                  btnClass = button + (page < pages - 1 ? "" : " disabled");
-                  break;
-                default:
-                  btnDisplay = button + 1;
-                  btnClass = page === button ? "active" : "";
-                  break;
-              }
-              if (btnDisplay) {
-                var disabled = btnClass.indexOf("disabled") !== -1;
-                node = $3("<li>", {
-                  "class": classes.sPageButton + " " + btnClass,
-                  "id": idx === 0 && typeof button === "string" ? settings.sTableId + "_" + button : null
-                }).append(
-                  $3("<a>", {
-                    "href": disabled ? null : "#",
-                    "aria-controls": settings.sTableId,
-                    "aria-disabled": disabled ? "true" : null,
-                    "aria-label": aria[button],
-                    "role": "link",
-                    "aria-current": btnClass === "active" ? "page" : null,
-                    "data-dt-idx": button,
-                    "tabindex": disabled ? -1 : settings.iTabIndex,
-                    "class": "page-link"
-                  }).html(btnDisplay)
-                ).appendTo(container);
-                settings.oApi._fnBindAction(
-                  node,
-                  { action: button },
-                  clickHandler
-                );
-              }
-            }
-          }
-        };
-        var activeEl;
-        try {
-          activeEl = $3(host).find(document2.activeElement).data("dt-idx");
-        } catch (e) {
-        }
-        attach(
-          $3(host).empty().html('<ul class="pagination"/>').children("ul"),
-          buttons
-        );
-        if (activeEl !== undefined2) {
-          $3(host).find("[data-dt-idx=" + activeEl + "]").trigger("focus");
-        }
-      };
-      return DataTable;
+      return DataTable2;
     });
   }
 });
@@ -12382,7 +13231,7 @@ var require_dataTables_select = __commonJS({
         var jq = require_jquery();
         var cjsRequires = function(root, $3) {
           if (!$3.fn.dataTable) {
-            require_jquery_dataTables()(root, $3);
+            require_dataTables()(root, $3);
           }
         };
         if (typeof window === "undefined") {
@@ -12403,37 +13252,43 @@ var require_dataTables_select = __commonJS({
       } else {
         factory(jQuery, window, document);
       }
-    })(function($3, window2, document2, undefined2) {
+    })(function($3, window2, document2) {
       "use strict";
-      var DataTable = $3.fn.dataTable;
-      DataTable.select = {};
-      DataTable.select.version = "1.7.0";
-      DataTable.select.init = function(dt) {
+      var DataTable2 = $3.fn.dataTable;
+      DataTable2.select = {};
+      DataTable2.select.classes = {
+        checkbox: "dt-select-checkbox"
+      };
+      DataTable2.select.version = "3.1.3";
+      DataTable2.select.init = function(dt) {
         var ctx = dt.settings()[0];
+        if (!DataTable2.versionCheck("2")) {
+          throw "Warning: Select requires DataTables 2 or newer";
+        }
         if (ctx._select) {
           return;
         }
         var savedSelected = dt.state.loaded();
         var selectAndSave = function(e, settings, data) {
-          if (data === null || data.select === undefined2) {
+          if (data === null || data.select === void 0) {
             return;
           }
           if (dt.rows({ selected: true }).any()) {
             dt.rows().deselect();
           }
-          if (data.select.rows !== undefined2) {
+          if (data.select.rows !== void 0) {
             dt.rows(data.select.rows).select();
           }
           if (dt.columns({ selected: true }).any()) {
             dt.columns().deselect();
           }
-          if (data.select.columns !== undefined2) {
+          if (data.select.columns !== void 0) {
             dt.columns(data.select.columns).select();
           }
           if (dt.cells({ selected: true }).any()) {
             dt.cells().deselect();
           }
-          if (data.select.cells !== undefined2) {
+          if (data.select.cells !== void 0) {
             for (var i = 0; i < data.select.cells.length; i++) {
               dt.cell(data.select.cells[i].row, data.select.cells[i].column).select();
             }
@@ -12448,20 +13303,26 @@ var require_dataTables_select = __commonJS({
             return { row: dt.row(coords.row).id(true), column: coords.column };
           });
         }).on("stateLoadParams", selectAndSave).one("init", function() {
-          selectAndSave(undefined2, undefined2, savedSelected);
+          selectAndSave(void 0, void 0, savedSelected);
         });
         var init2 = ctx.oInit.select;
-        var defaults = DataTable.defaults.select;
-        var opts = init2 === undefined2 ? defaults : init2;
+        var defaults = DataTable2.defaults.select;
+        var opts = init2 === void 0 ? defaults : init2;
         var items = "row";
         var style = "api";
         var blurable = false;
         var toggleable = true;
+        var selectable = null;
         var info2 = true;
         var selector = "td, th";
         var className = "selected";
+        var headerCheckbox = true;
         var setStyle = false;
-        ctx._select = {};
+        var keys = false;
+        var keysWrap = false;
+        ctx._select = {
+          infoEls: []
+        };
         if (opts === true) {
           style = "os";
           setStyle = true;
@@ -12469,30 +13330,42 @@ var require_dataTables_select = __commonJS({
           style = opts;
           setStyle = true;
         } else if ($3.isPlainObject(opts)) {
-          if (opts.blurable !== undefined2) {
+          if (opts.blurable !== void 0) {
             blurable = opts.blurable;
           }
-          if (opts.toggleable !== undefined2) {
+          if (opts.toggleable !== void 0) {
             toggleable = opts.toggleable;
           }
-          if (opts.info !== undefined2) {
+          if (opts.info !== void 0) {
             info2 = opts.info;
           }
-          if (opts.items !== undefined2) {
+          if (opts.items !== void 0) {
             items = opts.items;
           }
-          if (opts.style !== undefined2) {
+          if (opts.style !== void 0) {
             style = opts.style;
             setStyle = true;
           } else {
             style = "os";
             setStyle = true;
           }
-          if (opts.selector !== undefined2) {
+          if (opts.selector !== void 0) {
             selector = opts.selector;
           }
-          if (opts.className !== undefined2) {
+          if (opts.className !== void 0) {
             className = opts.className;
+          }
+          if (opts.headerCheckbox !== void 0) {
+            headerCheckbox = opts.headerCheckbox;
+          }
+          if (opts.selectable !== void 0) {
+            selectable = opts.selectable;
+          }
+          if (opts.keys !== void 0) {
+            keys = opts.keys;
+          }
+          if (opts.keysWrap !== void 0) {
+            keysWrap = opts.keysWrap;
           }
         }
         dt.select.selector(selector);
@@ -12501,19 +13374,16 @@ var require_dataTables_select = __commonJS({
         dt.select.blurable(blurable);
         dt.select.toggleable(toggleable);
         dt.select.info(info2);
+        dt.select.keys(keys, keysWrap);
+        dt.select.selectable(selectable);
         ctx._select.className = className;
-        $3.fn.dataTable.ext.order["select-checkbox"] = function(settings, col) {
-          return this.api().column(col, { order: "index" }).nodes().map(function(td) {
-            if (settings._select.items === "row") {
-              return $3(td).parent().hasClass(settings._select.className);
-            } else if (settings._select.items === "cell") {
-              return $3(td).hasClass(settings._select.className);
-            }
-            return false;
-          });
-        };
         if (!setStyle && $3(dt.table().node()).hasClass("selectable")) {
           dt.select.style("os");
+        }
+        if (headerCheckbox || headerCheckbox === "select-page" || headerCheckbox === "select-all") {
+          dt.ready(function() {
+            initCheckboxHeader(dt, headerCheckbox);
+          });
         }
       };
       function cellRange(dt, idx, last) {
@@ -12571,6 +13441,10 @@ var require_dataTables_select = __commonJS({
           dt.cells(indexes).deselect();
         }
       }
+      function checkboxClass(selector) {
+        var name = DataTable2.select.classes.checkbox;
+        return selector ? name.replace(/ /g, ".") : name;
+      }
       function disableMouseSelection(dt) {
         var ctx = dt.settings()[0];
         var selector = ctx._select.selector;
@@ -12605,8 +13479,8 @@ var require_dataTables_select = __commonJS({
             }
           }
           var ctx2 = dt.settings()[0];
-          var wrapperClass = dt.settings()[0].oClasses.sWrapper.trim().replace(/ +/g, ".");
-          if ($3(e.target).closest("div." + wrapperClass)[0] != dt.table().container()) {
+          var container2 = dt.table().container();
+          if ($3(e.target).closest("div.dt-container")[0] != container2) {
             return;
           }
           var cell = dt.cell($3(e.target).closest("td, th"));
@@ -12661,19 +13535,30 @@ var require_dataTables_select = __commonJS({
         args.unshift(api);
         $3(api.table().node()).trigger(type, args);
       }
-      function info(api) {
+      function isCheckboxColumn(col) {
+        return col.mRender && col.mRender._name === "selectCheckbox";
+      }
+      function info(api, node) {
+        if (api.select.style() === "api" || api.select.info() === false) {
+          return;
+        }
         var ctx = api.settings()[0];
-        if (!ctx._select.info || !ctx.aanFeatures.i) {
-          return;
+        var rowSet = ctx._select_set;
+        if (!api.page.info().serverSide) {
+          for (var i = rowSet.length - 1; i >= 0; i--) {
+            if (!ctx.aIds[rowSet[i]]) {
+              rowSet.splice(i, 1);
+            }
+          }
         }
-        if (api.select.style() === "api") {
-          return;
+        var rows = rowSet.length ? rowSet.length : api.rows({ selected: true }).count();
+        var columns = api.columns({ selected: true }).count();
+        var cells = api.cells({ selected: true }).count();
+        if (ctx._select_mode === "subtractive") {
+          rows = api.page.info().recordsDisplay - rowSet.length;
         }
-        var rows = api.rows({ selected: true }).flatten().length;
-        var columns = api.columns({ selected: true }).flatten().length;
-        var cells = api.cells({ selected: true }).flatten().length;
-        var add = function(el, name, num) {
-          el.append(
+        var add = function(el2, name, num) {
+          el2.append(
             $3('<span class="select-item"/>').append(
               api.i18n(
                 "select." + name + "s",
@@ -12683,67 +13568,201 @@ var require_dataTables_select = __commonJS({
             )
           );
         };
-        $3.each(ctx.aanFeatures.i, function(i, el) {
-          el = $3(el);
-          var output = $3('<span class="select-info"/>');
-          add(output, "row", rows);
-          add(output, "column", columns);
-          add(output, "cell", cells);
-          var exisiting = el.children("span.select-info");
-          if (exisiting.length) {
-            exisiting.remove();
+        var el = $3(node);
+        var output = $3('<span class="select-info"/>');
+        add(output, "row", rows);
+        add(output, "column", columns);
+        add(output, "cell", cells);
+        var existing = el.children("span.select-info");
+        if (existing.length) {
+          existing.remove();
+        }
+        if (output.text() !== "") {
+          el.append(output);
+        }
+      }
+      function initCheckboxHeader(dt, headerCheckbox) {
+        var dtSettings = dt.settings()[0];
+        var dtInternalColumns = dtSettings.aoColumns;
+        dt.columns().iterator("column", function(s, idx) {
+          var col = dtInternalColumns[idx];
+          if (!isCheckboxColumn(col)) {
+            return;
           }
-          if (output.text() !== "") {
-            el.append(output);
+          var header = dt.column(idx).header();
+          var liner = $3("div.dt-column-header", header);
+          if (liner.length) {
+            header = liner;
+          }
+          if (!$3("input", header).length) {
+            var input = $3("<input>").attr({
+              class: checkboxClass(false),
+              type: "checkbox",
+              "aria-label": dt.i18n("select.aria.headerCheckbox") || "Select all rows"
+            }).appendTo(header).on("change", function() {
+              if (this.checked) {
+                if (headerCheckbox == "select-page") {
+                  dt.rows({ page: "current" }).select();
+                } else {
+                  dt.rows({ search: "applied" }).select();
+                }
+              } else {
+                if (headerCheckbox == "select-page") {
+                  dt.rows({ page: "current", selected: true }).deselect();
+                } else {
+                  dt.rows({ selected: true }).deselect();
+                }
+              }
+            }).on("click", function(e) {
+              e.stopPropagation();
+            });
+            dt.on("draw select deselect", function(e, pass, type) {
+              if (type === "row" || !type) {
+                var nums = headerCheckboxState(dt, headerCheckbox);
+                if (nums.search && nums.search <= nums.count && nums.search === nums.available) {
+                  input.prop("checked", true).prop("indeterminate", false);
+                } else if (nums.search === 0 && nums.count === 0) {
+                  input.prop("checked", false).prop("indeterminate", false);
+                } else {
+                  input.prop("checked", false).prop("indeterminate", true);
+                }
+              }
+            });
           }
         });
       }
+      function keysSet(dt) {
+        var ctx = dt.settings()[0];
+        var flag = ctx._select.keys;
+        var wrap = ctx._select.keysWrap;
+        var namespace = "dts-keys-" + ctx.sTableId;
+        if (flag) {
+          $3(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
+          dt.on("draw." + namespace, function() {
+            $3(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
+          });
+          $3(document2).on("keydown." + namespace, function(e) {
+            var key = e.keyCode;
+            var active = document2.activeElement;
+            if (![9, 13, 32, 38, 40].includes(key)) {
+              return;
+            }
+            var nodes = dt.rows({ page: "current" }).nodes().toArray();
+            var idx = nodes.indexOf(active);
+            var preventDefault2 = true;
+            var pageInfo = dt.page.info();
+            if (idx === -1) {
+              return;
+            }
+            if (key === 9) {
+              if (e.shift === false && idx === nodes.length - 1) {
+                keysPageChange(dt, "next", ":first-child");
+              } else if (e.shift === true && idx === 0) {
+                keysPageChange(dt, "previous", ":last-child");
+              } else {
+                preventDefault2 = false;
+              }
+            } else if (key === 13 || key === 32) {
+              var row = dt.row(active);
+              if (row.selected()) {
+                row.deselect();
+              } else {
+                row.select();
+              }
+            } else if (key === 38) {
+              if (idx > 0) {
+                nodes[idx - 1].focus();
+              } else if (pageInfo.start > 0) {
+                keysPageChange(dt, "previous", ":last-child");
+              } else if (wrap) {
+                keysPageChange(dt, "last", ":last-child");
+              }
+            } else {
+              if (idx < nodes.length - 1) {
+                nodes[idx + 1].focus();
+              } else if (pageInfo.page < pageInfo.pages - 1) {
+                keysPageChange(dt, "next", ":first-child");
+              } else if (wrap) {
+                keysPageChange(dt, "first", ":first-child");
+              }
+            }
+            if (preventDefault2) {
+              e.stopPropagation();
+              e.preventDefault();
+            }
+          });
+        } else {
+          $3(dt.rows().nodes()).removeAttr("tabindex");
+          dt.off("draw." + namespace);
+          $3(document2).off("keydown." + namespace);
+        }
+      }
+      function keysPageChange(dt, page, focus) {
+        dt.one("draw", function() {
+          dt.row(focus).node().focus();
+        }).page(page).draw(false);
+      }
+      function headerCheckboxState(dt, headerCheckbox) {
+        var ctx = dt.settings()[0];
+        var selectable = ctx._select.selectable;
+        var available = 0;
+        var count = headerCheckbox == "select-page" ? dt.rows({ page: "current", selected: true }).count() : dt.rows({ selected: true }).count();
+        var search = headerCheckbox == "select-page" ? dt.rows({ page: "current", selected: true }).count() : dt.rows({ search: "applied", selected: true }).count();
+        if (!selectable) {
+          available = headerCheckbox == "select-page" ? dt.rows({ page: "current" }).count() : dt.rows({ search: "applied" }).count();
+        } else {
+          var indexes = headerCheckbox == "select-page" ? dt.rows({ page: "current" }).indexes() : dt.rows({ search: "applied" }).indexes();
+          for (var i = 0; i < indexes.length; i++) {
+            var rowInternal = ctx.aoData[indexes[i]];
+            var result = selectable(rowInternal._aData, rowInternal.nTr, indexes[i]);
+            if (result) {
+              available++;
+            }
+          }
+        }
+        return {
+          available,
+          count,
+          search
+        };
+      }
       function init(ctx) {
-        var api = new DataTable.Api(ctx);
+        var api = new DataTable2.Api(ctx);
         ctx._select_init = true;
-        ctx.aoRowCreatedCallback.push({
-          fn: function(row, data, index) {
+        ctx._select_mode = "additive";
+        ctx._select_set = [];
+        ctx.aoRowCreatedCallback.push(
+          function(row, data, index) {
             var i, ien;
             var d = ctx.aoData[index];
-            if (d._select_selected) {
-              $3(row).addClass(ctx._select.className);
+            var id = api.row(index).id();
+            if (d._select_selected || ctx._select_mode === "additive" && ctx._select_set.includes(id) || ctx._select_mode === "subtractive" && !ctx._select_set.includes(id)) {
+              d._select_selected = true;
+              $3(row).addClass(ctx._select.className).find("input." + checkboxClass(true)).prop("checked", true);
             }
             for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
               if (ctx.aoColumns[i]._select_selected || d._selected_cells && d._selected_cells[i]) {
                 $3(d.anCells[i]).addClass(ctx._select.className);
               }
             }
-          },
-          sName: "select-deferRender"
-        });
-        api.on("preXhr.dt.dtSelect", function(e, settings) {
-          if (settings !== api.settings()[0]) {
-            return;
           }
-          var rows = api.rows({ selected: true }).ids(true).filter(function(d) {
-            return d !== undefined2;
-          });
-          var cells = api.cells({ selected: true }).eq(0).map(function(cellIdx) {
-            var id = api.row(cellIdx.row).id(true);
-            return id ? { row: id, column: cellIdx.column } : undefined2;
-          }).filter(function(d) {
-            return d !== undefined2;
-          });
-          api.one("draw.dt.dtSelect", function() {
-            api.rows(rows).select();
-            if (cells.any()) {
-              cells.each(function(id) {
-                api.cells(id.row, id.column).select();
-              });
-            }
-          });
+        );
+        _cumulativeEvents(api);
+        api.on("info.dt", function(e, ctx2, node) {
+          if (!ctx2._select.infoEls.includes(node)) {
+            ctx2._select.infoEls.push(node);
+          }
+          info(api, node);
         });
-        api.on("draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt", function() {
-          info(api);
+        api.on("select.dtSelect.dt deselect.dtSelect.dt", function() {
+          ctx._select.infoEls.forEach(function(el) {
+            info(api, el);
+          });
           api.state.save();
         });
         api.on("destroy.dtSelect", function() {
           $3(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._select.className);
+          $3("input." + checkboxClass(true), api.table().header()).remove();
           disableMouseSelection(api);
           api.off(".dtSelect");
           $3("body").off(".dtSelect" + _safeId(api.table().node()));
@@ -12751,10 +13770,10 @@ var require_dataTables_select = __commonJS({
       }
       function rowColumnRange(dt, type, idx, last) {
         var indexes = dt[type + "s"]({ search: "applied" }).indexes();
-        var idx1 = $3.inArray(last, indexes);
-        var idx2 = $3.inArray(idx, indexes);
+        var idx1 = indexes.indexOf(last);
+        var idx2 = indexes.indexOf(idx);
         if (!dt[type + "s"]({ selected: true }).any() && idx1 === -1) {
-          indexes.splice($3.inArray(idx, indexes) + 1, indexes.length);
+          indexes.splice(indexes.indexOf(idx) + 1, indexes.length);
         } else {
           if (idx1 > idx2) {
             var tmp = idx2;
@@ -12767,13 +13786,13 @@ var require_dataTables_select = __commonJS({
         if (!dt[type](idx, { selected: true }).any()) {
           dt[type + "s"](indexes).select();
         } else {
-          indexes.splice($3.inArray(idx, indexes), 1);
+          indexes.splice(indexes.indexOf(idx), 1);
           dt[type + "s"](indexes).deselect();
         }
       }
       function clear(ctx, force) {
         if (force || ctx._select.style === "single") {
-          var api = new DataTable.Api(ctx);
+          var api = new DataTable2.Api(ctx);
           api.rows({ selected: true }).deselect();
           api.columns({ selected: true }).deselect();
           api.cells({ selected: true }).deselect();
@@ -12831,13 +13850,54 @@ var require_dataTables_select = __commonJS({
       function _safeId(node) {
         return node.id.replace(/[^a-zA-Z0-9\-\_]/g, "-");
       }
+      function _cumulativeEvents(api) {
+        api.on("select", function(e, dt, type, indexes) {
+          if (type !== "row") {
+            return;
+          }
+          var ctx = api.settings()[0];
+          if (ctx._select_mode === "additive") {
+            _add(api, ctx._select_set, indexes);
+          } else {
+            _remove(api, ctx._select_set, indexes);
+          }
+        });
+        api.on("deselect", function(e, dt, type, indexes) {
+          if (type !== "row") {
+            return;
+          }
+          var ctx = api.settings()[0];
+          if (ctx._select_mode === "additive") {
+            _remove(api, ctx._select_set, indexes);
+          } else {
+            _add(api, ctx._select_set, indexes);
+          }
+        });
+      }
+      function _add(api, arr, indexes) {
+        for (var i = 0; i < indexes.length; i++) {
+          var id = api.row(indexes[i]).id();
+          if (id && id !== "undefined" && !arr.includes(id)) {
+            arr.push(id);
+          }
+        }
+      }
+      function _remove(api, arr, indexes) {
+        for (var i = 0; i < indexes.length; i++) {
+          var id = api.row(indexes[i]).id();
+          var idx = arr.indexOf(id);
+          if (idx !== -1) {
+            arr.splice(idx, 1);
+          }
+        }
+      }
       $3.each(
         [
           { type: "row", prop: "aoData" },
           { type: "column", prop: "aoColumns" }
         ],
         function(i, o) {
-          DataTable.ext.selector[o.type].push(function(settings, opts, indexes) {
+          DataTable2.ext.selector[o.type].push(function(settings, opts, indexes) {
             var selected = opts.selected;
             var data;
             var out = [];
@@ -12846,7 +13906,7 @@ var require_dataTables_select = __commonJS({
             }
             for (var i2 = 0, ien = indexes.length; i2 < ien; i2++) {
               data = settings[o.prop][indexes[i2]];
-              if (selected === true && data._select_selected === true || selected === false && !data._select_selected) {
+              if (data && (selected === true && data._select_selected === true || selected === false && !data._select_selected)) {
                 out.push(indexes[i2]);
               }
             }
@@ -12854,30 +13914,30 @@ var require_dataTables_select = __commonJS({
           });
         }
       );
-      DataTable.ext.selector.cell.push(function(settings, opts, cells) {
+      DataTable2.ext.selector.cell.push(function(settings, opts, cells) {
         var selected = opts.selected;
         var rowData;
         var out = [];
-        if (selected === undefined2) {
+        if (selected === void 0) {
           return cells;
         }
         for (var i = 0, ien = cells.length; i < ien; i++) {
           rowData = settings.aoData[cells[i].row];
-          if (selected === true && rowData._selected_cells && rowData._selected_cells[cells[i].column] === true || selected === false && (!rowData._selected_cells || !rowData._selected_cells[cells[i].column])) {
+          if (rowData && (selected === true && rowData._selected_cells && rowData._selected_cells[cells[i].column] === true || selected === false && (!rowData._selected_cells || !rowData._selected_cells[cells[i].column]))) {
             out.push(cells[i]);
           }
         }
         return out;
       });
-      var apiRegister = DataTable.Api.register;
-      var apiRegisterPlural = DataTable.Api.registerPlural;
+      var apiRegister = DataTable2.Api.register;
+      var apiRegisterPlural = DataTable2.Api.registerPlural;
       apiRegister("select()", function() {
         return this.iterator("table", function(ctx) {
-          DataTable.select.init(new DataTable.Api(ctx));
+          DataTable2.select.init(new DataTable2.Api(ctx));
         });
       });
       apiRegister("select.blurable()", function(flag) {
-        if (flag === undefined2) {
+        if (flag === void 0) {
           return this.context[0]._select.blurable;
         }
         return this.iterator("table", function(ctx) {
@@ -12885,7 +13945,7 @@ var require_dataTables_select = __commonJS({
         });
       });
       apiRegister("select.toggleable()", function(flag) {
-        if (flag === undefined2) {
+        if (flag === void 0) {
           return this.context[0]._select.toggleable;
         }
         return this.iterator("table", function(ctx) {
@@ -12893,7 +13953,7 @@ var require_dataTables_select = __commonJS({
         });
       });
       apiRegister("select.info()", function(flag) {
-        if (flag === undefined2) {
+        if (flag === void 0) {
           return this.context[0]._select.info;
         }
         return this.iterator("table", function(ctx) {
@@ -12901,58 +13961,152 @@ var require_dataTables_select = __commonJS({
         });
       });
       apiRegister("select.items()", function(items) {
-        if (items === undefined2) {
+        if (items === void 0) {
           return this.context[0]._select.items;
         }
         return this.iterator("table", function(ctx) {
           ctx._select.items = items;
-          eventTrigger(new DataTable.Api(ctx), "selectItems", [items]);
+          eventTrigger(new DataTable2.Api(ctx), "selectItems", [items]);
+        });
+      });
+      apiRegister("select.keys()", function(flag, wrap) {
+        if (flag === void 0) {
+          return this.context[0]._select.keys;
+        }
+        return this.iterator("table", function(ctx) {
+          if (!ctx._select) {
+            DataTable2.select.init(new DataTable2.Api(ctx));
+          }
+          ctx._select.keys = flag;
+          ctx._select.keysWrap = wrap;
+          keysSet(new DataTable2.Api(ctx));
         });
       });
       apiRegister("select.style()", function(style) {
-        if (style === undefined2) {
+        if (style === void 0) {
           return this.context[0]._select.style;
         }
         return this.iterator("table", function(ctx) {
           if (!ctx._select) {
-            DataTable.select.init(new DataTable.Api(ctx));
+            DataTable2.select.init(new DataTable2.Api(ctx));
           }
           if (!ctx._select_init) {
             init(ctx);
           }
           ctx._select.style = style;
-          var dt = new DataTable.Api(ctx);
-          disableMouseSelection(dt);
+          var dt = new DataTable2.Api(ctx);
           if (style !== "api") {
-            enableMouseSelection(dt);
+            dt.ready(function() {
+              disableMouseSelection(dt);
+              enableMouseSelection(dt);
+            });
+          } else {
+            disableMouseSelection(dt);
           }
-          eventTrigger(new DataTable.Api(ctx), "selectStyle", [style]);
+          eventTrigger(new DataTable2.Api(ctx), "selectStyle", [style]);
         });
       });
       apiRegister("select.selector()", function(selector) {
-        if (selector === undefined2) {
+        if (selector === void 0) {
           return this.context[0]._select.selector;
         }
         return this.iterator("table", function(ctx) {
-          disableMouseSelection(new DataTable.Api(ctx));
+          var dt = new DataTable2.Api(ctx);
+          var style = ctx._select.style;
+          disableMouseSelection(dt);
           ctx._select.selector = selector;
-          if (ctx._select.style !== "api") {
-            enableMouseSelection(new DataTable.Api(ctx));
+          if (style && style !== "api") {
+            dt.ready(function() {
+              disableMouseSelection(dt);
+              enableMouseSelection(dt);
+            });
+          } else {
+            disableMouseSelection(dt);
           }
         });
       });
+      apiRegister("select.selectable()", function(set) {
+        let ctx = this.context[0];
+        if (set) {
+          ctx._select.selectable = set;
+          return this;
+        }
+        return ctx._select.selectable;
+      });
+      apiRegister("select.last()", function(set) {
+        let ctx = this.context[0];
+        if (set) {
+          ctx._select_lastCell = set;
+          return this;
+        }
+        return ctx._select_lastCell;
+      });
+      apiRegister("select.cumulative()", function(mode) {
+        if (mode) {
+          return this.iterator("table", function(ctx2) {
+            if (ctx2._select_mode === mode) {
+              return;
+            }
+            var dt = new DataTable2.Api(ctx2);
+            if (mode === "subtractive") {
+              var unselected = dt.rows({ selected: false }).ids().toArray();
+              ctx2._select_mode = mode;
+              ctx2._select_set.length = 0;
+              ctx2._select_set.push.apply(ctx2._select_set, unselected);
+            } else {
+              var selected = dt.rows({ selected: true }).ids().toArray();
+              ctx2._select_mode = mode;
+              ctx2._select_set.length = 0;
+              ctx2._select_set.push.apply(ctx2._select_set, selected);
+            }
+          }).draw(false);
+        }
+        let ctx = this.context[0];
+        if (ctx && ctx._select_set) {
+          return {
+            mode: ctx._select_mode,
+            rows: ctx._select_set
+          };
+        }
+        return null;
+      });
       apiRegisterPlural("rows().select()", "row().select()", function(select) {
         var api = this;
+        var selectedIndexes = [];
         if (select === false) {
           return this.deselect();
         }
         this.iterator("row", function(ctx, idx) {
           clear(ctx);
-          ctx.aoData[idx]._select_selected = true;
-          $3(ctx.aoData[idx].nTr).addClass(ctx._select.className);
+          var dtData = ctx.aoData[idx];
+          var dtColumns = ctx.aoColumns;
+          if (ctx._select.selectable) {
+            var result = ctx._select.selectable(dtData._aData, dtData.nTr, idx);
+            if (result === false) {
+              return;
+            }
+          }
+          $3(dtData.nTr).addClass(ctx._select.className);
+          dtData._select_selected = true;
+          selectedIndexes.push(idx);
+          for (var i = 0; i < dtColumns.length; i++) {
+            var col = dtColumns[i];
+            if (col.sType === null) {
+              api.columns().types();
+            }
+            if (isCheckboxColumn(col)) {
+              var cells = dtData.anCells;
+              if (cells && cells[i]) {
+                $3("input." + checkboxClass(true), cells[i]).prop("checked", true);
+              }
+              if (dtData._aSortData !== null) {
+                dtData._aSortData[i] = null;
+              }
+            }
+          }
         });
-        this.iterator("table", function(ctx, i) {
-          eventTrigger(api, "select", ["row", api[i]], true);
+        this.iterator("table", function(ct) {
+          eventTrigger(api, "select", ["row", selectedIndexes], true);
         });
         return this;
       });
@@ -12963,6 +14117,18 @@ var require_dataTables_select = __commonJS({
         }
         return false;
       });
+      apiRegister("row().focus()", function() {
+        var ctx = this.context[0];
+        if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]].nTr) {
+          ctx.aoData[this[0]].nTr.focus();
+        }
+      });
+      apiRegister("row().blur()", function() {
+        var ctx = this.context[0];
+        if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]].nTr) {
+          ctx.aoData[this[0]].nTr.blur();
+        }
+      });
       apiRegisterPlural("columns().select()", "column().select()", function(select) {
         var api = this;
         if (select === false) {
@@ -12971,7 +14137,7 @@ var require_dataTables_select = __commonJS({
         this.iterator("column", function(ctx, idx) {
           clear(ctx);
           ctx.aoColumns[idx]._select_selected = true;
-          var column = new DataTable.Api(ctx).column(idx);
+          var column = new DataTable2.Api(ctx).column(idx);
           $3(column.header()).addClass(ctx._select.className);
           $3(column.footer()).addClass(ctx._select.className);
           column.nodes().to$().addClass(ctx._select.className);
@@ -12996,7 +14162,7 @@ var require_dataTables_select = __commonJS({
         this.iterator("cell", function(ctx, rowIdx, colIdx) {
           clear(ctx);
           var data = ctx.aoData[rowIdx];
-          if (data._selected_cells === undefined2) {
+          if (data._selected_cells === void 0) {
             data._selected_cells = [];
           }
           data._selected_cells[colIdx] = true;
@@ -13022,9 +14188,26 @@ var require_dataTables_select = __commonJS({
       apiRegisterPlural("rows().deselect()", "row().deselect()", function() {
         var api = this;
         this.iterator("row", function(ctx, idx) {
-          ctx.aoData[idx]._select_selected = false;
+          var dtData = ctx.aoData[idx];
+          var dtColumns = ctx.aoColumns;
+          $3(dtData.nTr).removeClass(ctx._select.className);
+          dtData._select_selected = false;
           ctx._select_lastCell = null;
-          $3(ctx.aoData[idx].nTr).removeClass(ctx._select.className);
+          for (var i = 0; i < dtColumns.length; i++) {
+            var col = dtColumns[i];
+            if (col.sType === null) {
+              api.columns().types();
+            }
+            if (isCheckboxColumn(col)) {
+              var cells = dtData.anCells;
+              if (cells && cells[i]) {
+                $3("input." + checkboxClass(true), dtData.anCells[i]).prop("checked", false);
+              }
+              if (dtData._aSortData !== null) {
+                dtData._aSortData[i] = null;
+              }
+            }
+          }
         });
         this.iterator("table", function(ctx, i) {
           eventTrigger(api, "deselect", ["row", api[i]], true);
@@ -13035,7 +14218,7 @@ var require_dataTables_select = __commonJS({
         var api = this;
         this.iterator("column", function(ctx, idx) {
           ctx.aoColumns[idx]._select_selected = false;
-          var api2 = new DataTable.Api(ctx);
+          var api2 = new DataTable2.Api(ctx);
           var column = api2.column(idx);
           $3(column.header()).removeClass(ctx._select.className);
           $3(column.footer()).removeClass(ctx._select.className);
@@ -13056,7 +14239,7 @@ var require_dataTables_select = __commonJS({
         var api = this;
         this.iterator("cell", function(ctx, rowIdx, colIdx) {
           var data = ctx.aoData[rowIdx];
-          if (data._selected_cells !== undefined2) {
+          if (data._selected_cells !== void 0) {
             data._selected_cells[colIdx] = false;
           }
           if (data.anCells && !ctx.aoColumns[colIdx]._select_selected) {
@@ -13078,19 +14261,19 @@ var require_dataTables_select = __commonJS({
         return "draw.dt.DT" + unique + " select.dt.DT" + unique + " deselect.dt.DT" + unique;
       }
       function enabled(dt, config) {
-        if ($3.inArray("rows", config.limitTo) !== -1 && dt.rows({ selected: true }).any()) {
+        if (config.limitTo.indexOf("rows") !== -1 && dt.rows({ selected: true }).any()) {
           return true;
         }
-        if ($3.inArray("columns", config.limitTo) !== -1 && dt.columns({ selected: true }).any()) {
+        if (config.limitTo.indexOf("columns") !== -1 && dt.columns({ selected: true }).any()) {
           return true;
         }
-        if ($3.inArray("cells", config.limitTo) !== -1 && dt.cells({ selected: true }).any()) {
+        if (config.limitTo.indexOf("cells") !== -1 && dt.cells({ selected: true }).any()) {
           return true;
         }
         return false;
       }
       var _buttonNamespace = 0;
-      $3.extend(DataTable.ext.buttons, {
+      $3.extend(DataTable2.ext.buttons, {
         selected: {
           text: i18n("selected", "Selected"),
           className: "buttons-selected",
@@ -13161,24 +14344,15 @@ var require_dataTables_select = __commonJS({
         showSelected: {
           text: i18n("showSelected", "Show only selected"),
           className: "buttons-show-selected",
-          action: function(e, dt, node, conf) {
-            if (conf._filter) {
-              var idx = DataTable.ext.search.indexOf(conf._filter);
-              if (idx !== -1) {
-                DataTable.ext.search.splice(idx, 1);
-                conf._filter = null;
-              }
+          action: function(e, dt) {
+            if (dt.search.fixed("dt-select")) {
+              dt.search.fixed("dt-select", null);
               this.active(false);
             } else {
-              var fn = function(s, data, idx2) {
-                if (s !== dt.settings()[0]) {
-                  return true;
-                }
-                let row = s.aoData[idx2];
-                return row._select_selected;
-              };
-              conf._filter = fn;
-              DataTable.ext.search.push(fn);
+              var dataSrc = dt.settings()[0].aoData;
+              dt.search.fixed("dt-select", function(text, data, idx) {
+                return dataSrc[idx]._select_selected;
+              });
               this.active(true);
             }
             dt.draw();
@@ -13187,7 +14361,7 @@ var require_dataTables_select = __commonJS({
       });
       $3.each(["Row", "Column", "Cell"], function(i, item) {
         var lc = item.toLowerCase();
-        DataTable.ext.buttons["select" + item + "s"] = {
+        DataTable2.ext.buttons["select" + item + "s"] = {
           text: i18n("select" + item + "s", "Select " + lc + "s"),
           className: "buttons-select-" + lc + "s",
           action: function() {
@@ -13195,3192 +14369,3785 @@ var require_dataTables_select = __commonJS({
           },
           init: function(dt) {
             var that = this;
+            this.active(dt.select.items() === lc);
             dt.on("selectItems.dt.DT", function(e, ctx, items) {
               that.active(items === lc);
             });
           }
         };
       });
-      $3.fn.DataTable.select = DataTable.select;
-      $3(document2).on("preInit.dt.dtSelect", function(e, ctx) {
+      DataTable2.type("select-checkbox", {
+        className: "dt-select",
+        detect: DataTable2.versionCheck("2.1") ? {
+          oneOf: function() {
+            return false;
+          },
+          allOf: function() {
+            return false;
+          },
+          init: function(settings, col, idx) {
+            return isCheckboxColumn(col);
+          }
+        } : function(data) {
+          return data === "select-checkbox" ? data : false;
+        },
+        order: {
+          pre: function(d) {
+            return d === "X" ? -1 : 0;
+          }
+        }
+      });
+      $3.extend(true, DataTable2.defaults.oLanguage, {
+        select: {
+          aria: {
+            rowCheckbox: "Select row"
+          }
+        }
+      });
+      DataTable2.render.select = function(valueProp, nameProp) {
+        var valueFn = valueProp ? DataTable2.util.get(valueProp) : null;
+        var nameFn = nameProp ? DataTable2.util.get(nameProp) : null;
+        var fn = function(data, type, row, meta) {
+          var dtRow = meta.settings.aoData[meta.row];
+          var selected = dtRow._select_selected;
+          var ariaLabel = meta.settings.oLanguage.select.aria.rowCheckbox;
+          var selectable = meta.settings._select.selectable;
+          if (type === "display") {
+            if (selectable) {
+              var result = selectable(row, dtRow.nTr, meta.row);
+              if (result === false) {
+                return "";
+              }
+            }
+            return $3("<input>").attr({
+              "aria-label": ariaLabel,
+              class: checkboxClass(),
+              name: nameFn ? nameFn(row) : null,
+              type: "checkbox",
+              value: valueFn ? valueFn(row) : null,
+              checked: selected
+            }).on("input", function(e) {
+              e.preventDefault();
+              this.checked = $3(this).closest("tr").hasClass("selected");
+            })[0];
+          } else if (type === "type") {
+            return "select-checkbox";
+          } else if (type === "filter") {
+            return "";
+          }
+          return selected ? "X" : "";
+        };
+        fn._name = "selectCheckbox";
+        return fn;
+      };
+      DataTable2.ext.order["select-checkbox"] = function(settings, col) {
+        return this.api().column(col, { order: "index" }).nodes().map(function(td) {
+          if (settings._select.items === "row") {
+            return $3(td).parent().hasClass(settings._select.className).toString();
+          } else if (settings._select.items === "cell") {
+            return $3(td).hasClass(settings._select.className).toString();
+          }
+          return false;
+        });
+      };
+      $3.fn.DataTable.select = DataTable2.select;
+      $3(document2).on("i18n.dt.dtSelect preInit.dt.dtSelect", function(e, ctx) {
         if (e.namespace !== "dt") {
           return;
         }
-        DataTable.select.init(new DataTable.Api(ctx));
+        DataTable2.select.init(new DataTable2.Api(ctx));
       });
-      return DataTable;
+      return DataTable2;
     });
   }
 });
 
-// node_modules/popper.js/dist/umd/popper.js
+// node_modules/@popperjs/core/dist/cjs/popper.js
 var require_popper = __commonJS({
-  "node_modules/popper.js/dist/umd/popper.js"(exports, module) {
-    (function(global2, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global2.Popper = factory();
-    })(exports, function() {
-      "use strict";
-      var isBrowser = typeof window !== "undefined" && typeof document !== "undefined" && typeof navigator !== "undefined";
-      var timeoutDuration = function() {
-        var longerTimeoutBrowsers = ["Edge", "Trident", "Firefox"];
-        for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
-          if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
-            return 1;
-          }
-        }
-        return 0;
-      }();
-      function microtaskDebounce(fn) {
-        var called = false;
-        return function() {
-          if (called) {
-            return;
-          }
-          called = true;
-          window.Promise.resolve().then(function() {
-            called = false;
-            fn();
-          });
-        };
+  "node_modules/@popperjs/core/dist/cjs/popper.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function getWindow(node) {
+      if (node == null) {
+        return window;
       }
-      function taskDebounce(fn) {
-        var scheduled = false;
-        return function() {
-          if (!scheduled) {
-            scheduled = true;
-            setTimeout(function() {
-              scheduled = false;
-              fn();
-            }, timeoutDuration);
-          }
-        };
+      if (node.toString() !== "[object Window]") {
+        var ownerDocument = node.ownerDocument;
+        return ownerDocument ? ownerDocument.defaultView || window : window;
       }
-      var supportsMicroTasks = isBrowser && window.Promise;
-      var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
-      function isFunction(functionToCheck) {
-        var getType = {};
-        return functionToCheck && getType.toString.call(functionToCheck) === "[object Function]";
+      return node;
+    }
+    function isElement(node) {
+      var OwnElement = getWindow(node).Element;
+      return node instanceof OwnElement || node instanceof Element;
+    }
+    function isHTMLElement(node) {
+      var OwnElement = getWindow(node).HTMLElement;
+      return node instanceof OwnElement || node instanceof HTMLElement;
+    }
+    function isShadowRoot(node) {
+      if (typeof ShadowRoot === "undefined") {
+        return false;
       }
-      function getStyleComputedProperty(element, property) {
-        if (element.nodeType !== 1) {
-          return [];
-        }
-        var window2 = element.ownerDocument.defaultView;
-        var css = window2.getComputedStyle(element, null);
-        return property ? css[property] : css;
+      var OwnElement = getWindow(node).ShadowRoot;
+      return node instanceof OwnElement || node instanceof ShadowRoot;
+    }
+    var max = Math.max;
+    var min = Math.min;
+    var round = Math.round;
+    function getUAString() {
+      var uaData = navigator.userAgentData;
+      if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
+        return uaData.brands.map(function(item) {
+          return item.brand + "/" + item.version;
+        }).join(" ");
       }
-      function getParentNode(element) {
-        if (element.nodeName === "HTML") {
-          return element;
-        }
-        return element.parentNode || element.host;
+      return navigator.userAgent;
+    }
+    function isLayoutViewport() {
+      return !/^((?!chrome|android).)*safari/i.test(getUAString());
+    }
+    function getBoundingClientRect(element, includeScale, isFixedStrategy) {
+      if (includeScale === void 0) {
+        includeScale = false;
       }
-      function getScrollParent(element) {
-        if (!element) {
-          return document.body;
-        }
-        switch (element.nodeName) {
-          case "HTML":
-          case "BODY":
-            return element.ownerDocument.body;
-          case "#document":
-            return element.body;
-        }
-        var _getStyleComputedProp = getStyleComputedProperty(element), overflow = _getStyleComputedProp.overflow, overflowX = _getStyleComputedProp.overflowX, overflowY = _getStyleComputedProp.overflowY;
-        if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
-          return element;
-        }
-        return getScrollParent(getParentNode(element));
+      if (isFixedStrategy === void 0) {
+        isFixedStrategy = false;
       }
-      function getReferenceNode(reference) {
-        return reference && reference.referenceNode ? reference.referenceNode : reference;
+      var clientRect = element.getBoundingClientRect();
+      var scaleX = 1;
+      var scaleY = 1;
+      if (includeScale && isHTMLElement(element)) {
+        scaleX = element.offsetWidth > 0 ? round(clientRect.width) / element.offsetWidth || 1 : 1;
+        scaleY = element.offsetHeight > 0 ? round(clientRect.height) / element.offsetHeight || 1 : 1;
       }
-      var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
-      var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);
-      function isIE(version) {
-        if (version === 11) {
-          return isIE11;
-        }
-        if (version === 10) {
-          return isIE10;
-        }
-        return isIE11 || isIE10;
+      var _ref = isElement(element) ? getWindow(element) : window, visualViewport = _ref.visualViewport;
+      var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
+      var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
+      var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
+      var width = clientRect.width / scaleX;
+      var height = clientRect.height / scaleY;
+      return {
+        width,
+        height,
+        top: y,
+        right: x + width,
+        bottom: y + height,
+        left: x,
+        x,
+        y
+      };
+    }
+    function getWindowScroll(node) {
+      var win = getWindow(node);
+      var scrollLeft = win.pageXOffset;
+      var scrollTop = win.pageYOffset;
+      return {
+        scrollLeft,
+        scrollTop
+      };
+    }
+    function getHTMLElementScroll(element) {
+      return {
+        scrollLeft: element.scrollLeft,
+        scrollTop: element.scrollTop
+      };
+    }
+    function getNodeScroll(node) {
+      if (node === getWindow(node) || !isHTMLElement(node)) {
+        return getWindowScroll(node);
+      } else {
+        return getHTMLElementScroll(node);
       }
-      function getOffsetParent(element) {
-        if (!element) {
-          return document.documentElement;
-        }
-        var noOffsetParent = isIE(10) ? document.body : null;
-        var offsetParent = element.offsetParent || null;
-        while (offsetParent === noOffsetParent && element.nextElementSibling) {
-          offsetParent = (element = element.nextElementSibling).offsetParent;
-        }
-        var nodeName = offsetParent && offsetParent.nodeName;
-        if (!nodeName || nodeName === "BODY" || nodeName === "HTML") {
-          return element ? element.ownerDocument.documentElement : document.documentElement;
-        }
-        if (["TH", "TD", "TABLE"].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, "position") === "static") {
-          return getOffsetParent(offsetParent);
-        }
-        return offsetParent;
+    }
+    function getNodeName(element) {
+      return element ? (element.nodeName || "").toLowerCase() : null;
+    }
+    function getDocumentElement(element) {
+      return ((isElement(element) ? element.ownerDocument : element.document) || window.document).documentElement;
+    }
+    function getWindowScrollBarX(element) {
+      return getBoundingClientRect(getDocumentElement(element)).left + getWindowScroll(element).scrollLeft;
+    }
+    function getComputedStyle2(element) {
+      return getWindow(element).getComputedStyle(element);
+    }
+    function isScrollParent(element) {
+      var _getComputedStyle = getComputedStyle2(element), overflow = _getComputedStyle.overflow, overflowX = _getComputedStyle.overflowX, overflowY = _getComputedStyle.overflowY;
+      return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+    }
+    function isElementScaled(element) {
+      var rect = element.getBoundingClientRect();
+      var scaleX = round(rect.width) / element.offsetWidth || 1;
+      var scaleY = round(rect.height) / element.offsetHeight || 1;
+      return scaleX !== 1 || scaleY !== 1;
+    }
+    function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
+      if (isFixed === void 0) {
+        isFixed = false;
       }
-      function isOffsetContainer(element) {
-        var nodeName = element.nodeName;
-        if (nodeName === "BODY") {
-          return false;
+      var isOffsetParentAnElement = isHTMLElement(offsetParent);
+      var offsetParentIsScaled = isHTMLElement(offsetParent) && isElementScaled(offsetParent);
+      var documentElement = getDocumentElement(offsetParent);
+      var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled, isFixed);
+      var scroll = {
+        scrollLeft: 0,
+        scrollTop: 0
+      };
+      var offsets = {
+        x: 0,
+        y: 0
+      };
+      if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+        if (getNodeName(offsetParent) !== "body" || isScrollParent(documentElement)) {
+          scroll = getNodeScroll(offsetParent);
         }
-        return nodeName === "HTML" || getOffsetParent(element.firstElementChild) === element;
+        if (isHTMLElement(offsetParent)) {
+          offsets = getBoundingClientRect(offsetParent, true);
+          offsets.x += offsetParent.clientLeft;
+          offsets.y += offsetParent.clientTop;
+        } else if (documentElement) {
+          offsets.x = getWindowScrollBarX(documentElement);
+        }
       }
-      function getRoot(node) {
-        if (node.parentNode !== null) {
-          return getRoot(node.parentNode);
-        }
+      return {
+        x: rect.left + scroll.scrollLeft - offsets.x,
+        y: rect.top + scroll.scrollTop - offsets.y,
+        width: rect.width,
+        height: rect.height
+      };
+    }
+    function getLayoutRect(element) {
+      var clientRect = getBoundingClientRect(element);
+      var width = element.offsetWidth;
+      var height = element.offsetHeight;
+      if (Math.abs(clientRect.width - width) <= 1) {
+        width = clientRect.width;
+      }
+      if (Math.abs(clientRect.height - height) <= 1) {
+        height = clientRect.height;
+      }
+      return {
+        x: element.offsetLeft,
+        y: element.offsetTop,
+        width,
+        height
+      };
+    }
+    function getParentNode(element) {
+      if (getNodeName(element) === "html") {
+        return element;
+      }
+      return element.assignedSlot || element.parentNode || (isShadowRoot(element) ? element.host : null) || getDocumentElement(element);
+    }
+    function getScrollParent(node) {
+      if (["html", "body", "#document"].indexOf(getNodeName(node)) >= 0) {
+        return node.ownerDocument.body;
+      }
+      if (isHTMLElement(node) && isScrollParent(node)) {
         return node;
       }
-      function findCommonOffsetParent(element1, element2) {
-        if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
-          return document.documentElement;
-        }
-        var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
-        var start2 = order ? element1 : element2;
-        var end = order ? element2 : element1;
-        var range = document.createRange();
-        range.setStart(start2, 0);
-        range.setEnd(end, 0);
-        var commonAncestorContainer = range.commonAncestorContainer;
-        if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start2.contains(end)) {
-          if (isOffsetContainer(commonAncestorContainer)) {
-            return commonAncestorContainer;
-          }
-          return getOffsetParent(commonAncestorContainer);
-        }
-        var element1root = getRoot(element1);
-        if (element1root.host) {
-          return findCommonOffsetParent(element1root.host, element2);
-        } else {
-          return findCommonOffsetParent(element1, getRoot(element2).host);
-        }
+      return getScrollParent(getParentNode(node));
+    }
+    function listScrollParents(element, list) {
+      var _element$ownerDocumen;
+      if (list === void 0) {
+        list = [];
       }
-      function getScroll(element) {
-        var side = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "top";
-        var upperSide = side === "top" ? "scrollTop" : "scrollLeft";
-        var nodeName = element.nodeName;
-        if (nodeName === "BODY" || nodeName === "HTML") {
-          var html = element.ownerDocument.documentElement;
-          var scrollingElement = element.ownerDocument.scrollingElement || html;
-          return scrollingElement[upperSide];
-        }
-        return element[upperSide];
-      }
-      function includeScroll(rect, element) {
-        var subtract = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
-        var scrollTop = getScroll(element, "top");
-        var scrollLeft = getScroll(element, "left");
-        var modifier = subtract ? -1 : 1;
-        rect.top += scrollTop * modifier;
-        rect.bottom += scrollTop * modifier;
-        rect.left += scrollLeft * modifier;
-        rect.right += scrollLeft * modifier;
-        return rect;
-      }
-      function getBordersSize(styles, axis) {
-        var sideA = axis === "x" ? "Left" : "Top";
-        var sideB = sideA === "Left" ? "Right" : "Bottom";
-        return parseFloat(styles["border" + sideA + "Width"]) + parseFloat(styles["border" + sideB + "Width"]);
-      }
-      function getSize(axis, body, html, computedStyle) {
-        return Math.max(body["offset" + axis], body["scroll" + axis], html["client" + axis], html["offset" + axis], html["scroll" + axis], isIE(10) ? parseInt(html["offset" + axis]) + parseInt(computedStyle["margin" + (axis === "Height" ? "Top" : "Left")]) + parseInt(computedStyle["margin" + (axis === "Height" ? "Bottom" : "Right")]) : 0);
-      }
-      function getWindowSizes(document2) {
-        var body = document2.body;
-        var html = document2.documentElement;
-        var computedStyle = isIE(10) && getComputedStyle(html);
-        return {
-          height: getSize("Height", body, html, computedStyle),
-          width: getSize("Width", body, html, computedStyle)
-        };
-      }
-      var classCallCheck = function(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-          throw new TypeError("Cannot call a class as a function");
-        }
-      };
-      var createClass = function() {
-        function defineProperties(target, props) {
-          for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor)
-              descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-          }
-        }
-        return function(Constructor, protoProps, staticProps) {
-          if (protoProps)
-            defineProperties(Constructor.prototype, protoProps);
-          if (staticProps)
-            defineProperties(Constructor, staticProps);
-          return Constructor;
-        };
-      }();
-      var defineProperty = function(obj, key, value) {
-        if (key in obj) {
-          Object.defineProperty(obj, key, {
-            value,
-            enumerable: true,
-            configurable: true,
-            writable: true
-          });
-        } else {
-          obj[key] = value;
-        }
-        return obj;
-      };
-      var _extends = Object.assign || function(target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i];
-          for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              target[key] = source[key];
-            }
-          }
-        }
-        return target;
-      };
-      function getClientRect(offsets) {
-        return _extends({}, offsets, {
-          right: offsets.left + offsets.width,
-          bottom: offsets.top + offsets.height
-        });
-      }
-      function getBoundingClientRect(element) {
-        var rect = {};
-        try {
-          if (isIE(10)) {
-            rect = element.getBoundingClientRect();
-            var scrollTop = getScroll(element, "top");
-            var scrollLeft = getScroll(element, "left");
-            rect.top += scrollTop;
-            rect.left += scrollLeft;
-            rect.bottom += scrollTop;
-            rect.right += scrollLeft;
-          } else {
-            rect = element.getBoundingClientRect();
-          }
-        } catch (e) {
-        }
-        var result = {
-          left: rect.left,
-          top: rect.top,
-          width: rect.right - rect.left,
-          height: rect.bottom - rect.top
-        };
-        var sizes = element.nodeName === "HTML" ? getWindowSizes(element.ownerDocument) : {};
-        var width = sizes.width || element.clientWidth || result.width;
-        var height = sizes.height || element.clientHeight || result.height;
-        var horizScrollbar = element.offsetWidth - width;
-        var vertScrollbar = element.offsetHeight - height;
-        if (horizScrollbar || vertScrollbar) {
-          var styles = getStyleComputedProperty(element);
-          horizScrollbar -= getBordersSize(styles, "x");
-          vertScrollbar -= getBordersSize(styles, "y");
-          result.width -= horizScrollbar;
-          result.height -= vertScrollbar;
-        }
-        return getClientRect(result);
-      }
-      function getOffsetRectRelativeToArbitraryNode(children, parent) {
-        var fixedPosition = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
-        var isIE102 = isIE(10);
-        var isHTML = parent.nodeName === "HTML";
-        var childrenRect = getBoundingClientRect(children);
-        var parentRect = getBoundingClientRect(parent);
-        var scrollParent = getScrollParent(children);
-        var styles = getStyleComputedProperty(parent);
-        var borderTopWidth = parseFloat(styles.borderTopWidth);
-        var borderLeftWidth = parseFloat(styles.borderLeftWidth);
-        if (fixedPosition && isHTML) {
-          parentRect.top = Math.max(parentRect.top, 0);
-          parentRect.left = Math.max(parentRect.left, 0);
-        }
-        var offsets = getClientRect({
-          top: childrenRect.top - parentRect.top - borderTopWidth,
-          left: childrenRect.left - parentRect.left - borderLeftWidth,
-          width: childrenRect.width,
-          height: childrenRect.height
-        });
-        offsets.marginTop = 0;
-        offsets.marginLeft = 0;
-        if (!isIE102 && isHTML) {
-          var marginTop = parseFloat(styles.marginTop);
-          var marginLeft = parseFloat(styles.marginLeft);
-          offsets.top -= borderTopWidth - marginTop;
-          offsets.bottom -= borderTopWidth - marginTop;
-          offsets.left -= borderLeftWidth - marginLeft;
-          offsets.right -= borderLeftWidth - marginLeft;
-          offsets.marginTop = marginTop;
-          offsets.marginLeft = marginLeft;
-        }
-        if (isIE102 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== "BODY") {
-          offsets = includeScroll(offsets, parent);
-        }
-        return offsets;
-      }
-      function getViewportOffsetRectRelativeToArtbitraryNode(element) {
-        var excludeScroll = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
-        var html = element.ownerDocument.documentElement;
-        var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
-        var width = Math.max(html.clientWidth, window.innerWidth || 0);
-        var height = Math.max(html.clientHeight, window.innerHeight || 0);
-        var scrollTop = !excludeScroll ? getScroll(html) : 0;
-        var scrollLeft = !excludeScroll ? getScroll(html, "left") : 0;
-        var offset2 = {
-          top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
-          left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
-          width,
-          height
-        };
-        return getClientRect(offset2);
-      }
-      function isFixed(element) {
-        var nodeName = element.nodeName;
-        if (nodeName === "BODY" || nodeName === "HTML") {
-          return false;
-        }
-        if (getStyleComputedProperty(element, "position") === "fixed") {
-          return true;
-        }
-        var parentNode = getParentNode(element);
-        if (!parentNode) {
-          return false;
-        }
-        return isFixed(parentNode);
-      }
-      function getFixedPositionOffsetParent(element) {
-        if (!element || !element.parentElement || isIE()) {
-          return document.documentElement;
-        }
-        var el = element.parentElement;
-        while (el && getStyleComputedProperty(el, "transform") === "none") {
-          el = el.parentElement;
-        }
-        return el || document.documentElement;
-      }
-      function getBoundaries(popper, reference, padding, boundariesElement) {
-        var fixedPosition = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : false;
-        var boundaries = { top: 0, left: 0 };
-        var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
-        if (boundariesElement === "viewport") {
-          boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
-        } else {
-          var boundariesNode = void 0;
-          if (boundariesElement === "scrollParent") {
-            boundariesNode = getScrollParent(getParentNode(reference));
-            if (boundariesNode.nodeName === "BODY") {
-              boundariesNode = popper.ownerDocument.documentElement;
-            }
-          } else if (boundariesElement === "window") {
-            boundariesNode = popper.ownerDocument.documentElement;
-          } else {
-            boundariesNode = boundariesElement;
-          }
-          var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition);
-          if (boundariesNode.nodeName === "HTML" && !isFixed(offsetParent)) {
-            var _getWindowSizes = getWindowSizes(popper.ownerDocument), height = _getWindowSizes.height, width = _getWindowSizes.width;
-            boundaries.top += offsets.top - offsets.marginTop;
-            boundaries.bottom = height + offsets.top;
-            boundaries.left += offsets.left - offsets.marginLeft;
-            boundaries.right = width + offsets.left;
-          } else {
-            boundaries = offsets;
-          }
-        }
-        padding = padding || 0;
-        var isPaddingNumber = typeof padding === "number";
-        boundaries.left += isPaddingNumber ? padding : padding.left || 0;
-        boundaries.top += isPaddingNumber ? padding : padding.top || 0;
-        boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
-        boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
-        return boundaries;
-      }
-      function getArea(_ref) {
-        var width = _ref.width, height = _ref.height;
-        return width * height;
-      }
-      function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
-        var padding = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : 0;
-        if (placement.indexOf("auto") === -1) {
-          return placement;
-        }
-        var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
-        var rects = {
-          top: {
-            width: boundaries.width,
-            height: refRect.top - boundaries.top
-          },
-          right: {
-            width: boundaries.right - refRect.right,
-            height: boundaries.height
-          },
-          bottom: {
-            width: boundaries.width,
-            height: boundaries.bottom - refRect.bottom
-          },
-          left: {
-            width: refRect.left - boundaries.left,
-            height: boundaries.height
-          }
-        };
-        var sortedAreas = Object.keys(rects).map(function(key) {
-          return _extends({
-            key
-          }, rects[key], {
-            area: getArea(rects[key])
-          });
-        }).sort(function(a, b) {
-          return b.area - a.area;
-        });
-        var filteredAreas = sortedAreas.filter(function(_ref2) {
-          var width = _ref2.width, height = _ref2.height;
-          return width >= popper.clientWidth && height >= popper.clientHeight;
-        });
-        var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
-        var variation = placement.split("-")[1];
-        return computedPlacement + (variation ? "-" + variation : "");
-      }
-      function getReferenceOffsets(state, popper, reference) {
-        var fixedPosition = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
-        var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
-        return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
-      }
-      function getOuterSizes(element) {
-        var window2 = element.ownerDocument.defaultView;
-        var styles = window2.getComputedStyle(element);
-        var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
-        var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
-        var result = {
-          width: element.offsetWidth + y,
-          height: element.offsetHeight + x
-        };
-        return result;
-      }
-      function getOppositePlacement(placement) {
-        var hash = { left: "right", right: "left", bottom: "top", top: "bottom" };
-        return placement.replace(/left|right|bottom|top/g, function(matched) {
-          return hash[matched];
-        });
-      }
-      function getPopperOffsets(popper, referenceOffsets, placement) {
-        placement = placement.split("-")[0];
-        var popperRect = getOuterSizes(popper);
-        var popperOffsets = {
-          width: popperRect.width,
-          height: popperRect.height
-        };
-        var isHoriz = ["right", "left"].indexOf(placement) !== -1;
-        var mainSide = isHoriz ? "top" : "left";
-        var secondarySide = isHoriz ? "left" : "top";
-        var measurement = isHoriz ? "height" : "width";
-        var secondaryMeasurement = !isHoriz ? "height" : "width";
-        popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
-        if (placement === secondarySide) {
-          popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
-        } else {
-          popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
-        }
-        return popperOffsets;
-      }
-      function find(arr, check) {
-        if (Array.prototype.find) {
-          return arr.find(check);
-        }
-        return arr.filter(check)[0];
-      }
-      function findIndex(arr, prop, value) {
-        if (Array.prototype.findIndex) {
-          return arr.findIndex(function(cur) {
-            return cur[prop] === value;
-          });
-        }
-        var match = find(arr, function(obj) {
-          return obj[prop] === value;
-        });
-        return arr.indexOf(match);
-      }
-      function runModifiers(modifiers2, data, ends) {
-        var modifiersToRun = ends === void 0 ? modifiers2 : modifiers2.slice(0, findIndex(modifiers2, "name", ends));
-        modifiersToRun.forEach(function(modifier) {
-          if (modifier["function"]) {
-            console.warn("`modifier.function` is deprecated, use `modifier.fn`!");
-          }
-          var fn = modifier["function"] || modifier.fn;
-          if (modifier.enabled && isFunction(fn)) {
-            data.offsets.popper = getClientRect(data.offsets.popper);
-            data.offsets.reference = getClientRect(data.offsets.reference);
-            data = fn(data, modifier);
-          }
-        });
-        return data;
-      }
-      function update() {
-        if (this.state.isDestroyed) {
-          return;
-        }
-        var data = {
-          instance: this,
-          styles: {},
-          arrowStyles: {},
-          attributes: {},
-          flipped: false,
-          offsets: {}
-        };
-        data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed);
-        data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
-        data.originalPlacement = data.placement;
-        data.positionFixed = this.options.positionFixed;
-        data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
-        data.offsets.popper.position = this.options.positionFixed ? "fixed" : "absolute";
-        data = runModifiers(this.modifiers, data);
-        if (!this.state.isCreated) {
-          this.state.isCreated = true;
-          this.options.onCreate(data);
-        } else {
-          this.options.onUpdate(data);
-        }
-      }
-      function isModifierEnabled(modifiers2, modifierName) {
-        return modifiers2.some(function(_ref) {
-          var name = _ref.name, enabled = _ref.enabled;
-          return enabled && name === modifierName;
-        });
-      }
-      function getSupportedPropertyName(property) {
-        var prefixes = [false, "ms", "Webkit", "Moz", "O"];
-        var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
-        for (var i = 0; i < prefixes.length; i++) {
-          var prefix = prefixes[i];
-          var toCheck = prefix ? "" + prefix + upperProp : property;
-          if (typeof document.body.style[toCheck] !== "undefined") {
-            return toCheck;
-          }
-        }
+      var scrollParent = getScrollParent(element);
+      var isBody = scrollParent === ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
+      var win = getWindow(scrollParent);
+      var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
+      var updatedList = list.concat(target);
+      return isBody ? updatedList : updatedList.concat(listScrollParents(getParentNode(target)));
+    }
+    function isTableElement(element) {
+      return ["table", "td", "th"].indexOf(getNodeName(element)) >= 0;
+    }
+    function getTrueOffsetParent(element) {
+      if (!isHTMLElement(element) || getComputedStyle2(element).position === "fixed") {
         return null;
       }
-      function destroy() {
-        this.state.isDestroyed = true;
-        if (isModifierEnabled(this.modifiers, "applyStyle")) {
-          this.popper.removeAttribute("x-placement");
-          this.popper.style.position = "";
-          this.popper.style.top = "";
-          this.popper.style.left = "";
-          this.popper.style.right = "";
-          this.popper.style.bottom = "";
-          this.popper.style.willChange = "";
-          this.popper.style[getSupportedPropertyName("transform")] = "";
-        }
-        this.disableEventListeners();
-        if (this.options.removeOnDestroy) {
-          this.popper.parentNode.removeChild(this.popper);
-        }
-        return this;
-      }
-      function getWindow(element) {
-        var ownerDocument = element.ownerDocument;
-        return ownerDocument ? ownerDocument.defaultView : window;
-      }
-      function attachToScrollParents(scrollParent, event, callback, scrollParents) {
-        var isBody = scrollParent.nodeName === "BODY";
-        var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
-        target.addEventListener(event, callback, { passive: true });
-        if (!isBody) {
-          attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
-        }
-        scrollParents.push(target);
-      }
-      function setupEventListeners(reference, options, state, updateBound) {
-        state.updateBound = updateBound;
-        getWindow(reference).addEventListener("resize", state.updateBound, { passive: true });
-        var scrollElement = getScrollParent(reference);
-        attachToScrollParents(scrollElement, "scroll", state.updateBound, state.scrollParents);
-        state.scrollElement = scrollElement;
-        state.eventsEnabled = true;
-        return state;
-      }
-      function enableEventListeners() {
-        if (!this.state.eventsEnabled) {
-          this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+      return element.offsetParent;
+    }
+    function getContainingBlock(element) {
+      var isFirefox = /firefox/i.test(getUAString());
+      var isIE = /Trident/i.test(getUAString());
+      if (isIE && isHTMLElement(element)) {
+        var elementCss = getComputedStyle2(element);
+        if (elementCss.position === "fixed") {
+          return null;
         }
       }
-      function removeEventListeners(reference, state) {
-        getWindow(reference).removeEventListener("resize", state.updateBound);
-        state.scrollParents.forEach(function(target) {
-          target.removeEventListener("scroll", state.updateBound);
-        });
-        state.updateBound = null;
-        state.scrollParents = [];
-        state.scrollElement = null;
-        state.eventsEnabled = false;
-        return state;
+      var currentNode = getParentNode(element);
+      if (isShadowRoot(currentNode)) {
+        currentNode = currentNode.host;
       }
-      function disableEventListeners() {
-        if (this.state.eventsEnabled) {
-          cancelAnimationFrame(this.scheduleUpdate);
-          this.state = removeEventListeners(this.reference, this.state);
-        }
-      }
-      function isNumeric(n) {
-        return n !== "" && !isNaN(parseFloat(n)) && isFinite(n);
-      }
-      function setStyles(element, styles) {
-        Object.keys(styles).forEach(function(prop) {
-          var unit = "";
-          if (["width", "height", "top", "right", "bottom", "left"].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
-            unit = "px";
-          }
-          element.style[prop] = styles[prop] + unit;
-        });
-      }
-      function setAttributes(element, attributes) {
-        Object.keys(attributes).forEach(function(prop) {
-          var value = attributes[prop];
-          if (value !== false) {
-            element.setAttribute(prop, attributes[prop]);
-          } else {
-            element.removeAttribute(prop);
-          }
-        });
-      }
-      function applyStyle(data) {
-        setStyles(data.instance.popper, data.styles);
-        setAttributes(data.instance.popper, data.attributes);
-        if (data.arrowElement && Object.keys(data.arrowStyles).length) {
-          setStyles(data.arrowElement, data.arrowStyles);
-        }
-        return data;
-      }
-      function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
-        var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed);
-        var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
-        popper.setAttribute("x-placement", placement);
-        setStyles(popper, { position: options.positionFixed ? "fixed" : "absolute" });
-        return options;
-      }
-      function getRoundedOffsets(data, shouldRound) {
-        var _data$offsets = data.offsets, popper = _data$offsets.popper, reference = _data$offsets.reference;
-        var round = Math.round, floor = Math.floor;
-        var noRound = function noRound2(v) {
-          return v;
-        };
-        var referenceWidth = round(reference.width);
-        var popperWidth = round(popper.width);
-        var isVertical = ["left", "right"].indexOf(data.placement) !== -1;
-        var isVariation = data.placement.indexOf("-") !== -1;
-        var sameWidthParity = referenceWidth % 2 === popperWidth % 2;
-        var bothOddWidth = referenceWidth % 2 === 1 && popperWidth % 2 === 1;
-        var horizontalToInteger = !shouldRound ? noRound : isVertical || isVariation || sameWidthParity ? round : floor;
-        var verticalToInteger = !shouldRound ? noRound : round;
-        return {
-          left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),
-          top: verticalToInteger(popper.top),
-          bottom: verticalToInteger(popper.bottom),
-          right: horizontalToInteger(popper.right)
-        };
-      }
-      var isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent);
-      function computeStyle(data, options) {
-        var x = options.x, y = options.y;
-        var popper = data.offsets.popper;
-        var legacyGpuAccelerationOption = find(data.instance.modifiers, function(modifier) {
-          return modifier.name === "applyStyle";
-        }).gpuAcceleration;
-        if (legacyGpuAccelerationOption !== void 0) {
-          console.warn("WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!");
-        }
-        var gpuAcceleration = legacyGpuAccelerationOption !== void 0 ? legacyGpuAccelerationOption : options.gpuAcceleration;
-        var offsetParent = getOffsetParent(data.instance.popper);
-        var offsetParentRect = getBoundingClientRect(offsetParent);
-        var styles = {
-          position: popper.position
-        };
-        var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox);
-        var sideA = x === "bottom" ? "top" : "bottom";
-        var sideB = y === "right" ? "left" : "right";
-        var prefixedProperty = getSupportedPropertyName("transform");
-        var left = void 0, top = void 0;
-        if (sideA === "bottom") {
-          if (offsetParent.nodeName === "HTML") {
-            top = -offsetParent.clientHeight + offsets.bottom;
-          } else {
-            top = -offsetParentRect.height + offsets.bottom;
-          }
+      while (isHTMLElement(currentNode) && ["html", "body"].indexOf(getNodeName(currentNode)) < 0) {
+        var css = getComputedStyle2(currentNode);
+        if (css.transform !== "none" || css.perspective !== "none" || css.contain === "paint" || ["transform", "perspective"].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === "filter" || isFirefox && css.filter && css.filter !== "none") {
+          return currentNode;
         } else {
-          top = offsets.top;
+          currentNode = currentNode.parentNode;
         }
-        if (sideB === "right") {
-          if (offsetParent.nodeName === "HTML") {
-            left = -offsetParent.clientWidth + offsets.right;
-          } else {
-            left = -offsetParentRect.width + offsets.right;
-          }
-        } else {
-          left = offsets.left;
-        }
-        if (gpuAcceleration && prefixedProperty) {
-          styles[prefixedProperty] = "translate3d(" + left + "px, " + top + "px, 0)";
-          styles[sideA] = 0;
-          styles[sideB] = 0;
-          styles.willChange = "transform";
-        } else {
-          var invertTop = sideA === "bottom" ? -1 : 1;
-          var invertLeft = sideB === "right" ? -1 : 1;
-          styles[sideA] = top * invertTop;
-          styles[sideB] = left * invertLeft;
-          styles.willChange = sideA + ", " + sideB;
-        }
-        var attributes = {
-          "x-placement": data.placement
-        };
-        data.attributes = _extends({}, attributes, data.attributes);
-        data.styles = _extends({}, styles, data.styles);
-        data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
-        return data;
       }
-      function isModifierRequired(modifiers2, requestingName, requestedName) {
-        var requesting = find(modifiers2, function(_ref) {
-          var name = _ref.name;
-          return name === requestingName;
-        });
-        var isRequired = !!requesting && modifiers2.some(function(modifier) {
-          return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
-        });
-        if (!isRequired) {
-          var _requesting = "`" + requestingName + "`";
-          var requested = "`" + requestedName + "`";
-          console.warn(requested + " modifier is required by " + _requesting + " modifier in order to work, be sure to include it before " + _requesting + "!");
-        }
-        return isRequired;
+      return null;
+    }
+    function getOffsetParent(element) {
+      var window2 = getWindow(element);
+      var offsetParent = getTrueOffsetParent(element);
+      while (offsetParent && isTableElement(offsetParent) && getComputedStyle2(offsetParent).position === "static") {
+        offsetParent = getTrueOffsetParent(offsetParent);
       }
-      function arrow(data, options) {
-        var _data$offsets$arrow;
-        if (!isModifierRequired(data.instance.modifiers, "arrow", "keepTogether")) {
-          return data;
-        }
-        var arrowElement = options.element;
-        if (typeof arrowElement === "string") {
-          arrowElement = data.instance.popper.querySelector(arrowElement);
-          if (!arrowElement) {
-            return data;
-          }
-        } else {
-          if (!data.instance.popper.contains(arrowElement)) {
-            console.warn("WARNING: `arrow.element` must be child of its popper element!");
-            return data;
-          }
-        }
-        var placement = data.placement.split("-")[0];
-        var _data$offsets = data.offsets, popper = _data$offsets.popper, reference = _data$offsets.reference;
-        var isVertical = ["left", "right"].indexOf(placement) !== -1;
-        var len = isVertical ? "height" : "width";
-        var sideCapitalized = isVertical ? "Top" : "Left";
-        var side = sideCapitalized.toLowerCase();
-        var altSide = isVertical ? "left" : "top";
-        var opSide = isVertical ? "bottom" : "right";
-        var arrowElementSize = getOuterSizes(arrowElement)[len];
-        if (reference[opSide] - arrowElementSize < popper[side]) {
-          data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
-        }
-        if (reference[side] + arrowElementSize > popper[opSide]) {
-          data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
-        }
-        data.offsets.popper = getClientRect(data.offsets.popper);
-        var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
-        var css = getStyleComputedProperty(data.instance.popper);
-        var popperMarginSide = parseFloat(css["margin" + sideCapitalized]);
-        var popperBorderSide = parseFloat(css["border" + sideCapitalized + "Width"]);
-        var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
-        sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
-        data.arrowElement = arrowElement;
-        data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ""), _data$offsets$arrow);
-        return data;
+      if (offsetParent && (getNodeName(offsetParent) === "html" || getNodeName(offsetParent) === "body" && getComputedStyle2(offsetParent).position === "static")) {
+        return window2;
       }
-      function getOppositeVariation(variation) {
-        if (variation === "end") {
-          return "start";
-        } else if (variation === "start") {
-          return "end";
-        }
-        return variation;
-      }
-      var placements = ["auto-start", "auto", "auto-end", "top-start", "top", "top-end", "right-start", "right", "right-end", "bottom-end", "bottom", "bottom-start", "left-end", "left", "left-start"];
-      var validPlacements = placements.slice(3);
-      function clockwise(placement) {
-        var counter = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
-        var index = validPlacements.indexOf(placement);
-        var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
-        return counter ? arr.reverse() : arr;
-      }
-      var BEHAVIORS = {
-        FLIP: "flip",
-        CLOCKWISE: "clockwise",
-        COUNTERCLOCKWISE: "counterclockwise"
-      };
-      function flip(data, options) {
-        if (isModifierEnabled(data.instance.modifiers, "inner")) {
-          return data;
-        }
-        if (data.flipped && data.placement === data.originalPlacement) {
-          return data;
-        }
-        var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);
-        var placement = data.placement.split("-")[0];
-        var placementOpposite = getOppositePlacement(placement);
-        var variation = data.placement.split("-")[1] || "";
-        var flipOrder = [];
-        switch (options.behavior) {
-          case BEHAVIORS.FLIP:
-            flipOrder = [placement, placementOpposite];
-            break;
-          case BEHAVIORS.CLOCKWISE:
-            flipOrder = clockwise(placement);
-            break;
-          case BEHAVIORS.COUNTERCLOCKWISE:
-            flipOrder = clockwise(placement, true);
-            break;
-          default:
-            flipOrder = options.behavior;
-        }
-        flipOrder.forEach(function(step, index) {
-          if (placement !== step || flipOrder.length === index + 1) {
-            return data;
-          }
-          placement = data.placement.split("-")[0];
-          placementOpposite = getOppositePlacement(placement);
-          var popperOffsets = data.offsets.popper;
-          var refOffsets = data.offsets.reference;
-          var floor = Math.floor;
-          var overlapsRef = placement === "left" && floor(popperOffsets.right) > floor(refOffsets.left) || placement === "right" && floor(popperOffsets.left) < floor(refOffsets.right) || placement === "top" && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === "bottom" && floor(popperOffsets.top) < floor(refOffsets.bottom);
-          var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
-          var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
-          var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
-          var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
-          var overflowsBoundaries = placement === "left" && overflowsLeft || placement === "right" && overflowsRight || placement === "top" && overflowsTop || placement === "bottom" && overflowsBottom;
-          var isVertical = ["top", "bottom"].indexOf(placement) !== -1;
-          var flippedVariationByRef = !!options.flipVariations && (isVertical && variation === "start" && overflowsLeft || isVertical && variation === "end" && overflowsRight || !isVertical && variation === "start" && overflowsTop || !isVertical && variation === "end" && overflowsBottom);
-          var flippedVariationByContent = !!options.flipVariationsByContent && (isVertical && variation === "start" && overflowsRight || isVertical && variation === "end" && overflowsLeft || !isVertical && variation === "start" && overflowsBottom || !isVertical && variation === "end" && overflowsTop);
-          var flippedVariation = flippedVariationByRef || flippedVariationByContent;
-          if (overlapsRef || overflowsBoundaries || flippedVariation) {
-            data.flipped = true;
-            if (overlapsRef || overflowsBoundaries) {
-              placement = flipOrder[index + 1];
+      return offsetParent || getContainingBlock(element) || window2;
+    }
+    var top = "top";
+    var bottom = "bottom";
+    var right = "right";
+    var left = "left";
+    var auto = "auto";
+    var basePlacements = [top, bottom, right, left];
+    var start2 = "start";
+    var end = "end";
+    var clippingParents = "clippingParents";
+    var viewport = "viewport";
+    var popper = "popper";
+    var reference = "reference";
+    var variationPlacements = /* @__PURE__ */ basePlacements.reduce(function(acc, placement) {
+      return acc.concat([placement + "-" + start2, placement + "-" + end]);
+    }, []);
+    var placements = /* @__PURE__ */ [].concat(basePlacements, [auto]).reduce(function(acc, placement) {
+      return acc.concat([placement, placement + "-" + start2, placement + "-" + end]);
+    }, []);
+    var beforeRead = "beforeRead";
+    var read = "read";
+    var afterRead = "afterRead";
+    var beforeMain = "beforeMain";
+    var main = "main";
+    var afterMain = "afterMain";
+    var beforeWrite = "beforeWrite";
+    var write = "write";
+    var afterWrite = "afterWrite";
+    var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
+    function order(modifiers) {
+      var map = /* @__PURE__ */ new Map();
+      var visited = /* @__PURE__ */ new Set();
+      var result = [];
+      modifiers.forEach(function(modifier) {
+        map.set(modifier.name, modifier);
+      });
+      function sort(modifier) {
+        visited.add(modifier.name);
+        var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
+        requires.forEach(function(dep) {
+          if (!visited.has(dep)) {
+            var depModifier = map.get(dep);
+            if (depModifier) {
+              sort(depModifier);
             }
-            if (flippedVariation) {
-              variation = getOppositeVariation(variation);
-            }
-            data.placement = placement + (variation ? "-" + variation : "");
-            data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
-            data = runModifiers(data.instance.modifiers, data, "flip");
           }
         });
-        return data;
+        result.push(modifier);
       }
-      function keepTogether(data) {
-        var _data$offsets = data.offsets, popper = _data$offsets.popper, reference = _data$offsets.reference;
-        var placement = data.placement.split("-")[0];
-        var floor = Math.floor;
-        var isVertical = ["top", "bottom"].indexOf(placement) !== -1;
-        var side = isVertical ? "right" : "bottom";
-        var opSide = isVertical ? "left" : "top";
-        var measurement = isVertical ? "width" : "height";
-        if (popper[side] < floor(reference[opSide])) {
-          data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+      modifiers.forEach(function(modifier) {
+        if (!visited.has(modifier.name)) {
+          sort(modifier);
         }
-        if (popper[opSide] > floor(reference[side])) {
-          data.offsets.popper[opSide] = floor(reference[side]);
-        }
-        return data;
-      }
-      function toValue(str, measurement, popperOffsets, referenceOffsets) {
-        var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
-        var value = +split[1];
-        var unit = split[2];
-        if (!value) {
-          return str;
-        }
-        if (unit.indexOf("%") === 0) {
-          var element = void 0;
-          switch (unit) {
-            case "%p":
-              element = popperOffsets;
-              break;
-            case "%":
-            case "%r":
-            default:
-              element = referenceOffsets;
-          }
-          var rect = getClientRect(element);
-          return rect[measurement] / 100 * value;
-        } else if (unit === "vh" || unit === "vw") {
-          var size = void 0;
-          if (unit === "vh") {
-            size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-          } else {
-            size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-          }
-          return size / 100 * value;
-        } else {
-          return value;
-        }
-      }
-      function parseOffset(offset2, popperOffsets, referenceOffsets, basePlacement) {
-        var offsets = [0, 0];
-        var useHeight = ["right", "left"].indexOf(basePlacement) !== -1;
-        var fragments = offset2.split(/(\+|\-)/).map(function(frag) {
-          return frag.trim();
-        });
-        var divider = fragments.indexOf(find(fragments, function(frag) {
-          return frag.search(/,|\s/) !== -1;
+      });
+      return result;
+    }
+    function orderModifiers(modifiers) {
+      var orderedModifiers = order(modifiers);
+      return modifierPhases.reduce(function(acc, phase) {
+        return acc.concat(orderedModifiers.filter(function(modifier) {
+          return modifier.phase === phase;
         }));
-        if (fragments[divider] && fragments[divider].indexOf(",") === -1) {
-          console.warn("Offsets separated by white space(s) are deprecated, use a comma (,) instead.");
-        }
-        var splitRegex = /\s*,\s*|\s+/;
-        var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
-        ops = ops.map(function(op, index) {
-          var measurement = (index === 1 ? !useHeight : useHeight) ? "height" : "width";
-          var mergeWithPrevious = false;
-          return op.reduce(function(a, b) {
-            if (a[a.length - 1] === "" && ["+", "-"].indexOf(b) !== -1) {
-              a[a.length - 1] = b;
-              mergeWithPrevious = true;
-              return a;
-            } else if (mergeWithPrevious) {
-              a[a.length - 1] += b;
-              mergeWithPrevious = false;
-              return a;
-            } else {
-              return a.concat(b);
-            }
-          }, []).map(function(str) {
-            return toValue(str, measurement, popperOffsets, referenceOffsets);
+      }, []);
+    }
+    function debounce(fn) {
+      var pending;
+      return function() {
+        if (!pending) {
+          pending = new Promise(function(resolve) {
+            Promise.resolve().then(function() {
+              pending = void 0;
+              resolve(fn());
+            });
           });
-        });
-        ops.forEach(function(op, index) {
-          op.forEach(function(frag, index2) {
-            if (isNumeric(frag)) {
-              offsets[index] += frag * (op[index2 - 1] === "-" ? -1 : 1);
-            }
-          });
-        });
-        return offsets;
+        }
+        return pending;
+      };
+    }
+    function mergeByName(modifiers) {
+      var merged = modifiers.reduce(function(merged2, current) {
+        var existing = merged2[current.name];
+        merged2[current.name] = existing ? Object.assign({}, existing, current, {
+          options: Object.assign({}, existing.options, current.options),
+          data: Object.assign({}, existing.data, current.data)
+        }) : current;
+        return merged2;
+      }, {});
+      return Object.keys(merged).map(function(key) {
+        return merged[key];
+      });
+    }
+    function getViewportRect(element, strategy) {
+      var win = getWindow(element);
+      var html = getDocumentElement(element);
+      var visualViewport = win.visualViewport;
+      var width = html.clientWidth;
+      var height = html.clientHeight;
+      var x = 0;
+      var y = 0;
+      if (visualViewport) {
+        width = visualViewport.width;
+        height = visualViewport.height;
+        var layoutViewport = isLayoutViewport();
+        if (layoutViewport || !layoutViewport && strategy === "fixed") {
+          x = visualViewport.offsetLeft;
+          y = visualViewport.offsetTop;
+        }
       }
-      function offset(data, _ref) {
-        var offset2 = _ref.offset;
-        var placement = data.placement, _data$offsets = data.offsets, popper = _data$offsets.popper, reference = _data$offsets.reference;
-        var basePlacement = placement.split("-")[0];
-        var offsets = void 0;
-        if (isNumeric(+offset2)) {
-          offsets = [+offset2, 0];
-        } else {
-          offsets = parseOffset(offset2, popper, reference, basePlacement);
-        }
-        if (basePlacement === "left") {
-          popper.top += offsets[0];
-          popper.left -= offsets[1];
-        } else if (basePlacement === "right") {
-          popper.top += offsets[0];
-          popper.left += offsets[1];
-        } else if (basePlacement === "top") {
-          popper.left += offsets[0];
-          popper.top -= offsets[1];
-        } else if (basePlacement === "bottom") {
-          popper.left += offsets[0];
-          popper.top += offsets[1];
-        }
-        data.popper = popper;
-        return data;
+      return {
+        width,
+        height,
+        x: x + getWindowScrollBarX(element),
+        y
+      };
+    }
+    function getDocumentRect(element) {
+      var _element$ownerDocumen;
+      var html = getDocumentElement(element);
+      var winScroll = getWindowScroll(element);
+      var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
+      var width = max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
+      var height = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
+      var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
+      var y = -winScroll.scrollTop;
+      if (getComputedStyle2(body || html).direction === "rtl") {
+        x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
       }
-      function preventOverflow(data, options) {
-        var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
-        if (data.instance.reference === boundariesElement) {
-          boundariesElement = getOffsetParent(boundariesElement);
+      return {
+        width,
+        height,
+        x,
+        y
+      };
+    }
+    function contains(parent, child) {
+      var rootNode = child.getRootNode && child.getRootNode();
+      if (parent.contains(child)) {
+        return true;
+      } else if (rootNode && isShadowRoot(rootNode)) {
+        var next = child;
+        do {
+          if (next && parent.isSameNode(next)) {
+            return true;
+          }
+          next = next.parentNode || next.host;
+        } while (next);
+      }
+      return false;
+    }
+    function rectToClientRect(rect) {
+      return Object.assign({}, rect, {
+        left: rect.x,
+        top: rect.y,
+        right: rect.x + rect.width,
+        bottom: rect.y + rect.height
+      });
+    }
+    function getInnerBoundingClientRect(element, strategy) {
+      var rect = getBoundingClientRect(element, false, strategy === "fixed");
+      rect.top = rect.top + element.clientTop;
+      rect.left = rect.left + element.clientLeft;
+      rect.bottom = rect.top + element.clientHeight;
+      rect.right = rect.left + element.clientWidth;
+      rect.width = element.clientWidth;
+      rect.height = element.clientHeight;
+      rect.x = rect.left;
+      rect.y = rect.top;
+      return rect;
+    }
+    function getClientRectFromMixedType(element, clippingParent, strategy) {
+      return clippingParent === viewport ? rectToClientRect(getViewportRect(element, strategy)) : isElement(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
+    }
+    function getClippingParents(element) {
+      var clippingParents2 = listScrollParents(getParentNode(element));
+      var canEscapeClipping = ["absolute", "fixed"].indexOf(getComputedStyle2(element).position) >= 0;
+      var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
+      if (!isElement(clipperElement)) {
+        return [];
+      }
+      return clippingParents2.filter(function(clippingParent) {
+        return isElement(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== "body";
+      });
+    }
+    function getClippingRect(element, boundary, rootBoundary, strategy) {
+      var mainClippingParents = boundary === "clippingParents" ? getClippingParents(element) : [].concat(boundary);
+      var clippingParents2 = [].concat(mainClippingParents, [rootBoundary]);
+      var firstClippingParent = clippingParents2[0];
+      var clippingRect = clippingParents2.reduce(function(accRect, clippingParent) {
+        var rect = getClientRectFromMixedType(element, clippingParent, strategy);
+        accRect.top = max(rect.top, accRect.top);
+        accRect.right = min(rect.right, accRect.right);
+        accRect.bottom = min(rect.bottom, accRect.bottom);
+        accRect.left = max(rect.left, accRect.left);
+        return accRect;
+      }, getClientRectFromMixedType(element, firstClippingParent, strategy));
+      clippingRect.width = clippingRect.right - clippingRect.left;
+      clippingRect.height = clippingRect.bottom - clippingRect.top;
+      clippingRect.x = clippingRect.left;
+      clippingRect.y = clippingRect.top;
+      return clippingRect;
+    }
+    function getBasePlacement(placement) {
+      return placement.split("-")[0];
+    }
+    function getVariation(placement) {
+      return placement.split("-")[1];
+    }
+    function getMainAxisFromPlacement(placement) {
+      return ["top", "bottom"].indexOf(placement) >= 0 ? "x" : "y";
+    }
+    function computeOffsets(_ref) {
+      var reference2 = _ref.reference, element = _ref.element, placement = _ref.placement;
+      var basePlacement = placement ? getBasePlacement(placement) : null;
+      var variation = placement ? getVariation(placement) : null;
+      var commonX = reference2.x + reference2.width / 2 - element.width / 2;
+      var commonY = reference2.y + reference2.height / 2 - element.height / 2;
+      var offsets;
+      switch (basePlacement) {
+        case top:
+          offsets = {
+            x: commonX,
+            y: reference2.y - element.height
+          };
+          break;
+        case bottom:
+          offsets = {
+            x: commonX,
+            y: reference2.y + reference2.height
+          };
+          break;
+        case right:
+          offsets = {
+            x: reference2.x + reference2.width,
+            y: commonY
+          };
+          break;
+        case left:
+          offsets = {
+            x: reference2.x - element.width,
+            y: commonY
+          };
+          break;
+        default:
+          offsets = {
+            x: reference2.x,
+            y: reference2.y
+          };
+      }
+      var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
+      if (mainAxis != null) {
+        var len = mainAxis === "y" ? "height" : "width";
+        switch (variation) {
+          case start2:
+            offsets[mainAxis] = offsets[mainAxis] - (reference2[len] / 2 - element[len] / 2);
+            break;
+          case end:
+            offsets[mainAxis] = offsets[mainAxis] + (reference2[len] / 2 - element[len] / 2);
+            break;
         }
-        var transformProp = getSupportedPropertyName("transform");
-        var popperStyles = data.instance.popper.style;
-        var top = popperStyles.top, left = popperStyles.left, transform = popperStyles[transformProp];
-        popperStyles.top = "";
-        popperStyles.left = "";
-        popperStyles[transformProp] = "";
-        var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed);
-        popperStyles.top = top;
-        popperStyles.left = left;
-        popperStyles[transformProp] = transform;
-        options.boundaries = boundaries;
-        var order = options.priority;
-        var popper = data.offsets.popper;
-        var check = {
-          primary: function primary(placement) {
-            var value = popper[placement];
-            if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
-              value = Math.max(popper[placement], boundaries[placement]);
-            }
-            return defineProperty({}, placement, value);
+      }
+      return offsets;
+    }
+    function getFreshSideObject() {
+      return {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      };
+    }
+    function mergePaddingObject(paddingObject) {
+      return Object.assign({}, getFreshSideObject(), paddingObject);
+    }
+    function expandToHashMap(value, keys) {
+      return keys.reduce(function(hashMap, key) {
+        hashMap[key] = value;
+        return hashMap;
+      }, {});
+    }
+    function detectOverflow(state, options) {
+      if (options === void 0) {
+        options = {};
+      }
+      var _options = options, _options$placement = _options.placement, placement = _options$placement === void 0 ? state.placement : _options$placement, _options$strategy = _options.strategy, strategy = _options$strategy === void 0 ? state.strategy : _options$strategy, _options$boundary = _options.boundary, boundary = _options$boundary === void 0 ? clippingParents : _options$boundary, _options$rootBoundary = _options.rootBoundary, rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary, _options$elementConte = _options.elementContext, elementContext = _options$elementConte === void 0 ? popper : _options$elementConte, _options$altBoundary = _options.altBoundary, altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary, _options$padding = _options.padding, padding = _options$padding === void 0 ? 0 : _options$padding;
+      var paddingObject = mergePaddingObject(typeof padding !== "number" ? padding : expandToHashMap(padding, basePlacements));
+      var altContext = elementContext === popper ? reference : popper;
+      var popperRect = state.rects.popper;
+      var element = state.elements[altBoundary ? altContext : elementContext];
+      var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary, strategy);
+      var referenceClientRect = getBoundingClientRect(state.elements.reference);
+      var popperOffsets2 = computeOffsets({
+        reference: referenceClientRect,
+        element: popperRect,
+        strategy: "absolute",
+        placement
+      });
+      var popperClientRect = rectToClientRect(Object.assign({}, popperRect, popperOffsets2));
+      var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect;
+      var overflowOffsets = {
+        top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
+        bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
+        left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
+        right: elementClientRect.right - clippingClientRect.right + paddingObject.right
+      };
+      var offsetData = state.modifiersData.offset;
+      if (elementContext === popper && offsetData) {
+        var offset2 = offsetData[placement];
+        Object.keys(overflowOffsets).forEach(function(key) {
+          var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
+          var axis = [top, bottom].indexOf(key) >= 0 ? "y" : "x";
+          overflowOffsets[key] += offset2[axis] * multiply;
+        });
+      }
+      return overflowOffsets;
+    }
+    var DEFAULT_OPTIONS = {
+      placement: "bottom",
+      modifiers: [],
+      strategy: "absolute"
+    };
+    function areValidElements() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      return !args.some(function(element) {
+        return !(element && typeof element.getBoundingClientRect === "function");
+      });
+    }
+    function popperGenerator(generatorOptions) {
+      if (generatorOptions === void 0) {
+        generatorOptions = {};
+      }
+      var _generatorOptions = generatorOptions, _generatorOptions$def = _generatorOptions.defaultModifiers, defaultModifiers2 = _generatorOptions$def === void 0 ? [] : _generatorOptions$def, _generatorOptions$def2 = _generatorOptions.defaultOptions, defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
+      return function createPopper2(reference2, popper2, options) {
+        if (options === void 0) {
+          options = defaultOptions;
+        }
+        var state = {
+          placement: "bottom",
+          orderedModifiers: [],
+          options: Object.assign({}, DEFAULT_OPTIONS, defaultOptions),
+          modifiersData: {},
+          elements: {
+            reference: reference2,
+            popper: popper2
           },
-          secondary: function secondary(placement) {
-            var mainSide = placement === "right" ? "left" : "top";
-            var value = popper[mainSide];
-            if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
-              value = Math.min(popper[mainSide], boundaries[placement] - (placement === "right" ? popper.width : popper.height));
+          attributes: {},
+          styles: {}
+        };
+        var effectCleanupFns = [];
+        var isDestroyed = false;
+        var instance = {
+          state,
+          setOptions: function setOptions(setOptionsAction) {
+            var options2 = typeof setOptionsAction === "function" ? setOptionsAction(state.options) : setOptionsAction;
+            cleanupModifierEffects();
+            state.options = Object.assign({}, defaultOptions, state.options, options2);
+            state.scrollParents = {
+              reference: isElement(reference2) ? listScrollParents(reference2) : reference2.contextElement ? listScrollParents(reference2.contextElement) : [],
+              popper: listScrollParents(popper2)
+            };
+            var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers2, state.options.modifiers)));
+            state.orderedModifiers = orderedModifiers.filter(function(m2) {
+              return m2.enabled;
+            });
+            runModifierEffects();
+            return instance.update();
+          },
+          forceUpdate: function forceUpdate() {
+            if (isDestroyed) {
+              return;
             }
-            return defineProperty({}, mainSide, value);
+            var _state$elements = state.elements, reference3 = _state$elements.reference, popper3 = _state$elements.popper;
+            if (!areValidElements(reference3, popper3)) {
+              return;
+            }
+            state.rects = {
+              reference: getCompositeRect(reference3, getOffsetParent(popper3), state.options.strategy === "fixed"),
+              popper: getLayoutRect(popper3)
+            };
+            state.reset = false;
+            state.placement = state.options.placement;
+            state.orderedModifiers.forEach(function(modifier) {
+              return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
+            });
+            for (var index = 0; index < state.orderedModifiers.length; index++) {
+              if (state.reset === true) {
+                state.reset = false;
+                index = -1;
+                continue;
+              }
+              var _state$orderedModifie = state.orderedModifiers[index], fn = _state$orderedModifie.fn, _state$orderedModifie2 = _state$orderedModifie.options, _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2, name = _state$orderedModifie.name;
+              if (typeof fn === "function") {
+                state = fn({
+                  state,
+                  options: _options,
+                  name,
+                  instance
+                }) || state;
+              }
+            }
+          },
+          update: debounce(function() {
+            return new Promise(function(resolve) {
+              instance.forceUpdate();
+              resolve(state);
+            });
+          }),
+          destroy: function destroy() {
+            cleanupModifierEffects();
+            isDestroyed = true;
           }
         };
-        order.forEach(function(placement) {
-          var side = ["left", "top"].indexOf(placement) !== -1 ? "primary" : "secondary";
-          popper = _extends({}, popper, check[side](placement));
+        if (!areValidElements(reference2, popper2)) {
+          return instance;
+        }
+        instance.setOptions(options).then(function(state2) {
+          if (!isDestroyed && options.onFirstUpdate) {
+            options.onFirstUpdate(state2);
+          }
         });
-        data.offsets.popper = popper;
-        return data;
-      }
-      function shift(data) {
-        var placement = data.placement;
-        var basePlacement = placement.split("-")[0];
-        var shiftvariation = placement.split("-")[1];
-        if (shiftvariation) {
-          var _data$offsets = data.offsets, reference = _data$offsets.reference, popper = _data$offsets.popper;
-          var isVertical = ["bottom", "top"].indexOf(basePlacement) !== -1;
-          var side = isVertical ? "left" : "top";
-          var measurement = isVertical ? "width" : "height";
-          var shiftOffsets = {
-            start: defineProperty({}, side, reference[side]),
-            end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
-          };
-          data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+        function runModifierEffects() {
+          state.orderedModifiers.forEach(function(_ref) {
+            var name = _ref.name, _ref$options = _ref.options, options2 = _ref$options === void 0 ? {} : _ref$options, effect2 = _ref.effect;
+            if (typeof effect2 === "function") {
+              var cleanupFn = effect2({
+                state,
+                name,
+                instance,
+                options: options2
+              });
+              var noopFn = function noopFn2() {
+              };
+              effectCleanupFns.push(cleanupFn || noopFn);
+            }
+          });
         }
-        return data;
-      }
-      function hide(data) {
-        if (!isModifierRequired(data.instance.modifiers, "hide", "preventOverflow")) {
-          return data;
+        function cleanupModifierEffects() {
+          effectCleanupFns.forEach(function(fn) {
+            return fn();
+          });
+          effectCleanupFns = [];
         }
-        var refRect = data.offsets.reference;
-        var bound = find(data.instance.modifiers, function(modifier) {
-          return modifier.name === "preventOverflow";
-        }).boundaries;
-        if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
-          if (data.hide === true) {
-            return data;
+        return instance;
+      };
+    }
+    var passive = {
+      passive: true
+    };
+    function effect$2(_ref) {
+      var state = _ref.state, instance = _ref.instance, options = _ref.options;
+      var _options$scroll = options.scroll, scroll = _options$scroll === void 0 ? true : _options$scroll, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize;
+      var window2 = getWindow(state.elements.popper);
+      var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
+      if (scroll) {
+        scrollParents.forEach(function(scrollParent) {
+          scrollParent.addEventListener("scroll", instance.update, passive);
+        });
+      }
+      if (resize) {
+        window2.addEventListener("resize", instance.update, passive);
+      }
+      return function() {
+        if (scroll) {
+          scrollParents.forEach(function(scrollParent) {
+            scrollParent.removeEventListener("scroll", instance.update, passive);
+          });
+        }
+        if (resize) {
+          window2.removeEventListener("resize", instance.update, passive);
+        }
+      };
+    }
+    var eventListeners = {
+      name: "eventListeners",
+      enabled: true,
+      phase: "write",
+      fn: function fn() {
+      },
+      effect: effect$2,
+      data: {}
+    };
+    function popperOffsets(_ref) {
+      var state = _ref.state, name = _ref.name;
+      state.modifiersData[name] = computeOffsets({
+        reference: state.rects.reference,
+        element: state.rects.popper,
+        strategy: "absolute",
+        placement: state.placement
+      });
+    }
+    var popperOffsets$1 = {
+      name: "popperOffsets",
+      enabled: true,
+      phase: "read",
+      fn: popperOffsets,
+      data: {}
+    };
+    var unsetSides = {
+      top: "auto",
+      right: "auto",
+      bottom: "auto",
+      left: "auto"
+    };
+    function roundOffsetsByDPR(_ref, win) {
+      var x = _ref.x, y = _ref.y;
+      var dpr = win.devicePixelRatio || 1;
+      return {
+        x: round(x * dpr) / dpr || 0,
+        y: round(y * dpr) / dpr || 0
+      };
+    }
+    function mapToStyles(_ref2) {
+      var _Object$assign2;
+      var popper2 = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
+      var _offsets$x = offsets.x, x = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y = _offsets$y === void 0 ? 0 : _offsets$y;
+      var _ref3 = typeof roundOffsets === "function" ? roundOffsets({
+        x,
+        y
+      }) : {
+        x,
+        y
+      };
+      x = _ref3.x;
+      y = _ref3.y;
+      var hasX = offsets.hasOwnProperty("x");
+      var hasY = offsets.hasOwnProperty("y");
+      var sideX = left;
+      var sideY = top;
+      var win = window;
+      if (adaptive) {
+        var offsetParent = getOffsetParent(popper2);
+        var heightProp = "clientHeight";
+        var widthProp = "clientWidth";
+        if (offsetParent === getWindow(popper2)) {
+          offsetParent = getDocumentElement(popper2);
+          if (getComputedStyle2(offsetParent).position !== "static" && position === "absolute") {
+            heightProp = "scrollHeight";
+            widthProp = "scrollWidth";
           }
-          data.hide = true;
-          data.attributes["x-out-of-boundaries"] = "";
-        } else {
-          if (data.hide === false) {
-            return data;
-          }
-          data.hide = false;
-          data.attributes["x-out-of-boundaries"] = false;
         }
-        return data;
+        offsetParent = offsetParent;
+        if (placement === top || (placement === left || placement === right) && variation === end) {
+          sideY = bottom;
+          var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : offsetParent[heightProp];
+          y -= offsetY - popperRect.height;
+          y *= gpuAcceleration ? 1 : -1;
+        }
+        if (placement === left || (placement === top || placement === bottom) && variation === end) {
+          sideX = right;
+          var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : offsetParent[widthProp];
+          x -= offsetX - popperRect.width;
+          x *= gpuAcceleration ? 1 : -1;
+        }
       }
-      function inner(data) {
-        var placement = data.placement;
-        var basePlacement = placement.split("-")[0];
-        var _data$offsets = data.offsets, popper = _data$offsets.popper, reference = _data$offsets.reference;
-        var isHoriz = ["left", "right"].indexOf(basePlacement) !== -1;
-        var subtractLength = ["top", "left"].indexOf(basePlacement) === -1;
-        popper[isHoriz ? "left" : "top"] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? "width" : "height"] : 0);
-        data.placement = getOppositePlacement(placement);
-        data.offsets.popper = getClientRect(popper);
-        return data;
+      var commonStyles = Object.assign({
+        position
+      }, adaptive && unsetSides);
+      var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
+        x,
+        y
+      }, getWindow(popper2)) : {
+        x,
+        y
+      };
+      x = _ref4.x;
+      y = _ref4.y;
+      if (gpuAcceleration) {
+        var _Object$assign;
+        return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
       }
-      var modifiers = {
-        shift: {
-          order: 100,
-          enabled: true,
-          fn: shift
-        },
-        offset: {
-          order: 200,
-          enabled: true,
-          fn: offset,
-          offset: 0
-        },
-        preventOverflow: {
-          order: 300,
-          enabled: true,
-          fn: preventOverflow,
-          priority: ["left", "right", "top", "bottom"],
-          padding: 5,
-          boundariesElement: "scrollParent"
-        },
-        keepTogether: {
-          order: 400,
-          enabled: true,
-          fn: keepTogether
+      return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", _Object$assign2));
+    }
+    function computeStyles(_ref5) {
+      var state = _ref5.state, options = _ref5.options;
+      var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+      var commonStyles = {
+        placement: getBasePlacement(state.placement),
+        variation: getVariation(state.placement),
+        popper: state.elements.popper,
+        popperRect: state.rects.popper,
+        gpuAcceleration,
+        isFixed: state.options.strategy === "fixed"
+      };
+      if (state.modifiersData.popperOffsets != null) {
+        state.styles.popper = Object.assign({}, state.styles.popper, mapToStyles(Object.assign({}, commonStyles, {
+          offsets: state.modifiersData.popperOffsets,
+          position: state.options.strategy,
+          adaptive,
+          roundOffsets
+        })));
+      }
+      if (state.modifiersData.arrow != null) {
+        state.styles.arrow = Object.assign({}, state.styles.arrow, mapToStyles(Object.assign({}, commonStyles, {
+          offsets: state.modifiersData.arrow,
+          position: "absolute",
+          adaptive: false,
+          roundOffsets
+        })));
+      }
+      state.attributes.popper = Object.assign({}, state.attributes.popper, {
+        "data-popper-placement": state.placement
+      });
+    }
+    var computeStyles$1 = {
+      name: "computeStyles",
+      enabled: true,
+      phase: "beforeWrite",
+      fn: computeStyles,
+      data: {}
+    };
+    function applyStyles(_ref) {
+      var state = _ref.state;
+      Object.keys(state.elements).forEach(function(name) {
+        var style = state.styles[name] || {};
+        var attributes = state.attributes[name] || {};
+        var element = state.elements[name];
+        if (!isHTMLElement(element) || !getNodeName(element)) {
+          return;
+        }
+        Object.assign(element.style, style);
+        Object.keys(attributes).forEach(function(name2) {
+          var value = attributes[name2];
+          if (value === false) {
+            element.removeAttribute(name2);
+          } else {
+            element.setAttribute(name2, value === true ? "" : value);
+          }
+        });
+      });
+    }
+    function effect$1(_ref2) {
+      var state = _ref2.state;
+      var initialStyles = {
+        popper: {
+          position: state.options.strategy,
+          left: "0",
+          top: "0",
+          margin: "0"
         },
         arrow: {
-          order: 500,
-          enabled: true,
-          fn: arrow,
-          element: "[x-arrow]"
+          position: "absolute"
         },
-        flip: {
-          order: 600,
-          enabled: true,
-          fn: flip,
-          behavior: "flip",
-          padding: 5,
-          boundariesElement: "viewport",
-          flipVariations: false,
-          flipVariationsByContent: false
-        },
-        inner: {
-          order: 700,
-          enabled: false,
-          fn: inner
-        },
-        hide: {
-          order: 800,
-          enabled: true,
-          fn: hide
-        },
-        computeStyle: {
-          order: 850,
-          enabled: true,
-          fn: computeStyle,
-          gpuAcceleration: true,
-          x: "bottom",
-          y: "right"
-        },
-        applyStyle: {
-          order: 900,
-          enabled: true,
-          fn: applyStyle,
-          onLoad: applyStyleOnLoad,
-          gpuAcceleration: void 0
+        reference: {}
+      };
+      Object.assign(state.elements.popper.style, initialStyles.popper);
+      state.styles = initialStyles;
+      if (state.elements.arrow) {
+        Object.assign(state.elements.arrow.style, initialStyles.arrow);
+      }
+      return function() {
+        Object.keys(state.elements).forEach(function(name) {
+          var element = state.elements[name];
+          var attributes = state.attributes[name] || {};
+          var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]);
+          var style = styleProperties.reduce(function(style2, property) {
+            style2[property] = "";
+            return style2;
+          }, {});
+          if (!isHTMLElement(element) || !getNodeName(element)) {
+            return;
+          }
+          Object.assign(element.style, style);
+          Object.keys(attributes).forEach(function(attribute) {
+            element.removeAttribute(attribute);
+          });
+        });
+      };
+    }
+    var applyStyles$1 = {
+      name: "applyStyles",
+      enabled: true,
+      phase: "write",
+      fn: applyStyles,
+      effect: effect$1,
+      requires: ["computeStyles"]
+    };
+    function distanceAndSkiddingToXY(placement, rects, offset2) {
+      var basePlacement = getBasePlacement(placement);
+      var invertDistance = [left, top].indexOf(basePlacement) >= 0 ? -1 : 1;
+      var _ref = typeof offset2 === "function" ? offset2(Object.assign({}, rects, {
+        placement
+      })) : offset2, skidding = _ref[0], distance = _ref[1];
+      skidding = skidding || 0;
+      distance = (distance || 0) * invertDistance;
+      return [left, right].indexOf(basePlacement) >= 0 ? {
+        x: distance,
+        y: skidding
+      } : {
+        x: skidding,
+        y: distance
+      };
+    }
+    function offset(_ref2) {
+      var state = _ref2.state, options = _ref2.options, name = _ref2.name;
+      var _options$offset = options.offset, offset2 = _options$offset === void 0 ? [0, 0] : _options$offset;
+      var data = placements.reduce(function(acc, placement) {
+        acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset2);
+        return acc;
+      }, {});
+      var _data$state$placement = data[state.placement], x = _data$state$placement.x, y = _data$state$placement.y;
+      if (state.modifiersData.popperOffsets != null) {
+        state.modifiersData.popperOffsets.x += x;
+        state.modifiersData.popperOffsets.y += y;
+      }
+      state.modifiersData[name] = data;
+    }
+    var offset$1 = {
+      name: "offset",
+      enabled: true,
+      phase: "main",
+      requires: ["popperOffsets"],
+      fn: offset
+    };
+    var hash$1 = {
+      left: "right",
+      right: "left",
+      bottom: "top",
+      top: "bottom"
+    };
+    function getOppositePlacement(placement) {
+      return placement.replace(/left|right|bottom|top/g, function(matched) {
+        return hash$1[matched];
+      });
+    }
+    var hash = {
+      start: "end",
+      end: "start"
+    };
+    function getOppositeVariationPlacement(placement) {
+      return placement.replace(/start|end/g, function(matched) {
+        return hash[matched];
+      });
+    }
+    function computeAutoPlacement(state, options) {
+      if (options === void 0) {
+        options = {};
+      }
+      var _options = options, placement = _options.placement, boundary = _options.boundary, rootBoundary = _options.rootBoundary, padding = _options.padding, flipVariations = _options.flipVariations, _options$allowedAutoP = _options.allowedAutoPlacements, allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
+      var variation = getVariation(placement);
+      var placements$1 = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function(placement2) {
+        return getVariation(placement2) === variation;
+      }) : basePlacements;
+      var allowedPlacements = placements$1.filter(function(placement2) {
+        return allowedAutoPlacements.indexOf(placement2) >= 0;
+      });
+      if (allowedPlacements.length === 0) {
+        allowedPlacements = placements$1;
+      }
+      var overflows = allowedPlacements.reduce(function(acc, placement2) {
+        acc[placement2] = detectOverflow(state, {
+          placement: placement2,
+          boundary,
+          rootBoundary,
+          padding
+        })[getBasePlacement(placement2)];
+        return acc;
+      }, {});
+      return Object.keys(overflows).sort(function(a, b) {
+        return overflows[a] - overflows[b];
+      });
+    }
+    function getExpandedFallbackPlacements(placement) {
+      if (getBasePlacement(placement) === auto) {
+        return [];
+      }
+      var oppositePlacement = getOppositePlacement(placement);
+      return [getOppositeVariationPlacement(placement), oppositePlacement, getOppositeVariationPlacement(oppositePlacement)];
+    }
+    function flip(_ref) {
+      var state = _ref.state, options = _ref.options, name = _ref.name;
+      if (state.modifiersData[name]._skip) {
+        return;
+      }
+      var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis, specifiedFallbackPlacements = options.fallbackPlacements, padding = options.padding, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, _options$flipVariatio = options.flipVariations, flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio, allowedAutoPlacements = options.allowedAutoPlacements;
+      var preferredPlacement = state.options.placement;
+      var basePlacement = getBasePlacement(preferredPlacement);
+      var isBasePlacement = basePlacement === preferredPlacement;
+      var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [getOppositePlacement(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
+      var placements2 = [preferredPlacement].concat(fallbackPlacements).reduce(function(acc, placement2) {
+        return acc.concat(getBasePlacement(placement2) === auto ? computeAutoPlacement(state, {
+          placement: placement2,
+          boundary,
+          rootBoundary,
+          padding,
+          flipVariations,
+          allowedAutoPlacements
+        }) : placement2);
+      }, []);
+      var referenceRect = state.rects.reference;
+      var popperRect = state.rects.popper;
+      var checksMap = /* @__PURE__ */ new Map();
+      var makeFallbackChecks = true;
+      var firstFittingPlacement = placements2[0];
+      for (var i = 0; i < placements2.length; i++) {
+        var placement = placements2[i];
+        var _basePlacement = getBasePlacement(placement);
+        var isStartVariation = getVariation(placement) === start2;
+        var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
+        var len = isVertical ? "width" : "height";
+        var overflow = detectOverflow(state, {
+          placement,
+          boundary,
+          rootBoundary,
+          altBoundary,
+          padding
+        });
+        var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : top;
+        if (referenceRect[len] > popperRect[len]) {
+          mainVariationSide = getOppositePlacement(mainVariationSide);
         }
-      };
-      var Defaults = {
-        placement: "bottom",
-        positionFixed: false,
-        eventsEnabled: true,
-        removeOnDestroy: false,
-        onCreate: function onCreate() {
-        },
-        onUpdate: function onUpdate() {
-        },
-        modifiers
-      };
-      var Popper = function() {
-        function Popper2(reference, popper) {
-          var _this = this;
-          var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-          classCallCheck(this, Popper2);
-          this.scheduleUpdate = function() {
-            return requestAnimationFrame(_this.update);
-          };
-          this.update = debounce(this.update.bind(this));
-          this.options = _extends({}, Popper2.Defaults, options);
-          this.state = {
-            isDestroyed: false,
-            isCreated: false,
-            scrollParents: []
-          };
-          this.reference = reference && reference.jquery ? reference[0] : reference;
-          this.popper = popper && popper.jquery ? popper[0] : popper;
-          this.options.modifiers = {};
-          Object.keys(_extends({}, Popper2.Defaults.modifiers, options.modifiers)).forEach(function(name) {
-            _this.options.modifiers[name] = _extends({}, Popper2.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
-          });
-          this.modifiers = Object.keys(this.options.modifiers).map(function(name) {
-            return _extends({
-              name
-            }, _this.options.modifiers[name]);
-          }).sort(function(a, b) {
-            return a.order - b.order;
-          });
-          this.modifiers.forEach(function(modifierOptions) {
-            if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
-              modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+        var altVariationSide = getOppositePlacement(mainVariationSide);
+        var checks = [];
+        if (checkMainAxis) {
+          checks.push(overflow[_basePlacement] <= 0);
+        }
+        if (checkAltAxis) {
+          checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
+        }
+        if (checks.every(function(check) {
+          return check;
+        })) {
+          firstFittingPlacement = placement;
+          makeFallbackChecks = false;
+          break;
+        }
+        checksMap.set(placement, checks);
+      }
+      if (makeFallbackChecks) {
+        var numberOfChecks = flipVariations ? 3 : 1;
+        var _loop = function _loop2(_i2) {
+          var fittingPlacement = placements2.find(function(placement2) {
+            var checks2 = checksMap.get(placement2);
+            if (checks2) {
+              return checks2.slice(0, _i2).every(function(check) {
+                return check;
+              });
             }
           });
-          this.update();
-          var eventsEnabled = this.options.eventsEnabled;
-          if (eventsEnabled) {
-            this.enableEventListeners();
+          if (fittingPlacement) {
+            firstFittingPlacement = fittingPlacement;
+            return "break";
           }
-          this.state.eventsEnabled = eventsEnabled;
+        };
+        for (var _i = numberOfChecks; _i > 0; _i--) {
+          var _ret = _loop(_i);
+          if (_ret === "break")
+            break;
         }
-        createClass(Popper2, [{
-          key: "update",
-          value: function update$$1() {
-            return update.call(this);
-          }
-        }, {
-          key: "destroy",
-          value: function destroy$$1() {
-            return destroy.call(this);
-          }
-        }, {
-          key: "enableEventListeners",
-          value: function enableEventListeners$$1() {
-            return enableEventListeners.call(this);
-          }
-        }, {
-          key: "disableEventListeners",
-          value: function disableEventListeners$$1() {
-            return disableEventListeners.call(this);
-          }
-        }]);
-        return Popper2;
-      }();
-      Popper.Utils = (typeof window !== "undefined" ? window : global).PopperUtils;
-      Popper.placements = placements;
-      Popper.Defaults = Defaults;
-      return Popper;
+      }
+      if (state.placement !== firstFittingPlacement) {
+        state.modifiersData[name]._skip = true;
+        state.placement = firstFittingPlacement;
+        state.reset = true;
+      }
+    }
+    var flip$1 = {
+      name: "flip",
+      enabled: true,
+      phase: "main",
+      fn: flip,
+      requiresIfExists: ["offset"],
+      data: {
+        _skip: false
+      }
+    };
+    function getAltAxis(axis) {
+      return axis === "x" ? "y" : "x";
+    }
+    function within(min$1, value, max$1) {
+      return max(min$1, min(value, max$1));
+    }
+    function withinMaxClamp(min2, value, max2) {
+      var v = within(min2, value, max2);
+      return v > max2 ? max2 : v;
+    }
+    function preventOverflow(_ref) {
+      var state = _ref.state, options = _ref.options, name = _ref.name;
+      var _options$mainAxis = options.mainAxis, checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis, _options$altAxis = options.altAxis, checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis, boundary = options.boundary, rootBoundary = options.rootBoundary, altBoundary = options.altBoundary, padding = options.padding, _options$tether = options.tether, tether = _options$tether === void 0 ? true : _options$tether, _options$tetherOffset = options.tetherOffset, tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+      var overflow = detectOverflow(state, {
+        boundary,
+        rootBoundary,
+        padding,
+        altBoundary
+      });
+      var basePlacement = getBasePlacement(state.placement);
+      var variation = getVariation(state.placement);
+      var isBasePlacement = !variation;
+      var mainAxis = getMainAxisFromPlacement(basePlacement);
+      var altAxis = getAltAxis(mainAxis);
+      var popperOffsets2 = state.modifiersData.popperOffsets;
+      var referenceRect = state.rects.reference;
+      var popperRect = state.rects.popper;
+      var tetherOffsetValue = typeof tetherOffset === "function" ? tetherOffset(Object.assign({}, state.rects, {
+        placement: state.placement
+      })) : tetherOffset;
+      var normalizedTetherOffsetValue = typeof tetherOffsetValue === "number" ? {
+        mainAxis: tetherOffsetValue,
+        altAxis: tetherOffsetValue
+      } : Object.assign({
+        mainAxis: 0,
+        altAxis: 0
+      }, tetherOffsetValue);
+      var offsetModifierState = state.modifiersData.offset ? state.modifiersData.offset[state.placement] : null;
+      var data = {
+        x: 0,
+        y: 0
+      };
+      if (!popperOffsets2) {
+        return;
+      }
+      if (checkMainAxis) {
+        var _offsetModifierState$;
+        var mainSide = mainAxis === "y" ? top : left;
+        var altSide = mainAxis === "y" ? bottom : right;
+        var len = mainAxis === "y" ? "height" : "width";
+        var offset2 = popperOffsets2[mainAxis];
+        var min$1 = offset2 + overflow[mainSide];
+        var max$1 = offset2 - overflow[altSide];
+        var additive = tether ? -popperRect[len] / 2 : 0;
+        var minLen = variation === start2 ? referenceRect[len] : popperRect[len];
+        var maxLen = variation === start2 ? -popperRect[len] : -referenceRect[len];
+        var arrowElement = state.elements.arrow;
+        var arrowRect = tether && arrowElement ? getLayoutRect(arrowElement) : {
+          width: 0,
+          height: 0
+        };
+        var arrowPaddingObject = state.modifiersData["arrow#persistent"] ? state.modifiersData["arrow#persistent"].padding : getFreshSideObject();
+        var arrowPaddingMin = arrowPaddingObject[mainSide];
+        var arrowPaddingMax = arrowPaddingObject[altSide];
+        var arrowLen = within(0, referenceRect[len], arrowRect[len]);
+        var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
+        var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
+        var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
+        var clientOffset = arrowOffsetParent ? mainAxis === "y" ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
+        var offsetModifierValue = (_offsetModifierState$ = offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null ? _offsetModifierState$ : 0;
+        var tetherMin = offset2 + minOffset - offsetModifierValue - clientOffset;
+        var tetherMax = offset2 + maxOffset - offsetModifierValue;
+        var preventedOffset = within(tether ? min(min$1, tetherMin) : min$1, offset2, tether ? max(max$1, tetherMax) : max$1);
+        popperOffsets2[mainAxis] = preventedOffset;
+        data[mainAxis] = preventedOffset - offset2;
+      }
+      if (checkAltAxis) {
+        var _offsetModifierState$2;
+        var _mainSide = mainAxis === "x" ? top : left;
+        var _altSide = mainAxis === "x" ? bottom : right;
+        var _offset = popperOffsets2[altAxis];
+        var _len = altAxis === "y" ? "height" : "width";
+        var _min = _offset + overflow[_mainSide];
+        var _max = _offset - overflow[_altSide];
+        var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
+        var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
+        var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
+        var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
+        var _preventedOffset = tether && isOriginSide ? withinMaxClamp(_tetherMin, _offset, _tetherMax) : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
+        popperOffsets2[altAxis] = _preventedOffset;
+        data[altAxis] = _preventedOffset - _offset;
+      }
+      state.modifiersData[name] = data;
+    }
+    var preventOverflow$1 = {
+      name: "preventOverflow",
+      enabled: true,
+      phase: "main",
+      fn: preventOverflow,
+      requiresIfExists: ["offset"]
+    };
+    var toPaddingObject = function toPaddingObject2(padding, state) {
+      padding = typeof padding === "function" ? padding(Object.assign({}, state.rects, {
+        placement: state.placement
+      })) : padding;
+      return mergePaddingObject(typeof padding !== "number" ? padding : expandToHashMap(padding, basePlacements));
+    };
+    function arrow(_ref) {
+      var _state$modifiersData$;
+      var state = _ref.state, name = _ref.name, options = _ref.options;
+      var arrowElement = state.elements.arrow;
+      var popperOffsets2 = state.modifiersData.popperOffsets;
+      var basePlacement = getBasePlacement(state.placement);
+      var axis = getMainAxisFromPlacement(basePlacement);
+      var isVertical = [left, right].indexOf(basePlacement) >= 0;
+      var len = isVertical ? "height" : "width";
+      if (!arrowElement || !popperOffsets2) {
+        return;
+      }
+      var paddingObject = toPaddingObject(options.padding, state);
+      var arrowRect = getLayoutRect(arrowElement);
+      var minProp = axis === "y" ? top : left;
+      var maxProp = axis === "y" ? bottom : right;
+      var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets2[axis] - state.rects.popper[len];
+      var startDiff = popperOffsets2[axis] - state.rects.reference[axis];
+      var arrowOffsetParent = getOffsetParent(arrowElement);
+      var clientSize = arrowOffsetParent ? axis === "y" ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
+      var centerToReference = endDiff / 2 - startDiff / 2;
+      var min2 = paddingObject[minProp];
+      var max2 = clientSize - arrowRect[len] - paddingObject[maxProp];
+      var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
+      var offset2 = within(min2, center, max2);
+      var axisProp = axis;
+      state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset2, _state$modifiersData$.centerOffset = offset2 - center, _state$modifiersData$);
+    }
+    function effect(_ref2) {
+      var state = _ref2.state, options = _ref2.options;
+      var _options$element = options.element, arrowElement = _options$element === void 0 ? "[data-popper-arrow]" : _options$element;
+      if (arrowElement == null) {
+        return;
+      }
+      if (typeof arrowElement === "string") {
+        arrowElement = state.elements.popper.querySelector(arrowElement);
+        if (!arrowElement) {
+          return;
+        }
+      }
+      if (!contains(state.elements.popper, arrowElement)) {
+        return;
+      }
+      state.elements.arrow = arrowElement;
+    }
+    var arrow$1 = {
+      name: "arrow",
+      enabled: true,
+      phase: "main",
+      fn: arrow,
+      effect,
+      requires: ["popperOffsets"],
+      requiresIfExists: ["preventOverflow"]
+    };
+    function getSideOffsets(overflow, rect, preventedOffsets) {
+      if (preventedOffsets === void 0) {
+        preventedOffsets = {
+          x: 0,
+          y: 0
+        };
+      }
+      return {
+        top: overflow.top - rect.height - preventedOffsets.y,
+        right: overflow.right - rect.width + preventedOffsets.x,
+        bottom: overflow.bottom - rect.height + preventedOffsets.y,
+        left: overflow.left - rect.width - preventedOffsets.x
+      };
+    }
+    function isAnySideFullyClipped(overflow) {
+      return [top, right, bottom, left].some(function(side) {
+        return overflow[side] >= 0;
+      });
+    }
+    function hide(_ref) {
+      var state = _ref.state, name = _ref.name;
+      var referenceRect = state.rects.reference;
+      var popperRect = state.rects.popper;
+      var preventedOffsets = state.modifiersData.preventOverflow;
+      var referenceOverflow = detectOverflow(state, {
+        elementContext: "reference"
+      });
+      var popperAltOverflow = detectOverflow(state, {
+        altBoundary: true
+      });
+      var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
+      var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
+      var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
+      var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
+      state.modifiersData[name] = {
+        referenceClippingOffsets,
+        popperEscapeOffsets,
+        isReferenceHidden,
+        hasPopperEscaped
+      };
+      state.attributes.popper = Object.assign({}, state.attributes.popper, {
+        "data-popper-reference-hidden": isReferenceHidden,
+        "data-popper-escaped": hasPopperEscaped
+      });
+    }
+    var hide$1 = {
+      name: "hide",
+      enabled: true,
+      phase: "main",
+      requiresIfExists: ["preventOverflow"],
+      fn: hide
+    };
+    var defaultModifiers$1 = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1];
+    var createPopper$1 = /* @__PURE__ */ popperGenerator({
+      defaultModifiers: defaultModifiers$1
     });
+    var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
+    var createPopper = /* @__PURE__ */ popperGenerator({
+      defaultModifiers
+    });
+    exports.applyStyles = applyStyles$1;
+    exports.arrow = arrow$1;
+    exports.computeStyles = computeStyles$1;
+    exports.createPopper = createPopper;
+    exports.createPopperLite = createPopper$1;
+    exports.defaultModifiers = defaultModifiers;
+    exports.detectOverflow = detectOverflow;
+    exports.eventListeners = eventListeners;
+    exports.flip = flip$1;
+    exports.hide = hide$1;
+    exports.offset = offset$1;
+    exports.popperGenerator = popperGenerator;
+    exports.popperOffsets = popperOffsets$1;
+    exports.preventOverflow = preventOverflow$1;
   }
 });
 
 // node_modules/bootstrap/dist/js/bootstrap.js
 var require_bootstrap = __commonJS({
   "node_modules/bootstrap/dist/js/bootstrap.js"(exports, module) {
-    (function(global2, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require_jquery(), require_popper()) : typeof define === "function" && define.amd ? define(["exports", "jquery", "popper.js"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.bootstrap = {}, global2.jQuery, global2.Popper));
-    })(exports, function(exports2, $3, Popper) {
+    (function(global, factory) {
+      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory(require_popper()) : typeof define === "function" && define.amd ? define(["@popperjs/core"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.bootstrap = factory(global.Popper));
+    })(exports, function(Popper) {
       "use strict";
-      function _interopDefaultLegacy(e) {
-        return e && typeof e === "object" && "default" in e ? e : { "default": e };
-      }
-      var $__default = /* @__PURE__ */ _interopDefaultLegacy($3);
-      var Popper__default = /* @__PURE__ */ _interopDefaultLegacy(Popper);
-      function _defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-          var descriptor = props[i];
-          descriptor.enumerable = descriptor.enumerable || false;
-          descriptor.configurable = true;
-          if ("value" in descriptor)
-            descriptor.writable = true;
-          Object.defineProperty(target, descriptor.key, descriptor);
+      function _interopNamespaceDefault(e) {
+        const n = Object.create(null, { [Symbol.toStringTag]: { value: "Module" } });
+        if (e) {
+          for (const k in e) {
+            if (k !== "default") {
+              const d = Object.getOwnPropertyDescriptor(e, k);
+              Object.defineProperty(n, k, d.get ? d : {
+                enumerable: true,
+                get: () => e[k]
+              });
+            }
+          }
         }
+        n.default = e;
+        return Object.freeze(n);
       }
-      function _createClass(Constructor, protoProps, staticProps) {
-        if (protoProps)
-          _defineProperties(Constructor.prototype, protoProps);
-        if (staticProps)
-          _defineProperties(Constructor, staticProps);
-        Object.defineProperty(Constructor, "prototype", {
-          writable: false
-        });
-        return Constructor;
-      }
-      function _extends() {
-        _extends = Object.assign ? Object.assign.bind() : function(target) {
-          for (var i = 1; i < arguments.length; i++) {
-            var source = arguments[i];
-            for (var key in source) {
-              if (Object.prototype.hasOwnProperty.call(source, key)) {
-                target[key] = source[key];
+      const Popper__namespace = /* @__PURE__ */ _interopNamespaceDefault(Popper);
+      const elementMap = /* @__PURE__ */ new Map();
+      const Data = {
+        set(element, key, instance) {
+          if (!elementMap.has(element)) {
+            elementMap.set(element, /* @__PURE__ */ new Map());
+          }
+          const instanceMap = elementMap.get(element);
+          if (!instanceMap.has(key) && instanceMap.size !== 0) {
+            console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+            return;
+          }
+          instanceMap.set(key, instance);
+        },
+        get(element, key) {
+          if (elementMap.has(element)) {
+            return elementMap.get(element).get(key) || null;
+          }
+          return null;
+        },
+        remove(element, key) {
+          if (!elementMap.has(element)) {
+            return;
+          }
+          const instanceMap = elementMap.get(element);
+          instanceMap.delete(key);
+          if (instanceMap.size === 0) {
+            elementMap.delete(element);
+          }
+        }
+      };
+      const MAX_UID = 1e6;
+      const MILLISECONDS_MULTIPLIER = 1e3;
+      const TRANSITION_END = "transitionend";
+      const parseSelector = (selector) => {
+        if (selector && window.CSS && window.CSS.escape) {
+          selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+        }
+        return selector;
+      };
+      const toType = (object) => {
+        if (object === null || object === void 0) {
+          return `${object}`;
+        }
+        return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
+      };
+      const getUID = (prefix) => {
+        do {
+          prefix += Math.floor(Math.random() * MAX_UID);
+        } while (document.getElementById(prefix));
+        return prefix;
+      };
+      const getTransitionDurationFromElement = (element) => {
+        if (!element) {
+          return 0;
+        }
+        let {
+          transitionDuration,
+          transitionDelay
+        } = window.getComputedStyle(element);
+        const floatTransitionDuration = Number.parseFloat(transitionDuration);
+        const floatTransitionDelay = Number.parseFloat(transitionDelay);
+        if (!floatTransitionDuration && !floatTransitionDelay) {
+          return 0;
+        }
+        transitionDuration = transitionDuration.split(",")[0];
+        transitionDelay = transitionDelay.split(",")[0];
+        return (Number.parseFloat(transitionDuration) + Number.parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER;
+      };
+      const triggerTransitionEnd = (element) => {
+        element.dispatchEvent(new Event(TRANSITION_END));
+      };
+      const isElement = (object) => {
+        if (!object || typeof object !== "object") {
+          return false;
+        }
+        if (typeof object.jquery !== "undefined") {
+          object = object[0];
+        }
+        return typeof object.nodeType !== "undefined";
+      };
+      const getElement = (object) => {
+        if (isElement(object)) {
+          return object.jquery ? object[0] : object;
+        }
+        if (typeof object === "string" && object.length > 0) {
+          return document.querySelector(parseSelector(object));
+        }
+        return null;
+      };
+      const isVisible = (element) => {
+        if (!isElement(element) || element.getClientRects().length === 0) {
+          return false;
+        }
+        const elementIsVisible = getComputedStyle(element).getPropertyValue("visibility") === "visible";
+        const closedDetails = element.closest("details:not([open])");
+        if (!closedDetails) {
+          return elementIsVisible;
+        }
+        if (closedDetails !== element) {
+          const summary = element.closest("summary");
+          if (summary && summary.parentNode !== closedDetails) {
+            return false;
+          }
+          if (summary === null) {
+            return false;
+          }
+        }
+        return elementIsVisible;
+      };
+      const isDisabled = (element) => {
+        if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+          return true;
+        }
+        if (element.classList.contains("disabled")) {
+          return true;
+        }
+        if (typeof element.disabled !== "undefined") {
+          return element.disabled;
+        }
+        return element.hasAttribute("disabled") && element.getAttribute("disabled") !== "false";
+      };
+      const findShadowRoot = (element) => {
+        if (!document.documentElement.attachShadow) {
+          return null;
+        }
+        if (typeof element.getRootNode === "function") {
+          const root = element.getRootNode();
+          return root instanceof ShadowRoot ? root : null;
+        }
+        if (element instanceof ShadowRoot) {
+          return element;
+        }
+        if (!element.parentNode) {
+          return null;
+        }
+        return findShadowRoot(element.parentNode);
+      };
+      const noop = () => {
+      };
+      const reflow = (element) => {
+        element.offsetHeight;
+      };
+      const getjQuery = () => {
+        if (window.jQuery && !document.body.hasAttribute("data-bs-no-jquery")) {
+          return window.jQuery;
+        }
+        return null;
+      };
+      const DOMContentLoadedCallbacks = [];
+      const onDOMContentLoaded = (callback) => {
+        if (document.readyState === "loading") {
+          if (!DOMContentLoadedCallbacks.length) {
+            document.addEventListener("DOMContentLoaded", () => {
+              for (const callback2 of DOMContentLoadedCallbacks) {
+                callback2();
               }
-            }
+            });
           }
-          return target;
-        };
-        return _extends.apply(this, arguments);
-      }
-      function _inheritsLoose(subClass, superClass) {
-        subClass.prototype = Object.create(superClass.prototype);
-        subClass.prototype.constructor = subClass;
-        _setPrototypeOf(subClass, superClass);
-      }
-      function _setPrototypeOf(o, p) {
-        _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p2) {
-          o2.__proto__ = p2;
-          return o2;
-        };
-        return _setPrototypeOf(o, p);
-      }
-      var TRANSITION_END = "transitionend";
-      var MAX_UID = 1e6;
-      var MILLISECONDS_MULTIPLIER = 1e3;
-      function toType(obj) {
-        if (obj === null || typeof obj === "undefined") {
-          return "" + obj;
+          DOMContentLoadedCallbacks.push(callback);
+        } else {
+          callback();
         }
-        return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
-      }
-      function getSpecialTransitionEndEvent() {
-        return {
-          bindType: TRANSITION_END,
-          delegateType: TRANSITION_END,
-          handle: function handle(event) {
-            if ($__default["default"](event.target).is(this)) {
-              return event.handleObj.handler.apply(this, arguments);
-            }
-            return void 0;
+      };
+      const isRTL = () => document.documentElement.dir === "rtl";
+      const defineJQueryPlugin = (plugin) => {
+        onDOMContentLoaded(() => {
+          const $3 = getjQuery();
+          if ($3) {
+            const name = plugin.NAME;
+            const JQUERY_NO_CONFLICT = $3.fn[name];
+            $3.fn[name] = plugin.jQueryInterface;
+            $3.fn[name].Constructor = plugin;
+            $3.fn[name].noConflict = () => {
+              $3.fn[name] = JQUERY_NO_CONFLICT;
+              return plugin.jQueryInterface;
+            };
           }
-        };
-      }
-      function transitionEndEmulator(duration) {
-        var _this = this;
-        var called = false;
-        $__default["default"](this).one(Util.TRANSITION_END, function() {
+        });
+      };
+      const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
+        return typeof possibleCallback === "function" ? possibleCallback.call(...args) : defaultValue;
+      };
+      const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
+        if (!waitForTransition) {
+          execute(callback);
+          return;
+        }
+        const durationPadding = 5;
+        const emulatedDuration = getTransitionDurationFromElement(transitionElement) + durationPadding;
+        let called = false;
+        const handler = ({
+          target
+        }) => {
+          if (target !== transitionElement) {
+            return;
+          }
           called = true;
-        });
-        setTimeout(function() {
+          transitionElement.removeEventListener(TRANSITION_END, handler);
+          execute(callback);
+        };
+        transitionElement.addEventListener(TRANSITION_END, handler);
+        setTimeout(() => {
           if (!called) {
-            Util.triggerTransitionEnd(_this);
+            triggerTransitionEnd(transitionElement);
           }
-        }, duration);
-        return this;
-      }
-      function setTransitionEndSupport() {
-        $__default["default"].fn.emulateTransitionEnd = transitionEndEmulator;
-        $__default["default"].event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
-      }
-      var Util = {
-        TRANSITION_END: "bsTransitionEnd",
-        getUID: function getUID(prefix) {
-          do {
-            prefix += ~~(Math.random() * MAX_UID);
-          } while (document.getElementById(prefix));
-          return prefix;
-        },
-        getSelectorFromElement: function getSelectorFromElement(element) {
-          var selector = element.getAttribute("data-target");
-          if (!selector || selector === "#") {
-            var hrefAttr = element.getAttribute("href");
-            selector = hrefAttr && hrefAttr !== "#" ? hrefAttr.trim() : "";
-          }
-          try {
-            return document.querySelector(selector) ? selector : null;
-          } catch (_) {
-            return null;
-          }
-        },
-        getTransitionDurationFromElement: function getTransitionDurationFromElement(element) {
-          if (!element) {
-            return 0;
-          }
-          var transitionDuration = $__default["default"](element).css("transition-duration");
-          var transitionDelay = $__default["default"](element).css("transition-delay");
-          var floatTransitionDuration = parseFloat(transitionDuration);
-          var floatTransitionDelay = parseFloat(transitionDelay);
-          if (!floatTransitionDuration && !floatTransitionDelay) {
-            return 0;
-          }
-          transitionDuration = transitionDuration.split(",")[0];
-          transitionDelay = transitionDelay.split(",")[0];
-          return (parseFloat(transitionDuration) + parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER;
-        },
-        reflow: function reflow(element) {
-          return element.offsetHeight;
-        },
-        triggerTransitionEnd: function triggerTransitionEnd(element) {
-          $__default["default"](element).trigger(TRANSITION_END);
-        },
-        supportsTransitionEnd: function supportsTransitionEnd() {
-          return Boolean(TRANSITION_END);
-        },
-        isElement: function isElement(obj) {
-          return (obj[0] || obj).nodeType;
-        },
-        typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
-          for (var property in configTypes) {
-            if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
-              var expectedTypes = configTypes[property];
-              var value = config[property];
-              var valueType = value && Util.isElement(value) ? "element" : toType(value);
-              if (!new RegExp(expectedTypes).test(valueType)) {
-                throw new Error(componentName.toUpperCase() + ": " + ('Option "' + property + '" provided type "' + valueType + '" ') + ('but expected type "' + expectedTypes + '".'));
-              }
-            }
-          }
-        },
-        findShadowRoot: function findShadowRoot(element) {
-          if (!document.documentElement.attachShadow) {
-            return null;
-          }
-          if (typeof element.getRootNode === "function") {
-            var root = element.getRootNode();
-            return root instanceof ShadowRoot ? root : null;
-          }
-          if (element instanceof ShadowRoot) {
-            return element;
-          }
-          if (!element.parentNode) {
-            return null;
-          }
-          return Util.findShadowRoot(element.parentNode);
-        },
-        jQueryDetection: function jQueryDetection() {
-          if (typeof $__default["default"] === "undefined") {
-            throw new TypeError("Bootstrap's JavaScript requires jQuery. jQuery must be included before Bootstrap's JavaScript.");
-          }
-          var version = $__default["default"].fn.jquery.split(" ")[0].split(".");
-          var minMajor = 1;
-          var ltMajor = 2;
-          var minMinor = 9;
-          var minPatch = 1;
-          var maxMajor = 4;
-          if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-            throw new Error("Bootstrap's JavaScript requires at least jQuery v1.9.1 but less than v4.0.0");
-          }
-        }
+        }, emulatedDuration);
       };
-      Util.jQueryDetection();
-      setTransitionEndSupport();
-      var NAME$a = "alert";
-      var VERSION$a = "4.6.2";
-      var DATA_KEY$a = "bs.alert";
-      var EVENT_KEY$a = "." + DATA_KEY$a;
-      var DATA_API_KEY$7 = ".data-api";
-      var JQUERY_NO_CONFLICT$a = $__default["default"].fn[NAME$a];
-      var CLASS_NAME_ALERT = "alert";
-      var CLASS_NAME_FADE$5 = "fade";
-      var CLASS_NAME_SHOW$7 = "show";
-      var EVENT_CLOSE = "close" + EVENT_KEY$a;
-      var EVENT_CLOSED = "closed" + EVENT_KEY$a;
-      var EVENT_CLICK_DATA_API$6 = "click" + EVENT_KEY$a + DATA_API_KEY$7;
-      var SELECTOR_DISMISS = '[data-dismiss="alert"]';
-      var Alert = /* @__PURE__ */ function() {
-        function Alert2(element) {
-          this._element = element;
+      const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
+        const listLength = list.length;
+        let index = list.indexOf(activeElement);
+        if (index === -1) {
+          return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
         }
-        var _proto = Alert2.prototype;
-        _proto.close = function close(element) {
-          var rootElement = this._element;
-          if (element) {
-            rootElement = this._getRootElement(element);
-          }
-          var customEvent = this._triggerCloseEvent(rootElement);
-          if (customEvent.isDefaultPrevented()) {
-            return;
-          }
-          this._removeElement(rootElement);
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$a);
-          this._element = null;
-        };
-        _proto._getRootElement = function _getRootElement(element) {
-          var selector = Util.getSelectorFromElement(element);
-          var parent = false;
-          if (selector) {
-            parent = document.querySelector(selector);
-          }
-          if (!parent) {
-            parent = $__default["default"](element).closest("." + CLASS_NAME_ALERT)[0];
-          }
-          return parent;
-        };
-        _proto._triggerCloseEvent = function _triggerCloseEvent(element) {
-          var closeEvent = $__default["default"].Event(EVENT_CLOSE);
-          $__default["default"](element).trigger(closeEvent);
-          return closeEvent;
-        };
-        _proto._removeElement = function _removeElement(element) {
-          var _this = this;
-          $__default["default"](element).removeClass(CLASS_NAME_SHOW$7);
-          if (!$__default["default"](element).hasClass(CLASS_NAME_FADE$5)) {
-            this._destroyElement(element);
-            return;
-          }
-          var transitionDuration = Util.getTransitionDurationFromElement(element);
-          $__default["default"](element).one(Util.TRANSITION_END, function(event) {
-            return _this._destroyElement(element, event);
-          }).emulateTransitionEnd(transitionDuration);
-        };
-        _proto._destroyElement = function _destroyElement(element) {
-          $__default["default"](element).detach().trigger(EVENT_CLOSED).remove();
-        };
-        Alert2._jQueryInterface = function _jQueryInterface(config) {
-          return this.each(function() {
-            var $element = $__default["default"](this);
-            var data = $element.data(DATA_KEY$a);
-            if (!data) {
-              data = new Alert2(this);
-              $element.data(DATA_KEY$a, data);
-            }
-            if (config === "close") {
-              data[config](this);
-            }
+        index += shouldGetNext ? 1 : -1;
+        if (isCycleAllowed) {
+          index = (index + listLength) % listLength;
+        }
+        return list[Math.max(0, Math.min(index, listLength - 1))];
+      };
+      const namespaceRegex = /[^.]*(?=\..*)\.|.*/;
+      const stripNameRegex = /\..*/;
+      const stripUidRegex = /::\d+$/;
+      const eventRegistry = {};
+      let uidEvent = 1;
+      const customEvents = {
+        mouseenter: "mouseover",
+        mouseleave: "mouseout"
+      };
+      const nativeEvents = /* @__PURE__ */ new Set(["click", "dblclick", "mouseup", "mousedown", "contextmenu", "mousewheel", "DOMMouseScroll", "mouseover", "mouseout", "mousemove", "selectstart", "selectend", "keydown", "keypress", "keyup", "orientationchange", "touchstart", "touchmove", "touchend", "touchcancel", "pointerdown", "pointermove", "pointerup", "pointerleave", "pointercancel", "gesturestart", "gesturechange", "gestureend", "focus", "blur", "change", "reset", "select", "submit", "focusin", "focusout", "load", "unload", "beforeunload", "resize", "move", "DOMContentLoaded", "readystatechange", "error", "abort", "scroll"]);
+      function makeEventUid(element, uid) {
+        return uid && `${uid}::${uidEvent++}` || element.uidEvent || uidEvent++;
+      }
+      function getElementEvents(element) {
+        const uid = makeEventUid(element);
+        element.uidEvent = uid;
+        eventRegistry[uid] = eventRegistry[uid] || {};
+        return eventRegistry[uid];
+      }
+      function bootstrapHandler(element, fn) {
+        return function handler(event) {
+          hydrateObj(event, {
+            delegateTarget: element
           });
-        };
-        Alert2._handleDismiss = function _handleDismiss(alertInstance) {
-          return function(event) {
-            if (event) {
-              event.preventDefault();
-            }
-            alertInstance.close(this);
-          };
-        };
-        _createClass(Alert2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$a;
+          if (handler.oneOff) {
+            EventHandler.off(element, event.type, fn);
           }
-        }]);
-        return Alert2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API$6, SELECTOR_DISMISS, Alert._handleDismiss(new Alert()));
-      $__default["default"].fn[NAME$a] = Alert._jQueryInterface;
-      $__default["default"].fn[NAME$a].Constructor = Alert;
-      $__default["default"].fn[NAME$a].noConflict = function() {
-        $__default["default"].fn[NAME$a] = JQUERY_NO_CONFLICT$a;
-        return Alert._jQueryInterface;
-      };
-      var NAME$9 = "button";
-      var VERSION$9 = "4.6.2";
-      var DATA_KEY$9 = "bs.button";
-      var EVENT_KEY$9 = "." + DATA_KEY$9;
-      var DATA_API_KEY$6 = ".data-api";
-      var JQUERY_NO_CONFLICT$9 = $__default["default"].fn[NAME$9];
-      var CLASS_NAME_ACTIVE$3 = "active";
-      var CLASS_NAME_BUTTON = "btn";
-      var CLASS_NAME_FOCUS = "focus";
-      var EVENT_CLICK_DATA_API$5 = "click" + EVENT_KEY$9 + DATA_API_KEY$6;
-      var EVENT_FOCUS_BLUR_DATA_API = "focus" + EVENT_KEY$9 + DATA_API_KEY$6 + " " + ("blur" + EVENT_KEY$9 + DATA_API_KEY$6);
-      var EVENT_LOAD_DATA_API$2 = "load" + EVENT_KEY$9 + DATA_API_KEY$6;
-      var SELECTOR_DATA_TOGGLE_CARROT = '[data-toggle^="button"]';
-      var SELECTOR_DATA_TOGGLES = '[data-toggle="buttons"]';
-      var SELECTOR_DATA_TOGGLE$4 = '[data-toggle="button"]';
-      var SELECTOR_DATA_TOGGLES_BUTTONS = '[data-toggle="buttons"] .btn';
-      var SELECTOR_INPUT = 'input:not([type="hidden"])';
-      var SELECTOR_ACTIVE$2 = ".active";
-      var SELECTOR_BUTTON = ".btn";
-      var Button = /* @__PURE__ */ function() {
-        function Button2(element) {
-          this._element = element;
-          this.shouldAvoidTriggerChange = false;
+          return fn.apply(element, [event]);
+        };
+      }
+      function bootstrapDelegationHandler(element, selector, fn) {
+        return function handler(event) {
+          const domElements = element.querySelectorAll(selector);
+          for (let {
+            target
+          } = event; target && target !== this; target = target.parentNode) {
+            for (const domElement of domElements) {
+              if (domElement !== target) {
+                continue;
+              }
+              hydrateObj(event, {
+                delegateTarget: target
+              });
+              if (handler.oneOff) {
+                EventHandler.off(element, event.type, selector, fn);
+              }
+              return fn.apply(target, [event]);
+            }
+          }
+        };
+      }
+      function findHandler(events, callable, delegationSelector = null) {
+        return Object.values(events).find((event) => event.callable === callable && event.delegationSelector === delegationSelector);
+      }
+      function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
+        const isDelegated = typeof handler === "string";
+        const callable = isDelegated ? delegationFunction : handler || delegationFunction;
+        let typeEvent = getTypeEvent(originalTypeEvent);
+        if (!nativeEvents.has(typeEvent)) {
+          typeEvent = originalTypeEvent;
         }
-        var _proto = Button2.prototype;
-        _proto.toggle = function toggle() {
-          var triggerChangeEvent = true;
-          var addAriaPressed = true;
-          var rootElement = $__default["default"](this._element).closest(SELECTOR_DATA_TOGGLES)[0];
-          if (rootElement) {
-            var input = this._element.querySelector(SELECTOR_INPUT);
-            if (input) {
-              if (input.type === "radio") {
-                if (input.checked && this._element.classList.contains(CLASS_NAME_ACTIVE$3)) {
-                  triggerChangeEvent = false;
-                } else {
-                  var activeElement = rootElement.querySelector(SELECTOR_ACTIVE$2);
-                  if (activeElement) {
-                    $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$3);
-                  }
-                }
+        return [isDelegated, callable, typeEvent];
+      }
+      function addHandler(element, originalTypeEvent, handler, delegationFunction, oneOff) {
+        if (typeof originalTypeEvent !== "string" || !element) {
+          return;
+        }
+        let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
+        if (originalTypeEvent in customEvents) {
+          const wrapFunction = (fn2) => {
+            return function(event) {
+              if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
+                return fn2.call(this, event);
               }
-              if (triggerChangeEvent) {
-                if (input.type === "checkbox" || input.type === "radio") {
-                  input.checked = !this._element.classList.contains(CLASS_NAME_ACTIVE$3);
-                }
-                if (!this.shouldAvoidTriggerChange) {
-                  $__default["default"](input).trigger("change");
-                }
-              }
-              input.focus();
-              addAriaPressed = false;
+            };
+          };
+          callable = wrapFunction(callable);
+        }
+        const events = getElementEvents(element);
+        const handlers = events[typeEvent] || (events[typeEvent] = {});
+        const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null);
+        if (previousFunction) {
+          previousFunction.oneOff = previousFunction.oneOff && oneOff;
+          return;
+        }
+        const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ""));
+        const fn = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
+        fn.delegationSelector = isDelegated ? handler : null;
+        fn.callable = callable;
+        fn.oneOff = oneOff;
+        fn.uidEvent = uid;
+        handlers[uid] = fn;
+        element.addEventListener(typeEvent, fn, isDelegated);
+      }
+      function removeHandler(element, events, typeEvent, handler, delegationSelector) {
+        const fn = findHandler(events[typeEvent], handler, delegationSelector);
+        if (!fn) {
+          return;
+        }
+        element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
+        delete events[typeEvent][fn.uidEvent];
+      }
+      function removeNamespacedHandlers(element, events, typeEvent, namespace) {
+        const storeElementEvent = events[typeEvent] || {};
+        for (const [handlerKey, event] of Object.entries(storeElementEvent)) {
+          if (handlerKey.includes(namespace)) {
+            removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
+          }
+        }
+      }
+      function getTypeEvent(event) {
+        event = event.replace(stripNameRegex, "");
+        return customEvents[event] || event;
+      }
+      const EventHandler = {
+        on(element, event, handler, delegationFunction) {
+          addHandler(element, event, handler, delegationFunction, false);
+        },
+        one(element, event, handler, delegationFunction) {
+          addHandler(element, event, handler, delegationFunction, true);
+        },
+        off(element, originalTypeEvent, handler, delegationFunction) {
+          if (typeof originalTypeEvent !== "string" || !element) {
+            return;
+          }
+          const [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
+          const inNamespace = typeEvent !== originalTypeEvent;
+          const events = getElementEvents(element);
+          const storeElementEvent = events[typeEvent] || {};
+          const isNamespace = originalTypeEvent.startsWith(".");
+          if (typeof callable !== "undefined") {
+            if (!Object.keys(storeElementEvent).length) {
+              return;
+            }
+            removeHandler(element, events, typeEvent, callable, isDelegated ? handler : null);
+            return;
+          }
+          if (isNamespace) {
+            for (const elementEvent of Object.keys(events)) {
+              removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
             }
           }
-          if (!(this._element.hasAttribute("disabled") || this._element.classList.contains("disabled"))) {
-            if (addAriaPressed) {
-              this._element.setAttribute("aria-pressed", !this._element.classList.contains(CLASS_NAME_ACTIVE$3));
-            }
-            if (triggerChangeEvent) {
-              $__default["default"](this._element).toggleClass(CLASS_NAME_ACTIVE$3);
+          for (const [keyHandlers, event] of Object.entries(storeElementEvent)) {
+            const handlerKey = keyHandlers.replace(stripUidRegex, "");
+            if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
+              removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
             }
           }
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$9);
-          this._element = null;
-        };
-        Button2._jQueryInterface = function _jQueryInterface(config, avoidTriggerChange) {
+        },
+        trigger(element, event, args) {
+          if (typeof event !== "string" || !element) {
+            return null;
+          }
+          const $3 = getjQuery();
+          const typeEvent = getTypeEvent(event);
+          const inNamespace = event !== typeEvent;
+          let jQueryEvent = null;
+          let bubbles = true;
+          let nativeDispatch = true;
+          let defaultPrevented = false;
+          if (inNamespace && $3) {
+            jQueryEvent = $3.Event(event, args);
+            $3(element).trigger(jQueryEvent);
+            bubbles = !jQueryEvent.isPropagationStopped();
+            nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
+            defaultPrevented = jQueryEvent.isDefaultPrevented();
+          }
+          const evt = hydrateObj(new Event(event, {
+            bubbles,
+            cancelable: true
+          }), args);
+          if (defaultPrevented) {
+            evt.preventDefault();
+          }
+          if (nativeDispatch) {
+            element.dispatchEvent(evt);
+          }
+          if (evt.defaultPrevented && jQueryEvent) {
+            jQueryEvent.preventDefault();
+          }
+          return evt;
+        }
+      };
+      function hydrateObj(obj, meta = {}) {
+        for (const [key, value] of Object.entries(meta)) {
+          try {
+            obj[key] = value;
+          } catch (_unused) {
+            Object.defineProperty(obj, key, {
+              configurable: true,
+              get() {
+                return value;
+              }
+            });
+          }
+        }
+        return obj;
+      }
+      function normalizeData(value) {
+        if (value === "true") {
+          return true;
+        }
+        if (value === "false") {
+          return false;
+        }
+        if (value === Number(value).toString()) {
+          return Number(value);
+        }
+        if (value === "" || value === "null") {
+          return null;
+        }
+        if (typeof value !== "string") {
+          return value;
+        }
+        try {
+          return JSON.parse(decodeURIComponent(value));
+        } catch (_unused) {
+          return value;
+        }
+      }
+      function normalizeDataKey(key) {
+        return key.replace(/[A-Z]/g, (chr) => `-${chr.toLowerCase()}`);
+      }
+      const Manipulator = {
+        setDataAttribute(element, key, value) {
+          element.setAttribute(`data-bs-${normalizeDataKey(key)}`, value);
+        },
+        removeDataAttribute(element, key) {
+          element.removeAttribute(`data-bs-${normalizeDataKey(key)}`);
+        },
+        getDataAttributes(element) {
+          if (!element) {
+            return {};
+          }
+          const attributes = {};
+          const bsKeys = Object.keys(element.dataset).filter((key) => key.startsWith("bs") && !key.startsWith("bsConfig"));
+          for (const key of bsKeys) {
+            let pureKey = key.replace(/^bs/, "");
+            pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1);
+            attributes[pureKey] = normalizeData(element.dataset[key]);
+          }
+          return attributes;
+        },
+        getDataAttribute(element, key) {
+          return normalizeData(element.getAttribute(`data-bs-${normalizeDataKey(key)}`));
+        }
+      };
+      class Config {
+        static get Default() {
+          return {};
+        }
+        static get DefaultType() {
+          return {};
+        }
+        static get NAME() {
+          throw new Error('You have to implement the static method "NAME", for each component!');
+        }
+        _getConfig(config) {
+          config = this._mergeConfigObj(config);
+          config = this._configAfterMerge(config);
+          this._typeCheckConfig(config);
+          return config;
+        }
+        _configAfterMerge(config) {
+          return config;
+        }
+        _mergeConfigObj(config, element) {
+          const jsonConfig = isElement(element) ? Manipulator.getDataAttribute(element, "config") : {};
+          return {
+            ...this.constructor.Default,
+            ...typeof jsonConfig === "object" ? jsonConfig : {},
+            ...isElement(element) ? Manipulator.getDataAttributes(element) : {},
+            ...typeof config === "object" ? config : {}
+          };
+        }
+        _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
+          for (const [property, expectedTypes] of Object.entries(configTypes)) {
+            const value = config[property];
+            const valueType = isElement(value) ? "element" : toType(value);
+            if (!new RegExp(expectedTypes).test(valueType)) {
+              throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+            }
+          }
+        }
+      }
+      const VERSION = "5.3.8";
+      class BaseComponent extends Config {
+        constructor(element, config) {
+          super();
+          element = getElement(element);
+          if (!element) {
+            return;
+          }
+          this._element = element;
+          this._config = this._getConfig(config);
+          Data.set(this._element, this.constructor.DATA_KEY, this);
+        }
+        dispose() {
+          Data.remove(this._element, this.constructor.DATA_KEY);
+          EventHandler.off(this._element, this.constructor.EVENT_KEY);
+          for (const propertyName of Object.getOwnPropertyNames(this)) {
+            this[propertyName] = null;
+          }
+        }
+        _queueCallback(callback, element, isAnimated = true) {
+          executeAfterTransition(callback, element, isAnimated);
+        }
+        _getConfig(config) {
+          config = this._mergeConfigObj(config, this._element);
+          config = this._configAfterMerge(config);
+          this._typeCheckConfig(config);
+          return config;
+        }
+        static getInstance(element) {
+          return Data.get(getElement(element), this.DATA_KEY);
+        }
+        static getOrCreateInstance(element, config = {}) {
+          return this.getInstance(element) || new this(element, typeof config === "object" ? config : null);
+        }
+        static get VERSION() {
+          return VERSION;
+        }
+        static get DATA_KEY() {
+          return `bs.${this.NAME}`;
+        }
+        static get EVENT_KEY() {
+          return `.${this.DATA_KEY}`;
+        }
+        static eventName(name) {
+          return `${name}${this.EVENT_KEY}`;
+        }
+      }
+      const getSelector = (element) => {
+        let selector = element.getAttribute("data-bs-target");
+        if (!selector || selector === "#") {
+          let hrefAttribute = element.getAttribute("href");
+          if (!hrefAttribute || !hrefAttribute.includes("#") && !hrefAttribute.startsWith(".")) {
+            return null;
+          }
+          if (hrefAttribute.includes("#") && !hrefAttribute.startsWith("#")) {
+            hrefAttribute = `#${hrefAttribute.split("#")[1]}`;
+          }
+          selector = hrefAttribute && hrefAttribute !== "#" ? hrefAttribute.trim() : null;
+        }
+        return selector ? selector.split(",").map((sel) => parseSelector(sel)).join(",") : null;
+      };
+      const SelectorEngine = {
+        find(selector, element = document.documentElement) {
+          return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+        },
+        findOne(selector, element = document.documentElement) {
+          return Element.prototype.querySelector.call(element, selector);
+        },
+        children(element, selector) {
+          return [].concat(...element.children).filter((child) => child.matches(selector));
+        },
+        parents(element, selector) {
+          const parents = [];
+          let ancestor = element.parentNode.closest(selector);
+          while (ancestor) {
+            parents.push(ancestor);
+            ancestor = ancestor.parentNode.closest(selector);
+          }
+          return parents;
+        },
+        prev(element, selector) {
+          let previous = element.previousElementSibling;
+          while (previous) {
+            if (previous.matches(selector)) {
+              return [previous];
+            }
+            previous = previous.previousElementSibling;
+          }
+          return [];
+        },
+        next(element, selector) {
+          let next = element.nextElementSibling;
+          while (next) {
+            if (next.matches(selector)) {
+              return [next];
+            }
+            next = next.nextElementSibling;
+          }
+          return [];
+        },
+        focusableChildren(element) {
+          const focusables = ["a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]'].map((selector) => `${selector}:not([tabindex^="-"])`).join(",");
+          return this.find(focusables, element).filter((el) => !isDisabled(el) && isVisible(el));
+        },
+        getSelectorFromElement(element) {
+          const selector = getSelector(element);
+          if (selector) {
+            return SelectorEngine.findOne(selector) ? selector : null;
+          }
+          return null;
+        },
+        getElementFromSelector(element) {
+          const selector = getSelector(element);
+          return selector ? SelectorEngine.findOne(selector) : null;
+        },
+        getMultipleElementsFromSelector(element) {
+          const selector = getSelector(element);
+          return selector ? SelectorEngine.find(selector) : [];
+        }
+      };
+      const enableDismissTrigger = (component, method = "hide") => {
+        const clickEvent = `click.dismiss${component.EVENT_KEY}`;
+        const name = component.NAME;
+        EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function(event) {
+          if (["A", "AREA"].includes(this.tagName)) {
+            event.preventDefault();
+          }
+          if (isDisabled(this)) {
+            return;
+          }
+          const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
+          const instance = component.getOrCreateInstance(target);
+          instance[method]();
+        });
+      };
+      const NAME$f = "alert";
+      const DATA_KEY$a = "bs.alert";
+      const EVENT_KEY$b = `.${DATA_KEY$a}`;
+      const EVENT_CLOSE = `close${EVENT_KEY$b}`;
+      const EVENT_CLOSED = `closed${EVENT_KEY$b}`;
+      const CLASS_NAME_FADE$5 = "fade";
+      const CLASS_NAME_SHOW$8 = "show";
+      class Alert extends BaseComponent {
+        static get NAME() {
+          return NAME$f;
+        }
+        close() {
+          const closeEvent = EventHandler.trigger(this._element, EVENT_CLOSE);
+          if (closeEvent.defaultPrevented) {
+            return;
+          }
+          this._element.classList.remove(CLASS_NAME_SHOW$8);
+          const isAnimated = this._element.classList.contains(CLASS_NAME_FADE$5);
+          this._queueCallback(() => this._destroyElement(), this._element, isAnimated);
+        }
+        _destroyElement() {
+          this._element.remove();
+          EventHandler.trigger(this._element, EVENT_CLOSED);
+          this.dispose();
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var $element = $__default["default"](this);
-            var data = $element.data(DATA_KEY$9);
-            if (!data) {
-              data = new Button2(this);
-              $element.data(DATA_KEY$9, data);
+            const data = Alert.getOrCreateInstance(this);
+            if (typeof config !== "string") {
+              return;
             }
-            data.shouldAvoidTriggerChange = avoidTriggerChange;
+            if (data[config] === void 0 || config.startsWith("_") || config === "constructor") {
+              throw new TypeError(`No method named "${config}"`);
+            }
+            data[config](this);
+          });
+        }
+      }
+      enableDismissTrigger(Alert, "close");
+      defineJQueryPlugin(Alert);
+      const NAME$e = "button";
+      const DATA_KEY$9 = "bs.button";
+      const EVENT_KEY$a = `.${DATA_KEY$9}`;
+      const DATA_API_KEY$6 = ".data-api";
+      const CLASS_NAME_ACTIVE$3 = "active";
+      const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
+      const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+      class Button extends BaseComponent {
+        static get NAME() {
+          return NAME$e;
+        }
+        toggle() {
+          this._element.setAttribute("aria-pressed", this._element.classList.toggle(CLASS_NAME_ACTIVE$3));
+        }
+        static jQueryInterface(config) {
+          return this.each(function() {
+            const data = Button.getOrCreateInstance(this);
             if (config === "toggle") {
               data[config]();
             }
           });
-        };
-        _createClass(Button2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$9;
-          }
-        }]);
-        return Button2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API$5, SELECTOR_DATA_TOGGLE_CARROT, function(event) {
-        var button = event.target;
-        var initialButton = button;
-        if (!$__default["default"](button).hasClass(CLASS_NAME_BUTTON)) {
-          button = $__default["default"](button).closest(SELECTOR_BUTTON)[0];
         }
-        if (!button || button.hasAttribute("disabled") || button.classList.contains("disabled")) {
-          event.preventDefault();
-        } else {
-          var inputBtn = button.querySelector(SELECTOR_INPUT);
-          if (inputBtn && (inputBtn.hasAttribute("disabled") || inputBtn.classList.contains("disabled"))) {
-            event.preventDefault();
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, (event) => {
+        event.preventDefault();
+        const button = event.target.closest(SELECTOR_DATA_TOGGLE$5);
+        const data = Button.getOrCreateInstance(button);
+        data.toggle();
+      });
+      defineJQueryPlugin(Button);
+      const NAME$d = "swipe";
+      const EVENT_KEY$9 = ".bs.swipe";
+      const EVENT_TOUCHSTART = `touchstart${EVENT_KEY$9}`;
+      const EVENT_TOUCHMOVE = `touchmove${EVENT_KEY$9}`;
+      const EVENT_TOUCHEND = `touchend${EVENT_KEY$9}`;
+      const EVENT_POINTERDOWN = `pointerdown${EVENT_KEY$9}`;
+      const EVENT_POINTERUP = `pointerup${EVENT_KEY$9}`;
+      const POINTER_TYPE_TOUCH = "touch";
+      const POINTER_TYPE_PEN = "pen";
+      const CLASS_NAME_POINTER_EVENT = "pointer-event";
+      const SWIPE_THRESHOLD = 40;
+      const Default$c = {
+        endCallback: null,
+        leftCallback: null,
+        rightCallback: null
+      };
+      const DefaultType$c = {
+        endCallback: "(function|null)",
+        leftCallback: "(function|null)",
+        rightCallback: "(function|null)"
+      };
+      class Swipe extends Config {
+        constructor(element, config) {
+          super();
+          this._element = element;
+          if (!element || !Swipe.isSupported()) {
             return;
           }
-          if (initialButton.tagName === "INPUT" || button.tagName !== "LABEL") {
-            Button._jQueryInterface.call($__default["default"](button), "toggle", initialButton.tagName === "INPUT");
+          this._config = this._getConfig(config);
+          this._deltaX = 0;
+          this._supportPointerEvents = Boolean(window.PointerEvent);
+          this._initEvents();
+        }
+        static get Default() {
+          return Default$c;
+        }
+        static get DefaultType() {
+          return DefaultType$c;
+        }
+        static get NAME() {
+          return NAME$d;
+        }
+        dispose() {
+          EventHandler.off(this._element, EVENT_KEY$9);
+        }
+        _start(event) {
+          if (!this._supportPointerEvents) {
+            this._deltaX = event.touches[0].clientX;
+            return;
+          }
+          if (this._eventIsPointerPenTouch(event)) {
+            this._deltaX = event.clientX;
           }
         }
-      }).on(EVENT_FOCUS_BLUR_DATA_API, SELECTOR_DATA_TOGGLE_CARROT, function(event) {
-        var button = $__default["default"](event.target).closest(SELECTOR_BUTTON)[0];
-        $__default["default"](button).toggleClass(CLASS_NAME_FOCUS, /^focus(in)?$/.test(event.type));
-      });
-      $__default["default"](window).on(EVENT_LOAD_DATA_API$2, function() {
-        var buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLES_BUTTONS));
-        for (var i = 0, len = buttons.length; i < len; i++) {
-          var button = buttons[i];
-          var input = button.querySelector(SELECTOR_INPUT);
-          if (input.checked || input.hasAttribute("checked")) {
-            button.classList.add(CLASS_NAME_ACTIVE$3);
+        _end(event) {
+          if (this._eventIsPointerPenTouch(event)) {
+            this._deltaX = event.clientX - this._deltaX;
+          }
+          this._handleSwipe();
+          execute(this._config.endCallback);
+        }
+        _move(event) {
+          this._deltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this._deltaX;
+        }
+        _handleSwipe() {
+          const absDeltaX = Math.abs(this._deltaX);
+          if (absDeltaX <= SWIPE_THRESHOLD) {
+            return;
+          }
+          const direction = absDeltaX / this._deltaX;
+          this._deltaX = 0;
+          if (!direction) {
+            return;
+          }
+          execute(direction > 0 ? this._config.rightCallback : this._config.leftCallback);
+        }
+        _initEvents() {
+          if (this._supportPointerEvents) {
+            EventHandler.on(this._element, EVENT_POINTERDOWN, (event) => this._start(event));
+            EventHandler.on(this._element, EVENT_POINTERUP, (event) => this._end(event));
+            this._element.classList.add(CLASS_NAME_POINTER_EVENT);
           } else {
-            button.classList.remove(CLASS_NAME_ACTIVE$3);
+            EventHandler.on(this._element, EVENT_TOUCHSTART, (event) => this._start(event));
+            EventHandler.on(this._element, EVENT_TOUCHMOVE, (event) => this._move(event));
+            EventHandler.on(this._element, EVENT_TOUCHEND, (event) => this._end(event));
           }
         }
-        buttons = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$4));
-        for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
-          var _button = buttons[_i];
-          if (_button.getAttribute("aria-pressed") === "true") {
-            _button.classList.add(CLASS_NAME_ACTIVE$3);
-          } else {
-            _button.classList.remove(CLASS_NAME_ACTIVE$3);
-          }
+        _eventIsPointerPenTouch(event) {
+          return this._supportPointerEvents && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
         }
-      });
-      $__default["default"].fn[NAME$9] = Button._jQueryInterface;
-      $__default["default"].fn[NAME$9].Constructor = Button;
-      $__default["default"].fn[NAME$9].noConflict = function() {
-        $__default["default"].fn[NAME$9] = JQUERY_NO_CONFLICT$9;
-        return Button._jQueryInterface;
+        static isSupported() {
+          return "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0;
+        }
+      }
+      const NAME$c = "carousel";
+      const DATA_KEY$8 = "bs.carousel";
+      const EVENT_KEY$8 = `.${DATA_KEY$8}`;
+      const DATA_API_KEY$5 = ".data-api";
+      const ARROW_LEFT_KEY$1 = "ArrowLeft";
+      const ARROW_RIGHT_KEY$1 = "ArrowRight";
+      const TOUCHEVENT_COMPAT_WAIT = 500;
+      const ORDER_NEXT = "next";
+      const ORDER_PREV = "prev";
+      const DIRECTION_LEFT = "left";
+      const DIRECTION_RIGHT = "right";
+      const EVENT_SLIDE = `slide${EVENT_KEY$8}`;
+      const EVENT_SLID = `slid${EVENT_KEY$8}`;
+      const EVENT_KEYDOWN$1 = `keydown${EVENT_KEY$8}`;
+      const EVENT_MOUSEENTER$1 = `mouseenter${EVENT_KEY$8}`;
+      const EVENT_MOUSELEAVE$1 = `mouseleave${EVENT_KEY$8}`;
+      const EVENT_DRAG_START = `dragstart${EVENT_KEY$8}`;
+      const EVENT_LOAD_DATA_API$3 = `load${EVENT_KEY$8}${DATA_API_KEY$5}`;
+      const EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$8}${DATA_API_KEY$5}`;
+      const CLASS_NAME_CAROUSEL = "carousel";
+      const CLASS_NAME_ACTIVE$2 = "active";
+      const CLASS_NAME_SLIDE = "slide";
+      const CLASS_NAME_END = "carousel-item-end";
+      const CLASS_NAME_START = "carousel-item-start";
+      const CLASS_NAME_NEXT = "carousel-item-next";
+      const CLASS_NAME_PREV = "carousel-item-prev";
+      const SELECTOR_ACTIVE = ".active";
+      const SELECTOR_ITEM = ".carousel-item";
+      const SELECTOR_ACTIVE_ITEM = SELECTOR_ACTIVE + SELECTOR_ITEM;
+      const SELECTOR_ITEM_IMG = ".carousel-item img";
+      const SELECTOR_INDICATORS = ".carousel-indicators";
+      const SELECTOR_DATA_SLIDE = "[data-bs-slide], [data-bs-slide-to]";
+      const SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
+      const KEY_TO_DIRECTION = {
+        [ARROW_LEFT_KEY$1]: DIRECTION_RIGHT,
+        [ARROW_RIGHT_KEY$1]: DIRECTION_LEFT
       };
-      var NAME$8 = "carousel";
-      var VERSION$8 = "4.6.2";
-      var DATA_KEY$8 = "bs.carousel";
-      var EVENT_KEY$8 = "." + DATA_KEY$8;
-      var DATA_API_KEY$5 = ".data-api";
-      var JQUERY_NO_CONFLICT$8 = $__default["default"].fn[NAME$8];
-      var ARROW_LEFT_KEYCODE = 37;
-      var ARROW_RIGHT_KEYCODE = 39;
-      var TOUCHEVENT_COMPAT_WAIT = 500;
-      var SWIPE_THRESHOLD = 40;
-      var CLASS_NAME_CAROUSEL = "carousel";
-      var CLASS_NAME_ACTIVE$2 = "active";
-      var CLASS_NAME_SLIDE = "slide";
-      var CLASS_NAME_RIGHT = "carousel-item-right";
-      var CLASS_NAME_LEFT = "carousel-item-left";
-      var CLASS_NAME_NEXT = "carousel-item-next";
-      var CLASS_NAME_PREV = "carousel-item-prev";
-      var CLASS_NAME_POINTER_EVENT = "pointer-event";
-      var DIRECTION_NEXT = "next";
-      var DIRECTION_PREV = "prev";
-      var DIRECTION_LEFT = "left";
-      var DIRECTION_RIGHT = "right";
-      var EVENT_SLIDE = "slide" + EVENT_KEY$8;
-      var EVENT_SLID = "slid" + EVENT_KEY$8;
-      var EVENT_KEYDOWN = "keydown" + EVENT_KEY$8;
-      var EVENT_MOUSEENTER = "mouseenter" + EVENT_KEY$8;
-      var EVENT_MOUSELEAVE = "mouseleave" + EVENT_KEY$8;
-      var EVENT_TOUCHSTART = "touchstart" + EVENT_KEY$8;
-      var EVENT_TOUCHMOVE = "touchmove" + EVENT_KEY$8;
-      var EVENT_TOUCHEND = "touchend" + EVENT_KEY$8;
-      var EVENT_POINTERDOWN = "pointerdown" + EVENT_KEY$8;
-      var EVENT_POINTERUP = "pointerup" + EVENT_KEY$8;
-      var EVENT_DRAG_START = "dragstart" + EVENT_KEY$8;
-      var EVENT_LOAD_DATA_API$1 = "load" + EVENT_KEY$8 + DATA_API_KEY$5;
-      var EVENT_CLICK_DATA_API$4 = "click" + EVENT_KEY$8 + DATA_API_KEY$5;
-      var SELECTOR_ACTIVE$1 = ".active";
-      var SELECTOR_ACTIVE_ITEM = ".active.carousel-item";
-      var SELECTOR_ITEM = ".carousel-item";
-      var SELECTOR_ITEM_IMG = ".carousel-item img";
-      var SELECTOR_NEXT_PREV = ".carousel-item-next, .carousel-item-prev";
-      var SELECTOR_INDICATORS = ".carousel-indicators";
-      var SELECTOR_DATA_SLIDE = "[data-slide], [data-slide-to]";
-      var SELECTOR_DATA_RIDE = '[data-ride="carousel"]';
-      var Default$7 = {
+      const Default$b = {
         interval: 5e3,
         keyboard: true,
-        slide: false,
         pause: "hover",
-        wrap: true,
-        touch: true
+        ride: false,
+        touch: true,
+        wrap: true
       };
-      var DefaultType$7 = {
+      const DefaultType$b = {
         interval: "(number|boolean)",
         keyboard: "boolean",
-        slide: "(boolean|string)",
         pause: "(string|boolean)",
-        wrap: "boolean",
-        touch: "boolean"
+        ride: "(boolean|string)",
+        touch: "boolean",
+        wrap: "boolean"
       };
-      var PointerType = {
-        TOUCH: "touch",
-        PEN: "pen"
-      };
-      var Carousel = /* @__PURE__ */ function() {
-        function Carousel2(element, config) {
-          this._items = null;
+      class Carousel extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
           this._interval = null;
           this._activeElement = null;
-          this._isPaused = false;
           this._isSliding = false;
           this.touchTimeout = null;
-          this.touchStartX = 0;
-          this.touchDeltaX = 0;
-          this._config = this._getConfig(config);
-          this._element = element;
-          this._indicatorsElement = this._element.querySelector(SELECTOR_INDICATORS);
-          this._touchSupported = "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0;
-          this._pointerEvent = Boolean(window.PointerEvent || window.MSPointerEvent);
+          this._swipeHelper = null;
+          this._indicatorsElement = SelectorEngine.findOne(SELECTOR_INDICATORS, this._element);
           this._addEventListeners();
-        }
-        var _proto = Carousel2.prototype;
-        _proto.next = function next() {
-          if (!this._isSliding) {
-            this._slide(DIRECTION_NEXT);
+          if (this._config.ride === CLASS_NAME_CAROUSEL) {
+            this.cycle();
           }
-        };
-        _proto.nextWhenVisible = function nextWhenVisible() {
-          var $element = $__default["default"](this._element);
-          if (!document.hidden && $element.is(":visible") && $element.css("visibility") !== "hidden") {
+        }
+        static get Default() {
+          return Default$b;
+        }
+        static get DefaultType() {
+          return DefaultType$b;
+        }
+        static get NAME() {
+          return NAME$c;
+        }
+        next() {
+          this._slide(ORDER_NEXT);
+        }
+        nextWhenVisible() {
+          if (!document.hidden && isVisible(this._element)) {
             this.next();
           }
-        };
-        _proto.prev = function prev() {
-          if (!this._isSliding) {
-            this._slide(DIRECTION_PREV);
+        }
+        prev() {
+          this._slide(ORDER_PREV);
+        }
+        pause() {
+          if (this._isSliding) {
+            triggerTransitionEnd(this._element);
           }
-        };
-        _proto.pause = function pause(event) {
-          if (!event) {
-            this._isPaused = true;
-          }
-          if (this._element.querySelector(SELECTOR_NEXT_PREV)) {
-            Util.triggerTransitionEnd(this._element);
-            this.cycle(true);
-          }
-          clearInterval(this._interval);
-          this._interval = null;
-        };
-        _proto.cycle = function cycle(event) {
-          if (!event) {
-            this._isPaused = false;
-          }
-          if (this._interval) {
-            clearInterval(this._interval);
-            this._interval = null;
-          }
-          if (this._config.interval && !this._isPaused) {
-            this._updateInterval();
-            this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval);
-          }
-        };
-        _proto.to = function to(index) {
-          var _this = this;
-          this._activeElement = this._element.querySelector(SELECTOR_ACTIVE_ITEM);
-          var activeIndex = this._getItemIndex(this._activeElement);
-          if (index > this._items.length - 1 || index < 0) {
+          this._clearInterval();
+        }
+        cycle() {
+          this._clearInterval();
+          this._updateInterval();
+          this._interval = setInterval(() => this.nextWhenVisible(), this._config.interval);
+        }
+        _maybeEnableCycle() {
+          if (!this._config.ride) {
             return;
           }
           if (this._isSliding) {
-            $__default["default"](this._element).one(EVENT_SLID, function() {
-              return _this.to(index);
-            });
+            EventHandler.one(this._element, EVENT_SLID, () => this.cycle());
             return;
           }
+          this.cycle();
+        }
+        to(index) {
+          const items = this._getItems();
+          if (index > items.length - 1 || index < 0) {
+            return;
+          }
+          if (this._isSliding) {
+            EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
+            return;
+          }
+          const activeIndex = this._getItemIndex(this._getActive());
           if (activeIndex === index) {
-            this.pause();
-            this.cycle();
             return;
           }
-          var direction = index > activeIndex ? DIRECTION_NEXT : DIRECTION_PREV;
-          this._slide(direction, this._items[index]);
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"](this._element).off(EVENT_KEY$8);
-          $__default["default"].removeData(this._element, DATA_KEY$8);
-          this._items = null;
-          this._config = null;
-          this._element = null;
-          this._interval = null;
-          this._isPaused = null;
-          this._isSliding = null;
-          this._activeElement = null;
-          this._indicatorsElement = null;
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, Default$7, config);
-          Util.typeCheckConfig(NAME$8, config, DefaultType$7);
+          const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
+          this._slide(order, items[index]);
+        }
+        dispose() {
+          if (this._swipeHelper) {
+            this._swipeHelper.dispose();
+          }
+          super.dispose();
+        }
+        _configAfterMerge(config) {
+          config.defaultInterval = config.interval;
           return config;
-        };
-        _proto._handleSwipe = function _handleSwipe() {
-          var absDeltax = Math.abs(this.touchDeltaX);
-          if (absDeltax <= SWIPE_THRESHOLD) {
-            return;
-          }
-          var direction = absDeltax / this.touchDeltaX;
-          this.touchDeltaX = 0;
-          if (direction > 0) {
-            this.prev();
-          }
-          if (direction < 0) {
-            this.next();
-          }
-        };
-        _proto._addEventListeners = function _addEventListeners() {
-          var _this2 = this;
+        }
+        _addEventListeners() {
           if (this._config.keyboard) {
-            $__default["default"](this._element).on(EVENT_KEYDOWN, function(event) {
-              return _this2._keydown(event);
-            });
+            EventHandler.on(this._element, EVENT_KEYDOWN$1, (event) => this._keydown(event));
           }
           if (this._config.pause === "hover") {
-            $__default["default"](this._element).on(EVENT_MOUSEENTER, function(event) {
-              return _this2.pause(event);
-            }).on(EVENT_MOUSELEAVE, function(event) {
-              return _this2.cycle(event);
-            });
+            EventHandler.on(this._element, EVENT_MOUSEENTER$1, () => this.pause());
+            EventHandler.on(this._element, EVENT_MOUSELEAVE$1, () => this._maybeEnableCycle());
           }
-          if (this._config.touch) {
+          if (this._config.touch && Swipe.isSupported()) {
             this._addTouchEventListeners();
           }
-        };
-        _proto._addTouchEventListeners = function _addTouchEventListeners() {
-          var _this3 = this;
-          if (!this._touchSupported) {
-            return;
+        }
+        _addTouchEventListeners() {
+          for (const img of SelectorEngine.find(SELECTOR_ITEM_IMG, this._element)) {
+            EventHandler.on(img, EVENT_DRAG_START, (event) => event.preventDefault());
           }
-          var start2 = function start3(event) {
-            if (_this3._pointerEvent && PointerType[event.originalEvent.pointerType.toUpperCase()]) {
-              _this3.touchStartX = event.originalEvent.clientX;
-            } else if (!_this3._pointerEvent) {
-              _this3.touchStartX = event.originalEvent.touches[0].clientX;
+          const endCallBack = () => {
+            if (this._config.pause !== "hover") {
+              return;
             }
-          };
-          var move = function move2(event) {
-            _this3.touchDeltaX = event.originalEvent.touches && event.originalEvent.touches.length > 1 ? 0 : event.originalEvent.touches[0].clientX - _this3.touchStartX;
-          };
-          var end = function end2(event) {
-            if (_this3._pointerEvent && PointerType[event.originalEvent.pointerType.toUpperCase()]) {
-              _this3.touchDeltaX = event.originalEvent.clientX - _this3.touchStartX;
+            this.pause();
+            if (this.touchTimeout) {
+              clearTimeout(this.touchTimeout);
             }
-            _this3._handleSwipe();
-            if (_this3._config.pause === "hover") {
-              _this3.pause();
-              if (_this3.touchTimeout) {
-                clearTimeout(_this3.touchTimeout);
-              }
-              _this3.touchTimeout = setTimeout(function(event2) {
-                return _this3.cycle(event2);
-              }, TOUCHEVENT_COMPAT_WAIT + _this3._config.interval);
-            }
+            this.touchTimeout = setTimeout(() => this._maybeEnableCycle(), TOUCHEVENT_COMPAT_WAIT + this._config.interval);
           };
-          $__default["default"](this._element.querySelectorAll(SELECTOR_ITEM_IMG)).on(EVENT_DRAG_START, function(e) {
-            return e.preventDefault();
-          });
-          if (this._pointerEvent) {
-            $__default["default"](this._element).on(EVENT_POINTERDOWN, function(event) {
-              return start2(event);
-            });
-            $__default["default"](this._element).on(EVENT_POINTERUP, function(event) {
-              return end(event);
-            });
-            this._element.classList.add(CLASS_NAME_POINTER_EVENT);
-          } else {
-            $__default["default"](this._element).on(EVENT_TOUCHSTART, function(event) {
-              return start2(event);
-            });
-            $__default["default"](this._element).on(EVENT_TOUCHMOVE, function(event) {
-              return move(event);
-            });
-            $__default["default"](this._element).on(EVENT_TOUCHEND, function(event) {
-              return end(event);
-            });
-          }
-        };
-        _proto._keydown = function _keydown(event) {
+          const swipeConfig = {
+            leftCallback: () => this._slide(this._directionToOrder(DIRECTION_LEFT)),
+            rightCallback: () => this._slide(this._directionToOrder(DIRECTION_RIGHT)),
+            endCallback: endCallBack
+          };
+          this._swipeHelper = new Swipe(this._element, swipeConfig);
+        }
+        _keydown(event) {
           if (/input|textarea/i.test(event.target.tagName)) {
             return;
           }
-          switch (event.which) {
-            case ARROW_LEFT_KEYCODE:
-              event.preventDefault();
-              this.prev();
-              break;
-            case ARROW_RIGHT_KEYCODE:
-              event.preventDefault();
-              this.next();
-              break;
+          const direction = KEY_TO_DIRECTION[event.key];
+          if (direction) {
+            event.preventDefault();
+            this._slide(this._directionToOrder(direction));
           }
-        };
-        _proto._getItemIndex = function _getItemIndex(element) {
-          this._items = element && element.parentNode ? [].slice.call(element.parentNode.querySelectorAll(SELECTOR_ITEM)) : [];
-          return this._items.indexOf(element);
-        };
-        _proto._getItemByDirection = function _getItemByDirection(direction, activeElement) {
-          var isNextDirection = direction === DIRECTION_NEXT;
-          var isPrevDirection = direction === DIRECTION_PREV;
-          var activeIndex = this._getItemIndex(activeElement);
-          var lastItemIndex = this._items.length - 1;
-          var isGoingToWrap = isPrevDirection && activeIndex === 0 || isNextDirection && activeIndex === lastItemIndex;
-          if (isGoingToWrap && !this._config.wrap) {
-            return activeElement;
+        }
+        _getItemIndex(element) {
+          return this._getItems().indexOf(element);
+        }
+        _setActiveIndicatorElement(index) {
+          if (!this._indicatorsElement) {
+            return;
           }
-          var delta = direction === DIRECTION_PREV ? -1 : 1;
-          var itemIndex = (activeIndex + delta) % this._items.length;
-          return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
-        };
-        _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
-          var targetIndex = this._getItemIndex(relatedTarget);
-          var fromIndex = this._getItemIndex(this._element.querySelector(SELECTOR_ACTIVE_ITEM));
-          var slideEvent = $__default["default"].Event(EVENT_SLIDE, {
-            relatedTarget,
-            direction: eventDirectionName,
-            from: fromIndex,
-            to: targetIndex
-          });
-          $__default["default"](this._element).trigger(slideEvent);
-          return slideEvent;
-        };
-        _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
-          if (this._indicatorsElement) {
-            var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(SELECTOR_ACTIVE$1));
-            $__default["default"](indicators).removeClass(CLASS_NAME_ACTIVE$2);
-            var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
-            if (nextIndicator) {
-              $__default["default"](nextIndicator).addClass(CLASS_NAME_ACTIVE$2);
-            }
+          const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
+          activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
+          activeIndicator.removeAttribute("aria-current");
+          const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+          if (newActiveIndicator) {
+            newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
+            newActiveIndicator.setAttribute("aria-current", "true");
           }
-        };
-        _proto._updateInterval = function _updateInterval() {
-          var element = this._activeElement || this._element.querySelector(SELECTOR_ACTIVE_ITEM);
+        }
+        _updateInterval() {
+          const element = this._activeElement || this._getActive();
           if (!element) {
             return;
           }
-          var elementInterval = parseInt(element.getAttribute("data-interval"), 10);
-          if (elementInterval) {
-            this._config.defaultInterval = this._config.defaultInterval || this._config.interval;
-            this._config.interval = elementInterval;
-          } else {
-            this._config.interval = this._config.defaultInterval || this._config.interval;
-          }
-        };
-        _proto._slide = function _slide(direction, element) {
-          var _this4 = this;
-          var activeElement = this._element.querySelector(SELECTOR_ACTIVE_ITEM);
-          var activeElementIndex = this._getItemIndex(activeElement);
-          var nextElement = element || activeElement && this._getItemByDirection(direction, activeElement);
-          var nextElementIndex = this._getItemIndex(nextElement);
-          var isCycling = Boolean(this._interval);
-          var directionalClassName;
-          var orderClassName;
-          var eventDirectionName;
-          if (direction === DIRECTION_NEXT) {
-            directionalClassName = CLASS_NAME_LEFT;
-            orderClassName = CLASS_NAME_NEXT;
-            eventDirectionName = DIRECTION_LEFT;
-          } else {
-            directionalClassName = CLASS_NAME_RIGHT;
-            orderClassName = CLASS_NAME_PREV;
-            eventDirectionName = DIRECTION_RIGHT;
-          }
-          if (nextElement && $__default["default"](nextElement).hasClass(CLASS_NAME_ACTIVE$2)) {
-            this._isSliding = false;
+          const elementInterval = Number.parseInt(element.getAttribute("data-bs-interval"), 10);
+          this._config.interval = elementInterval || this._config.defaultInterval;
+        }
+        _slide(order, element = null) {
+          if (this._isSliding) {
             return;
           }
-          var slideEvent = this._triggerSlideEvent(nextElement, eventDirectionName);
-          if (slideEvent.isDefaultPrevented()) {
+          const activeElement = this._getActive();
+          const isNext = order === ORDER_NEXT;
+          const nextElement = element || getNextActiveElement(this._getItems(), activeElement, isNext, this._config.wrap);
+          if (nextElement === activeElement) {
+            return;
+          }
+          const nextElementIndex = this._getItemIndex(nextElement);
+          const triggerEvent = (eventName) => {
+            return EventHandler.trigger(this._element, eventName, {
+              relatedTarget: nextElement,
+              direction: this._orderToDirection(order),
+              from: this._getItemIndex(activeElement),
+              to: nextElementIndex
+            });
+          };
+          const slideEvent = triggerEvent(EVENT_SLIDE);
+          if (slideEvent.defaultPrevented) {
             return;
           }
           if (!activeElement || !nextElement) {
             return;
           }
+          const isCycling = Boolean(this._interval);
+          this.pause();
           this._isSliding = true;
-          if (isCycling) {
-            this.pause();
-          }
-          this._setActiveIndicatorElement(nextElement);
+          this._setActiveIndicatorElement(nextElementIndex);
           this._activeElement = nextElement;
-          var slidEvent = $__default["default"].Event(EVENT_SLID, {
-            relatedTarget: nextElement,
-            direction: eventDirectionName,
-            from: activeElementIndex,
-            to: nextElementIndex
-          });
-          if ($__default["default"](this._element).hasClass(CLASS_NAME_SLIDE)) {
-            $__default["default"](nextElement).addClass(orderClassName);
-            Util.reflow(nextElement);
-            $__default["default"](activeElement).addClass(directionalClassName);
-            $__default["default"](nextElement).addClass(directionalClassName);
-            var transitionDuration = Util.getTransitionDurationFromElement(activeElement);
-            $__default["default"](activeElement).one(Util.TRANSITION_END, function() {
-              $__default["default"](nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$2);
-              $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$2 + " " + orderClassName + " " + directionalClassName);
-              _this4._isSliding = false;
-              setTimeout(function() {
-                return $__default["default"](_this4._element).trigger(slidEvent);
-              }, 0);
-            }).emulateTransitionEnd(transitionDuration);
-          } else {
-            $__default["default"](activeElement).removeClass(CLASS_NAME_ACTIVE$2);
-            $__default["default"](nextElement).addClass(CLASS_NAME_ACTIVE$2);
+          const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END;
+          const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV;
+          nextElement.classList.add(orderClassName);
+          reflow(nextElement);
+          activeElement.classList.add(directionalClassName);
+          nextElement.classList.add(directionalClassName);
+          const completeCallBack = () => {
+            nextElement.classList.remove(directionalClassName, orderClassName);
+            nextElement.classList.add(CLASS_NAME_ACTIVE$2);
+            activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
             this._isSliding = false;
-            $__default["default"](this._element).trigger(slidEvent);
-          }
+            triggerEvent(EVENT_SLID);
+          };
+          this._queueCallback(completeCallBack, activeElement, this._isAnimated());
           if (isCycling) {
             this.cycle();
           }
-        };
-        Carousel2._jQueryInterface = function _jQueryInterface(config) {
+        }
+        _isAnimated() {
+          return this._element.classList.contains(CLASS_NAME_SLIDE);
+        }
+        _getActive() {
+          return SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
+        }
+        _getItems() {
+          return SelectorEngine.find(SELECTOR_ITEM, this._element);
+        }
+        _clearInterval() {
+          if (this._interval) {
+            clearInterval(this._interval);
+            this._interval = null;
+          }
+        }
+        _directionToOrder(direction) {
+          if (isRTL()) {
+            return direction === DIRECTION_LEFT ? ORDER_PREV : ORDER_NEXT;
+          }
+          return direction === DIRECTION_LEFT ? ORDER_NEXT : ORDER_PREV;
+        }
+        _orderToDirection(order) {
+          if (isRTL()) {
+            return order === ORDER_PREV ? DIRECTION_LEFT : DIRECTION_RIGHT;
+          }
+          return order === ORDER_PREV ? DIRECTION_RIGHT : DIRECTION_LEFT;
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var data = $__default["default"](this).data(DATA_KEY$8);
-            var _config = _extends({}, Default$7, $__default["default"](this).data());
-            if (typeof config === "object") {
-              _config = _extends({}, _config, config);
-            }
-            var action = typeof config === "string" ? config : _config.slide;
-            if (!data) {
-              data = new Carousel2(this, _config);
-              $__default["default"](this).data(DATA_KEY$8, data);
-            }
+            const data = Carousel.getOrCreateInstance(this, config);
             if (typeof config === "number") {
               data.to(config);
-            } else if (typeof action === "string") {
-              if (typeof data[action] === "undefined") {
-                throw new TypeError('No method named "' + action + '"');
+              return;
+            }
+            if (typeof config === "string") {
+              if (data[config] === void 0 || config.startsWith("_") || config === "constructor") {
+                throw new TypeError(`No method named "${config}"`);
               }
-              data[action]();
-            } else if (_config.interval && _config.ride) {
-              data.pause();
-              data.cycle();
+              data[config]();
             }
           });
-        };
-        Carousel2._dataApiClickHandler = function _dataApiClickHandler(event) {
-          var selector = Util.getSelectorFromElement(this);
-          if (!selector) {
-            return;
-          }
-          var target = $__default["default"](selector)[0];
-          if (!target || !$__default["default"](target).hasClass(CLASS_NAME_CAROUSEL)) {
-            return;
-          }
-          var config = _extends({}, $__default["default"](target).data(), $__default["default"](this).data());
-          var slideIndex = this.getAttribute("data-slide-to");
-          if (slideIndex) {
-            config.interval = false;
-          }
-          Carousel2._jQueryInterface.call($__default["default"](target), config);
-          if (slideIndex) {
-            $__default["default"](target).data(DATA_KEY$8).to(slideIndex);
-          }
-          event.preventDefault();
-        };
-        _createClass(Carousel2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$8;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$7;
-          }
-        }]);
-        return Carousel2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API$4, SELECTOR_DATA_SLIDE, Carousel._dataApiClickHandler);
-      $__default["default"](window).on(EVENT_LOAD_DATA_API$1, function() {
-        var carousels = [].slice.call(document.querySelectorAll(SELECTOR_DATA_RIDE));
-        for (var i = 0, len = carousels.length; i < len; i++) {
-          var $carousel = $__default["default"](carousels[i]);
-          Carousel._jQueryInterface.call($carousel, $carousel.data());
+        }
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, function(event) {
+        const target = SelectorEngine.getElementFromSelector(this);
+        if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
+          return;
+        }
+        event.preventDefault();
+        const carousel = Carousel.getOrCreateInstance(target);
+        const slideIndex = this.getAttribute("data-bs-slide-to");
+        if (slideIndex) {
+          carousel.to(slideIndex);
+          carousel._maybeEnableCycle();
+          return;
+        }
+        if (Manipulator.getDataAttribute(this, "slide") === "next") {
+          carousel.next();
+          carousel._maybeEnableCycle();
+          return;
+        }
+        carousel.prev();
+        carousel._maybeEnableCycle();
+      });
+      EventHandler.on(window, EVENT_LOAD_DATA_API$3, () => {
+        const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
+        for (const carousel of carousels) {
+          Carousel.getOrCreateInstance(carousel);
         }
       });
-      $__default["default"].fn[NAME$8] = Carousel._jQueryInterface;
-      $__default["default"].fn[NAME$8].Constructor = Carousel;
-      $__default["default"].fn[NAME$8].noConflict = function() {
-        $__default["default"].fn[NAME$8] = JQUERY_NO_CONFLICT$8;
-        return Carousel._jQueryInterface;
+      defineJQueryPlugin(Carousel);
+      const NAME$b = "collapse";
+      const DATA_KEY$7 = "bs.collapse";
+      const EVENT_KEY$7 = `.${DATA_KEY$7}`;
+      const DATA_API_KEY$4 = ".data-api";
+      const EVENT_SHOW$6 = `show${EVENT_KEY$7}`;
+      const EVENT_SHOWN$6 = `shown${EVENT_KEY$7}`;
+      const EVENT_HIDE$6 = `hide${EVENT_KEY$7}`;
+      const EVENT_HIDDEN$6 = `hidden${EVENT_KEY$7}`;
+      const EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$7}${DATA_API_KEY$4}`;
+      const CLASS_NAME_SHOW$7 = "show";
+      const CLASS_NAME_COLLAPSE = "collapse";
+      const CLASS_NAME_COLLAPSING = "collapsing";
+      const CLASS_NAME_COLLAPSED = "collapsed";
+      const CLASS_NAME_DEEPER_CHILDREN = `:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`;
+      const CLASS_NAME_HORIZONTAL = "collapse-horizontal";
+      const WIDTH = "width";
+      const HEIGHT = "height";
+      const SELECTOR_ACTIVES = ".collapse.show, .collapse.collapsing";
+      const SELECTOR_DATA_TOGGLE$4 = '[data-bs-toggle="collapse"]';
+      const Default$a = {
+        parent: null,
+        toggle: true
       };
-      var NAME$7 = "collapse";
-      var VERSION$7 = "4.6.2";
-      var DATA_KEY$7 = "bs.collapse";
-      var EVENT_KEY$7 = "." + DATA_KEY$7;
-      var DATA_API_KEY$4 = ".data-api";
-      var JQUERY_NO_CONFLICT$7 = $__default["default"].fn[NAME$7];
-      var CLASS_NAME_SHOW$6 = "show";
-      var CLASS_NAME_COLLAPSE = "collapse";
-      var CLASS_NAME_COLLAPSING = "collapsing";
-      var CLASS_NAME_COLLAPSED = "collapsed";
-      var DIMENSION_WIDTH = "width";
-      var DIMENSION_HEIGHT = "height";
-      var EVENT_SHOW$4 = "show" + EVENT_KEY$7;
-      var EVENT_SHOWN$4 = "shown" + EVENT_KEY$7;
-      var EVENT_HIDE$4 = "hide" + EVENT_KEY$7;
-      var EVENT_HIDDEN$4 = "hidden" + EVENT_KEY$7;
-      var EVENT_CLICK_DATA_API$3 = "click" + EVENT_KEY$7 + DATA_API_KEY$4;
-      var SELECTOR_ACTIVES = ".show, .collapsing";
-      var SELECTOR_DATA_TOGGLE$3 = '[data-toggle="collapse"]';
-      var Default$6 = {
-        toggle: true,
-        parent: ""
+      const DefaultType$a = {
+        parent: "(null|element)",
+        toggle: "boolean"
       };
-      var DefaultType$6 = {
-        toggle: "boolean",
-        parent: "(string|element)"
-      };
-      var Collapse = /* @__PURE__ */ function() {
-        function Collapse2(element, config) {
+      class Collapse extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
           this._isTransitioning = false;
-          this._element = element;
-          this._config = this._getConfig(config);
-          this._triggerArray = [].slice.call(document.querySelectorAll('[data-toggle="collapse"][href="#' + element.id + '"],' + ('[data-toggle="collapse"][data-target="#' + element.id + '"]')));
-          var toggleList = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$3));
-          for (var i = 0, len = toggleList.length; i < len; i++) {
-            var elem = toggleList[i];
-            var selector = Util.getSelectorFromElement(elem);
-            var filterElement = [].slice.call(document.querySelectorAll(selector)).filter(function(foundElem) {
-              return foundElem === element;
-            });
-            if (selector !== null && filterElement.length > 0) {
-              this._selector = selector;
+          this._triggerArray = [];
+          const toggleList = SelectorEngine.find(SELECTOR_DATA_TOGGLE$4);
+          for (const elem of toggleList) {
+            const selector = SelectorEngine.getSelectorFromElement(elem);
+            const filterElement = SelectorEngine.find(selector).filter((foundElement) => foundElement === this._element);
+            if (selector !== null && filterElement.length) {
               this._triggerArray.push(elem);
             }
           }
-          this._parent = this._config.parent ? this._getParent() : null;
+          this._initializeChildren();
           if (!this._config.parent) {
-            this._addAriaAndCollapsedClass(this._element, this._triggerArray);
+            this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
           }
           if (this._config.toggle) {
             this.toggle();
           }
         }
-        var _proto = Collapse2.prototype;
-        _proto.toggle = function toggle() {
-          if ($__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+        static get Default() {
+          return Default$a;
+        }
+        static get DefaultType() {
+          return DefaultType$a;
+        }
+        static get NAME() {
+          return NAME$b;
+        }
+        toggle() {
+          if (this._isShown()) {
             this.hide();
           } else {
             this.show();
           }
-        };
-        _proto.show = function show() {
-          var _this = this;
-          if (this._isTransitioning || $__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+        }
+        show() {
+          if (this._isTransitioning || this._isShown()) {
             return;
           }
-          var actives;
-          var activesData;
-          if (this._parent) {
-            actives = [].slice.call(this._parent.querySelectorAll(SELECTOR_ACTIVES)).filter(function(elem) {
-              if (typeof _this._config.parent === "string") {
-                return elem.getAttribute("data-parent") === _this._config.parent;
-              }
-              return elem.classList.contains(CLASS_NAME_COLLAPSE);
-            });
-            if (actives.length === 0) {
-              actives = null;
-            }
+          let activeChildren = [];
+          if (this._config.parent) {
+            activeChildren = this._getFirstLevelChildren(SELECTOR_ACTIVES).filter((element) => element !== this._element).map((element) => Collapse.getOrCreateInstance(element, {
+              toggle: false
+            }));
           }
-          if (actives) {
-            activesData = $__default["default"](actives).not(this._selector).data(DATA_KEY$7);
-            if (activesData && activesData._isTransitioning) {
-              return;
-            }
-          }
-          var startEvent = $__default["default"].Event(EVENT_SHOW$4);
-          $__default["default"](this._element).trigger(startEvent);
-          if (startEvent.isDefaultPrevented()) {
+          if (activeChildren.length && activeChildren[0]._isTransitioning) {
             return;
           }
-          if (actives) {
-            Collapse2._jQueryInterface.call($__default["default"](actives).not(this._selector), "hide");
-            if (!activesData) {
-              $__default["default"](actives).data(DATA_KEY$7, null);
-            }
+          const startEvent = EventHandler.trigger(this._element, EVENT_SHOW$6);
+          if (startEvent.defaultPrevented) {
+            return;
           }
-          var dimension = this._getDimension();
-          $__default["default"](this._element).removeClass(CLASS_NAME_COLLAPSE).addClass(CLASS_NAME_COLLAPSING);
+          for (const activeInstance of activeChildren) {
+            activeInstance.hide();
+          }
+          const dimension = this._getDimension();
+          this._element.classList.remove(CLASS_NAME_COLLAPSE);
+          this._element.classList.add(CLASS_NAME_COLLAPSING);
           this._element.style[dimension] = 0;
-          if (this._triggerArray.length) {
-            $__default["default"](this._triggerArray).removeClass(CLASS_NAME_COLLAPSED).attr("aria-expanded", true);
-          }
-          this.setTransitioning(true);
-          var complete = function complete2() {
-            $__default["default"](_this._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$6);
-            _this._element.style[dimension] = "";
-            _this.setTransitioning(false);
-            $__default["default"](_this._element).trigger(EVENT_SHOWN$4);
+          this._addAriaAndCollapsedClass(this._triggerArray, true);
+          this._isTransitioning = true;
+          const complete = () => {
+            this._isTransitioning = false;
+            this._element.classList.remove(CLASS_NAME_COLLAPSING);
+            this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
+            this._element.style[dimension] = "";
+            EventHandler.trigger(this._element, EVENT_SHOWN$6);
           };
-          var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
-          var scrollSize = "scroll" + capitalizedDimension;
-          var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-          $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-          this._element.style[dimension] = this._element[scrollSize] + "px";
-        };
-        _proto.hide = function hide() {
-          var _this2 = this;
-          if (this._isTransitioning || !$__default["default"](this._element).hasClass(CLASS_NAME_SHOW$6)) {
+          const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
+          const scrollSize = `scroll${capitalizedDimension}`;
+          this._queueCallback(complete, this._element, true);
+          this._element.style[dimension] = `${this._element[scrollSize]}px`;
+        }
+        hide() {
+          if (this._isTransitioning || !this._isShown()) {
             return;
           }
-          var startEvent = $__default["default"].Event(EVENT_HIDE$4);
-          $__default["default"](this._element).trigger(startEvent);
-          if (startEvent.isDefaultPrevented()) {
+          const startEvent = EventHandler.trigger(this._element, EVENT_HIDE$6);
+          if (startEvent.defaultPrevented) {
             return;
           }
-          var dimension = this._getDimension();
-          this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
-          Util.reflow(this._element);
-          $__default["default"](this._element).addClass(CLASS_NAME_COLLAPSING).removeClass(CLASS_NAME_COLLAPSE + " " + CLASS_NAME_SHOW$6);
-          var triggerArrayLength = this._triggerArray.length;
-          if (triggerArrayLength > 0) {
-            for (var i = 0; i < triggerArrayLength; i++) {
-              var trigger = this._triggerArray[i];
-              var selector = Util.getSelectorFromElement(trigger);
-              if (selector !== null) {
-                var $elem = $__default["default"]([].slice.call(document.querySelectorAll(selector)));
-                if (!$elem.hasClass(CLASS_NAME_SHOW$6)) {
-                  $__default["default"](trigger).addClass(CLASS_NAME_COLLAPSED).attr("aria-expanded", false);
-                }
-              }
+          const dimension = this._getDimension();
+          this._element.style[dimension] = `${this._element.getBoundingClientRect()[dimension]}px`;
+          reflow(this._element);
+          this._element.classList.add(CLASS_NAME_COLLAPSING);
+          this._element.classList.remove(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
+          for (const trigger of this._triggerArray) {
+            const element = SelectorEngine.getElementFromSelector(trigger);
+            if (element && !this._isShown(element)) {
+              this._addAriaAndCollapsedClass([trigger], false);
             }
           }
-          this.setTransitioning(true);
-          var complete = function complete2() {
-            _this2.setTransitioning(false);
-            $__default["default"](_this2._element).removeClass(CLASS_NAME_COLLAPSING).addClass(CLASS_NAME_COLLAPSE).trigger(EVENT_HIDDEN$4);
+          this._isTransitioning = true;
+          const complete = () => {
+            this._isTransitioning = false;
+            this._element.classList.remove(CLASS_NAME_COLLAPSING);
+            this._element.classList.add(CLASS_NAME_COLLAPSE);
+            EventHandler.trigger(this._element, EVENT_HIDDEN$6);
           };
           this._element.style[dimension] = "";
-          var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-          $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-        };
-        _proto.setTransitioning = function setTransitioning(isTransitioning) {
-          this._isTransitioning = isTransitioning;
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$7);
-          this._config = null;
-          this._parent = null;
-          this._element = null;
-          this._triggerArray = null;
-          this._isTransitioning = null;
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, Default$6, config);
+          this._queueCallback(complete, this._element, true);
+        }
+        _isShown(element = this._element) {
+          return element.classList.contains(CLASS_NAME_SHOW$7);
+        }
+        _configAfterMerge(config) {
           config.toggle = Boolean(config.toggle);
-          Util.typeCheckConfig(NAME$7, config, DefaultType$6);
+          config.parent = getElement(config.parent);
           return config;
-        };
-        _proto._getDimension = function _getDimension() {
-          var hasWidth = $__default["default"](this._element).hasClass(DIMENSION_WIDTH);
-          return hasWidth ? DIMENSION_WIDTH : DIMENSION_HEIGHT;
-        };
-        _proto._getParent = function _getParent() {
-          var _this3 = this;
-          var parent;
-          if (Util.isElement(this._config.parent)) {
-            parent = this._config.parent;
-            if (typeof this._config.parent.jquery !== "undefined") {
-              parent = this._config.parent[0];
+        }
+        _getDimension() {
+          return this._element.classList.contains(CLASS_NAME_HORIZONTAL) ? WIDTH : HEIGHT;
+        }
+        _initializeChildren() {
+          if (!this._config.parent) {
+            return;
+          }
+          const children = this._getFirstLevelChildren(SELECTOR_DATA_TOGGLE$4);
+          for (const element of children) {
+            const selected = SelectorEngine.getElementFromSelector(element);
+            if (selected) {
+              this._addAriaAndCollapsedClass([element], this._isShown(selected));
             }
-          } else {
-            parent = document.querySelector(this._config.parent);
           }
-          var selector = '[data-toggle="collapse"][data-parent="' + this._config.parent + '"]';
-          var children = [].slice.call(parent.querySelectorAll(selector));
-          $__default["default"](children).each(function(i, element) {
-            _this3._addAriaAndCollapsedClass(Collapse2._getTargetFromElement(element), [element]);
-          });
-          return parent;
-        };
-        _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
-          var isOpen = $__default["default"](element).hasClass(CLASS_NAME_SHOW$6);
-          if (triggerArray.length) {
-            $__default["default"](triggerArray).toggleClass(CLASS_NAME_COLLAPSED, !isOpen).attr("aria-expanded", isOpen);
+        }
+        _getFirstLevelChildren(selector) {
+          const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+          return SelectorEngine.find(selector, this._config.parent).filter((element) => !children.includes(element));
+        }
+        _addAriaAndCollapsedClass(triggerArray, isOpen) {
+          if (!triggerArray.length) {
+            return;
           }
-        };
-        Collapse2._getTargetFromElement = function _getTargetFromElement(element) {
-          var selector = Util.getSelectorFromElement(element);
-          return selector ? document.querySelector(selector) : null;
-        };
-        Collapse2._jQueryInterface = function _jQueryInterface(config) {
+          for (const element of triggerArray) {
+            element.classList.toggle(CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", isOpen);
+          }
+        }
+        static jQueryInterface(config) {
+          const _config = {};
+          if (typeof config === "string" && /show|hide/.test(config)) {
+            _config.toggle = false;
+          }
           return this.each(function() {
-            var $element = $__default["default"](this);
-            var data = $element.data(DATA_KEY$7);
-            var _config = _extends({}, Default$6, $element.data(), typeof config === "object" && config ? config : {});
-            if (!data && _config.toggle && typeof config === "string" && /show|hide/.test(config)) {
-              _config.toggle = false;
-            }
-            if (!data) {
-              data = new Collapse2(this, _config);
-              $element.data(DATA_KEY$7, data);
-            }
+            const data = Collapse.getOrCreateInstance(this, _config);
             if (typeof config === "string") {
               if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
+                throw new TypeError(`No method named "${config}"`);
               }
               data[config]();
             }
           });
-        };
-        _createClass(Collapse2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$7;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$6;
-          }
-        }]);
-        return Collapse2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function(event) {
-        if (event.currentTarget.tagName === "A") {
+        }
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$4, function(event) {
+        if (event.target.tagName === "A" || event.delegateTarget && event.delegateTarget.tagName === "A") {
           event.preventDefault();
         }
-        var $trigger = $__default["default"](this);
-        var selector = Util.getSelectorFromElement(this);
-        var selectors = [].slice.call(document.querySelectorAll(selector));
-        $__default["default"](selectors).each(function() {
-          var $target = $__default["default"](this);
-          var data = $target.data(DATA_KEY$7);
-          var config = data ? "toggle" : $trigger.data();
-          Collapse._jQueryInterface.call($target, config);
-        });
-      });
-      $__default["default"].fn[NAME$7] = Collapse._jQueryInterface;
-      $__default["default"].fn[NAME$7].Constructor = Collapse;
-      $__default["default"].fn[NAME$7].noConflict = function() {
-        $__default["default"].fn[NAME$7] = JQUERY_NO_CONFLICT$7;
-        return Collapse._jQueryInterface;
-      };
-      var NAME$6 = "dropdown";
-      var VERSION$6 = "4.6.2";
-      var DATA_KEY$6 = "bs.dropdown";
-      var EVENT_KEY$6 = "." + DATA_KEY$6;
-      var DATA_API_KEY$3 = ".data-api";
-      var JQUERY_NO_CONFLICT$6 = $__default["default"].fn[NAME$6];
-      var ESCAPE_KEYCODE$1 = 27;
-      var SPACE_KEYCODE = 32;
-      var TAB_KEYCODE = 9;
-      var ARROW_UP_KEYCODE = 38;
-      var ARROW_DOWN_KEYCODE = 40;
-      var RIGHT_MOUSE_BUTTON_WHICH = 3;
-      var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE$1);
-      var CLASS_NAME_DISABLED$1 = "disabled";
-      var CLASS_NAME_SHOW$5 = "show";
-      var CLASS_NAME_DROPUP = "dropup";
-      var CLASS_NAME_DROPRIGHT = "dropright";
-      var CLASS_NAME_DROPLEFT = "dropleft";
-      var CLASS_NAME_MENURIGHT = "dropdown-menu-right";
-      var CLASS_NAME_POSITION_STATIC = "position-static";
-      var EVENT_HIDE$3 = "hide" + EVENT_KEY$6;
-      var EVENT_HIDDEN$3 = "hidden" + EVENT_KEY$6;
-      var EVENT_SHOW$3 = "show" + EVENT_KEY$6;
-      var EVENT_SHOWN$3 = "shown" + EVENT_KEY$6;
-      var EVENT_CLICK = "click" + EVENT_KEY$6;
-      var EVENT_CLICK_DATA_API$2 = "click" + EVENT_KEY$6 + DATA_API_KEY$3;
-      var EVENT_KEYDOWN_DATA_API = "keydown" + EVENT_KEY$6 + DATA_API_KEY$3;
-      var EVENT_KEYUP_DATA_API = "keyup" + EVENT_KEY$6 + DATA_API_KEY$3;
-      var SELECTOR_DATA_TOGGLE$2 = '[data-toggle="dropdown"]';
-      var SELECTOR_FORM_CHILD = ".dropdown form";
-      var SELECTOR_MENU = ".dropdown-menu";
-      var SELECTOR_NAVBAR_NAV = ".navbar-nav";
-      var SELECTOR_VISIBLE_ITEMS = ".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)";
-      var PLACEMENT_TOP = "top-start";
-      var PLACEMENT_TOPEND = "top-end";
-      var PLACEMENT_BOTTOM = "bottom-start";
-      var PLACEMENT_BOTTOMEND = "bottom-end";
-      var PLACEMENT_RIGHT = "right-start";
-      var PLACEMENT_LEFT = "left-start";
-      var Default$5 = {
-        offset: 0,
-        flip: true,
-        boundary: "scrollParent",
-        reference: "toggle",
-        display: "dynamic",
-        popperConfig: null
-      };
-      var DefaultType$5 = {
-        offset: "(number|string|function)",
-        flip: "boolean",
-        boundary: "(string|element)",
-        reference: "(string|element)",
-        display: "string",
-        popperConfig: "(null|object)"
-      };
-      var Dropdown = /* @__PURE__ */ function() {
-        function Dropdown2(element, config) {
-          this._element = element;
-          this._popper = null;
-          this._config = this._getConfig(config);
-          this._menu = this._getMenuElement();
-          this._inNavbar = this._detectNavbar();
-          this._addEventListeners();
+        for (const element of SelectorEngine.getMultipleElementsFromSelector(this)) {
+          Collapse.getOrCreateInstance(element, {
+            toggle: false
+          }).toggle();
         }
-        var _proto = Dropdown2.prototype;
-        _proto.toggle = function toggle() {
-          if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1)) {
+      });
+      defineJQueryPlugin(Collapse);
+      const NAME$a = "dropdown";
+      const DATA_KEY$6 = "bs.dropdown";
+      const EVENT_KEY$6 = `.${DATA_KEY$6}`;
+      const DATA_API_KEY$3 = ".data-api";
+      const ESCAPE_KEY$2 = "Escape";
+      const TAB_KEY$1 = "Tab";
+      const ARROW_UP_KEY$1 = "ArrowUp";
+      const ARROW_DOWN_KEY$1 = "ArrowDown";
+      const RIGHT_MOUSE_BUTTON = 2;
+      const EVENT_HIDE$5 = `hide${EVENT_KEY$6}`;
+      const EVENT_HIDDEN$5 = `hidden${EVENT_KEY$6}`;
+      const EVENT_SHOW$5 = `show${EVENT_KEY$6}`;
+      const EVENT_SHOWN$5 = `shown${EVENT_KEY$6}`;
+      const EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
+      const EVENT_KEYDOWN_DATA_API = `keydown${EVENT_KEY$6}${DATA_API_KEY$3}`;
+      const EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY$6}${DATA_API_KEY$3}`;
+      const CLASS_NAME_SHOW$6 = "show";
+      const CLASS_NAME_DROPUP = "dropup";
+      const CLASS_NAME_DROPEND = "dropend";
+      const CLASS_NAME_DROPSTART = "dropstart";
+      const CLASS_NAME_DROPUP_CENTER = "dropup-center";
+      const CLASS_NAME_DROPDOWN_CENTER = "dropdown-center";
+      const SELECTOR_DATA_TOGGLE$3 = '[data-bs-toggle="dropdown"]:not(.disabled):not(:disabled)';
+      const SELECTOR_DATA_TOGGLE_SHOWN = `${SELECTOR_DATA_TOGGLE$3}.${CLASS_NAME_SHOW$6}`;
+      const SELECTOR_MENU = ".dropdown-menu";
+      const SELECTOR_NAVBAR = ".navbar";
+      const SELECTOR_NAVBAR_NAV = ".navbar-nav";
+      const SELECTOR_VISIBLE_ITEMS = ".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)";
+      const PLACEMENT_TOP = isRTL() ? "top-end" : "top-start";
+      const PLACEMENT_TOPEND = isRTL() ? "top-start" : "top-end";
+      const PLACEMENT_BOTTOM = isRTL() ? "bottom-end" : "bottom-start";
+      const PLACEMENT_BOTTOMEND = isRTL() ? "bottom-start" : "bottom-end";
+      const PLACEMENT_RIGHT = isRTL() ? "left-start" : "right-start";
+      const PLACEMENT_LEFT = isRTL() ? "right-start" : "left-start";
+      const PLACEMENT_TOPCENTER = "top";
+      const PLACEMENT_BOTTOMCENTER = "bottom";
+      const Default$9 = {
+        autoClose: true,
+        boundary: "clippingParents",
+        display: "dynamic",
+        offset: [0, 2],
+        popperConfig: null,
+        reference: "toggle"
+      };
+      const DefaultType$9 = {
+        autoClose: "(boolean|string)",
+        boundary: "(string|element)",
+        display: "string",
+        offset: "(array|string|function)",
+        popperConfig: "(null|object|function)",
+        reference: "(string|element|object)"
+      };
+      class Dropdown extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
+          this._popper = null;
+          this._parent = this._element.parentNode;
+          this._menu = SelectorEngine.next(this._element, SELECTOR_MENU)[0] || SelectorEngine.prev(this._element, SELECTOR_MENU)[0] || SelectorEngine.findOne(SELECTOR_MENU, this._parent);
+          this._inNavbar = this._detectNavbar();
+        }
+        static get Default() {
+          return Default$9;
+        }
+        static get DefaultType() {
+          return DefaultType$9;
+        }
+        static get NAME() {
+          return NAME$a;
+        }
+        toggle() {
+          return this._isShown() ? this.hide() : this.show();
+        }
+        show() {
+          if (isDisabled(this._element) || this._isShown()) {
             return;
           }
-          var isActive = $__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5);
-          Dropdown2._clearMenus();
-          if (isActive) {
-            return;
-          }
-          this.show(true);
-        };
-        _proto.show = function show(usePopper) {
-          if (usePopper === void 0) {
-            usePopper = false;
-          }
-          if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1) || $__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5)) {
-            return;
-          }
-          var relatedTarget = {
+          const relatedTarget = {
             relatedTarget: this._element
           };
-          var showEvent = $__default["default"].Event(EVENT_SHOW$3, relatedTarget);
-          var parent = Dropdown2._getParentFromElement(this._element);
-          $__default["default"](parent).trigger(showEvent);
-          if (showEvent.isDefaultPrevented()) {
+          const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$5, relatedTarget);
+          if (showEvent.defaultPrevented) {
             return;
           }
-          if (!this._inNavbar && usePopper) {
-            if (typeof Popper__default["default"] === "undefined") {
-              throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");
+          this._createPopper();
+          if ("ontouchstart" in document.documentElement && !this._parent.closest(SELECTOR_NAVBAR_NAV)) {
+            for (const element of [].concat(...document.body.children)) {
+              EventHandler.on(element, "mouseover", noop);
             }
-            var referenceElement = this._element;
-            if (this._config.reference === "parent") {
-              referenceElement = parent;
-            } else if (Util.isElement(this._config.reference)) {
-              referenceElement = this._config.reference;
-              if (typeof this._config.reference.jquery !== "undefined") {
-                referenceElement = this._config.reference[0];
-              }
-            }
-            if (this._config.boundary !== "scrollParent") {
-              $__default["default"](parent).addClass(CLASS_NAME_POSITION_STATIC);
-            }
-            this._popper = new Popper__default["default"](referenceElement, this._menu, this._getPopperConfig());
-          }
-          if ("ontouchstart" in document.documentElement && $__default["default"](parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
-            $__default["default"](document.body).children().on("mouseover", null, $__default["default"].noop);
           }
           this._element.focus();
           this._element.setAttribute("aria-expanded", true);
-          $__default["default"](this._menu).toggleClass(CLASS_NAME_SHOW$5);
-          $__default["default"](parent).toggleClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_SHOWN$3, relatedTarget));
-        };
-        _proto.hide = function hide() {
-          if (this._element.disabled || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED$1) || !$__default["default"](this._menu).hasClass(CLASS_NAME_SHOW$5)) {
+          this._menu.classList.add(CLASS_NAME_SHOW$6);
+          this._element.classList.add(CLASS_NAME_SHOW$6);
+          EventHandler.trigger(this._element, EVENT_SHOWN$5, relatedTarget);
+        }
+        hide() {
+          if (isDisabled(this._element) || !this._isShown()) {
             return;
           }
-          var relatedTarget = {
+          const relatedTarget = {
             relatedTarget: this._element
           };
-          var hideEvent = $__default["default"].Event(EVENT_HIDE$3, relatedTarget);
-          var parent = Dropdown2._getParentFromElement(this._element);
-          $__default["default"](parent).trigger(hideEvent);
-          if (hideEvent.isDefaultPrevented()) {
+          this._completeHide(relatedTarget);
+        }
+        dispose() {
+          if (this._popper) {
+            this._popper.destroy();
+          }
+          super.dispose();
+        }
+        update() {
+          this._inNavbar = this._detectNavbar();
+          if (this._popper) {
+            this._popper.update();
+          }
+        }
+        _completeHide(relatedTarget) {
+          const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$5, relatedTarget);
+          if (hideEvent.defaultPrevented) {
             return;
+          }
+          if ("ontouchstart" in document.documentElement) {
+            for (const element of [].concat(...document.body.children)) {
+              EventHandler.off(element, "mouseover", noop);
+            }
           }
           if (this._popper) {
             this._popper.destroy();
           }
-          $__default["default"](this._menu).toggleClass(CLASS_NAME_SHOW$5);
-          $__default["default"](parent).toggleClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_HIDDEN$3, relatedTarget));
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$6);
-          $__default["default"](this._element).off(EVENT_KEY$6);
-          this._element = null;
-          this._menu = null;
-          if (this._popper !== null) {
-            this._popper.destroy();
-            this._popper = null;
+          this._menu.classList.remove(CLASS_NAME_SHOW$6);
+          this._element.classList.remove(CLASS_NAME_SHOW$6);
+          this._element.setAttribute("aria-expanded", "false");
+          Manipulator.removeDataAttribute(this._menu, "popper");
+          EventHandler.trigger(this._element, EVENT_HIDDEN$5, relatedTarget);
+        }
+        _getConfig(config) {
+          config = super._getConfig(config);
+          if (typeof config.reference === "object" && !isElement(config.reference) && typeof config.reference.getBoundingClientRect !== "function") {
+            throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
           }
-        };
-        _proto.update = function update() {
-          this._inNavbar = this._detectNavbar();
-          if (this._popper !== null) {
-            this._popper.scheduleUpdate();
-          }
-        };
-        _proto._addEventListeners = function _addEventListeners() {
-          var _this = this;
-          $__default["default"](this._element).on(EVENT_CLICK, function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            _this.toggle();
-          });
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, this.constructor.Default, $__default["default"](this._element).data(), config);
-          Util.typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
           return config;
-        };
-        _proto._getMenuElement = function _getMenuElement() {
-          if (!this._menu) {
-            var parent = Dropdown2._getParentFromElement(this._element);
-            if (parent) {
-              this._menu = parent.querySelector(SELECTOR_MENU);
-            }
+        }
+        _createPopper() {
+          if (typeof Popper__namespace === "undefined") {
+            throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org/docs/v2/)");
           }
-          return this._menu;
-        };
-        _proto._getPlacement = function _getPlacement() {
-          var $parentDropdown = $__default["default"](this._element.parentNode);
-          var placement = PLACEMENT_BOTTOM;
-          if ($parentDropdown.hasClass(CLASS_NAME_DROPUP)) {
-            placement = $__default["default"](this._menu).hasClass(CLASS_NAME_MENURIGHT) ? PLACEMENT_TOPEND : PLACEMENT_TOP;
-          } else if ($parentDropdown.hasClass(CLASS_NAME_DROPRIGHT)) {
-            placement = PLACEMENT_RIGHT;
-          } else if ($parentDropdown.hasClass(CLASS_NAME_DROPLEFT)) {
-            placement = PLACEMENT_LEFT;
-          } else if ($__default["default"](this._menu).hasClass(CLASS_NAME_MENURIGHT)) {
-            placement = PLACEMENT_BOTTOMEND;
+          let referenceElement = this._element;
+          if (this._config.reference === "parent") {
+            referenceElement = this._parent;
+          } else if (isElement(this._config.reference)) {
+            referenceElement = getElement(this._config.reference);
+          } else if (typeof this._config.reference === "object") {
+            referenceElement = this._config.reference;
           }
-          return placement;
-        };
-        _proto._detectNavbar = function _detectNavbar() {
-          return $__default["default"](this._element).closest(".navbar").length > 0;
-        };
-        _proto._getOffset = function _getOffset() {
-          var _this2 = this;
-          var offset = {};
-          if (typeof this._config.offset === "function") {
-            offset.fn = function(data) {
-              data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets, _this2._element));
-              return data;
-            };
-          } else {
-            offset.offset = this._config.offset;
+          const popperConfig = this._getPopperConfig();
+          this._popper = Popper__namespace.createPopper(referenceElement, this._menu, popperConfig);
+        }
+        _isShown() {
+          return this._menu.classList.contains(CLASS_NAME_SHOW$6);
+        }
+        _getPlacement() {
+          const parentDropdown = this._parent;
+          if (parentDropdown.classList.contains(CLASS_NAME_DROPEND)) {
+            return PLACEMENT_RIGHT;
+          }
+          if (parentDropdown.classList.contains(CLASS_NAME_DROPSTART)) {
+            return PLACEMENT_LEFT;
+          }
+          if (parentDropdown.classList.contains(CLASS_NAME_DROPUP_CENTER)) {
+            return PLACEMENT_TOPCENTER;
+          }
+          if (parentDropdown.classList.contains(CLASS_NAME_DROPDOWN_CENTER)) {
+            return PLACEMENT_BOTTOMCENTER;
+          }
+          const isEnd = getComputedStyle(this._menu).getPropertyValue("--bs-position").trim() === "end";
+          if (parentDropdown.classList.contains(CLASS_NAME_DROPUP)) {
+            return isEnd ? PLACEMENT_TOPEND : PLACEMENT_TOP;
+          }
+          return isEnd ? PLACEMENT_BOTTOMEND : PLACEMENT_BOTTOM;
+        }
+        _detectNavbar() {
+          return this._element.closest(SELECTOR_NAVBAR) !== null;
+        }
+        _getOffset() {
+          const {
+            offset
+          } = this._config;
+          if (typeof offset === "string") {
+            return offset.split(",").map((value) => Number.parseInt(value, 10));
+          }
+          if (typeof offset === "function") {
+            return (popperData) => offset(popperData, this._element);
           }
           return offset;
-        };
-        _proto._getPopperConfig = function _getPopperConfig() {
-          var popperConfig = {
+        }
+        _getPopperConfig() {
+          const defaultBsPopperConfig = {
             placement: this._getPlacement(),
-            modifiers: {
-              offset: this._getOffset(),
-              flip: {
-                enabled: this._config.flip
-              },
-              preventOverflow: {
-                boundariesElement: this._config.boundary
+            modifiers: [{
+              name: "preventOverflow",
+              options: {
+                boundary: this._config.boundary
               }
-            }
+            }, {
+              name: "offset",
+              options: {
+                offset: this._getOffset()
+              }
+            }]
           };
-          if (this._config.display === "static") {
-            popperConfig.modifiers.applyStyle = {
+          if (this._inNavbar || this._config.display === "static") {
+            Manipulator.setDataAttribute(this._menu, "popper", "static");
+            defaultBsPopperConfig.modifiers = [{
+              name: "applyStyles",
               enabled: false
-            };
+            }];
           }
-          return _extends({}, popperConfig, this._config.popperConfig);
-        };
-        Dropdown2._jQueryInterface = function _jQueryInterface(config) {
-          return this.each(function() {
-            var data = $__default["default"](this).data(DATA_KEY$6);
-            var _config = typeof config === "object" ? config : null;
-            if (!data) {
-              data = new Dropdown2(this, _config);
-              $__default["default"](this).data(DATA_KEY$6, data);
-            }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config]();
-            }
-          });
-        };
-        Dropdown2._clearMenus = function _clearMenus(event) {
-          if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH || event.type === "keyup" && event.which !== TAB_KEYCODE)) {
+          return {
+            ...defaultBsPopperConfig,
+            ...execute(this._config.popperConfig, [void 0, defaultBsPopperConfig])
+          };
+        }
+        _selectMenuItem({
+          key,
+          target
+        }) {
+          const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter((element) => isVisible(element));
+          if (!items.length) {
             return;
           }
-          var toggles = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE$2));
-          for (var i = 0, len = toggles.length; i < len; i++) {
-            var parent = Dropdown2._getParentFromElement(toggles[i]);
-            var context = $__default["default"](toggles[i]).data(DATA_KEY$6);
-            var relatedTarget = {
-              relatedTarget: toggles[i]
+          getNextActiveElement(items, target, key === ARROW_DOWN_KEY$1, !items.includes(target)).focus();
+        }
+        static jQueryInterface(config) {
+          return this.each(function() {
+            const data = Dropdown.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
+              return;
+            }
+            if (typeof data[config] === "undefined") {
+              throw new TypeError(`No method named "${config}"`);
+            }
+            data[config]();
+          });
+        }
+        static clearMenus(event) {
+          if (event.button === RIGHT_MOUSE_BUTTON || event.type === "keyup" && event.key !== TAB_KEY$1) {
+            return;
+          }
+          const openToggles = SelectorEngine.find(SELECTOR_DATA_TOGGLE_SHOWN);
+          for (const toggle of openToggles) {
+            const context = Dropdown.getInstance(toggle);
+            if (!context || context._config.autoClose === false) {
+              continue;
+            }
+            const composedPath = event.composedPath();
+            const isMenuTarget = composedPath.includes(context._menu);
+            if (composedPath.includes(context._element) || context._config.autoClose === "inside" && !isMenuTarget || context._config.autoClose === "outside" && isMenuTarget) {
+              continue;
+            }
+            if (context._menu.contains(event.target) && (event.type === "keyup" && event.key === TAB_KEY$1 || /input|select|option|textarea|form/i.test(event.target.tagName))) {
+              continue;
+            }
+            const relatedTarget = {
+              relatedTarget: context._element
             };
-            if (event && event.type === "click") {
+            if (event.type === "click") {
               relatedTarget.clickEvent = event;
             }
-            if (!context) {
-              continue;
-            }
-            var dropdownMenu = context._menu;
-            if (!$__default["default"](parent).hasClass(CLASS_NAME_SHOW$5)) {
-              continue;
-            }
-            if (event && (event.type === "click" && /input|textarea/i.test(event.target.tagName) || event.type === "keyup" && event.which === TAB_KEYCODE) && $__default["default"].contains(parent, event.target)) {
-              continue;
-            }
-            var hideEvent = $__default["default"].Event(EVENT_HIDE$3, relatedTarget);
-            $__default["default"](parent).trigger(hideEvent);
-            if (hideEvent.isDefaultPrevented()) {
-              continue;
-            }
-            if ("ontouchstart" in document.documentElement) {
-              $__default["default"](document.body).children().off("mouseover", null, $__default["default"].noop);
-            }
-            toggles[i].setAttribute("aria-expanded", "false");
-            if (context._popper) {
-              context._popper.destroy();
-            }
-            $__default["default"](dropdownMenu).removeClass(CLASS_NAME_SHOW$5);
-            $__default["default"](parent).removeClass(CLASS_NAME_SHOW$5).trigger($__default["default"].Event(EVENT_HIDDEN$3, relatedTarget));
+            context._completeHide(relatedTarget);
           }
-        };
-        Dropdown2._getParentFromElement = function _getParentFromElement(element) {
-          var parent;
-          var selector = Util.getSelectorFromElement(element);
-          if (selector) {
-            parent = document.querySelector(selector);
-          }
-          return parent || element.parentNode;
-        };
-        Dropdown2._dataApiKeydownHandler = function _dataApiKeydownHandler(event) {
-          if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE$1 && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $__default["default"](event.target).closest(SELECTOR_MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+        }
+        static dataApiKeydownHandler(event) {
+          const isInput = /input|textarea/i.test(event.target.tagName);
+          const isEscapeEvent = event.key === ESCAPE_KEY$2;
+          const isUpOrDownEvent = [ARROW_UP_KEY$1, ARROW_DOWN_KEY$1].includes(event.key);
+          if (!isUpOrDownEvent && !isEscapeEvent) {
             return;
           }
-          if (this.disabled || $__default["default"](this).hasClass(CLASS_NAME_DISABLED$1)) {
-            return;
-          }
-          var parent = Dropdown2._getParentFromElement(this);
-          var isActive = $__default["default"](parent).hasClass(CLASS_NAME_SHOW$5);
-          if (!isActive && event.which === ESCAPE_KEYCODE$1) {
+          if (isInput && !isEscapeEvent) {
             return;
           }
           event.preventDefault();
-          event.stopPropagation();
-          if (!isActive || event.which === ESCAPE_KEYCODE$1 || event.which === SPACE_KEYCODE) {
-            if (event.which === ESCAPE_KEYCODE$1) {
-              $__default["default"](parent.querySelector(SELECTOR_DATA_TOGGLE$2)).trigger("focus");
-            }
-            $__default["default"](this).trigger("click");
+          const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
+          const instance = Dropdown.getOrCreateInstance(getToggleButton);
+          if (isUpOrDownEvent) {
+            event.stopPropagation();
+            instance.show();
+            instance._selectMenuItem(event);
             return;
           }
-          var items = [].slice.call(parent.querySelectorAll(SELECTOR_VISIBLE_ITEMS)).filter(function(item) {
-            return $__default["default"](item).is(":visible");
-          });
-          if (items.length === 0) {
-            return;
+          if (instance._isShown()) {
+            event.stopPropagation();
+            instance.hide();
+            getToggleButton.focus();
           }
-          var index = items.indexOf(event.target);
-          if (event.which === ARROW_UP_KEYCODE && index > 0) {
-            index--;
-          }
-          if (event.which === ARROW_DOWN_KEYCODE && index < items.length - 1) {
-            index++;
-          }
-          if (index < 0) {
-            index = 0;
-          }
-          items[index].focus();
-        };
-        _createClass(Dropdown2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$6;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$5;
-          }
-        }, {
-          key: "DefaultType",
-          get: function get() {
-            return DefaultType$5;
-          }
-        }]);
-        return Dropdown2;
-      }();
-      $__default["default"](document).on(EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown._dataApiKeydownHandler).on(EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown._dataApiKeydownHandler).on(EVENT_CLICK_DATA_API$2 + " " + EVENT_KEYUP_DATA_API, Dropdown._clearMenus).on(EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        Dropdown._jQueryInterface.call($__default["default"](this), "toggle");
-      }).on(EVENT_CLICK_DATA_API$2, SELECTOR_FORM_CHILD, function(e) {
-        e.stopPropagation();
-      });
-      $__default["default"].fn[NAME$6] = Dropdown._jQueryInterface;
-      $__default["default"].fn[NAME$6].Constructor = Dropdown;
-      $__default["default"].fn[NAME$6].noConflict = function() {
-        $__default["default"].fn[NAME$6] = JQUERY_NO_CONFLICT$6;
-        return Dropdown._jQueryInterface;
-      };
-      var NAME$5 = "modal";
-      var VERSION$5 = "4.6.2";
-      var DATA_KEY$5 = "bs.modal";
-      var EVENT_KEY$5 = "." + DATA_KEY$5;
-      var DATA_API_KEY$2 = ".data-api";
-      var JQUERY_NO_CONFLICT$5 = $__default["default"].fn[NAME$5];
-      var ESCAPE_KEYCODE = 27;
-      var CLASS_NAME_SCROLLABLE = "modal-dialog-scrollable";
-      var CLASS_NAME_SCROLLBAR_MEASURER = "modal-scrollbar-measure";
-      var CLASS_NAME_BACKDROP = "modal-backdrop";
-      var CLASS_NAME_OPEN = "modal-open";
-      var CLASS_NAME_FADE$4 = "fade";
-      var CLASS_NAME_SHOW$4 = "show";
-      var CLASS_NAME_STATIC = "modal-static";
-      var EVENT_HIDE$2 = "hide" + EVENT_KEY$5;
-      var EVENT_HIDE_PREVENTED = "hidePrevented" + EVENT_KEY$5;
-      var EVENT_HIDDEN$2 = "hidden" + EVENT_KEY$5;
-      var EVENT_SHOW$2 = "show" + EVENT_KEY$5;
-      var EVENT_SHOWN$2 = "shown" + EVENT_KEY$5;
-      var EVENT_FOCUSIN = "focusin" + EVENT_KEY$5;
-      var EVENT_RESIZE = "resize" + EVENT_KEY$5;
-      var EVENT_CLICK_DISMISS$1 = "click.dismiss" + EVENT_KEY$5;
-      var EVENT_KEYDOWN_DISMISS = "keydown.dismiss" + EVENT_KEY$5;
-      var EVENT_MOUSEUP_DISMISS = "mouseup.dismiss" + EVENT_KEY$5;
-      var EVENT_MOUSEDOWN_DISMISS = "mousedown.dismiss" + EVENT_KEY$5;
-      var EVENT_CLICK_DATA_API$1 = "click" + EVENT_KEY$5 + DATA_API_KEY$2;
-      var SELECTOR_DIALOG = ".modal-dialog";
-      var SELECTOR_MODAL_BODY = ".modal-body";
-      var SELECTOR_DATA_TOGGLE$1 = '[data-toggle="modal"]';
-      var SELECTOR_DATA_DISMISS$1 = '[data-dismiss="modal"]';
-      var SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
-      var SELECTOR_STICKY_CONTENT = ".sticky-top";
-      var Default$4 = {
-        backdrop: true,
-        keyboard: true,
-        focus: true,
-        show: true
-      };
-      var DefaultType$4 = {
-        backdrop: "(boolean|string)",
-        keyboard: "boolean",
-        focus: "boolean",
-        show: "boolean"
-      };
-      var Modal = /* @__PURE__ */ function() {
-        function Modal2(element, config) {
-          this._config = this._getConfig(config);
-          this._element = element;
-          this._dialog = element.querySelector(SELECTOR_DIALOG);
-          this._backdrop = null;
-          this._isShown = false;
-          this._isBodyOverflowing = false;
-          this._ignoreBackdropClick = false;
-          this._isTransitioning = false;
-          this._scrollbarWidth = 0;
         }
-        var _proto = Modal2.prototype;
-        _proto.toggle = function toggle(relatedTarget) {
+      }
+      EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$3, Dropdown.dataApiKeydownHandler);
+      EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
+      EventHandler.on(document, EVENT_CLICK_DATA_API$3, Dropdown.clearMenus);
+      EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
+      EventHandler.on(document, EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function(event) {
+        event.preventDefault();
+        Dropdown.getOrCreateInstance(this).toggle();
+      });
+      defineJQueryPlugin(Dropdown);
+      const NAME$9 = "backdrop";
+      const CLASS_NAME_FADE$4 = "fade";
+      const CLASS_NAME_SHOW$5 = "show";
+      const EVENT_MOUSEDOWN = `mousedown.bs.${NAME$9}`;
+      const Default$8 = {
+        className: "modal-backdrop",
+        clickCallback: null,
+        isAnimated: false,
+        isVisible: true,
+        rootElement: "body"
+      };
+      const DefaultType$8 = {
+        className: "string",
+        clickCallback: "(function|null)",
+        isAnimated: "boolean",
+        isVisible: "boolean",
+        rootElement: "(element|string)"
+      };
+      class Backdrop extends Config {
+        constructor(config) {
+          super();
+          this._config = this._getConfig(config);
+          this._isAppended = false;
+          this._element = null;
+        }
+        static get Default() {
+          return Default$8;
+        }
+        static get DefaultType() {
+          return DefaultType$8;
+        }
+        static get NAME() {
+          return NAME$9;
+        }
+        show(callback) {
+          if (!this._config.isVisible) {
+            execute(callback);
+            return;
+          }
+          this._append();
+          const element = this._getElement();
+          if (this._config.isAnimated) {
+            reflow(element);
+          }
+          element.classList.add(CLASS_NAME_SHOW$5);
+          this._emulateAnimation(() => {
+            execute(callback);
+          });
+        }
+        hide(callback) {
+          if (!this._config.isVisible) {
+            execute(callback);
+            return;
+          }
+          this._getElement().classList.remove(CLASS_NAME_SHOW$5);
+          this._emulateAnimation(() => {
+            this.dispose();
+            execute(callback);
+          });
+        }
+        dispose() {
+          if (!this._isAppended) {
+            return;
+          }
+          EventHandler.off(this._element, EVENT_MOUSEDOWN);
+          this._element.remove();
+          this._isAppended = false;
+        }
+        _getElement() {
+          if (!this._element) {
+            const backdrop = document.createElement("div");
+            backdrop.className = this._config.className;
+            if (this._config.isAnimated) {
+              backdrop.classList.add(CLASS_NAME_FADE$4);
+            }
+            this._element = backdrop;
+          }
+          return this._element;
+        }
+        _configAfterMerge(config) {
+          config.rootElement = getElement(config.rootElement);
+          return config;
+        }
+        _append() {
+          if (this._isAppended) {
+            return;
+          }
+          const element = this._getElement();
+          this._config.rootElement.append(element);
+          EventHandler.on(element, EVENT_MOUSEDOWN, () => {
+            execute(this._config.clickCallback);
+          });
+          this._isAppended = true;
+        }
+        _emulateAnimation(callback) {
+          executeAfterTransition(callback, this._getElement(), this._config.isAnimated);
+        }
+      }
+      const NAME$8 = "focustrap";
+      const DATA_KEY$5 = "bs.focustrap";
+      const EVENT_KEY$5 = `.${DATA_KEY$5}`;
+      const EVENT_FOCUSIN$2 = `focusin${EVENT_KEY$5}`;
+      const EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY$5}`;
+      const TAB_KEY = "Tab";
+      const TAB_NAV_FORWARD = "forward";
+      const TAB_NAV_BACKWARD = "backward";
+      const Default$7 = {
+        autofocus: true,
+        trapElement: null
+      };
+      const DefaultType$7 = {
+        autofocus: "boolean",
+        trapElement: "element"
+      };
+      class FocusTrap extends Config {
+        constructor(config) {
+          super();
+          this._config = this._getConfig(config);
+          this._isActive = false;
+          this._lastTabNavDirection = null;
+        }
+        static get Default() {
+          return Default$7;
+        }
+        static get DefaultType() {
+          return DefaultType$7;
+        }
+        static get NAME() {
+          return NAME$8;
+        }
+        activate() {
+          if (this._isActive) {
+            return;
+          }
+          if (this._config.autofocus) {
+            this._config.trapElement.focus();
+          }
+          EventHandler.off(document, EVENT_KEY$5);
+          EventHandler.on(document, EVENT_FOCUSIN$2, (event) => this._handleFocusin(event));
+          EventHandler.on(document, EVENT_KEYDOWN_TAB, (event) => this._handleKeydown(event));
+          this._isActive = true;
+        }
+        deactivate() {
+          if (!this._isActive) {
+            return;
+          }
+          this._isActive = false;
+          EventHandler.off(document, EVENT_KEY$5);
+        }
+        _handleFocusin(event) {
+          const {
+            trapElement
+          } = this._config;
+          if (event.target === document || event.target === trapElement || trapElement.contains(event.target)) {
+            return;
+          }
+          const elements = SelectorEngine.focusableChildren(trapElement);
+          if (elements.length === 0) {
+            trapElement.focus();
+          } else if (this._lastTabNavDirection === TAB_NAV_BACKWARD) {
+            elements[elements.length - 1].focus();
+          } else {
+            elements[0].focus();
+          }
+        }
+        _handleKeydown(event) {
+          if (event.key !== TAB_KEY) {
+            return;
+          }
+          this._lastTabNavDirection = event.shiftKey ? TAB_NAV_BACKWARD : TAB_NAV_FORWARD;
+        }
+      }
+      const SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
+      const SELECTOR_STICKY_CONTENT = ".sticky-top";
+      const PROPERTY_PADDING = "padding-right";
+      const PROPERTY_MARGIN = "margin-right";
+      class ScrollBarHelper {
+        constructor() {
+          this._element = document.body;
+        }
+        getWidth() {
+          const documentWidth = document.documentElement.clientWidth;
+          return Math.abs(window.innerWidth - documentWidth);
+        }
+        hide() {
+          const width = this.getWidth();
+          this._disableOverFlow();
+          this._setElementAttributes(this._element, PROPERTY_PADDING, (calculatedValue) => calculatedValue + width);
+          this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, (calculatedValue) => calculatedValue + width);
+          this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, (calculatedValue) => calculatedValue - width);
+        }
+        reset() {
+          this._resetElementAttributes(this._element, "overflow");
+          this._resetElementAttributes(this._element, PROPERTY_PADDING);
+          this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
+          this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
+        }
+        isOverflowing() {
+          return this.getWidth() > 0;
+        }
+        _disableOverFlow() {
+          this._saveInitialAttribute(this._element, "overflow");
+          this._element.style.overflow = "hidden";
+        }
+        _setElementAttributes(selector, styleProperty, callback) {
+          const scrollbarWidth = this.getWidth();
+          const manipulationCallBack = (element) => {
+            if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+              return;
+            }
+            this._saveInitialAttribute(element, styleProperty);
+            const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+            element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+          };
+          this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        _saveInitialAttribute(element, styleProperty) {
+          const actualValue = element.style.getPropertyValue(styleProperty);
+          if (actualValue) {
+            Manipulator.setDataAttribute(element, styleProperty, actualValue);
+          }
+        }
+        _resetElementAttributes(selector, styleProperty) {
+          const manipulationCallBack = (element) => {
+            const value = Manipulator.getDataAttribute(element, styleProperty);
+            if (value === null) {
+              element.style.removeProperty(styleProperty);
+              return;
+            }
+            Manipulator.removeDataAttribute(element, styleProperty);
+            element.style.setProperty(styleProperty, value);
+          };
+          this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        _applyManipulationCallback(selector, callBack) {
+          if (isElement(selector)) {
+            callBack(selector);
+            return;
+          }
+          for (const sel of SelectorEngine.find(selector, this._element)) {
+            callBack(sel);
+          }
+        }
+      }
+      const NAME$7 = "modal";
+      const DATA_KEY$4 = "bs.modal";
+      const EVENT_KEY$4 = `.${DATA_KEY$4}`;
+      const DATA_API_KEY$2 = ".data-api";
+      const ESCAPE_KEY$1 = "Escape";
+      const EVENT_HIDE$4 = `hide${EVENT_KEY$4}`;
+      const EVENT_HIDE_PREVENTED$1 = `hidePrevented${EVENT_KEY$4}`;
+      const EVENT_HIDDEN$4 = `hidden${EVENT_KEY$4}`;
+      const EVENT_SHOW$4 = `show${EVENT_KEY$4}`;
+      const EVENT_SHOWN$4 = `shown${EVENT_KEY$4}`;
+      const EVENT_RESIZE$1 = `resize${EVENT_KEY$4}`;
+      const EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY$4}`;
+      const EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY$4}`;
+      const EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$4}`;
+      const EVENT_CLICK_DATA_API$2 = `click${EVENT_KEY$4}${DATA_API_KEY$2}`;
+      const CLASS_NAME_OPEN = "modal-open";
+      const CLASS_NAME_FADE$3 = "fade";
+      const CLASS_NAME_SHOW$4 = "show";
+      const CLASS_NAME_STATIC = "modal-static";
+      const OPEN_SELECTOR$1 = ".modal.show";
+      const SELECTOR_DIALOG = ".modal-dialog";
+      const SELECTOR_MODAL_BODY = ".modal-body";
+      const SELECTOR_DATA_TOGGLE$2 = '[data-bs-toggle="modal"]';
+      const Default$6 = {
+        backdrop: true,
+        focus: true,
+        keyboard: true
+      };
+      const DefaultType$6 = {
+        backdrop: "(boolean|string)",
+        focus: "boolean",
+        keyboard: "boolean"
+      };
+      class Modal extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
+          this._dialog = SelectorEngine.findOne(SELECTOR_DIALOG, this._element);
+          this._backdrop = this._initializeBackDrop();
+          this._focustrap = this._initializeFocusTrap();
+          this._isShown = false;
+          this._isTransitioning = false;
+          this._scrollBar = new ScrollBarHelper();
+          this._addEventListeners();
+        }
+        static get Default() {
+          return Default$6;
+        }
+        static get DefaultType() {
+          return DefaultType$6;
+        }
+        static get NAME() {
+          return NAME$7;
+        }
+        toggle(relatedTarget) {
           return this._isShown ? this.hide() : this.show(relatedTarget);
-        };
-        _proto.show = function show(relatedTarget) {
-          var _this = this;
+        }
+        show(relatedTarget) {
           if (this._isShown || this._isTransitioning) {
             return;
           }
-          var showEvent = $__default["default"].Event(EVENT_SHOW$2, {
+          const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$4, {
             relatedTarget
           });
-          $__default["default"](this._element).trigger(showEvent);
-          if (showEvent.isDefaultPrevented()) {
+          if (showEvent.defaultPrevented) {
             return;
           }
           this._isShown = true;
-          if ($__default["default"](this._element).hasClass(CLASS_NAME_FADE$4)) {
-            this._isTransitioning = true;
-          }
-          this._checkScrollbar();
-          this._setScrollbar();
+          this._isTransitioning = true;
+          this._scrollBar.hide();
+          document.body.classList.add(CLASS_NAME_OPEN);
           this._adjustDialog();
-          this._setEscapeEvent();
-          this._setResizeEvent();
-          $__default["default"](this._element).on(EVENT_CLICK_DISMISS$1, SELECTOR_DATA_DISMISS$1, function(event) {
-            return _this.hide(event);
-          });
-          $__default["default"](this._dialog).on(EVENT_MOUSEDOWN_DISMISS, function() {
-            $__default["default"](_this._element).one(EVENT_MOUSEUP_DISMISS, function(event) {
-              if ($__default["default"](event.target).is(_this._element)) {
-                _this._ignoreBackdropClick = true;
-              }
-            });
-          });
-          this._showBackdrop(function() {
-            return _this._showElement(relatedTarget);
-          });
-        };
-        _proto.hide = function hide(event) {
-          var _this2 = this;
-          if (event) {
-            event.preventDefault();
-          }
+          this._backdrop.show(() => this._showElement(relatedTarget));
+        }
+        hide() {
           if (!this._isShown || this._isTransitioning) {
             return;
           }
-          var hideEvent = $__default["default"].Event(EVENT_HIDE$2);
-          $__default["default"](this._element).trigger(hideEvent);
-          if (!this._isShown || hideEvent.isDefaultPrevented()) {
+          const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$4);
+          if (hideEvent.defaultPrevented) {
             return;
           }
           this._isShown = false;
-          var transition = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4);
-          if (transition) {
-            this._isTransitioning = true;
-          }
-          this._setEscapeEvent();
-          this._setResizeEvent();
-          $__default["default"](document).off(EVENT_FOCUSIN);
-          $__default["default"](this._element).removeClass(CLASS_NAME_SHOW$4);
-          $__default["default"](this._element).off(EVENT_CLICK_DISMISS$1);
-          $__default["default"](this._dialog).off(EVENT_MOUSEDOWN_DISMISS);
-          if (transition) {
-            var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-            $__default["default"](this._element).one(Util.TRANSITION_END, function(event2) {
-              return _this2._hideModal(event2);
-            }).emulateTransitionEnd(transitionDuration);
-          } else {
-            this._hideModal();
-          }
-        };
-        _proto.dispose = function dispose() {
-          [window, this._element, this._dialog].forEach(function(htmlElement) {
-            return $__default["default"](htmlElement).off(EVENT_KEY$5);
-          });
-          $__default["default"](document).off(EVENT_FOCUSIN);
-          $__default["default"].removeData(this._element, DATA_KEY$5);
-          this._config = null;
-          this._element = null;
-          this._dialog = null;
-          this._backdrop = null;
-          this._isShown = null;
-          this._isBodyOverflowing = null;
-          this._ignoreBackdropClick = null;
-          this._isTransitioning = null;
-          this._scrollbarWidth = null;
-        };
-        _proto.handleUpdate = function handleUpdate() {
+          this._isTransitioning = true;
+          this._focustrap.deactivate();
+          this._element.classList.remove(CLASS_NAME_SHOW$4);
+          this._queueCallback(() => this._hideModal(), this._element, this._isAnimated());
+        }
+        dispose() {
+          EventHandler.off(window, EVENT_KEY$4);
+          EventHandler.off(this._dialog, EVENT_KEY$4);
+          this._backdrop.dispose();
+          this._focustrap.deactivate();
+          super.dispose();
+        }
+        handleUpdate() {
           this._adjustDialog();
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, Default$4, config);
-          Util.typeCheckConfig(NAME$5, config, DefaultType$4);
-          return config;
-        };
-        _proto._triggerBackdropTransition = function _triggerBackdropTransition() {
-          var _this3 = this;
-          var hideEventPrevented = $__default["default"].Event(EVENT_HIDE_PREVENTED);
-          $__default["default"](this._element).trigger(hideEventPrevented);
-          if (hideEventPrevented.isDefaultPrevented()) {
-            return;
-          }
-          var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-          if (!isModalOverflowing) {
-            this._element.style.overflowY = "hidden";
-          }
-          this._element.classList.add(CLASS_NAME_STATIC);
-          var modalTransitionDuration = Util.getTransitionDurationFromElement(this._dialog);
-          $__default["default"](this._element).off(Util.TRANSITION_END);
-          $__default["default"](this._element).one(Util.TRANSITION_END, function() {
-            _this3._element.classList.remove(CLASS_NAME_STATIC);
-            if (!isModalOverflowing) {
-              $__default["default"](_this3._element).one(Util.TRANSITION_END, function() {
-                _this3._element.style.overflowY = "";
-              }).emulateTransitionEnd(_this3._element, modalTransitionDuration);
-            }
-          }).emulateTransitionEnd(modalTransitionDuration);
-          this._element.focus();
-        };
-        _proto._showElement = function _showElement(relatedTarget) {
-          var _this4 = this;
-          var transition = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4);
-          var modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null;
-          if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
-            document.body.appendChild(this._element);
+        }
+        _initializeBackDrop() {
+          return new Backdrop({
+            isVisible: Boolean(this._config.backdrop),
+            isAnimated: this._isAnimated()
+          });
+        }
+        _initializeFocusTrap() {
+          return new FocusTrap({
+            trapElement: this._element
+          });
+        }
+        _showElement(relatedTarget) {
+          if (!document.body.contains(this._element)) {
+            document.body.append(this._element);
           }
           this._element.style.display = "block";
           this._element.removeAttribute("aria-hidden");
           this._element.setAttribute("aria-modal", true);
           this._element.setAttribute("role", "dialog");
-          if ($__default["default"](this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
+          this._element.scrollTop = 0;
+          const modalBody = SelectorEngine.findOne(SELECTOR_MODAL_BODY, this._dialog);
+          if (modalBody) {
             modalBody.scrollTop = 0;
-          } else {
-            this._element.scrollTop = 0;
           }
-          if (transition) {
-            Util.reflow(this._element);
-          }
-          $__default["default"](this._element).addClass(CLASS_NAME_SHOW$4);
-          if (this._config.focus) {
-            this._enforceFocus();
-          }
-          var shownEvent = $__default["default"].Event(EVENT_SHOWN$2, {
-            relatedTarget
-          });
-          var transitionComplete = function transitionComplete2() {
-            if (_this4._config.focus) {
-              _this4._element.focus();
+          reflow(this._element);
+          this._element.classList.add(CLASS_NAME_SHOW$4);
+          const transitionComplete = () => {
+            if (this._config.focus) {
+              this._focustrap.activate();
             }
-            _this4._isTransitioning = false;
-            $__default["default"](_this4._element).trigger(shownEvent);
+            this._isTransitioning = false;
+            EventHandler.trigger(this._element, EVENT_SHOWN$4, {
+              relatedTarget
+            });
           };
-          if (transition) {
-            var transitionDuration = Util.getTransitionDurationFromElement(this._dialog);
-            $__default["default"](this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
-          } else {
-            transitionComplete();
-          }
-        };
-        _proto._enforceFocus = function _enforceFocus() {
-          var _this5 = this;
-          $__default["default"](document).off(EVENT_FOCUSIN).on(EVENT_FOCUSIN, function(event) {
-            if (document !== event.target && _this5._element !== event.target && $__default["default"](_this5._element).has(event.target).length === 0) {
-              _this5._element.focus();
+          this._queueCallback(transitionComplete, this._dialog, this._isAnimated());
+        }
+        _addEventListeners() {
+          EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS$1, (event) => {
+            if (event.key !== ESCAPE_KEY$1) {
+              return;
+            }
+            if (this._config.keyboard) {
+              this.hide();
+              return;
+            }
+            this._triggerBackdropTransition();
+          });
+          EventHandler.on(window, EVENT_RESIZE$1, () => {
+            if (this._isShown && !this._isTransitioning) {
+              this._adjustDialog();
             }
           });
-        };
-        _proto._setEscapeEvent = function _setEscapeEvent() {
-          var _this6 = this;
-          if (this._isShown) {
-            $__default["default"](this._element).on(EVENT_KEYDOWN_DISMISS, function(event) {
-              if (_this6._config.keyboard && event.which === ESCAPE_KEYCODE) {
-                event.preventDefault();
-                _this6.hide();
-              } else if (!_this6._config.keyboard && event.which === ESCAPE_KEYCODE) {
-                _this6._triggerBackdropTransition();
+          EventHandler.on(this._element, EVENT_MOUSEDOWN_DISMISS, (event) => {
+            EventHandler.one(this._element, EVENT_CLICK_DISMISS, (event2) => {
+              if (this._element !== event.target || this._element !== event2.target) {
+                return;
+              }
+              if (this._config.backdrop === "static") {
+                this._triggerBackdropTransition();
+                return;
+              }
+              if (this._config.backdrop) {
+                this.hide();
               }
             });
-          } else if (!this._isShown) {
-            $__default["default"](this._element).off(EVENT_KEYDOWN_DISMISS);
-          }
-        };
-        _proto._setResizeEvent = function _setResizeEvent() {
-          var _this7 = this;
-          if (this._isShown) {
-            $__default["default"](window).on(EVENT_RESIZE, function(event) {
-              return _this7.handleUpdate(event);
-            });
-          } else {
-            $__default["default"](window).off(EVENT_RESIZE);
-          }
-        };
-        _proto._hideModal = function _hideModal() {
-          var _this8 = this;
+          });
+        }
+        _hideModal() {
           this._element.style.display = "none";
           this._element.setAttribute("aria-hidden", true);
           this._element.removeAttribute("aria-modal");
           this._element.removeAttribute("role");
           this._isTransitioning = false;
-          this._showBackdrop(function() {
-            $__default["default"](document.body).removeClass(CLASS_NAME_OPEN);
-            _this8._resetAdjustments();
-            _this8._resetScrollbar();
-            $__default["default"](_this8._element).trigger(EVENT_HIDDEN$2);
+          this._backdrop.hide(() => {
+            document.body.classList.remove(CLASS_NAME_OPEN);
+            this._resetAdjustments();
+            this._scrollBar.reset();
+            EventHandler.trigger(this._element, EVENT_HIDDEN$4);
           });
-        };
-        _proto._removeBackdrop = function _removeBackdrop() {
-          if (this._backdrop) {
-            $__default["default"](this._backdrop).remove();
-            this._backdrop = null;
-          }
-        };
-        _proto._showBackdrop = function _showBackdrop(callback) {
-          var _this9 = this;
-          var animate = $__default["default"](this._element).hasClass(CLASS_NAME_FADE$4) ? CLASS_NAME_FADE$4 : "";
-          if (this._isShown && this._config.backdrop) {
-            this._backdrop = document.createElement("div");
-            this._backdrop.className = CLASS_NAME_BACKDROP;
-            if (animate) {
-              this._backdrop.classList.add(animate);
-            }
-            $__default["default"](this._backdrop).appendTo(document.body);
-            $__default["default"](this._element).on(EVENT_CLICK_DISMISS$1, function(event) {
-              if (_this9._ignoreBackdropClick) {
-                _this9._ignoreBackdropClick = false;
-                return;
-              }
-              if (event.target !== event.currentTarget) {
-                return;
-              }
-              if (_this9._config.backdrop === "static") {
-                _this9._triggerBackdropTransition();
-              } else {
-                _this9.hide();
-              }
-            });
-            if (animate) {
-              Util.reflow(this._backdrop);
-            }
-            $__default["default"](this._backdrop).addClass(CLASS_NAME_SHOW$4);
-            if (!callback) {
-              return;
-            }
-            if (!animate) {
-              callback();
-              return;
-            }
-            var backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
-            $__default["default"](this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
-          } else if (!this._isShown && this._backdrop) {
-            $__default["default"](this._backdrop).removeClass(CLASS_NAME_SHOW$4);
-            var callbackRemove = function callbackRemove2() {
-              _this9._removeBackdrop();
-              if (callback) {
-                callback();
-              }
-            };
-            if ($__default["default"](this._element).hasClass(CLASS_NAME_FADE$4)) {
-              var _backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
-              $__default["default"](this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
-            } else {
-              callbackRemove();
-            }
-          } else if (callback) {
-            callback();
-          }
-        };
-        _proto._adjustDialog = function _adjustDialog() {
-          var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-          if (!this._isBodyOverflowing && isModalOverflowing) {
-            this._element.style.paddingLeft = this._scrollbarWidth + "px";
-          }
-          if (this._isBodyOverflowing && !isModalOverflowing) {
-            this._element.style.paddingRight = this._scrollbarWidth + "px";
-          }
-        };
-        _proto._resetAdjustments = function _resetAdjustments() {
-          this._element.style.paddingLeft = "";
-          this._element.style.paddingRight = "";
-        };
-        _proto._checkScrollbar = function _checkScrollbar() {
-          var rect = document.body.getBoundingClientRect();
-          this._isBodyOverflowing = Math.round(rect.left + rect.right) < window.innerWidth;
-          this._scrollbarWidth = this._getScrollbarWidth();
-        };
-        _proto._setScrollbar = function _setScrollbar() {
-          var _this10 = this;
-          if (this._isBodyOverflowing) {
-            var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
-            var stickyContent = [].slice.call(document.querySelectorAll(SELECTOR_STICKY_CONTENT));
-            $__default["default"](fixedContent).each(function(index, element) {
-              var actualPadding2 = element.style.paddingRight;
-              var calculatedPadding2 = $__default["default"](element).css("padding-right");
-              $__default["default"](element).data("padding-right", actualPadding2).css("padding-right", parseFloat(calculatedPadding2) + _this10._scrollbarWidth + "px");
-            });
-            $__default["default"](stickyContent).each(function(index, element) {
-              var actualMargin = element.style.marginRight;
-              var calculatedMargin = $__default["default"](element).css("margin-right");
-              $__default["default"](element).data("margin-right", actualMargin).css("margin-right", parseFloat(calculatedMargin) - _this10._scrollbarWidth + "px");
-            });
-            var actualPadding = document.body.style.paddingRight;
-            var calculatedPadding = $__default["default"](document.body).css("padding-right");
-            $__default["default"](document.body).data("padding-right", actualPadding).css("padding-right", parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
-          }
-          $__default["default"](document.body).addClass(CLASS_NAME_OPEN);
-        };
-        _proto._resetScrollbar = function _resetScrollbar() {
-          var fixedContent = [].slice.call(document.querySelectorAll(SELECTOR_FIXED_CONTENT));
-          $__default["default"](fixedContent).each(function(index, element) {
-            var padding2 = $__default["default"](element).data("padding-right");
-            $__default["default"](element).removeData("padding-right");
-            element.style.paddingRight = padding2 ? padding2 : "";
-          });
-          var elements = [].slice.call(document.querySelectorAll("" + SELECTOR_STICKY_CONTENT));
-          $__default["default"](elements).each(function(index, element) {
-            var margin = $__default["default"](element).data("margin-right");
-            if (typeof margin !== "undefined") {
-              $__default["default"](element).css("margin-right", margin).removeData("margin-right");
-            }
-          });
-          var padding = $__default["default"](document.body).data("padding-right");
-          $__default["default"](document.body).removeData("padding-right");
-          document.body.style.paddingRight = padding ? padding : "";
-        };
-        _proto._getScrollbarWidth = function _getScrollbarWidth() {
-          var scrollDiv = document.createElement("div");
-          scrollDiv.className = CLASS_NAME_SCROLLBAR_MEASURER;
-          document.body.appendChild(scrollDiv);
-          var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
-          document.body.removeChild(scrollDiv);
-          return scrollbarWidth;
-        };
-        Modal2._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
-          return this.each(function() {
-            var data = $__default["default"](this).data(DATA_KEY$5);
-            var _config = _extends({}, Default$4, $__default["default"](this).data(), typeof config === "object" && config ? config : {});
-            if (!data) {
-              data = new Modal2(this, _config);
-              $__default["default"](this).data(DATA_KEY$5, data);
-            }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config](relatedTarget);
-            } else if (_config.show) {
-              data.show(relatedTarget);
-            }
-          });
-        };
-        _createClass(Modal2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$5;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$4;
-          }
-        }]);
-        return Modal2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function(event) {
-        var _this11 = this;
-        var target;
-        var selector = Util.getSelectorFromElement(this);
-        if (selector) {
-          target = document.querySelector(selector);
         }
-        var config = $__default["default"](target).data(DATA_KEY$5) ? "toggle" : _extends({}, $__default["default"](target).data(), $__default["default"](this).data());
-        if (this.tagName === "A" || this.tagName === "AREA") {
-          event.preventDefault();
+        _isAnimated() {
+          return this._element.classList.contains(CLASS_NAME_FADE$3);
         }
-        var $target = $__default["default"](target).one(EVENT_SHOW$2, function(showEvent) {
-          if (showEvent.isDefaultPrevented()) {
+        _triggerBackdropTransition() {
+          const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED$1);
+          if (hideEvent.defaultPrevented) {
             return;
           }
-          $target.one(EVENT_HIDDEN$2, function() {
-            if ($__default["default"](_this11).is(":visible")) {
-              _this11.focus();
+          const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+          const initialOverflowY = this._element.style.overflowY;
+          if (initialOverflowY === "hidden" || this._element.classList.contains(CLASS_NAME_STATIC)) {
+            return;
+          }
+          if (!isModalOverflowing) {
+            this._element.style.overflowY = "hidden";
+          }
+          this._element.classList.add(CLASS_NAME_STATIC);
+          this._queueCallback(() => {
+            this._element.classList.remove(CLASS_NAME_STATIC);
+            this._queueCallback(() => {
+              this._element.style.overflowY = initialOverflowY;
+            }, this._dialog);
+          }, this._dialog);
+          this._element.focus();
+        }
+        _adjustDialog() {
+          const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+          const scrollbarWidth = this._scrollBar.getWidth();
+          const isBodyOverflowing = scrollbarWidth > 0;
+          if (isBodyOverflowing && !isModalOverflowing) {
+            const property = isRTL() ? "paddingLeft" : "paddingRight";
+            this._element.style[property] = `${scrollbarWidth}px`;
+          }
+          if (!isBodyOverflowing && isModalOverflowing) {
+            const property = isRTL() ? "paddingRight" : "paddingLeft";
+            this._element.style[property] = `${scrollbarWidth}px`;
+          }
+        }
+        _resetAdjustments() {
+          this._element.style.paddingLeft = "";
+          this._element.style.paddingRight = "";
+        }
+        static jQueryInterface(config, relatedTarget) {
+          return this.each(function() {
+            const data = Modal.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
+              return;
+            }
+            if (typeof data[config] === "undefined") {
+              throw new TypeError(`No method named "${config}"`);
+            }
+            data[config](relatedTarget);
+          });
+        }
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function(event) {
+        const target = SelectorEngine.getElementFromSelector(this);
+        if (["A", "AREA"].includes(this.tagName)) {
+          event.preventDefault();
+        }
+        EventHandler.one(target, EVENT_SHOW$4, (showEvent) => {
+          if (showEvent.defaultPrevented) {
+            return;
+          }
+          EventHandler.one(target, EVENT_HIDDEN$4, () => {
+            if (isVisible(this)) {
+              this.focus();
             }
           });
         });
-        Modal._jQueryInterface.call($__default["default"](target), config, this);
+        const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
+        if (alreadyOpen) {
+          Modal.getInstance(alreadyOpen).hide();
+        }
+        const data = Modal.getOrCreateInstance(target);
+        data.toggle(this);
       });
-      $__default["default"].fn[NAME$5] = Modal._jQueryInterface;
-      $__default["default"].fn[NAME$5].Constructor = Modal;
-      $__default["default"].fn[NAME$5].noConflict = function() {
-        $__default["default"].fn[NAME$5] = JQUERY_NO_CONFLICT$5;
-        return Modal._jQueryInterface;
+      enableDismissTrigger(Modal);
+      defineJQueryPlugin(Modal);
+      const NAME$6 = "offcanvas";
+      const DATA_KEY$3 = "bs.offcanvas";
+      const EVENT_KEY$3 = `.${DATA_KEY$3}`;
+      const DATA_API_KEY$1 = ".data-api";
+      const EVENT_LOAD_DATA_API$2 = `load${EVENT_KEY$3}${DATA_API_KEY$1}`;
+      const ESCAPE_KEY = "Escape";
+      const CLASS_NAME_SHOW$3 = "show";
+      const CLASS_NAME_SHOWING$1 = "showing";
+      const CLASS_NAME_HIDING = "hiding";
+      const CLASS_NAME_BACKDROP = "offcanvas-backdrop";
+      const OPEN_SELECTOR = ".offcanvas.show";
+      const EVENT_SHOW$3 = `show${EVENT_KEY$3}`;
+      const EVENT_SHOWN$3 = `shown${EVENT_KEY$3}`;
+      const EVENT_HIDE$3 = `hide${EVENT_KEY$3}`;
+      const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$3}`;
+      const EVENT_HIDDEN$3 = `hidden${EVENT_KEY$3}`;
+      const EVENT_RESIZE = `resize${EVENT_KEY$3}`;
+      const EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$3}${DATA_API_KEY$1}`;
+      const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$3}`;
+      const SELECTOR_DATA_TOGGLE$1 = '[data-bs-toggle="offcanvas"]';
+      const Default$5 = {
+        backdrop: true,
+        keyboard: true,
+        scroll: false
       };
-      var uriAttrs = ["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"];
-      var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
-      var DefaultWhitelist = {
+      const DefaultType$5 = {
+        backdrop: "(boolean|string)",
+        keyboard: "boolean",
+        scroll: "boolean"
+      };
+      class Offcanvas extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
+          this._isShown = false;
+          this._backdrop = this._initializeBackDrop();
+          this._focustrap = this._initializeFocusTrap();
+          this._addEventListeners();
+        }
+        static get Default() {
+          return Default$5;
+        }
+        static get DefaultType() {
+          return DefaultType$5;
+        }
+        static get NAME() {
+          return NAME$6;
+        }
+        toggle(relatedTarget) {
+          return this._isShown ? this.hide() : this.show(relatedTarget);
+        }
+        show(relatedTarget) {
+          if (this._isShown) {
+            return;
+          }
+          const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$3, {
+            relatedTarget
+          });
+          if (showEvent.defaultPrevented) {
+            return;
+          }
+          this._isShown = true;
+          this._backdrop.show();
+          if (!this._config.scroll) {
+            new ScrollBarHelper().hide();
+          }
+          this._element.setAttribute("aria-modal", true);
+          this._element.setAttribute("role", "dialog");
+          this._element.classList.add(CLASS_NAME_SHOWING$1);
+          const completeCallBack = () => {
+            if (!this._config.scroll || this._config.backdrop) {
+              this._focustrap.activate();
+            }
+            this._element.classList.add(CLASS_NAME_SHOW$3);
+            this._element.classList.remove(CLASS_NAME_SHOWING$1);
+            EventHandler.trigger(this._element, EVENT_SHOWN$3, {
+              relatedTarget
+            });
+          };
+          this._queueCallback(completeCallBack, this._element, true);
+        }
+        hide() {
+          if (!this._isShown) {
+            return;
+          }
+          const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$3);
+          if (hideEvent.defaultPrevented) {
+            return;
+          }
+          this._focustrap.deactivate();
+          this._element.blur();
+          this._isShown = false;
+          this._element.classList.add(CLASS_NAME_HIDING);
+          this._backdrop.hide();
+          const completeCallback = () => {
+            this._element.classList.remove(CLASS_NAME_SHOW$3, CLASS_NAME_HIDING);
+            this._element.removeAttribute("aria-modal");
+            this._element.removeAttribute("role");
+            if (!this._config.scroll) {
+              new ScrollBarHelper().reset();
+            }
+            EventHandler.trigger(this._element, EVENT_HIDDEN$3);
+          };
+          this._queueCallback(completeCallback, this._element, true);
+        }
+        dispose() {
+          this._backdrop.dispose();
+          this._focustrap.deactivate();
+          super.dispose();
+        }
+        _initializeBackDrop() {
+          const clickCallback = () => {
+            if (this._config.backdrop === "static") {
+              EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+              return;
+            }
+            this.hide();
+          };
+          const isVisible2 = Boolean(this._config.backdrop);
+          return new Backdrop({
+            className: CLASS_NAME_BACKDROP,
+            isVisible: isVisible2,
+            isAnimated: true,
+            rootElement: this._element.parentNode,
+            clickCallback: isVisible2 ? clickCallback : null
+          });
+        }
+        _initializeFocusTrap() {
+          return new FocusTrap({
+            trapElement: this._element
+          });
+        }
+        _addEventListeners() {
+          EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS, (event) => {
+            if (event.key !== ESCAPE_KEY) {
+              return;
+            }
+            if (this._config.keyboard) {
+              this.hide();
+              return;
+            }
+            EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+          });
+        }
+        static jQueryInterface(config) {
+          return this.each(function() {
+            const data = Offcanvas.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
+              return;
+            }
+            if (data[config] === void 0 || config.startsWith("_") || config === "constructor") {
+              throw new TypeError(`No method named "${config}"`);
+            }
+            data[config](this);
+          });
+        }
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function(event) {
+        const target = SelectorEngine.getElementFromSelector(this);
+        if (["A", "AREA"].includes(this.tagName)) {
+          event.preventDefault();
+        }
+        if (isDisabled(this)) {
+          return;
+        }
+        EventHandler.one(target, EVENT_HIDDEN$3, () => {
+          if (isVisible(this)) {
+            this.focus();
+          }
+        });
+        const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
+        if (alreadyOpen && alreadyOpen !== target) {
+          Offcanvas.getInstance(alreadyOpen).hide();
+        }
+        const data = Offcanvas.getOrCreateInstance(target);
+        data.toggle(this);
+      });
+      EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
+        for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
+          Offcanvas.getOrCreateInstance(selector).show();
+        }
+      });
+      EventHandler.on(window, EVENT_RESIZE, () => {
+        for (const element of SelectorEngine.find("[aria-modal][class*=show][class*=offcanvas-]")) {
+          if (getComputedStyle(element).position !== "fixed") {
+            Offcanvas.getOrCreateInstance(element).hide();
+          }
+        }
+      });
+      enableDismissTrigger(Offcanvas);
+      defineJQueryPlugin(Offcanvas);
+      const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+      const DefaultAllowlist = {
         "*": ["class", "dir", "id", "lang", "role", ARIA_ATTRIBUTE_PATTERN],
         a: ["target", "href", "title", "rel"],
         area: [],
@@ -16388,7 +18155,10 @@ var require_bootstrap = __commonJS({
         br: [],
         col: [],
         code: [],
+        dd: [],
         div: [],
+        dl: [],
+        dt: [],
         em: [],
         hr: [],
         h1: [],
@@ -16412,502 +18182,559 @@ var require_bootstrap = __commonJS({
         u: [],
         ul: []
       };
-      var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
-      var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
-      function allowedAttribute(attr, allowedAttributeList) {
-        var attrName = attr.nodeName.toLowerCase();
-        if (allowedAttributeList.indexOf(attrName) !== -1) {
-          if (uriAttrs.indexOf(attrName) !== -1) {
-            return Boolean(SAFE_URL_PATTERN.test(attr.nodeValue) || DATA_URL_PATTERN.test(attr.nodeValue));
+      const uriAttributes = /* @__PURE__ */ new Set(["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"]);
+      const SAFE_URL_PATTERN = /^(?!javascript:)(?:[a-z0-9+.-]+:|[^&:/?#]*(?:[/?#]|$))/i;
+      const allowedAttribute = (attribute, allowedAttributeList) => {
+        const attributeName = attribute.nodeName.toLowerCase();
+        if (allowedAttributeList.includes(attributeName)) {
+          if (uriAttributes.has(attributeName)) {
+            return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue));
           }
           return true;
         }
-        var regExp = allowedAttributeList.filter(function(attrRegex) {
-          return attrRegex instanceof RegExp;
-        });
-        for (var i = 0, len = regExp.length; i < len; i++) {
-          if (regExp[i].test(attrName)) {
-            return true;
-          }
-        }
-        return false;
-      }
-      function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
-        if (unsafeHtml.length === 0) {
+        return allowedAttributeList.filter((attributeRegex) => attributeRegex instanceof RegExp).some((regex) => regex.test(attributeName));
+      };
+      function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
+        if (!unsafeHtml.length) {
           return unsafeHtml;
         }
-        if (sanitizeFn && typeof sanitizeFn === "function") {
-          return sanitizeFn(unsafeHtml);
+        if (sanitizeFunction && typeof sanitizeFunction === "function") {
+          return sanitizeFunction(unsafeHtml);
         }
-        var domParser = new window.DOMParser();
-        var createdDocument = domParser.parseFromString(unsafeHtml, "text/html");
-        var whitelistKeys = Object.keys(whiteList);
-        var elements = [].slice.call(createdDocument.body.querySelectorAll("*"));
-        var _loop = function _loop2(i2, len2) {
-          var el = elements[i2];
-          var elName = el.nodeName.toLowerCase();
-          if (whitelistKeys.indexOf(el.nodeName.toLowerCase()) === -1) {
-            el.parentNode.removeChild(el);
-            return "continue";
-          }
-          var attributeList = [].slice.call(el.attributes);
-          var whitelistedAttributes = [].concat(whiteList["*"] || [], whiteList[elName] || []);
-          attributeList.forEach(function(attr) {
-            if (!allowedAttribute(attr, whitelistedAttributes)) {
-              el.removeAttribute(attr.nodeName);
-            }
-          });
-        };
-        for (var i = 0, len = elements.length; i < len; i++) {
-          var _ret = _loop(i);
-          if (_ret === "continue")
+        const domParser = new window.DOMParser();
+        const createdDocument = domParser.parseFromString(unsafeHtml, "text/html");
+        const elements = [].concat(...createdDocument.body.querySelectorAll("*"));
+        for (const element of elements) {
+          const elementName = element.nodeName.toLowerCase();
+          if (!Object.keys(allowList).includes(elementName)) {
+            element.remove();
             continue;
+          }
+          const attributeList = [].concat(...element.attributes);
+          const allowedAttributes = [].concat(allowList["*"] || [], allowList[elementName] || []);
+          for (const attribute of attributeList) {
+            if (!allowedAttribute(attribute, allowedAttributes)) {
+              element.removeAttribute(attribute.nodeName);
+            }
+          }
         }
         return createdDocument.body.innerHTML;
       }
-      var NAME$4 = "tooltip";
-      var VERSION$4 = "4.6.2";
-      var DATA_KEY$4 = "bs.tooltip";
-      var EVENT_KEY$4 = "." + DATA_KEY$4;
-      var JQUERY_NO_CONFLICT$4 = $__default["default"].fn[NAME$4];
-      var CLASS_PREFIX$1 = "bs-tooltip";
-      var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", "g");
-      var DISALLOWED_ATTRIBUTES = ["sanitize", "whiteList", "sanitizeFn"];
-      var CLASS_NAME_FADE$3 = "fade";
-      var CLASS_NAME_SHOW$3 = "show";
-      var HOVER_STATE_SHOW = "show";
-      var HOVER_STATE_OUT = "out";
-      var SELECTOR_TOOLTIP_INNER = ".tooltip-inner";
-      var SELECTOR_ARROW = ".arrow";
-      var TRIGGER_HOVER = "hover";
-      var TRIGGER_FOCUS = "focus";
-      var TRIGGER_CLICK = "click";
-      var TRIGGER_MANUAL = "manual";
-      var AttachmentMap = {
-        AUTO: "auto",
-        TOP: "top",
-        RIGHT: "right",
-        BOTTOM: "bottom",
-        LEFT: "left"
-      };
-      var Default$3 = {
-        animation: true,
-        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>',
-        trigger: "hover focus",
-        title: "",
-        delay: 0,
+      const NAME$5 = "TemplateFactory";
+      const Default$4 = {
+        allowList: DefaultAllowlist,
+        content: {},
+        extraClass: "",
         html: false,
-        selector: false,
-        placement: "top",
-        offset: 0,
-        container: false,
-        fallbackPlacement: "flip",
-        boundary: "scrollParent",
-        customClass: "",
         sanitize: true,
         sanitizeFn: null,
-        whiteList: DefaultWhitelist,
-        popperConfig: null
+        template: "<div></div>"
       };
-      var DefaultType$3 = {
-        animation: "boolean",
-        template: "string",
-        title: "(string|element|function)",
-        trigger: "string",
-        delay: "(number|object)",
+      const DefaultType$4 = {
+        allowList: "object",
+        content: "object",
+        extraClass: "(string|function)",
         html: "boolean",
-        selector: "(string|boolean)",
-        placement: "(string|function)",
-        offset: "(number|string|function)",
-        container: "(string|element|boolean)",
-        fallbackPlacement: "(string|array)",
-        boundary: "(string|element)",
-        customClass: "(string|function)",
         sanitize: "boolean",
         sanitizeFn: "(null|function)",
-        whiteList: "object",
-        popperConfig: "(null|object)"
+        template: "string"
       };
-      var Event$1 = {
-        HIDE: "hide" + EVENT_KEY$4,
-        HIDDEN: "hidden" + EVENT_KEY$4,
-        SHOW: "show" + EVENT_KEY$4,
-        SHOWN: "shown" + EVENT_KEY$4,
-        INSERTED: "inserted" + EVENT_KEY$4,
-        CLICK: "click" + EVENT_KEY$4,
-        FOCUSIN: "focusin" + EVENT_KEY$4,
-        FOCUSOUT: "focusout" + EVENT_KEY$4,
-        MOUSEENTER: "mouseenter" + EVENT_KEY$4,
-        MOUSELEAVE: "mouseleave" + EVENT_KEY$4
+      const DefaultContentType = {
+        entry: "(string|element|function|null)",
+        selector: "(string|element)"
       };
-      var Tooltip = /* @__PURE__ */ function() {
-        function Tooltip2(element, config) {
-          if (typeof Popper__default["default"] === "undefined") {
-            throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");
+      class TemplateFactory extends Config {
+        constructor(config) {
+          super();
+          this._config = this._getConfig(config);
+        }
+        static get Default() {
+          return Default$4;
+        }
+        static get DefaultType() {
+          return DefaultType$4;
+        }
+        static get NAME() {
+          return NAME$5;
+        }
+        getContent() {
+          return Object.values(this._config.content).map((config) => this._resolvePossibleFunction(config)).filter(Boolean);
+        }
+        hasContent() {
+          return this.getContent().length > 0;
+        }
+        changeContent(content) {
+          this._checkContent(content);
+          this._config.content = {
+            ...this._config.content,
+            ...content
+          };
+          return this;
+        }
+        toHtml() {
+          const templateWrapper = document.createElement("div");
+          templateWrapper.innerHTML = this._maybeSanitize(this._config.template);
+          for (const [selector, text] of Object.entries(this._config.content)) {
+            this._setContent(templateWrapper, text, selector);
           }
+          const template = templateWrapper.children[0];
+          const extraClass = this._resolvePossibleFunction(this._config.extraClass);
+          if (extraClass) {
+            template.classList.add(...extraClass.split(" "));
+          }
+          return template;
+        }
+        _typeCheckConfig(config) {
+          super._typeCheckConfig(config);
+          this._checkContent(config.content);
+        }
+        _checkContent(arg) {
+          for (const [selector, content] of Object.entries(arg)) {
+            super._typeCheckConfig({
+              selector,
+              entry: content
+            }, DefaultContentType);
+          }
+        }
+        _setContent(template, content, selector) {
+          const templateElement = SelectorEngine.findOne(selector, template);
+          if (!templateElement) {
+            return;
+          }
+          content = this._resolvePossibleFunction(content);
+          if (!content) {
+            templateElement.remove();
+            return;
+          }
+          if (isElement(content)) {
+            this._putElementInTemplate(getElement(content), templateElement);
+            return;
+          }
+          if (this._config.html) {
+            templateElement.innerHTML = this._maybeSanitize(content);
+            return;
+          }
+          templateElement.textContent = content;
+        }
+        _maybeSanitize(arg) {
+          return this._config.sanitize ? sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
+        }
+        _resolvePossibleFunction(arg) {
+          return execute(arg, [void 0, this]);
+        }
+        _putElementInTemplate(element, templateElement) {
+          if (this._config.html) {
+            templateElement.innerHTML = "";
+            templateElement.append(element);
+            return;
+          }
+          templateElement.textContent = element.textContent;
+        }
+      }
+      const NAME$4 = "tooltip";
+      const DISALLOWED_ATTRIBUTES = /* @__PURE__ */ new Set(["sanitize", "allowList", "sanitizeFn"]);
+      const CLASS_NAME_FADE$2 = "fade";
+      const CLASS_NAME_MODAL = "modal";
+      const CLASS_NAME_SHOW$2 = "show";
+      const SELECTOR_TOOLTIP_INNER = ".tooltip-inner";
+      const SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
+      const EVENT_MODAL_HIDE = "hide.bs.modal";
+      const TRIGGER_HOVER = "hover";
+      const TRIGGER_FOCUS = "focus";
+      const TRIGGER_CLICK = "click";
+      const TRIGGER_MANUAL = "manual";
+      const EVENT_HIDE$2 = "hide";
+      const EVENT_HIDDEN$2 = "hidden";
+      const EVENT_SHOW$2 = "show";
+      const EVENT_SHOWN$2 = "shown";
+      const EVENT_INSERTED = "inserted";
+      const EVENT_CLICK$1 = "click";
+      const EVENT_FOCUSIN$1 = "focusin";
+      const EVENT_FOCUSOUT$1 = "focusout";
+      const EVENT_MOUSEENTER = "mouseenter";
+      const EVENT_MOUSELEAVE = "mouseleave";
+      const AttachmentMap = {
+        AUTO: "auto",
+        TOP: "top",
+        RIGHT: isRTL() ? "left" : "right",
+        BOTTOM: "bottom",
+        LEFT: isRTL() ? "right" : "left"
+      };
+      const Default$3 = {
+        allowList: DefaultAllowlist,
+        animation: true,
+        boundary: "clippingParents",
+        container: false,
+        customClass: "",
+        delay: 0,
+        fallbackPlacements: ["top", "right", "bottom", "left"],
+        html: false,
+        offset: [0, 6],
+        placement: "top",
+        popperConfig: null,
+        sanitize: true,
+        sanitizeFn: null,
+        selector: false,
+        template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+        title: "",
+        trigger: "hover focus"
+      };
+      const DefaultType$3 = {
+        allowList: "object",
+        animation: "boolean",
+        boundary: "(string|element)",
+        container: "(string|element|boolean)",
+        customClass: "(string|function)",
+        delay: "(number|object)",
+        fallbackPlacements: "array",
+        html: "boolean",
+        offset: "(array|string|function)",
+        placement: "(string|function)",
+        popperConfig: "(null|object|function)",
+        sanitize: "boolean",
+        sanitizeFn: "(null|function)",
+        selector: "(string|boolean)",
+        template: "string",
+        title: "(string|element|function)",
+        trigger: "string"
+      };
+      class Tooltip extends BaseComponent {
+        constructor(element, config) {
+          if (typeof Popper__namespace === "undefined") {
+            throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org/docs/v2/)");
+          }
+          super(element, config);
           this._isEnabled = true;
           this._timeout = 0;
-          this._hoverState = "";
+          this._isHovered = null;
           this._activeTrigger = {};
           this._popper = null;
-          this.element = element;
-          this.config = this._getConfig(config);
+          this._templateFactory = null;
+          this._newContent = null;
           this.tip = null;
           this._setListeners();
+          if (!this._config.selector) {
+            this._fixTitle();
+          }
         }
-        var _proto = Tooltip2.prototype;
-        _proto.enable = function enable() {
+        static get Default() {
+          return Default$3;
+        }
+        static get DefaultType() {
+          return DefaultType$3;
+        }
+        static get NAME() {
+          return NAME$4;
+        }
+        enable() {
           this._isEnabled = true;
-        };
-        _proto.disable = function disable() {
+        }
+        disable() {
           this._isEnabled = false;
-        };
-        _proto.toggleEnabled = function toggleEnabled() {
+        }
+        toggleEnabled() {
           this._isEnabled = !this._isEnabled;
-        };
-        _proto.toggle = function toggle(event) {
+        }
+        toggle() {
           if (!this._isEnabled) {
             return;
           }
-          if (event) {
-            var dataKey = this.constructor.DATA_KEY;
-            var context = $__default["default"](event.currentTarget).data(dataKey);
-            if (!context) {
-              context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-              $__default["default"](event.currentTarget).data(dataKey, context);
-            }
-            context._activeTrigger.click = !context._activeTrigger.click;
-            if (context._isWithActiveTrigger()) {
-              context._enter(null, context);
-            } else {
-              context._leave(null, context);
-            }
-          } else {
-            if ($__default["default"](this.getTipElement()).hasClass(CLASS_NAME_SHOW$3)) {
-              this._leave(null, this);
-              return;
-            }
-            this._enter(null, this);
-          }
-        };
-        _proto.dispose = function dispose() {
-          clearTimeout(this._timeout);
-          $__default["default"].removeData(this.element, this.constructor.DATA_KEY);
-          $__default["default"](this.element).off(this.constructor.EVENT_KEY);
-          $__default["default"](this.element).closest(".modal").off("hide.bs.modal", this._hideModalHandler);
-          if (this.tip) {
-            $__default["default"](this.tip).remove();
-          }
-          this._isEnabled = null;
-          this._timeout = null;
-          this._hoverState = null;
-          this._activeTrigger = null;
-          if (this._popper) {
-            this._popper.destroy();
-          }
-          this._popper = null;
-          this.element = null;
-          this.config = null;
-          this.tip = null;
-        };
-        _proto.show = function show() {
-          var _this = this;
-          if ($__default["default"](this.element).css("display") === "none") {
-            throw new Error("Please use show on visible elements");
-          }
-          var showEvent = $__default["default"].Event(this.constructor.Event.SHOW);
-          if (this.isWithContent() && this._isEnabled) {
-            $__default["default"](this.element).trigger(showEvent);
-            var shadowRoot = Util.findShadowRoot(this.element);
-            var isInTheDom = $__default["default"].contains(shadowRoot !== null ? shadowRoot : this.element.ownerDocument.documentElement, this.element);
-            if (showEvent.isDefaultPrevented() || !isInTheDom) {
-              return;
-            }
-            var tip = this.getTipElement();
-            var tipId = Util.getUID(this.constructor.NAME);
-            tip.setAttribute("id", tipId);
-            this.element.setAttribute("aria-describedby", tipId);
-            this.setContent();
-            if (this.config.animation) {
-              $__default["default"](tip).addClass(CLASS_NAME_FADE$3);
-            }
-            var placement = typeof this.config.placement === "function" ? this.config.placement.call(this, tip, this.element) : this.config.placement;
-            var attachment = this._getAttachment(placement);
-            this.addAttachmentClass(attachment);
-            var container = this._getContainer();
-            $__default["default"](tip).data(this.constructor.DATA_KEY, this);
-            if (!$__default["default"].contains(this.element.ownerDocument.documentElement, this.tip)) {
-              $__default["default"](tip).appendTo(container);
-            }
-            $__default["default"](this.element).trigger(this.constructor.Event.INSERTED);
-            this._popper = new Popper__default["default"](this.element, tip, this._getPopperConfig(attachment));
-            $__default["default"](tip).addClass(CLASS_NAME_SHOW$3);
-            $__default["default"](tip).addClass(this.config.customClass);
-            if ("ontouchstart" in document.documentElement) {
-              $__default["default"](document.body).children().on("mouseover", null, $__default["default"].noop);
-            }
-            var complete = function complete2() {
-              if (_this.config.animation) {
-                _this._fixTransition();
-              }
-              var prevHoverState = _this._hoverState;
-              _this._hoverState = null;
-              $__default["default"](_this.element).trigger(_this.constructor.Event.SHOWN);
-              if (prevHoverState === HOVER_STATE_OUT) {
-                _this._leave(null, _this);
-              }
-            };
-            if ($__default["default"](this.tip).hasClass(CLASS_NAME_FADE$3)) {
-              var transitionDuration = Util.getTransitionDurationFromElement(this.tip);
-              $__default["default"](this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-            } else {
-              complete();
-            }
-          }
-        };
-        _proto.hide = function hide(callback) {
-          var _this2 = this;
-          var tip = this.getTipElement();
-          var hideEvent = $__default["default"].Event(this.constructor.Event.HIDE);
-          var complete = function complete2() {
-            if (_this2._hoverState !== HOVER_STATE_SHOW && tip.parentNode) {
-              tip.parentNode.removeChild(tip);
-            }
-            _this2._cleanTipClass();
-            _this2.element.removeAttribute("aria-describedby");
-            $__default["default"](_this2.element).trigger(_this2.constructor.Event.HIDDEN);
-            if (_this2._popper !== null) {
-              _this2._popper.destroy();
-            }
-            if (callback) {
-              callback();
-            }
-          };
-          $__default["default"](this.element).trigger(hideEvent);
-          if (hideEvent.isDefaultPrevented()) {
+          if (this._isShown()) {
+            this._leave();
             return;
           }
-          $__default["default"](tip).removeClass(CLASS_NAME_SHOW$3);
+          this._enter();
+        }
+        dispose() {
+          clearTimeout(this._timeout);
+          EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+          if (this._element.getAttribute("data-bs-original-title")) {
+            this._element.setAttribute("title", this._element.getAttribute("data-bs-original-title"));
+          }
+          this._disposePopper();
+          super.dispose();
+        }
+        show() {
+          if (this._element.style.display === "none") {
+            throw new Error("Please use show on visible elements");
+          }
+          if (!(this._isWithContent() && this._isEnabled)) {
+            return;
+          }
+          const showEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_SHOW$2));
+          const shadowRoot = findShadowRoot(this._element);
+          const isInTheDom = (shadowRoot || this._element.ownerDocument.documentElement).contains(this._element);
+          if (showEvent.defaultPrevented || !isInTheDom) {
+            return;
+          }
+          this._disposePopper();
+          const tip = this._getTipElement();
+          this._element.setAttribute("aria-describedby", tip.getAttribute("id"));
+          const {
+            container
+          } = this._config;
+          if (!this._element.ownerDocument.documentElement.contains(this.tip)) {
+            container.append(tip);
+            EventHandler.trigger(this._element, this.constructor.eventName(EVENT_INSERTED));
+          }
+          this._popper = this._createPopper(tip);
+          tip.classList.add(CLASS_NAME_SHOW$2);
           if ("ontouchstart" in document.documentElement) {
-            $__default["default"](document.body).children().off("mouseover", null, $__default["default"].noop);
+            for (const element of [].concat(...document.body.children)) {
+              EventHandler.on(element, "mouseover", noop);
+            }
+          }
+          const complete = () => {
+            EventHandler.trigger(this._element, this.constructor.eventName(EVENT_SHOWN$2));
+            if (this._isHovered === false) {
+              this._leave();
+            }
+            this._isHovered = false;
+          };
+          this._queueCallback(complete, this.tip, this._isAnimated());
+        }
+        hide() {
+          if (!this._isShown()) {
+            return;
+          }
+          const hideEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDE$2));
+          if (hideEvent.defaultPrevented) {
+            return;
+          }
+          const tip = this._getTipElement();
+          tip.classList.remove(CLASS_NAME_SHOW$2);
+          if ("ontouchstart" in document.documentElement) {
+            for (const element of [].concat(...document.body.children)) {
+              EventHandler.off(element, "mouseover", noop);
+            }
           }
           this._activeTrigger[TRIGGER_CLICK] = false;
           this._activeTrigger[TRIGGER_FOCUS] = false;
           this._activeTrigger[TRIGGER_HOVER] = false;
-          if ($__default["default"](this.tip).hasClass(CLASS_NAME_FADE$3)) {
-            var transitionDuration = Util.getTransitionDurationFromElement(tip);
-            $__default["default"](tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-          } else {
-            complete();
-          }
-          this._hoverState = "";
-        };
-        _proto.update = function update() {
-          if (this._popper !== null) {
-            this._popper.scheduleUpdate();
-          }
-        };
-        _proto.isWithContent = function isWithContent() {
-          return Boolean(this.getTitle());
-        };
-        _proto.addAttachmentClass = function addAttachmentClass(attachment) {
-          $__default["default"](this.getTipElement()).addClass(CLASS_PREFIX$1 + "-" + attachment);
-        };
-        _proto.getTipElement = function getTipElement() {
-          this.tip = this.tip || $__default["default"](this.config.template)[0];
-          return this.tip;
-        };
-        _proto.setContent = function setContent() {
-          var tip = this.getTipElement();
-          this.setElementContent($__default["default"](tip.querySelectorAll(SELECTOR_TOOLTIP_INNER)), this.getTitle());
-          $__default["default"](tip).removeClass(CLASS_NAME_FADE$3 + " " + CLASS_NAME_SHOW$3);
-        };
-        _proto.setElementContent = function setElementContent($element, content) {
-          if (typeof content === "object" && (content.nodeType || content.jquery)) {
-            if (this.config.html) {
-              if (!$__default["default"](content).parent().is($element)) {
-                $element.empty().append(content);
-              }
-            } else {
-              $element.text($__default["default"](content).text());
+          this._isHovered = null;
+          const complete = () => {
+            if (this._isWithActiveTrigger()) {
+              return;
             }
-            return;
-          }
-          if (this.config.html) {
-            if (this.config.sanitize) {
-              content = sanitizeHtml(content, this.config.whiteList, this.config.sanitizeFn);
+            if (!this._isHovered) {
+              this._disposePopper();
             }
-            $element.html(content);
-          } else {
-            $element.text(content);
-          }
-        };
-        _proto.getTitle = function getTitle() {
-          var title = this.element.getAttribute("data-original-title");
-          if (!title) {
-            title = typeof this.config.title === "function" ? this.config.title.call(this.element) : this.config.title;
-          }
-          return title;
-        };
-        _proto._getPopperConfig = function _getPopperConfig(attachment) {
-          var _this3 = this;
-          var defaultBsConfig = {
-            placement: attachment,
-            modifiers: {
-              offset: this._getOffset(),
-              flip: {
-                behavior: this.config.fallbackPlacement
-              },
-              arrow: {
-                element: SELECTOR_ARROW
-              },
-              preventOverflow: {
-                boundariesElement: this.config.boundary
-              }
-            },
-            onCreate: function onCreate(data) {
-              if (data.originalPlacement !== data.placement) {
-                _this3._handlePopperPlacementChange(data);
-              }
-            },
-            onUpdate: function onUpdate(data) {
-              return _this3._handlePopperPlacementChange(data);
-            }
+            this._element.removeAttribute("aria-describedby");
+            EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDDEN$2));
           };
-          return _extends({}, defaultBsConfig, this.config.popperConfig);
-        };
-        _proto._getOffset = function _getOffset() {
-          var _this4 = this;
-          var offset = {};
-          if (typeof this.config.offset === "function") {
-            offset.fn = function(data) {
-              data.offsets = _extends({}, data.offsets, _this4.config.offset(data.offsets, _this4.element));
-              return data;
-            };
+          this._queueCallback(complete, this.tip, this._isAnimated());
+        }
+        update() {
+          if (this._popper) {
+            this._popper.update();
+          }
+        }
+        _isWithContent() {
+          return Boolean(this._getTitle());
+        }
+        _getTipElement() {
+          if (!this.tip) {
+            this.tip = this._createTipElement(this._newContent || this._getContentForTemplate());
+          }
+          return this.tip;
+        }
+        _createTipElement(content) {
+          const tip = this._getTemplateFactory(content).toHtml();
+          if (!tip) {
+            return null;
+          }
+          tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2);
+          tip.classList.add(`bs-${this.constructor.NAME}-auto`);
+          const tipId = getUID(this.constructor.NAME).toString();
+          tip.setAttribute("id", tipId);
+          if (this._isAnimated()) {
+            tip.classList.add(CLASS_NAME_FADE$2);
+          }
+          return tip;
+        }
+        setContent(content) {
+          this._newContent = content;
+          if (this._isShown()) {
+            this._disposePopper();
+            this.show();
+          }
+        }
+        _getTemplateFactory(content) {
+          if (this._templateFactory) {
+            this._templateFactory.changeContent(content);
           } else {
-            offset.offset = this.config.offset;
+            this._templateFactory = new TemplateFactory({
+              ...this._config,
+              content,
+              extraClass: this._resolvePossibleFunction(this._config.customClass)
+            });
+          }
+          return this._templateFactory;
+        }
+        _getContentForTemplate() {
+          return {
+            [SELECTOR_TOOLTIP_INNER]: this._getTitle()
+          };
+        }
+        _getTitle() {
+          return this._resolvePossibleFunction(this._config.title) || this._element.getAttribute("data-bs-original-title");
+        }
+        _initializeOnDelegatedTarget(event) {
+          return this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
+        }
+        _isAnimated() {
+          return this._config.animation || this.tip && this.tip.classList.contains(CLASS_NAME_FADE$2);
+        }
+        _isShown() {
+          return this.tip && this.tip.classList.contains(CLASS_NAME_SHOW$2);
+        }
+        _createPopper(tip) {
+          const placement = execute(this._config.placement, [this, tip, this._element]);
+          const attachment = AttachmentMap[placement.toUpperCase()];
+          return Popper__namespace.createPopper(this._element, tip, this._getPopperConfig(attachment));
+        }
+        _getOffset() {
+          const {
+            offset
+          } = this._config;
+          if (typeof offset === "string") {
+            return offset.split(",").map((value) => Number.parseInt(value, 10));
+          }
+          if (typeof offset === "function") {
+            return (popperData) => offset(popperData, this._element);
           }
           return offset;
-        };
-        _proto._getContainer = function _getContainer() {
-          if (this.config.container === false) {
-            return document.body;
-          }
-          if (Util.isElement(this.config.container)) {
-            return $__default["default"](this.config.container);
-          }
-          return $__default["default"](document).find(this.config.container);
-        };
-        _proto._getAttachment = function _getAttachment(placement) {
-          return AttachmentMap[placement.toUpperCase()];
-        };
-        _proto._setListeners = function _setListeners() {
-          var _this5 = this;
-          var triggers = this.config.trigger.split(" ");
-          triggers.forEach(function(trigger) {
+        }
+        _resolvePossibleFunction(arg) {
+          return execute(arg, [this._element, this._element]);
+        }
+        _getPopperConfig(attachment) {
+          const defaultBsPopperConfig = {
+            placement: attachment,
+            modifiers: [{
+              name: "flip",
+              options: {
+                fallbackPlacements: this._config.fallbackPlacements
+              }
+            }, {
+              name: "offset",
+              options: {
+                offset: this._getOffset()
+              }
+            }, {
+              name: "preventOverflow",
+              options: {
+                boundary: this._config.boundary
+              }
+            }, {
+              name: "arrow",
+              options: {
+                element: `.${this.constructor.NAME}-arrow`
+              }
+            }, {
+              name: "preSetPlacement",
+              enabled: true,
+              phase: "beforeMain",
+              fn: (data) => {
+                this._getTipElement().setAttribute("data-popper-placement", data.state.placement);
+              }
+            }]
+          };
+          return {
+            ...defaultBsPopperConfig,
+            ...execute(this._config.popperConfig, [void 0, defaultBsPopperConfig])
+          };
+        }
+        _setListeners() {
+          const triggers = this._config.trigger.split(" ");
+          for (const trigger of triggers) {
             if (trigger === "click") {
-              $__default["default"](_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function(event) {
-                return _this5.toggle(event);
+              EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK$1), this._config.selector, (event) => {
+                const context = this._initializeOnDelegatedTarget(event);
+                context._activeTrigger[TRIGGER_CLICK] = !(context._isShown() && context._activeTrigger[TRIGGER_CLICK]);
+                context.toggle();
               });
             } else if (trigger !== TRIGGER_MANUAL) {
-              var eventIn = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
-              var eventOut = trigger === TRIGGER_HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
-              $__default["default"](_this5.element).on(eventIn, _this5.config.selector, function(event) {
-                return _this5._enter(event);
-              }).on(eventOut, _this5.config.selector, function(event) {
-                return _this5._leave(event);
+              const eventIn = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSEENTER) : this.constructor.eventName(EVENT_FOCUSIN$1);
+              const eventOut = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSELEAVE) : this.constructor.eventName(EVENT_FOCUSOUT$1);
+              EventHandler.on(this._element, eventIn, this._config.selector, (event) => {
+                const context = this._initializeOnDelegatedTarget(event);
+                context._activeTrigger[event.type === "focusin" ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
+                context._enter();
+              });
+              EventHandler.on(this._element, eventOut, this._config.selector, (event) => {
+                const context = this._initializeOnDelegatedTarget(event);
+                context._activeTrigger[event.type === "focusout" ? TRIGGER_FOCUS : TRIGGER_HOVER] = context._element.contains(event.relatedTarget);
+                context._leave();
               });
             }
-          });
-          this._hideModalHandler = function() {
-            if (_this5.element) {
-              _this5.hide();
+          }
+          this._hideModalHandler = () => {
+            if (this._element) {
+              this.hide();
             }
           };
-          $__default["default"](this.element).closest(".modal").on("hide.bs.modal", this._hideModalHandler);
-          if (this.config.selector) {
-            this.config = _extends({}, this.config, {
-              trigger: "manual",
-              selector: ""
-            });
-          } else {
-            this._fixTitle();
-          }
-        };
-        _proto._fixTitle = function _fixTitle() {
-          var titleType = typeof this.element.getAttribute("data-original-title");
-          if (this.element.getAttribute("title") || titleType !== "string") {
-            this.element.setAttribute("data-original-title", this.element.getAttribute("title") || "");
-            this.element.setAttribute("title", "");
-          }
-        };
-        _proto._enter = function _enter(event, context) {
-          var dataKey = this.constructor.DATA_KEY;
-          context = context || $__default["default"](event.currentTarget).data(dataKey);
-          if (!context) {
-            context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-            $__default["default"](event.currentTarget).data(dataKey, context);
-          }
-          if (event) {
-            context._activeTrigger[event.type === "focusin" ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
-          }
-          if ($__default["default"](context.getTipElement()).hasClass(CLASS_NAME_SHOW$3) || context._hoverState === HOVER_STATE_SHOW) {
-            context._hoverState = HOVER_STATE_SHOW;
+          EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+        }
+        _fixTitle() {
+          const title = this._element.getAttribute("title");
+          if (!title) {
             return;
           }
-          clearTimeout(context._timeout);
-          context._hoverState = HOVER_STATE_SHOW;
-          if (!context.config.delay || !context.config.delay.show) {
-            context.show();
+          if (!this._element.getAttribute("aria-label") && !this._element.textContent.trim()) {
+            this._element.setAttribute("aria-label", title);
+          }
+          this._element.setAttribute("data-bs-original-title", title);
+          this._element.removeAttribute("title");
+        }
+        _enter() {
+          if (this._isShown() || this._isHovered) {
+            this._isHovered = true;
             return;
           }
-          context._timeout = setTimeout(function() {
-            if (context._hoverState === HOVER_STATE_SHOW) {
-              context.show();
+          this._isHovered = true;
+          this._setTimeout(() => {
+            if (this._isHovered) {
+              this.show();
             }
-          }, context.config.delay.show);
-        };
-        _proto._leave = function _leave(event, context) {
-          var dataKey = this.constructor.DATA_KEY;
-          context = context || $__default["default"](event.currentTarget).data(dataKey);
-          if (!context) {
-            context = new this.constructor(event.currentTarget, this._getDelegateConfig());
-            $__default["default"](event.currentTarget).data(dataKey, context);
-          }
-          if (event) {
-            context._activeTrigger[event.type === "focusout" ? TRIGGER_FOCUS : TRIGGER_HOVER] = false;
-          }
-          if (context._isWithActiveTrigger()) {
+          }, this._config.delay.show);
+        }
+        _leave() {
+          if (this._isWithActiveTrigger()) {
             return;
           }
-          clearTimeout(context._timeout);
-          context._hoverState = HOVER_STATE_OUT;
-          if (!context.config.delay || !context.config.delay.hide) {
-            context.hide();
-            return;
+          this._isHovered = false;
+          this._setTimeout(() => {
+            if (!this._isHovered) {
+              this.hide();
+            }
+          }, this._config.delay.hide);
+        }
+        _setTimeout(handler, timeout) {
+          clearTimeout(this._timeout);
+          this._timeout = setTimeout(handler, timeout);
+        }
+        _isWithActiveTrigger() {
+          return Object.values(this._activeTrigger).includes(true);
+        }
+        _getConfig(config) {
+          const dataAttributes = Manipulator.getDataAttributes(this._element);
+          for (const dataAttribute of Object.keys(dataAttributes)) {
+            if (DISALLOWED_ATTRIBUTES.has(dataAttribute)) {
+              delete dataAttributes[dataAttribute];
+            }
           }
-          context._timeout = setTimeout(function() {
-            if (context._hoverState === HOVER_STATE_OUT) {
-              context.hide();
-            }
-          }, context.config.delay.hide);
-        };
-        _proto._isWithActiveTrigger = function _isWithActiveTrigger() {
-          for (var trigger in this._activeTrigger) {
-            if (this._activeTrigger[trigger]) {
-              return true;
-            }
-          }
-          return false;
-        };
-        _proto._getConfig = function _getConfig(config) {
-          var dataAttributes = $__default["default"](this.element).data();
-          Object.keys(dataAttributes).forEach(function(dataAttr) {
-            if (DISALLOWED_ATTRIBUTES.indexOf(dataAttr) !== -1) {
-              delete dataAttributes[dataAttr];
-            }
-          });
-          config = _extends({}, this.constructor.Default, dataAttributes, typeof config === "object" && config ? config : {});
+          config = {
+            ...dataAttributes,
+            ...typeof config === "object" && config ? config : {}
+          };
+          config = this._mergeConfigObj(config);
+          config = this._configAfterMerge(config);
+          this._typeCheckConfig(config);
+          return config;
+        }
+        _configAfterMerge(config) {
+          config.container = config.container === false ? document.body : getElement(config.container);
           if (typeof config.delay === "number") {
             config.delay = {
               show: config.delay,
@@ -16920,780 +18747,670 @@ var require_bootstrap = __commonJS({
           if (typeof config.content === "number") {
             config.content = config.content.toString();
           }
-          Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
-          if (config.sanitize) {
-            config.template = sanitizeHtml(config.template, config.whiteList, config.sanitizeFn);
-          }
           return config;
-        };
-        _proto._getDelegateConfig = function _getDelegateConfig() {
-          var config = {};
-          if (this.config) {
-            for (var key in this.config) {
-              if (this.constructor.Default[key] !== this.config[key]) {
-                config[key] = this.config[key];
-              }
+        }
+        _getDelegateConfig() {
+          const config = {};
+          for (const [key, value] of Object.entries(this._config)) {
+            if (this.constructor.Default[key] !== value) {
+              config[key] = value;
             }
           }
+          config.selector = false;
+          config.trigger = "manual";
           return config;
-        };
-        _proto._cleanTipClass = function _cleanTipClass() {
-          var $tip = $__default["default"](this.getTipElement());
-          var tabClass = $tip.attr("class").match(BSCLS_PREFIX_REGEX$1);
-          if (tabClass !== null && tabClass.length) {
-            $tip.removeClass(tabClass.join(""));
+        }
+        _disposePopper() {
+          if (this._popper) {
+            this._popper.destroy();
+            this._popper = null;
           }
-        };
-        _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(popperData) {
-          this.tip = popperData.instance.popper;
-          this._cleanTipClass();
-          this.addAttachmentClass(this._getAttachment(popperData.placement));
-        };
-        _proto._fixTransition = function _fixTransition() {
-          var tip = this.getTipElement();
-          var initConfigAnimation = this.config.animation;
-          if (tip.getAttribute("x-placement") !== null) {
-            return;
+          if (this.tip) {
+            this.tip.remove();
+            this.tip = null;
           }
-          $__default["default"](tip).removeClass(CLASS_NAME_FADE$3);
-          this.config.animation = false;
-          this.hide();
-          this.show();
-          this.config.animation = initConfigAnimation;
-        };
-        Tooltip2._jQueryInterface = function _jQueryInterface(config) {
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var $element = $__default["default"](this);
-            var data = $element.data(DATA_KEY$4);
-            var _config = typeof config === "object" && config;
-            if (!data && /dispose|hide/.test(config)) {
+            const data = Tooltip.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
               return;
             }
-            if (!data) {
-              data = new Tooltip2(this, _config);
-              $element.data(DATA_KEY$4, data);
+            if (typeof data[config] === "undefined") {
+              throw new TypeError(`No method named "${config}"`);
             }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config]();
-            }
+            data[config]();
           });
-        };
-        _createClass(Tooltip2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$4;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$3;
-          }
-        }, {
-          key: "NAME",
-          get: function get() {
-            return NAME$4;
-          }
-        }, {
-          key: "DATA_KEY",
-          get: function get() {
-            return DATA_KEY$4;
-          }
-        }, {
-          key: "Event",
-          get: function get() {
-            return Event$1;
-          }
-        }, {
-          key: "EVENT_KEY",
-          get: function get() {
-            return EVENT_KEY$4;
-          }
-        }, {
-          key: "DefaultType",
-          get: function get() {
-            return DefaultType$3;
-          }
-        }]);
-        return Tooltip2;
-      }();
-      $__default["default"].fn[NAME$4] = Tooltip._jQueryInterface;
-      $__default["default"].fn[NAME$4].Constructor = Tooltip;
-      $__default["default"].fn[NAME$4].noConflict = function() {
-        $__default["default"].fn[NAME$4] = JQUERY_NO_CONFLICT$4;
-        return Tooltip._jQueryInterface;
-      };
-      var NAME$3 = "popover";
-      var VERSION$3 = "4.6.2";
-      var DATA_KEY$3 = "bs.popover";
-      var EVENT_KEY$3 = "." + DATA_KEY$3;
-      var JQUERY_NO_CONFLICT$3 = $__default["default"].fn[NAME$3];
-      var CLASS_PREFIX = "bs-popover";
-      var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", "g");
-      var CLASS_NAME_FADE$2 = "fade";
-      var CLASS_NAME_SHOW$2 = "show";
-      var SELECTOR_TITLE = ".popover-header";
-      var SELECTOR_CONTENT = ".popover-body";
-      var Default$2 = _extends({}, Tooltip.Default, {
-        placement: "right",
-        trigger: "click",
+        }
+      }
+      defineJQueryPlugin(Tooltip);
+      const NAME$3 = "popover";
+      const SELECTOR_TITLE = ".popover-header";
+      const SELECTOR_CONTENT = ".popover-body";
+      const Default$2 = {
+        ...Tooltip.Default,
         content: "",
-        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
-      });
-      var DefaultType$2 = _extends({}, Tooltip.DefaultType, {
-        content: "(string|element|function)"
-      });
-      var Event2 = {
-        HIDE: "hide" + EVENT_KEY$3,
-        HIDDEN: "hidden" + EVENT_KEY$3,
-        SHOW: "show" + EVENT_KEY$3,
-        SHOWN: "shown" + EVENT_KEY$3,
-        INSERTED: "inserted" + EVENT_KEY$3,
-        CLICK: "click" + EVENT_KEY$3,
-        FOCUSIN: "focusin" + EVENT_KEY$3,
-        FOCUSOUT: "focusout" + EVENT_KEY$3,
-        MOUSEENTER: "mouseenter" + EVENT_KEY$3,
-        MOUSELEAVE: "mouseleave" + EVENT_KEY$3
+        offset: [0, 8],
+        placement: "right",
+        template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+        trigger: "click"
       };
-      var Popover = /* @__PURE__ */ function(_Tooltip) {
-        _inheritsLoose(Popover2, _Tooltip);
-        function Popover2() {
-          return _Tooltip.apply(this, arguments) || this;
+      const DefaultType$2 = {
+        ...Tooltip.DefaultType,
+        content: "(null|string|element|function)"
+      };
+      class Popover extends Tooltip {
+        static get Default() {
+          return Default$2;
         }
-        var _proto = Popover2.prototype;
-        _proto.isWithContent = function isWithContent() {
-          return this.getTitle() || this._getContent();
-        };
-        _proto.addAttachmentClass = function addAttachmentClass(attachment) {
-          $__default["default"](this.getTipElement()).addClass(CLASS_PREFIX + "-" + attachment);
-        };
-        _proto.getTipElement = function getTipElement() {
-          this.tip = this.tip || $__default["default"](this.config.template)[0];
-          return this.tip;
-        };
-        _proto.setContent = function setContent() {
-          var $tip = $__default["default"](this.getTipElement());
-          this.setElementContent($tip.find(SELECTOR_TITLE), this.getTitle());
-          var content = this._getContent();
-          if (typeof content === "function") {
-            content = content.call(this.element);
-          }
-          this.setElementContent($tip.find(SELECTOR_CONTENT), content);
-          $tip.removeClass(CLASS_NAME_FADE$2 + " " + CLASS_NAME_SHOW$2);
-        };
-        _proto._getContent = function _getContent() {
-          return this.element.getAttribute("data-content") || this.config.content;
-        };
-        _proto._cleanTipClass = function _cleanTipClass() {
-          var $tip = $__default["default"](this.getTipElement());
-          var tabClass = $tip.attr("class").match(BSCLS_PREFIX_REGEX);
-          if (tabClass !== null && tabClass.length > 0) {
-            $tip.removeClass(tabClass.join(""));
-          }
-        };
-        Popover2._jQueryInterface = function _jQueryInterface(config) {
+        static get DefaultType() {
+          return DefaultType$2;
+        }
+        static get NAME() {
+          return NAME$3;
+        }
+        _isWithContent() {
+          return this._getTitle() || this._getContent();
+        }
+        _getContentForTemplate() {
+          return {
+            [SELECTOR_TITLE]: this._getTitle(),
+            [SELECTOR_CONTENT]: this._getContent()
+          };
+        }
+        _getContent() {
+          return this._resolvePossibleFunction(this._config.content);
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var data = $__default["default"](this).data(DATA_KEY$3);
-            var _config = typeof config === "object" ? config : null;
-            if (!data && /dispose|hide/.test(config)) {
+            const data = Popover.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
               return;
             }
-            if (!data) {
-              data = new Popover2(this, _config);
-              $__default["default"](this).data(DATA_KEY$3, data);
+            if (typeof data[config] === "undefined") {
+              throw new TypeError(`No method named "${config}"`);
             }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config]();
-            }
+            data[config]();
           });
-        };
-        _createClass(Popover2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$3;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$2;
-          }
-        }, {
-          key: "NAME",
-          get: function get() {
-            return NAME$3;
-          }
-        }, {
-          key: "DATA_KEY",
-          get: function get() {
-            return DATA_KEY$3;
-          }
-        }, {
-          key: "Event",
-          get: function get() {
-            return Event2;
-          }
-        }, {
-          key: "EVENT_KEY",
-          get: function get() {
-            return EVENT_KEY$3;
-          }
-        }, {
-          key: "DefaultType",
-          get: function get() {
-            return DefaultType$2;
-          }
-        }]);
-        return Popover2;
-      }(Tooltip);
-      $__default["default"].fn[NAME$3] = Popover._jQueryInterface;
-      $__default["default"].fn[NAME$3].Constructor = Popover;
-      $__default["default"].fn[NAME$3].noConflict = function() {
-        $__default["default"].fn[NAME$3] = JQUERY_NO_CONFLICT$3;
-        return Popover._jQueryInterface;
-      };
-      var NAME$2 = "scrollspy";
-      var VERSION$2 = "4.6.2";
-      var DATA_KEY$2 = "bs.scrollspy";
-      var EVENT_KEY$2 = "." + DATA_KEY$2;
-      var DATA_API_KEY$1 = ".data-api";
-      var JQUERY_NO_CONFLICT$2 = $__default["default"].fn[NAME$2];
-      var CLASS_NAME_DROPDOWN_ITEM = "dropdown-item";
-      var CLASS_NAME_ACTIVE$1 = "active";
-      var EVENT_ACTIVATE = "activate" + EVENT_KEY$2;
-      var EVENT_SCROLL = "scroll" + EVENT_KEY$2;
-      var EVENT_LOAD_DATA_API = "load" + EVENT_KEY$2 + DATA_API_KEY$1;
-      var METHOD_OFFSET = "offset";
-      var METHOD_POSITION = "position";
-      var SELECTOR_DATA_SPY = '[data-spy="scroll"]';
-      var SELECTOR_NAV_LIST_GROUP$1 = ".nav, .list-group";
-      var SELECTOR_NAV_LINKS = ".nav-link";
-      var SELECTOR_NAV_ITEMS = ".nav-item";
-      var SELECTOR_LIST_ITEMS = ".list-group-item";
-      var SELECTOR_DROPDOWN$1 = ".dropdown";
-      var SELECTOR_DROPDOWN_ITEMS = ".dropdown-item";
-      var SELECTOR_DROPDOWN_TOGGLE$1 = ".dropdown-toggle";
-      var Default$1 = {
-        offset: 10,
-        method: "auto",
-        target: ""
-      };
-      var DefaultType$1 = {
-        offset: "number",
-        method: "string",
-        target: "(string|element)"
-      };
-      var ScrollSpy = /* @__PURE__ */ function() {
-        function ScrollSpy2(element, config) {
-          var _this = this;
-          this._element = element;
-          this._scrollElement = element.tagName === "BODY" ? window : element;
-          this._config = this._getConfig(config);
-          this._selector = this._config.target + " " + SELECTOR_NAV_LINKS + "," + (this._config.target + " " + SELECTOR_LIST_ITEMS + ",") + (this._config.target + " " + SELECTOR_DROPDOWN_ITEMS);
-          this._offsets = [];
-          this._targets = [];
-          this._activeTarget = null;
-          this._scrollHeight = 0;
-          $__default["default"](this._scrollElement).on(EVENT_SCROLL, function(event) {
-            return _this._process(event);
-          });
-          this.refresh();
-          this._process();
         }
-        var _proto = ScrollSpy2.prototype;
-        _proto.refresh = function refresh() {
-          var _this2 = this;
-          var autoMethod = this._scrollElement === this._scrollElement.window ? METHOD_OFFSET : METHOD_POSITION;
-          var offsetMethod = this._config.method === "auto" ? autoMethod : this._config.method;
-          var offsetBase = offsetMethod === METHOD_POSITION ? this._getScrollTop() : 0;
-          this._offsets = [];
-          this._targets = [];
-          this._scrollHeight = this._getScrollHeight();
-          var targets = [].slice.call(document.querySelectorAll(this._selector));
-          targets.map(function(element) {
-            var target;
-            var targetSelector = Util.getSelectorFromElement(element);
-            if (targetSelector) {
-              target = document.querySelector(targetSelector);
-            }
-            if (target) {
-              var targetBCR = target.getBoundingClientRect();
-              if (targetBCR.width || targetBCR.height) {
-                return [$__default["default"](target)[offsetMethod]().top + offsetBase, targetSelector];
-              }
-            }
-            return null;
-          }).filter(Boolean).sort(function(a, b) {
-            return a[0] - b[0];
-          }).forEach(function(item) {
-            _this2._offsets.push(item[0]);
-            _this2._targets.push(item[1]);
-          });
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$2);
-          $__default["default"](this._scrollElement).off(EVENT_KEY$2);
-          this._element = null;
-          this._scrollElement = null;
-          this._config = null;
-          this._selector = null;
-          this._offsets = null;
-          this._targets = null;
+      }
+      defineJQueryPlugin(Popover);
+      const NAME$2 = "scrollspy";
+      const DATA_KEY$2 = "bs.scrollspy";
+      const EVENT_KEY$2 = `.${DATA_KEY$2}`;
+      const DATA_API_KEY = ".data-api";
+      const EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
+      const EVENT_CLICK = `click${EVENT_KEY$2}`;
+      const EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$2}${DATA_API_KEY}`;
+      const CLASS_NAME_DROPDOWN_ITEM = "dropdown-item";
+      const CLASS_NAME_ACTIVE$1 = "active";
+      const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
+      const SELECTOR_TARGET_LINKS = "[href]";
+      const SELECTOR_NAV_LIST_GROUP = ".nav, .list-group";
+      const SELECTOR_NAV_LINKS = ".nav-link";
+      const SELECTOR_NAV_ITEMS = ".nav-item";
+      const SELECTOR_LIST_ITEMS = ".list-group-item";
+      const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`;
+      const SELECTOR_DROPDOWN = ".dropdown";
+      const SELECTOR_DROPDOWN_TOGGLE$1 = ".dropdown-toggle";
+      const Default$1 = {
+        offset: null,
+        rootMargin: "0px 0px -25%",
+        smoothScroll: false,
+        target: null,
+        threshold: [0.1, 0.5, 1]
+      };
+      const DefaultType$1 = {
+        offset: "(number|null)",
+        rootMargin: "string",
+        smoothScroll: "boolean",
+        target: "element",
+        threshold: "array"
+      };
+      class ScrollSpy extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
+          this._targetLinks = /* @__PURE__ */ new Map();
+          this._observableSections = /* @__PURE__ */ new Map();
+          this._rootElement = getComputedStyle(this._element).overflowY === "visible" ? null : this._element;
           this._activeTarget = null;
-          this._scrollHeight = null;
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, Default$1, typeof config === "object" && config ? config : {});
-          if (typeof config.target !== "string" && Util.isElement(config.target)) {
-            var id = $__default["default"](config.target).attr("id");
-            if (!id) {
-              id = Util.getUID(NAME$2);
-              $__default["default"](config.target).attr("id", id);
-            }
-            config.target = "#" + id;
-          }
-          Util.typeCheckConfig(NAME$2, config, DefaultType$1);
-          return config;
-        };
-        _proto._getScrollTop = function _getScrollTop() {
-          return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
-        };
-        _proto._getScrollHeight = function _getScrollHeight() {
-          return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-        };
-        _proto._getOffsetHeight = function _getOffsetHeight() {
-          return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
-        };
-        _proto._process = function _process() {
-          var scrollTop = this._getScrollTop() + this._config.offset;
-          var scrollHeight = this._getScrollHeight();
-          var maxScroll = this._config.offset + scrollHeight - this._getOffsetHeight();
-          if (this._scrollHeight !== scrollHeight) {
-            this.refresh();
-          }
-          if (scrollTop >= maxScroll) {
-            var target = this._targets[this._targets.length - 1];
-            if (this._activeTarget !== target) {
-              this._activate(target);
-            }
-            return;
-          }
-          if (this._activeTarget && scrollTop < this._offsets[0] && this._offsets[0] > 0) {
-            this._activeTarget = null;
-            this._clear();
-            return;
-          }
-          for (var i = this._offsets.length; i--; ) {
-            var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === "undefined" || scrollTop < this._offsets[i + 1]);
-            if (isActiveTarget) {
-              this._activate(this._targets[i]);
-            }
-          }
-        };
-        _proto._activate = function _activate(target) {
-          this._activeTarget = target;
-          this._clear();
-          var queries = this._selector.split(",").map(function(selector) {
-            return selector + '[data-target="' + target + '"],' + selector + '[href="' + target + '"]';
-          });
-          var $link = $__default["default"]([].slice.call(document.querySelectorAll(queries.join(","))));
-          if ($link.hasClass(CLASS_NAME_DROPDOWN_ITEM)) {
-            $link.closest(SELECTOR_DROPDOWN$1).find(SELECTOR_DROPDOWN_TOGGLE$1).addClass(CLASS_NAME_ACTIVE$1);
-            $link.addClass(CLASS_NAME_ACTIVE$1);
+          this._observer = null;
+          this._previousScrollData = {
+            visibleEntryTop: 0,
+            parentScrollTop: 0
+          };
+          this.refresh();
+        }
+        static get Default() {
+          return Default$1;
+        }
+        static get DefaultType() {
+          return DefaultType$1;
+        }
+        static get NAME() {
+          return NAME$2;
+        }
+        refresh() {
+          this._initializeTargetsAndObservables();
+          this._maybeEnableSmoothScroll();
+          if (this._observer) {
+            this._observer.disconnect();
           } else {
-            $link.addClass(CLASS_NAME_ACTIVE$1);
-            $link.parents(SELECTOR_NAV_LIST_GROUP$1).prev(SELECTOR_NAV_LINKS + ", " + SELECTOR_LIST_ITEMS).addClass(CLASS_NAME_ACTIVE$1);
-            $link.parents(SELECTOR_NAV_LIST_GROUP$1).prev(SELECTOR_NAV_ITEMS).children(SELECTOR_NAV_LINKS).addClass(CLASS_NAME_ACTIVE$1);
+            this._observer = this._getNewObserver();
           }
-          $__default["default"](this._scrollElement).trigger(EVENT_ACTIVATE, {
+          for (const section of this._observableSections.values()) {
+            this._observer.observe(section);
+          }
+        }
+        dispose() {
+          this._observer.disconnect();
+          super.dispose();
+        }
+        _configAfterMerge(config) {
+          config.target = getElement(config.target) || document.body;
+          config.rootMargin = config.offset ? `${config.offset}px 0px -30%` : config.rootMargin;
+          if (typeof config.threshold === "string") {
+            config.threshold = config.threshold.split(",").map((value) => Number.parseFloat(value));
+          }
+          return config;
+        }
+        _maybeEnableSmoothScroll() {
+          if (!this._config.smoothScroll) {
+            return;
+          }
+          EventHandler.off(this._config.target, EVENT_CLICK);
+          EventHandler.on(this._config.target, EVENT_CLICK, SELECTOR_TARGET_LINKS, (event) => {
+            const observableSection = this._observableSections.get(event.target.hash);
+            if (observableSection) {
+              event.preventDefault();
+              const root = this._rootElement || window;
+              const height = observableSection.offsetTop - this._element.offsetTop;
+              if (root.scrollTo) {
+                root.scrollTo({
+                  top: height,
+                  behavior: "smooth"
+                });
+                return;
+              }
+              root.scrollTop = height;
+            }
+          });
+        }
+        _getNewObserver() {
+          const options = {
+            root: this._rootElement,
+            threshold: this._config.threshold,
+            rootMargin: this._config.rootMargin
+          };
+          return new IntersectionObserver((entries) => this._observerCallback(entries), options);
+        }
+        _observerCallback(entries) {
+          const targetElement = (entry) => this._targetLinks.get(`#${entry.target.id}`);
+          const activate = (entry) => {
+            this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
+            this._process(targetElement(entry));
+          };
+          const parentScrollTop = (this._rootElement || document.documentElement).scrollTop;
+          const userScrollsDown = parentScrollTop >= this._previousScrollData.parentScrollTop;
+          this._previousScrollData.parentScrollTop = parentScrollTop;
+          for (const entry of entries) {
+            if (!entry.isIntersecting) {
+              this._activeTarget = null;
+              this._clearActiveClass(targetElement(entry));
+              continue;
+            }
+            const entryIsLowerThanPrevious = entry.target.offsetTop >= this._previousScrollData.visibleEntryTop;
+            if (userScrollsDown && entryIsLowerThanPrevious) {
+              activate(entry);
+              if (!parentScrollTop) {
+                return;
+              }
+              continue;
+            }
+            if (!userScrollsDown && !entryIsLowerThanPrevious) {
+              activate(entry);
+            }
+          }
+        }
+        _initializeTargetsAndObservables() {
+          this._targetLinks = /* @__PURE__ */ new Map();
+          this._observableSections = /* @__PURE__ */ new Map();
+          const targetLinks = SelectorEngine.find(SELECTOR_TARGET_LINKS, this._config.target);
+          for (const anchor of targetLinks) {
+            if (!anchor.hash || isDisabled(anchor)) {
+              continue;
+            }
+            const observableSection = SelectorEngine.findOne(decodeURI(anchor.hash), this._element);
+            if (isVisible(observableSection)) {
+              this._targetLinks.set(decodeURI(anchor.hash), anchor);
+              this._observableSections.set(anchor.hash, observableSection);
+            }
+          }
+        }
+        _process(target) {
+          if (this._activeTarget === target) {
+            return;
+          }
+          this._clearActiveClass(this._config.target);
+          this._activeTarget = target;
+          target.classList.add(CLASS_NAME_ACTIVE$1);
+          this._activateParents(target);
+          EventHandler.trigger(this._element, EVENT_ACTIVATE, {
             relatedTarget: target
           });
-        };
-        _proto._clear = function _clear() {
-          [].slice.call(document.querySelectorAll(this._selector)).filter(function(node) {
-            return node.classList.contains(CLASS_NAME_ACTIVE$1);
-          }).forEach(function(node) {
-            return node.classList.remove(CLASS_NAME_ACTIVE$1);
-          });
-        };
-        ScrollSpy2._jQueryInterface = function _jQueryInterface(config) {
+        }
+        _activateParents(target) {
+          if (target.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
+            SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE$1, target.closest(SELECTOR_DROPDOWN)).classList.add(CLASS_NAME_ACTIVE$1);
+            return;
+          }
+          for (const listGroup of SelectorEngine.parents(target, SELECTOR_NAV_LIST_GROUP)) {
+            for (const item of SelectorEngine.prev(listGroup, SELECTOR_LINK_ITEMS)) {
+              item.classList.add(CLASS_NAME_ACTIVE$1);
+            }
+          }
+        }
+        _clearActiveClass(parent) {
+          parent.classList.remove(CLASS_NAME_ACTIVE$1);
+          const activeNodes = SelectorEngine.find(`${SELECTOR_TARGET_LINKS}.${CLASS_NAME_ACTIVE$1}`, parent);
+          for (const node of activeNodes) {
+            node.classList.remove(CLASS_NAME_ACTIVE$1);
+          }
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var data = $__default["default"](this).data(DATA_KEY$2);
-            var _config = typeof config === "object" && config;
-            if (!data) {
-              data = new ScrollSpy2(this, _config);
-              $__default["default"](this).data(DATA_KEY$2, data);
+            const data = ScrollSpy.getOrCreateInstance(this, config);
+            if (typeof config !== "string") {
+              return;
             }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config]();
+            if (data[config] === void 0 || config.startsWith("_") || config === "constructor") {
+              throw new TypeError(`No method named "${config}"`);
             }
+            data[config]();
           });
-        };
-        _createClass(ScrollSpy2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$2;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default$1;
-          }
-        }]);
-        return ScrollSpy2;
-      }();
-      $__default["default"](window).on(EVENT_LOAD_DATA_API, function() {
-        var scrollSpys = [].slice.call(document.querySelectorAll(SELECTOR_DATA_SPY));
-        var scrollSpysLength = scrollSpys.length;
-        for (var i = scrollSpysLength; i--; ) {
-          var $spy = $__default["default"](scrollSpys[i]);
-          ScrollSpy._jQueryInterface.call($spy, $spy.data());
+        }
+      }
+      EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
+        for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
+          ScrollSpy.getOrCreateInstance(spy);
         }
       });
-      $__default["default"].fn[NAME$2] = ScrollSpy._jQueryInterface;
-      $__default["default"].fn[NAME$2].Constructor = ScrollSpy;
-      $__default["default"].fn[NAME$2].noConflict = function() {
-        $__default["default"].fn[NAME$2] = JQUERY_NO_CONFLICT$2;
-        return ScrollSpy._jQueryInterface;
-      };
-      var NAME$1 = "tab";
-      var VERSION$1 = "4.6.2";
-      var DATA_KEY$1 = "bs.tab";
-      var EVENT_KEY$1 = "." + DATA_KEY$1;
-      var DATA_API_KEY = ".data-api";
-      var JQUERY_NO_CONFLICT$1 = $__default["default"].fn[NAME$1];
-      var CLASS_NAME_DROPDOWN_MENU = "dropdown-menu";
-      var CLASS_NAME_ACTIVE = "active";
-      var CLASS_NAME_DISABLED = "disabled";
-      var CLASS_NAME_FADE$1 = "fade";
-      var CLASS_NAME_SHOW$1 = "show";
-      var EVENT_HIDE$1 = "hide" + EVENT_KEY$1;
-      var EVENT_HIDDEN$1 = "hidden" + EVENT_KEY$1;
-      var EVENT_SHOW$1 = "show" + EVENT_KEY$1;
-      var EVENT_SHOWN$1 = "shown" + EVENT_KEY$1;
-      var EVENT_CLICK_DATA_API = "click" + EVENT_KEY$1 + DATA_API_KEY;
-      var SELECTOR_DROPDOWN = ".dropdown";
-      var SELECTOR_NAV_LIST_GROUP = ".nav, .list-group";
-      var SELECTOR_ACTIVE = ".active";
-      var SELECTOR_ACTIVE_UL = "> li > .active";
-      var SELECTOR_DATA_TOGGLE = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
-      var SELECTOR_DROPDOWN_TOGGLE = ".dropdown-toggle";
-      var SELECTOR_DROPDOWN_ACTIVE_CHILD = "> .dropdown-menu .active";
-      var Tab = /* @__PURE__ */ function() {
-        function Tab2(element) {
-          this._element = element;
+      defineJQueryPlugin(ScrollSpy);
+      const NAME$1 = "tab";
+      const DATA_KEY$1 = "bs.tab";
+      const EVENT_KEY$1 = `.${DATA_KEY$1}`;
+      const EVENT_HIDE$1 = `hide${EVENT_KEY$1}`;
+      const EVENT_HIDDEN$1 = `hidden${EVENT_KEY$1}`;
+      const EVENT_SHOW$1 = `show${EVENT_KEY$1}`;
+      const EVENT_SHOWN$1 = `shown${EVENT_KEY$1}`;
+      const EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}`;
+      const EVENT_KEYDOWN = `keydown${EVENT_KEY$1}`;
+      const EVENT_LOAD_DATA_API = `load${EVENT_KEY$1}`;
+      const ARROW_LEFT_KEY = "ArrowLeft";
+      const ARROW_RIGHT_KEY = "ArrowRight";
+      const ARROW_UP_KEY = "ArrowUp";
+      const ARROW_DOWN_KEY = "ArrowDown";
+      const HOME_KEY = "Home";
+      const END_KEY = "End";
+      const CLASS_NAME_ACTIVE = "active";
+      const CLASS_NAME_FADE$1 = "fade";
+      const CLASS_NAME_SHOW$1 = "show";
+      const CLASS_DROPDOWN = "dropdown";
+      const SELECTOR_DROPDOWN_TOGGLE = ".dropdown-toggle";
+      const SELECTOR_DROPDOWN_MENU = ".dropdown-menu";
+      const NOT_SELECTOR_DROPDOWN_TOGGLE = `:not(${SELECTOR_DROPDOWN_TOGGLE})`;
+      const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
+      const SELECTOR_OUTER = ".nav-item, .list-group-item";
+      const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
+      const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]';
+      const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
+      const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
+      class Tab extends BaseComponent {
+        constructor(element) {
+          super(element);
+          this._parent = this._element.closest(SELECTOR_TAB_PANEL);
+          if (!this._parent) {
+            return;
+          }
+          this._setInitialAttributes(this._parent, this._getChildren());
+          EventHandler.on(this._element, EVENT_KEYDOWN, (event) => this._keydown(event));
         }
-        var _proto = Tab2.prototype;
-        _proto.show = function show() {
-          var _this = this;
-          if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $__default["default"](this._element).hasClass(CLASS_NAME_ACTIVE) || $__default["default"](this._element).hasClass(CLASS_NAME_DISABLED) || this._element.hasAttribute("disabled")) {
+        static get NAME() {
+          return NAME$1;
+        }
+        show() {
+          const innerElem = this._element;
+          if (this._elemIsActive(innerElem)) {
             return;
           }
-          var target;
-          var previous;
-          var listElement = $__default["default"](this._element).closest(SELECTOR_NAV_LIST_GROUP)[0];
-          var selector = Util.getSelectorFromElement(this._element);
-          if (listElement) {
-            var itemSelector = listElement.nodeName === "UL" || listElement.nodeName === "OL" ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
-            previous = $__default["default"].makeArray($__default["default"](listElement).find(itemSelector));
-            previous = previous[previous.length - 1];
-          }
-          var hideEvent = $__default["default"].Event(EVENT_HIDE$1, {
-            relatedTarget: this._element
+          const active = this._getActiveElem();
+          const hideEvent = active ? EventHandler.trigger(active, EVENT_HIDE$1, {
+            relatedTarget: innerElem
+          }) : null;
+          const showEvent = EventHandler.trigger(innerElem, EVENT_SHOW$1, {
+            relatedTarget: active
           });
-          var showEvent = $__default["default"].Event(EVENT_SHOW$1, {
-            relatedTarget: previous
-          });
-          if (previous) {
-            $__default["default"](previous).trigger(hideEvent);
-          }
-          $__default["default"](this._element).trigger(showEvent);
-          if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) {
+          if (showEvent.defaultPrevented || hideEvent && hideEvent.defaultPrevented) {
             return;
           }
-          if (selector) {
-            target = document.querySelector(selector);
+          this._deactivate(active, innerElem);
+          this._activate(innerElem, active);
+        }
+        _activate(element, relatedElem) {
+          if (!element) {
+            return;
           }
-          this._activate(this._element, listElement);
-          var complete = function complete2() {
-            var hiddenEvent = $__default["default"].Event(EVENT_HIDDEN$1, {
-              relatedTarget: _this._element
-            });
-            var shownEvent = $__default["default"].Event(EVENT_SHOWN$1, {
-              relatedTarget: previous
-            });
-            $__default["default"](previous).trigger(hiddenEvent);
-            $__default["default"](_this._element).trigger(shownEvent);
-          };
-          if (target) {
-            this._activate(target, target.parentNode, complete);
-          } else {
-            complete();
-          }
-        };
-        _proto.dispose = function dispose() {
-          $__default["default"].removeData(this._element, DATA_KEY$1);
-          this._element = null;
-        };
-        _proto._activate = function _activate(element, container, callback) {
-          var _this2 = this;
-          var activeElements = container && (container.nodeName === "UL" || container.nodeName === "OL") ? $__default["default"](container).find(SELECTOR_ACTIVE_UL) : $__default["default"](container).children(SELECTOR_ACTIVE);
-          var active = activeElements[0];
-          var isTransitioning = callback && active && $__default["default"](active).hasClass(CLASS_NAME_FADE$1);
-          var complete = function complete2() {
-            return _this2._transitionComplete(element, active, callback);
-          };
-          if (active && isTransitioning) {
-            var transitionDuration = Util.getTransitionDurationFromElement(active);
-            $__default["default"](active).removeClass(CLASS_NAME_SHOW$1).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-          } else {
-            complete();
-          }
-        };
-        _proto._transitionComplete = function _transitionComplete(element, active, callback) {
-          if (active) {
-            $__default["default"](active).removeClass(CLASS_NAME_ACTIVE);
-            var dropdownChild = $__default["default"](active.parentNode).find(SELECTOR_DROPDOWN_ACTIVE_CHILD)[0];
-            if (dropdownChild) {
-              $__default["default"](dropdownChild).removeClass(CLASS_NAME_ACTIVE);
+          element.classList.add(CLASS_NAME_ACTIVE);
+          this._activate(SelectorEngine.getElementFromSelector(element));
+          const complete = () => {
+            if (element.getAttribute("role") !== "tab") {
+              element.classList.add(CLASS_NAME_SHOW$1);
+              return;
             }
-            if (active.getAttribute("role") === "tab") {
-              active.setAttribute("aria-selected", false);
-            }
-          }
-          $__default["default"](element).addClass(CLASS_NAME_ACTIVE);
-          if (element.getAttribute("role") === "tab") {
+            element.removeAttribute("tabindex");
             element.setAttribute("aria-selected", true);
+            this._toggleDropDown(element, true);
+            EventHandler.trigger(element, EVENT_SHOWN$1, {
+              relatedTarget: relatedElem
+            });
+          };
+          this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE$1));
+        }
+        _deactivate(element, relatedElem) {
+          if (!element) {
+            return;
           }
-          Util.reflow(element);
-          if (element.classList.contains(CLASS_NAME_FADE$1)) {
-            element.classList.add(CLASS_NAME_SHOW$1);
-          }
-          var parent = element.parentNode;
-          if (parent && parent.nodeName === "LI") {
-            parent = parent.parentNode;
-          }
-          if (parent && $__default["default"](parent).hasClass(CLASS_NAME_DROPDOWN_MENU)) {
-            var dropdownElement = $__default["default"](element).closest(SELECTOR_DROPDOWN)[0];
-            if (dropdownElement) {
-              var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(SELECTOR_DROPDOWN_TOGGLE));
-              $__default["default"](dropdownToggleList).addClass(CLASS_NAME_ACTIVE);
+          element.classList.remove(CLASS_NAME_ACTIVE);
+          element.blur();
+          this._deactivate(SelectorEngine.getElementFromSelector(element));
+          const complete = () => {
+            if (element.getAttribute("role") !== "tab") {
+              element.classList.remove(CLASS_NAME_SHOW$1);
+              return;
             }
-            element.setAttribute("aria-expanded", true);
+            element.setAttribute("aria-selected", false);
+            element.setAttribute("tabindex", "-1");
+            this._toggleDropDown(element, false);
+            EventHandler.trigger(element, EVENT_HIDDEN$1, {
+              relatedTarget: relatedElem
+            });
+          };
+          this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE$1));
+        }
+        _keydown(event) {
+          if (![ARROW_LEFT_KEY, ARROW_RIGHT_KEY, ARROW_UP_KEY, ARROW_DOWN_KEY, HOME_KEY, END_KEY].includes(event.key)) {
+            return;
           }
-          if (callback) {
-            callback();
+          event.stopPropagation();
+          event.preventDefault();
+          const children = this._getChildren().filter((element) => !isDisabled(element));
+          let nextActiveElement;
+          if ([HOME_KEY, END_KEY].includes(event.key)) {
+            nextActiveElement = children[event.key === HOME_KEY ? 0 : children.length - 1];
+          } else {
+            const isNext = [ARROW_RIGHT_KEY, ARROW_DOWN_KEY].includes(event.key);
+            nextActiveElement = getNextActiveElement(children, event.target, isNext, true);
           }
-        };
-        Tab2._jQueryInterface = function _jQueryInterface(config) {
+          if (nextActiveElement) {
+            nextActiveElement.focus({
+              preventScroll: true
+            });
+            Tab.getOrCreateInstance(nextActiveElement).show();
+          }
+        }
+        _getChildren() {
+          return SelectorEngine.find(SELECTOR_INNER_ELEM, this._parent);
+        }
+        _getActiveElem() {
+          return this._getChildren().find((child) => this._elemIsActive(child)) || null;
+        }
+        _setInitialAttributes(parent, children) {
+          this._setAttributeIfNotExists(parent, "role", "tablist");
+          for (const child of children) {
+            this._setInitialAttributesOnChild(child);
+          }
+        }
+        _setInitialAttributesOnChild(child) {
+          child = this._getInnerElement(child);
+          const isActive = this._elemIsActive(child);
+          const outerElem = this._getOuterElement(child);
+          child.setAttribute("aria-selected", isActive);
+          if (outerElem !== child) {
+            this._setAttributeIfNotExists(outerElem, "role", "presentation");
+          }
+          if (!isActive) {
+            child.setAttribute("tabindex", "-1");
+          }
+          this._setAttributeIfNotExists(child, "role", "tab");
+          this._setInitialAttributesOnTargetPanel(child);
+        }
+        _setInitialAttributesOnTargetPanel(child) {
+          const target = SelectorEngine.getElementFromSelector(child);
+          if (!target) {
+            return;
+          }
+          this._setAttributeIfNotExists(target, "role", "tabpanel");
+          if (child.id) {
+            this._setAttributeIfNotExists(target, "aria-labelledby", `${child.id}`);
+          }
+        }
+        _toggleDropDown(element, open) {
+          const outerElem = this._getOuterElement(element);
+          if (!outerElem.classList.contains(CLASS_DROPDOWN)) {
+            return;
+          }
+          const toggle = (selector, className) => {
+            const element2 = SelectorEngine.findOne(selector, outerElem);
+            if (element2) {
+              element2.classList.toggle(className, open);
+            }
+          };
+          toggle(SELECTOR_DROPDOWN_TOGGLE, CLASS_NAME_ACTIVE);
+          toggle(SELECTOR_DROPDOWN_MENU, CLASS_NAME_SHOW$1);
+          outerElem.setAttribute("aria-expanded", open);
+        }
+        _setAttributeIfNotExists(element, attribute, value) {
+          if (!element.hasAttribute(attribute)) {
+            element.setAttribute(attribute, value);
+          }
+        }
+        _elemIsActive(elem) {
+          return elem.classList.contains(CLASS_NAME_ACTIVE);
+        }
+        _getInnerElement(elem) {
+          return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem);
+        }
+        _getOuterElement(elem) {
+          return elem.closest(SELECTOR_OUTER) || elem;
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var $this = $__default["default"](this);
-            var data = $this.data(DATA_KEY$1);
-            if (!data) {
-              data = new Tab2(this);
-              $this.data(DATA_KEY$1, data);
+            const data = Tab.getOrCreateInstance(this);
+            if (typeof config !== "string") {
+              return;
             }
-            if (typeof config === "string") {
-              if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
-              }
-              data[config]();
+            if (data[config] === void 0 || config.startsWith("_") || config === "constructor") {
+              throw new TypeError(`No method named "${config}"`);
             }
+            data[config]();
           });
-        };
-        _createClass(Tab2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION$1;
-          }
-        }]);
-        return Tab2;
-      }();
-      $__default["default"](document).on(EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function(event) {
-        event.preventDefault();
-        Tab._jQueryInterface.call($__default["default"](this), "show");
+        }
+      }
+      EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function(event) {
+        if (["A", "AREA"].includes(this.tagName)) {
+          event.preventDefault();
+        }
+        if (isDisabled(this)) {
+          return;
+        }
+        Tab.getOrCreateInstance(this).show();
       });
-      $__default["default"].fn[NAME$1] = Tab._jQueryInterface;
-      $__default["default"].fn[NAME$1].Constructor = Tab;
-      $__default["default"].fn[NAME$1].noConflict = function() {
-        $__default["default"].fn[NAME$1] = JQUERY_NO_CONFLICT$1;
-        return Tab._jQueryInterface;
-      };
-      var NAME = "toast";
-      var VERSION = "4.6.2";
-      var DATA_KEY = "bs.toast";
-      var EVENT_KEY = "." + DATA_KEY;
-      var JQUERY_NO_CONFLICT = $__default["default"].fn[NAME];
-      var CLASS_NAME_FADE = "fade";
-      var CLASS_NAME_HIDE = "hide";
-      var CLASS_NAME_SHOW = "show";
-      var CLASS_NAME_SHOWING = "showing";
-      var EVENT_CLICK_DISMISS = "click.dismiss" + EVENT_KEY;
-      var EVENT_HIDE = "hide" + EVENT_KEY;
-      var EVENT_HIDDEN = "hidden" + EVENT_KEY;
-      var EVENT_SHOW = "show" + EVENT_KEY;
-      var EVENT_SHOWN = "shown" + EVENT_KEY;
-      var SELECTOR_DATA_DISMISS = '[data-dismiss="toast"]';
-      var Default = {
-        animation: true,
-        autohide: true,
-        delay: 500
-      };
-      var DefaultType = {
+      EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+        for (const element of SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE)) {
+          Tab.getOrCreateInstance(element);
+        }
+      });
+      defineJQueryPlugin(Tab);
+      const NAME = "toast";
+      const DATA_KEY = "bs.toast";
+      const EVENT_KEY = `.${DATA_KEY}`;
+      const EVENT_MOUSEOVER = `mouseover${EVENT_KEY}`;
+      const EVENT_MOUSEOUT = `mouseout${EVENT_KEY}`;
+      const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
+      const EVENT_FOCUSOUT = `focusout${EVENT_KEY}`;
+      const EVENT_HIDE = `hide${EVENT_KEY}`;
+      const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+      const EVENT_SHOW = `show${EVENT_KEY}`;
+      const EVENT_SHOWN = `shown${EVENT_KEY}`;
+      const CLASS_NAME_FADE = "fade";
+      const CLASS_NAME_HIDE = "hide";
+      const CLASS_NAME_SHOW = "show";
+      const CLASS_NAME_SHOWING = "showing";
+      const DefaultType = {
         animation: "boolean",
         autohide: "boolean",
         delay: "number"
       };
-      var Toast = /* @__PURE__ */ function() {
-        function Toast2(element, config) {
-          this._element = element;
-          this._config = this._getConfig(config);
+      const Default = {
+        animation: true,
+        autohide: true,
+        delay: 5e3
+      };
+      class Toast extends BaseComponent {
+        constructor(element, config) {
+          super(element, config);
           this._timeout = null;
+          this._hasMouseInteraction = false;
+          this._hasKeyboardInteraction = false;
           this._setListeners();
         }
-        var _proto = Toast2.prototype;
-        _proto.show = function show() {
-          var _this = this;
-          var showEvent = $__default["default"].Event(EVENT_SHOW);
-          $__default["default"](this._element).trigger(showEvent);
-          if (showEvent.isDefaultPrevented()) {
+        static get Default() {
+          return Default;
+        }
+        static get DefaultType() {
+          return DefaultType;
+        }
+        static get NAME() {
+          return NAME;
+        }
+        show() {
+          const showEvent = EventHandler.trigger(this._element, EVENT_SHOW);
+          if (showEvent.defaultPrevented) {
             return;
           }
           this._clearTimeout();
           if (this._config.animation) {
             this._element.classList.add(CLASS_NAME_FADE);
           }
-          var complete = function complete2() {
-            _this._element.classList.remove(CLASS_NAME_SHOWING);
-            _this._element.classList.add(CLASS_NAME_SHOW);
-            $__default["default"](_this._element).trigger(EVENT_SHOWN);
-            if (_this._config.autohide) {
-              _this._timeout = setTimeout(function() {
-                _this.hide();
-              }, _this._config.delay);
-            }
+          const complete = () => {
+            this._element.classList.remove(CLASS_NAME_SHOWING);
+            EventHandler.trigger(this._element, EVENT_SHOWN);
+            this._maybeScheduleHide();
           };
           this._element.classList.remove(CLASS_NAME_HIDE);
-          Util.reflow(this._element);
+          reflow(this._element);
+          this._element.classList.add(CLASS_NAME_SHOW, CLASS_NAME_SHOWING);
+          this._queueCallback(complete, this._element, this._config.animation);
+        }
+        hide() {
+          if (!this.isShown()) {
+            return;
+          }
+          const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE);
+          if (hideEvent.defaultPrevented) {
+            return;
+          }
+          const complete = () => {
+            this._element.classList.add(CLASS_NAME_HIDE);
+            this._element.classList.remove(CLASS_NAME_SHOWING, CLASS_NAME_SHOW);
+            EventHandler.trigger(this._element, EVENT_HIDDEN);
+          };
           this._element.classList.add(CLASS_NAME_SHOWING);
-          if (this._config.animation) {
-            var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-            $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-          } else {
-            complete();
-          }
-        };
-        _proto.hide = function hide() {
-          if (!this._element.classList.contains(CLASS_NAME_SHOW)) {
-            return;
-          }
-          var hideEvent = $__default["default"].Event(EVENT_HIDE);
-          $__default["default"](this._element).trigger(hideEvent);
-          if (hideEvent.isDefaultPrevented()) {
-            return;
-          }
-          this._close();
-        };
-        _proto.dispose = function dispose() {
+          this._queueCallback(complete, this._element, this._config.animation);
+        }
+        dispose() {
           this._clearTimeout();
-          if (this._element.classList.contains(CLASS_NAME_SHOW)) {
+          if (this.isShown()) {
             this._element.classList.remove(CLASS_NAME_SHOW);
           }
-          $__default["default"](this._element).off(EVENT_CLICK_DISMISS);
-          $__default["default"].removeData(this._element, DATA_KEY);
-          this._element = null;
-          this._config = null;
-        };
-        _proto._getConfig = function _getConfig(config) {
-          config = _extends({}, Default, $__default["default"](this._element).data(), typeof config === "object" && config ? config : {});
-          Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
-          return config;
-        };
-        _proto._setListeners = function _setListeners() {
-          var _this2 = this;
-          $__default["default"](this._element).on(EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, function() {
-            return _this2.hide();
-          });
-        };
-        _proto._close = function _close() {
-          var _this3 = this;
-          var complete = function complete2() {
-            _this3._element.classList.add(CLASS_NAME_HIDE);
-            $__default["default"](_this3._element).trigger(EVENT_HIDDEN);
-          };
-          this._element.classList.remove(CLASS_NAME_SHOW);
-          if (this._config.animation) {
-            var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-            $__default["default"](this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
-          } else {
-            complete();
+          super.dispose();
+        }
+        isShown() {
+          return this._element.classList.contains(CLASS_NAME_SHOW);
+        }
+        _maybeScheduleHide() {
+          if (!this._config.autohide) {
+            return;
           }
-        };
-        _proto._clearTimeout = function _clearTimeout() {
+          if (this._hasMouseInteraction || this._hasKeyboardInteraction) {
+            return;
+          }
+          this._timeout = setTimeout(() => {
+            this.hide();
+          }, this._config.delay);
+        }
+        _onInteraction(event, isInteracting) {
+          switch (event.type) {
+            case "mouseover":
+            case "mouseout": {
+              this._hasMouseInteraction = isInteracting;
+              break;
+            }
+            case "focusin":
+            case "focusout": {
+              this._hasKeyboardInteraction = isInteracting;
+              break;
+            }
+          }
+          if (isInteracting) {
+            this._clearTimeout();
+            return;
+          }
+          const nextElement = event.relatedTarget;
+          if (this._element === nextElement || this._element.contains(nextElement)) {
+            return;
+          }
+          this._maybeScheduleHide();
+        }
+        _setListeners() {
+          EventHandler.on(this._element, EVENT_MOUSEOVER, (event) => this._onInteraction(event, true));
+          EventHandler.on(this._element, EVENT_MOUSEOUT, (event) => this._onInteraction(event, false));
+          EventHandler.on(this._element, EVENT_FOCUSIN, (event) => this._onInteraction(event, true));
+          EventHandler.on(this._element, EVENT_FOCUSOUT, (event) => this._onInteraction(event, false));
+        }
+        _clearTimeout() {
           clearTimeout(this._timeout);
           this._timeout = null;
-        };
-        Toast2._jQueryInterface = function _jQueryInterface(config) {
+        }
+        static jQueryInterface(config) {
           return this.each(function() {
-            var $element = $__default["default"](this);
-            var data = $element.data(DATA_KEY);
-            var _config = typeof config === "object" && config;
-            if (!data) {
-              data = new Toast2(this, _config);
-              $element.data(DATA_KEY, data);
-            }
+            const data = Toast.getOrCreateInstance(this, config);
             if (typeof config === "string") {
               if (typeof data[config] === "undefined") {
-                throw new TypeError('No method named "' + config + '"');
+                throw new TypeError(`No method named "${config}"`);
               }
               data[config](this);
             }
           });
-        };
-        _createClass(Toast2, null, [{
-          key: "VERSION",
-          get: function get() {
-            return VERSION;
-          }
-        }, {
-          key: "DefaultType",
-          get: function get() {
-            return DefaultType;
-          }
-        }, {
-          key: "Default",
-          get: function get() {
-            return Default;
-          }
-        }]);
-        return Toast2;
-      }();
-      $__default["default"].fn[NAME] = Toast._jQueryInterface;
-      $__default["default"].fn[NAME].Constructor = Toast;
-      $__default["default"].fn[NAME].noConflict = function() {
-        $__default["default"].fn[NAME] = JQUERY_NO_CONFLICT;
-        return Toast._jQueryInterface;
+        }
+      }
+      enableDismissTrigger(Toast);
+      defineJQueryPlugin(Toast);
+      const index_umd = {
+        Alert,
+        Button,
+        Carousel,
+        Collapse,
+        Dropdown,
+        Modal,
+        Offcanvas,
+        Popover,
+        ScrollSpy,
+        Tab,
+        Toast,
+        Tooltip
       };
-      exports2.Alert = Alert;
-      exports2.Button = Button;
-      exports2.Carousel = Carousel;
-      exports2.Collapse = Collapse;
-      exports2.Dropdown = Dropdown;
-      exports2.Modal = Modal;
-      exports2.Popover = Popover;
-      exports2.Scrollspy = ScrollSpy;
-      exports2.Tab = Tab;
-      exports2.Toast = Toast;
-      exports2.Tooltip = Tooltip;
-      exports2.Util = Util;
-      Object.defineProperty(exports2, "__esModule", { value: true });
+      return index_umd;
     });
   }
 });
@@ -17701,9 +19418,8 @@ var require_bootstrap = __commonJS({
 // app/javascript/application.js
 var import_jquery = __toESM(require_jquery());
 var import_jquery_ujs = __toESM(require_rails());
-var import_datatables = __toESM(require_jquery_dataTables());
-var import_dataTables = __toESM(require_dataTables_bootstrap4());
-var import_dataTables2 = __toESM(require_dataTables_select());
+var import_datatables = __toESM(require_dataTables());
+var import_dataTables = __toESM(require_dataTables_select());
 
 // node_modules/@rails/ujs/app/assets/javascripts/rails-ujs.esm.js
 var linkClickSelector = "a[data-confirm], a[data-method], a[data-remote]:not([disabled]), a[data-disable-with], a[data-disable]";
@@ -18326,6 +20042,7 @@ if (typeof jQuery !== "undefined" && jQuery && jQuery.ajax) {
 var import_bootstrap = __toESM(require_bootstrap());
 window.jQuery = import_jquery.default;
 window.$ = import_jquery.default;
+window.DataTable = import_datatables.default;
 Rails.start();
 (0, import_jquery.default)(function() {
   $("li.vdi").popover({
@@ -18342,12 +20059,12 @@ Rails.start();
       return $(this).text();
     }
   });
-  $('[data-toggle="popover"]').popover();
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-bs-toggle="popover"]').popover();
+  $('[data-bs-toggle="tooltip"]').tooltip();
 });
 /*!
-  * Bootstrap v4.6.2 (https://getbootstrap.com/)
-  * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 /*!
@@ -18360,37 +20077,10 @@ Rails.start();
  *
  * Date: 2023-08-28T13:37Z
  */
-/*! DataTables 1.13.7
- * ©2008-2023 SpryMedia Ltd - datatables.net/license
+/*! DataTables 2.3.7
+ * © SpryMedia Ltd - datatables.net/license
  */
-/*! DataTables Bootstrap 4 integration
- * ©2011-2017 SpryMedia Ltd - datatables.net/license
- */
-/*! Select for DataTables 1.7.0
+/*! Select for DataTables 3.1.3
  * © SpryMedia Ltd - datatables.net/license/mit
- */
-/**!
- * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.16.1
- * @license
- * Copyright (c) 2016 Federico Zivolo and contributors
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
  */
 //# sourceMappingURL=application.js.map

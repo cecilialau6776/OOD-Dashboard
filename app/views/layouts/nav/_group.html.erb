@@ -1,6 +1,6 @@
 <%= render layout: "layouts/nav/dropdown", locals: { 
       id: "group-#{group.title.parameterize}",
-      icon: group.icon_uri || "folder",
+      icon: group.icon_uri,
       title: group.title,
       text: group.title
     } do %>

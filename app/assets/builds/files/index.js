@@ -8900,7 +8900,7 @@ var require_lodash = __commonJS({
   "node_modules/lodash/lodash.js"(exports, module) {
     (function() {
       var undefined2;
-      var VERSION = "4.17.21";
+      var VERSION = "4.17.23";
       var LARGE_ARRAY_SIZE = 200;
       var CORE_ERROR_TEXT = "Unsupported core-js use. Try https://npms.io/search?q=ponyfill.", FUNC_ERROR_TEXT = "Expected a function", INVALID_TEMPL_VAR_ERROR_TEXT = "Invalid `variable` option passed into `_.template`";
       var HASH_UNDEFINED = "__lodash_hash_undefined__";
@@ -10786,8 +10786,28 @@ var require_lodash = __commonJS({
         }
         function baseUnset(object, path) {
           path = castPath(path, object);
-          object = parent(object, path);
-          return object == null || delete object[toKey(last(path))];
+          var index = -1, length = path.length;
+          if (!length) {
+            return true;
+          }
+          var isRootPrimitive = object == null || typeof object !== "object" && typeof object !== "function";
+          while (++index < length) {
+            var key = path[index];
+            if (typeof key !== "string") {
+              continue;
+            }
+            if (key === "__proto__" && !hasOwnProperty.call(object, "__proto__")) {
+              return false;
+            }
+            if (key === "constructor" && index + 1 < length && typeof path[index + 1] === "string" && path[index + 1] === "prototype") {
+              if (isRootPrimitive && index === 0) {
+                continue;
+              }
+              return false;
+            }
+          }
+          var obj = parent(object, path);
+          return obj == null || delete obj[toKey(last(path))];
         }
         function baseUpdate(object, path, updater, customizer) {
           return baseSet(object, path, updater(baseGet(object, path)), customizer);
@@ -14404,7 +14424,7 @@ var require_non_secure = __commonJS({
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {
         let id = "";
-        let i2 = size;
+        let i2 = size | 0;
         while (i2--) {
           id += alphabet[Math.random() * alphabet.length | 0];
         }
@@ -14413,7 +14433,7 @@ var require_non_secure = __commonJS({
     };
     var nanoid = (size = 21) => {
       let id = "";
-      let i2 = size;
+      let i2 = size | 0;
       while (i2--) {
         id += urlAlphabet[Math.random() * 64 | 0];
       }
@@ -25245,7 +25265,7 @@ var DataTable = class {
           orderable: false,
           defaultContent: '<input type="checkbox">'
         },
-        { data: "type", render: (data, type, row, meta) => data == "d" ? '<span title="directory" class="fa fa-folder" style="color: gold"><span class="sr-only"> dir</span></span>' : '<span title="file" class="fa fa-file" style="color: lightgrey"><span class="sr-only"> file</span></span>' },
+        { data: "type", render: (data, type, row, meta) => data == "d" ? '<span title="directory" class="fa fa-folder" style="color: gold"><span class="visually-hidden"> dir</span></span>' : '<span title="file" class="fa fa-file" style="color: lightgrey"><span class="visually-hidden"> file</span></span>' },
         { name: "name", data: "name", className: "text-break", render: (data, type, row, meta) => `<a class="${row.type} name ${row.type == "d" ? "" : "view-file"}" href="${row.url}">${import_handlebars.default.escapeExpression(data)}</a>` },
         { name: "actions", orderable: false, data: null, render: (data, type, row, meta) => this.actionsBtnTemplate({ row_index: meta.row, file: row.type != "d", data: row }) },
         {

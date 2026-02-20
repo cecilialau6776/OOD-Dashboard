@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
-      <h3 class="font-weight-bold mb-3">
+      <h3 class="fw-bold mb-3">
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -12,7 +12,7 @@
               <span class="mx-2">Cluster Status</span>
               <a href="https://www.rcac.purdue.edu/compute/gautschi#gautschi_specifications"
                  style="color: #6c757d; font-size: 1.1rem;"
-                 data-toggle="tooltip" 
+                 data-bs-toggle="tooltip" 
                  title="Click to learn more about compute node specifications on <%= Configuration.cluster_name %>"
                  aria-label="Documentation about compute nodes on <%= Configuration.cluster_name %>"
                  target="_blank">
@@ -20,17 +20,17 @@
               </a>
             </div>
             <div class="d-flex align-items-center">
-              <small id="last-updated" class="d-none d-md-block font-weight-semibold mr-3" style="font-size: 13pt;">
-                Last updated: <span data-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
+              <small id="last-updated" class="d-none d-md-block font-weight-semibold me-3" style="font-size: 13pt;">
+                Last updated: <span data-bs-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
               </small>
               <button id="refresh-button" class="btn btn-sm btn-outline-secondary rounded-pill shadow-sm" style="font-size: 12pt;">
                 <i class="fas fa-sync-alt"></i>
-                <span class="d-none d-md-inline ml-1">Refresh</span>
+                <span class="d-none d-md-inline ms-1">Refresh</span>
               </button>
             </div>
           </div>
           <small id="last-updated-mobile" class="d-md-none font-weight-semibold mt-2" style="font-size: 13pt;">
-            Last updated: <span data-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
+            Last updated: <span data-bs-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
           </small>
         </div>
       </h3>
@@ -95,7 +95,7 @@
       <div id="cluster_status_content" class="position-relative" style="min-height: 400px;">
         <!-- Node group tabs - moved outside of view containers -->
         <div class="node-tabs-container mb-3">
-          <select class="mobile-group-select form-control"></select>
+          <select class="mobile-group-select form-select"></select>
           <div class="node-tabs"></div>
         </div>
 
@@ -105,13 +105,13 @@
             <div class="search-container mb-3">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text bg-white border-right-0">
+                  <span class="input-group-text bg-white border-end-0">
                     <i class="fas fa-search text-muted"></i>
                   </span>
                 </div>
                 <input type="text" 
                        id="node-search" 
-                       class="form-control border-left-0" 
+                       class="form-control border-start-0" 
                        placeholder="Search nodes..."
                        aria-label="Search nodes">
               </div>
@@ -121,23 +121,23 @@
                 <tr>
                   <th class="sortable" data-sort="name" style="cursor: pointer;">
                     Node
-                    <i class="fas fa-sort text-muted ml-1"></i>
+                    <i class="fas fa-sort text-muted ms-1"></i>
                   </th>
                   <th class="sortable" data-sort="state" style="cursor: pointer;">
                     State
-                    <i class="fas fa-sort text-muted ml-1"></i>
+                    <i class="fas fa-sort text-muted ms-1"></i>
                   </th>
                   <th class="sortable" data-sort="partitions" style="cursor: pointer;">
                     Partitions
-                    <i class="fas fa-sort text-muted ml-1"></i>
+                    <i class="fas fa-sort text-muted ms-1"></i>
                   </th>
                   <th class="sortable" data-sort="compute" style="cursor: pointer;">
                     <span class="compute-header">CPU cores (Used/Total)</span>
-                    <i class="fas fa-sort text-muted ml-1"></i>
+                    <i class="fas fa-sort text-muted ms-1"></i>
                   </th>
                   <th class="sortable" data-sort="memory" style="cursor: pointer;">
                     Memory (Used/Total)
-                    <i class="fas fa-sort text-muted ml-1"></i>
+                    <i class="fas fa-sort text-muted ms-1"></i>
                   </th>
                 </tr>
               </thead>
@@ -1460,7 +1460,7 @@
                      nodeState === 'Maintenance' ? 'orange' : 'danger';
 
     return `
-      <div class="text-left">
+      <div class="text-start">
         <strong>${node.NodeName}</strong><br>
         <span class="text-${stateColor}">
           ${nodeState}
@@ -1661,7 +1661,7 @@
       } else {
         container.classList.remove('active');
         // Dispose tooltips for the inactive view
-        $(container).find('[data-toggle="tooltip"]').tooltip('dispose');
+        $(container).find('[data-bs-toggle="tooltip"]').tooltip('dispose');
       }
     });
     
@@ -1752,7 +1752,7 @@
         mobileSpan.style.borderBottom = '1px dotted #666';
         
         // Reinitialize tooltips
-        $('[data-toggle="tooltip"]').tooltip('dispose').tooltip();
+        $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip();
       }
     } else {
       // If more than 24 hours, show absolute time
@@ -1768,7 +1768,7 @@
         mobileSpan.removeAttribute('title');
         desktopSpan.style.borderBottom = 'none';
         mobileSpan.style.borderBottom = 'none';
-        $('[data-toggle="tooltip"]').tooltip('dispose');
+        $('[data-bs-toggle="tooltip"]').tooltip('dispose');
       }
     }
   }
@@ -1815,7 +1815,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center h-100">
           <div class="position-relative mb-3">
             <div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status">
-              <span class="sr-only">Loading...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
           <p class="text-muted mb-0">Loading cluster status...</p>
@@ -1851,7 +1851,7 @@
           // Initial load - rebuild full DOM
           $("#cluster_status_content").html(`
             <div class="node-tabs-container mb-3">
-              <select class="mobile-group-select form-control"></select>
+              <select class="mobile-group-select form-select"></select>
               <div class="node-tabs"></div>
             </div>
             <div id="heatmap" class="view-container active"></div>
@@ -1860,13 +1860,13 @@
                 <div class="search-container mb-3">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text bg-white border-right-0">
+                      <span class="input-group-text bg-white border-end-0">
                         <i class="fas fa-search text-muted"></i>
                       </span>
                     </div>
                     <input type="text" 
                            id="node-search" 
-                           class="form-control border-left-0" 
+                           class="form-control border-start-0" 
                            placeholder="Search nodes..."
                            aria-label="Search nodes">
                   </div>
@@ -1876,23 +1876,23 @@
                     <tr>
                       <th class="sortable" data-sort="name" style="cursor: pointer;">
                         Node
-                        <i class="fas fa-sort text-muted ml-1"></i>
+                        <i class="fas fa-sort text-muted ms-1"></i>
                       </th>
                       <th class="sortable" data-sort="state" style="cursor: pointer;">
                         State
-                        <i class="fas fa-sort text-muted ml-1"></i>
+                        <i class="fas fa-sort text-muted ms-1"></i>
                       </th>
                       <th class="sortable" data-sort="partitions" style="cursor: pointer;">
                         Partitions
-                        <i class="fas fa-sort text-muted ml-1"></i>
+                        <i class="fas fa-sort text-muted ms-1"></i>
                       </th>
                       <th class="sortable" data-sort="compute" style="cursor: pointer;">
                         <span class="compute-header">CPU cores (Used/Total)</span>
-                        <i class="fas fa-sort text-muted ml-1"></i>
+                        <i class="fas fa-sort text-muted ms-1"></i>
                       </th>
                       <th class="sortable" data-sort="memory" style="cursor: pointer;">
                         Memory (Used/Total)
-                        <i class="fas fa-sort text-muted ml-1"></i>
+                        <i class="fas fa-sort text-muted ms-1"></i>
                       </th>
                     </tr>
                   </thead>
@@ -2143,7 +2143,7 @@
 
   function initializeGridTooltips() {
     // First dispose any existing tooltips
-    $('.node-cell[data-toggle="tooltip"]').tooltip('dispose');
+    $('.node-cell[data-bs-toggle="tooltip"]').tooltip('dispose');
     
     // Initialize tooltips using event delegation
     $('#heatmap').on('mouseenter', '.node-cell', function() {
@@ -2163,13 +2163,13 @@
 
   function initializeGeneralTooltips() {
     // Initialize tooltips for non-grid elements
-    $('[data-toggle="tooltip"]:not(.node-cell)').tooltip({
+    $('[data-bs-toggle="tooltip"]:not(.node-cell)').tooltip({
       boundary: 'window',
       trigger: 'hover',
       placement: 'auto',
       container: 'body'
     }).on('show.bs.tooltip', function() {
-      $('[data-toggle="tooltip"]:not(.node-cell)').not(this).tooltip('hide');
+      $('[data-bs-toggle="tooltip"]:not(.node-cell)').not(this).tooltip('hide');
     });
   }
 
@@ -2252,8 +2252,8 @@
 
     // Handle clicking outside tooltips
     $(document).on('click', function(event) {
-      if (!$(event.target).closest('[data-toggle="tooltip"]').length) {
-        $('[data-toggle="tooltip"]').tooltip('hide');
+      if (!$(event.target).closest('[data-bs-toggle="tooltip"]').length) {
+        $('[data-bs-toggle="tooltip"]').tooltip('hide');
       }
     });
 
@@ -2263,7 +2263,7 @@
       clearTimeout(resizeTimeout);
       
       // Dispose of all tooltips before resize
-      $('[data-toggle="tooltip"]').tooltip('dispose');
+      $('[data-bs-toggle="tooltip"]').tooltip('dispose');
       
       resizeTimeout = setTimeout(function() {
         if (rawData) {

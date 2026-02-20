@@ -22,32 +22,32 @@
   <!-- navbar  -->
   <nav class="navbar navbar-expand-md shadow-sm navbar-color navbar-<%= @user_configuration.navbar_type %>" role="navigation">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar">
 
-        <button class="navbar-nav navbar-text align-middle rounded ml-1 mt-1 px-2 py-1 border border-white text-nowrap" id="save-button">
-          <i class="fas fa-save pr-2" aria-hidden="true"></i>
+        <button class="navbar-nav navbar-text align-middle rounded ms-1 mt-1 px-2 py-1 border border-white text-nowrap" id="save-button">
+          <i class="fas fa-save pe-2" aria-hidden="true"></i>
           <span>Save</span>
         </button>
 
-        <p id="editor-filename" class="m-0 navbar-text flex-grow-1 ml-2 overflow-hidden"><%= @path %></p>
+        <p id="editor-filename" class="m-0 navbar-text flex-grow-1 ms-2 overflow-hidden"><%= @path %></p>
 
         <ul class="navbar-nav">
-          <li class="hidden-xs hidden-sm hidden-md px-2 form-group form-inline m-0">
+          <li class="hidden-xs hidden-sm hidden-md px-2 mb-3 d-flex align-items-center m-0">
             <label class="control-label navbar-text px-1" for="keybindings">Key Bindings</label>
-            <select class="form-control input-xs" id="keybindings">
+            <select class="form-select input-xs" id="keybindings">
               <option value="default">Default</option>
               <option value="ace/keyboard/vim">Vim</option>
               <option value="ace/keyboard/emacs">Emacs</option>
             </select>
           </li>
-          <li class="hidden-xs px-2 form-group form-inline m-0">
+          <li class="hidden-xs px-2 mb-3 d-flex align-items-center m-0">
             <label class="control-label hidden-sm hidden-md navbar-text px-1" for="fontsize">Font Size</label>
-            <select class="form-control input-xs" id="fontsize">
+            <select class="form-select input-xs" id="fontsize">
               <option value="8px">8px</option>
               <option value="9px">9px</option>
               <option value="10px">10px</option>
@@ -67,9 +67,9 @@
               <option value="72px">72px</option>
             </select>
           </li>
-          <li class="hidden-xs px-2 form-group form-inline m-0">
+          <li class="hidden-xs px-2 mb-3 d-flex align-items-center m-0">
             <label class="control-label hidden-sm hidden-md navbar-text px-1" for="mode">Mode</label>
-            <select class="form-control input-xs" id="mode">
+            <select class="form-select input-xs" id="mode">
               <option value="abap">ABAP</option>
               <option value="abc">ABC</option>
               <option value="actionscript">ActionScript</option>
@@ -202,9 +202,9 @@
               <option value="django">Django</option>
             </select>
           </li>
-          <li class="hidden-xs px-2 form-group form-inline px-1 m-0">
+          <li class="hidden-xs px-2 mb-3 d-flex align-items-center px-1 m-0">
             <label class="control-label hidden-sm hidden-md px-1 navbar-text" for="theme">Theme</label>
-            <select class="form-control input-xs" id="theme">
+            <select class="form-select input-xs" id="theme">
               <optgroup label="Bright">
                 <option value="ace/theme/chrome">Chrome</option>
                 <option value="ace/theme/clouds">Clouds</option>
@@ -245,9 +245,9 @@
               </optgroup>
             </select>
           </li>
-          <li class="hidden-xs px-2 form-group form-inline m-0">
+          <li class="hidden-xs px-2 mb-3 d-flex align-items-center m-0">
             <label class="control-label hidden-md hidden-lg navbar-text px-1" for="wordwrap">Wrap</label>
-            <div class="form-group">
+            <div class="mb-3">
               <input type="checkbox" id="wordwrap" value="">
             </div>
           </li>
@@ -260,9 +260,9 @@
 
   <% if alert %>
       <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+          
+          <span class="visually-hidden">Close</span>
         </button>
         <%= alert %>
       </div>
@@ -270,9 +270,9 @@
 
   <% if notice %>
       <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+          
+          <span class="visually-hidden">Close</span>
         </button>
         <%= notice %>
       </div>

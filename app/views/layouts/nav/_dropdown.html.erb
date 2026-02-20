@@ -1,16 +1,17 @@
-<li class="nav-item">
+<li class="nav-item dropdown" role="none">
   <button type="button" 
-          class="nav-link w-100 text-left d-flex align-items-center"
-          onclick="toggleSubmenu(this)"
+          class="nav-link dropdown-toggle"
+          data-bs-toggle="dropdown"
           aria-expanded="false"
           aria-controls="<%= id %>-submenu"
+          aria-haspopup="true"
+          role="menuitem" 
           title="<%= title %>">
     <i class="fas fa-<%= icon %>"></i>
     <span class="flex-grow-1"><%= text %></span>
-    <i class="fas fa-chevron-down ml-2"></i>
   </button>
 
-  <div class="submenu" id="<%= id %>-submenu" style="display: none;">
+  <ul class="dropdown-menu" title="<%= title %>" role="menu">
     <%= yield %>
-  </div>
+  </ul>
 </li> 

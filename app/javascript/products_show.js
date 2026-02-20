@@ -4,10 +4,10 @@ const id = 'product_cli_modal';
 const spinnerId = `${id}_spinner`;
 const headerId = `${id}_header`;
 const buttonId = `${id}_button`;
-const closeButton = `<button id="${buttonId}" class="close float-right" data-dismiss="modal">&times;</button>`;
+const closeButton = `<button id="${buttonId}" class="close float-end" data-bs-dismiss="modal">&times;</button>`;
 
 jQuery(function(){
-  $('[data-toggle="cli"]').on('click', (event) => updateModal(event));
+  $('[data-bs-toggle="cli"]').on('click', (event) => updateModal(event));
 
   $(`#${headerId}`).replaceWith(`
     <h2>
@@ -43,7 +43,7 @@ function updateModal(event){
 
   xhr.onloadend = function() {
     $(`#${spinnerId}`).replaceWith(`
-      <button class="close float-right" data-dismiss="modal">&times;</button>
+      <button class="close float-end" data-bs-dismiss="modal">&times;</button>
     `);
     if (this.status != 200) {
       $(`#${id} .product-cli-body`).html(`${header}A fatal error has occurred`);

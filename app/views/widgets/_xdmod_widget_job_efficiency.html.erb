@@ -6,7 +6,7 @@
 <div class="card mt-3">
 
   <div class="card-header">
-    <a href="{{xdmod_url}}" class="float-right">Open XDMoD <span class="fa fa-external-link-square-alt"></span></a>
+    <a href="{{xdmod_url}}" class="float-end">Open XDMoD <span class="fa fa-external-link-square-alt"></span></a>
     <h3>{{title}} - {{date_range}}</h3>
   </div>
 
@@ -17,7 +17,7 @@
       {{#if nodata}}
         <p class="card-text">{{msg}}</p>
       {{else}}
-      <p class="d-flex justify-content-between card-text font-weight-bold"><span class="text-success">{{good_percent}}% efficient</span> <span class="text-danger">{{bad_percent}}% inefficient</span></p>
+      <p class="d-flex justify-content-between card-text fw-bold"><span class="text-success">{{good_percent}}% efficient</span> <span class="text-danger">{{bad_percent}}% inefficient</span></p>
       <div class="progress progress-custom">
         <div class="progress-bar bg-success w-{{good_percent}}" role="progressbar" aria-label="percent efficient" aria-valuenow="{{good_percent}}" aria-valuemin="0" aria-valuemax="100">
         </div>

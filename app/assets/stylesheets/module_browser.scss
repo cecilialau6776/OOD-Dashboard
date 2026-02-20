@@ -1,0 +1,19 @@
+.module-card {
+  flex: 1 1 20rem;
+  min-width: 20rem;
+  transition: flex-basis 0.4s ease;
+}
+
+.module-card.expanded {
+  flex: 0 0 100%;
+}
+
+.version-btn {
+  min-width: 3rem;
+  margin: 5px 5px;
+}
+
+.load-command-box button {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}

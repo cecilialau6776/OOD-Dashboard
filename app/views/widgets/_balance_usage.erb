@@ -1,12 +1,12 @@
 <!-- This code is from the Anvil service unit widget -->
-<h3 class="font-weight-bold mb-3 d-flex justify-content-between align-items-center">
+<h3 class="fw-bold mb-3 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <i class="fas fa-coins text-warning"></i>
         <span class="mx-2">Balance Usage</span>
         <a href="https://www.rcac.purdue.edu/knowledge/gautschi/run/slurm/queues" 
            class="ms-1" 
            style="color: #6c757d; font-size: 1.1rem;"
-           data-toggle="tooltip" 
+           data-bs-toggle="tooltip" 
            title="Click to learn more about queues on <%= Configuration.cluster_name %>"
            aria-label="Documentation about queues on <%= Configuration.cluster_name %>"
            target="_blank">
@@ -78,13 +78,13 @@
         if (num >= 1000000) {
             const formatted = (num/1000000).toFixed(decimals);
             const isExact = num === Math.round(num/1000000) * 1000000;
-            const style = isExact ? '' : ' style="border-bottom: 1px dotted #6c757d; cursor: help" data-toggle="tooltip" data-trigger="hover click"';
+            const style = isExact ? '' : ' style="border-bottom: 1px dotted #6c757d; cursor: help" data-bs-toggle="tooltip" data-bs-trigger="hover click"';
             return `<span${style} title="${isExact ? '' : fullNum}">${formatted.endsWith('.0') ? formatted.slice(0, -2) : formatted}M</span>`;
         }
         if (num >= 1000) {
             const formatted = (num/1000).toFixed(decimals);
             const isExact = num === Math.round(num/1000) * 1000;
-            const style = isExact ? '' : ' style="border-bottom: 1px dotted #6c757d; cursor: help" data-toggle="tooltip" data-trigger="hover click"';
+            const style = isExact ? '' : ' style="border-bottom: 1px dotted #6c757d; cursor: help" data-bs-toggle="tooltip" data-bs-trigger="hover click"';
             return `<span${style} title="${isExact ? '' : fullNum}">${formatted.endsWith('.0') ? formatted.slice(0, -2) : formatted}K</span>`;
         }
         return num.toLocaleString(undefined, {maximumFractionDigits: 2});
@@ -95,7 +95,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center h-100">
             <div class="position-relative mb-3">
                 <div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
             <p class="text-muted mb-0">Loading service unit data...</p>
@@ -115,17 +115,17 @@
                     <div class="pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <div class="h5 mb-0">
-                                ${row.account} ${percentUsedAccount >= 95 ? `<i class="fa fa-warning text-warning" data-toggle="tooltip" title="You have reached over 95% of your service unit limit."></i>` : ""}
+                                ${row.account} ${percentUsedAccount >= 95 ? `<i class="fa fa-warning text-warning" data-bs-toggle="tooltip" title="You have reached over 95% of your service unit limit."></i>` : ""}
                             </div>
                             <div class="btn-group">
                                 <button id="${row.account}-export-dropdown-button" 
                                     class="btn btn-sm btn-outline-info dropdown-toggle rounded-pill shadow-sm" 
                                     style="font-size: 0.875rem;"
-                                    data-toggle="dropdown" 
+                                    data-bs-toggle="dropdown" 
                                     aria-expanded="false">
                                     <i class="fas fa-download"></i> <span class="d-none d-sm-inline">Export</span>
                                 </button>
-                                <div class="su-export-dropdown dropdown-menu dropdown-menu-right shadow-sm" 
+                                <div class="su-export-dropdown dropdown-menu dropdown-menu-end shadow-sm" 
                                     aria-labelledby="${row.account}-export-dropdown-button" 
                                     data-account="${row.account}"
                                     data-total-sus-used="${row.used}"
@@ -151,7 +151,7 @@
                                         </span>`
                                     }
                                 </div>
-                                <div class="text-muted ml-2 text-nowrap" style="min-width: 3rem; text-align: right; font-size: 1rem;">
+                                <div class="text-muted ms-2 text-nowrap" style="min-width: 3rem; text-align: right; font-size: 1rem;">
                                     ${row.limit === "No limit" ? '' : `${Math.round(percentUsedAccount)}%`}
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                             </div>
                             <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
                                 <div>
-                                    <span class="font-weight-bold">${formatLargeNumber(row.user_used)}</span> SUs used by you
+                                    <span class="fw-bold">${formatLargeNumber(row.user_used)}</span> SUs used by you
                                 </div>
                             </div>
                         </div>
@@ -186,18 +186,18 @@
                 });
             }, 50);
 
-            $('[data-toggle="tooltip"]').tooltip({
+            $('[data-bs-toggle="tooltip"]').tooltip({
                 boundary: 'window',
                 trigger: 'hover click'
             }).on('show.bs.tooltip', function() {
                 // Hide all other tooltips
-                $('[data-toggle="tooltip"]').not(this).tooltip('hide');
+                $('[data-bs-toggle="tooltip"]').not(this).tooltip('hide');
             });
 
             // Hide tooltips when clicking anywhere else on the document
             $(document).on('click', function(event) {
-                if (!$(event.target).closest('[data-toggle="tooltip"]').length) {
-                    $('[data-toggle="tooltip"]').tooltip('hide');
+                if (!$(event.target).closest('[data-bs-toggle="tooltip"]').length) {
+                    $('[data-bs-toggle="tooltip"]').tooltip('hide');
                 }
             });
 

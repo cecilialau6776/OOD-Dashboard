@@ -17,7 +17,7 @@ function getUserPreference(key) {
   return getLocalStorage(normalizeKey(key));
 }
 jQuery(function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-bs-toggle="tooltip"]').tooltip();
   const editorElement = document.querySelector("#editor");
   const apiUrl = editorElement.dataset.api;
   const filePath = editorElement.dataset.path;

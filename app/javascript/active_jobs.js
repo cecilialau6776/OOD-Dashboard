@@ -268,12 +268,12 @@ function create_datatable(options){
                       <div>
                         <a
                           class="btn btn-danger btn-xs"
-                          data-method="delete"
+                          data-bs-method="delete"
                           data-confirm="Are you sure you want to delete ${escapeHtml(jobname)} - ${pbsid}"
                           href="${escapeHtml(delete_path)}"
                           aria-labeled-by"title"
                           aria-label="Delete job ${escapeHtml(jobname)} with ID ${pbsid}"
-                          data-toggle="tooltip"
+                          data-bs-toggle="tooltip"
                           title="Delete Job"
                         >
                           <i class='fas fa-trash-alt fa-fw' aria-hidden='true'></i>

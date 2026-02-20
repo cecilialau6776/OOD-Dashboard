@@ -16,24 +16,22 @@
 
 import jQuery from 'jquery';
 import 'jquery-ujs';
-import 'datatables.net';
-import 'datatables.net-bs4/js/dataTables.bootstrap4';
+import DataTable from 'datatables.net';
 import 'datatables.net-select/js/dataTables.select';
 
 import Rails from '@rails/ujs';
 
-// Import popper.js for Bootstrap 4
-import Popper from 'popper.js';
-
-// Import Bootstrap 4
+// Import Bootstrap
 import 'bootstrap/dist/js/bootstrap';
 
-// FIXME: confim modals don't work in esbuild.
-// import 'data-confirm-modal';
+// import 'moment';
+// import 'daterangepicker';
 
-// lot's of inline scripts and stuff rely on jquery just being available
+// lots of inline scripts and stuff rely on jquery just being available
 window.jQuery = jQuery;
 window.$ = jQuery;
+window.DataTable = DataTable
+
 
 Rails.start();
 
@@ -51,6 +49,6 @@ jQuery(function(){
     title: function(){ return $(this).text() }
   });
 
-  $('[data-toggle="popover"]').popover();
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-bs-toggle="popover"]').popover();
+  $('[data-bs-toggle="tooltip"]').tooltip();
 });

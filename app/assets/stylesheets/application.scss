@@ -24,17 +24,29 @@
 // get in the way
 // $navbar-height: 20px;
 
+nav.navbar {
+  padding: 0.5rem 1rem;
+}
+
 // styles to make a logo fill the navbar height if using a logo for the navbar title
 .navbar-brand.navbar-brand-logo {
   padding: 0px;
 }
 
 a.navbar-brand.navbar-brand-logo {
+  display: inline-block;
   height: 2em;
-}
+  vertical-align: middle;
+  max-width: 20em;
+  overflow-x: hidden;
 
-.navbar-brand.navbar-brand-logo img {
-  height: 100%;
+  img {
+    height: 100%;
+  }
+
+  span {
+    vertical-align: sub;
+  }
 }
 
 // for inverse, lets make the text slightliy darker so its
@@ -62,7 +74,7 @@ $ood-blue: rgb(0, 95, 133);
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
 // Load up dataTables bootstrap specific styles
-// @import "datatables.net-bs4/css/dataTables.bootstrap4";
+@import "datatables.net-bs5/css/dataTables.bootstrap5";
 
 // Use sticky footer in body of layout
 // See: https://css-tricks.com/couple-takes-sticky-footer/
@@ -123,7 +135,7 @@ pre.motd-monospaced {
 **/
 
 pre:not(#editor) {
-  @extend .bg-light;
+  @extend .bg-light !optional;
   @extend .p-2;
   @extend .rounded;
 }
@@ -158,6 +170,7 @@ small.form-text {
 @import "products";
 @import "batch_connect/sessions";
 @import "batch_connect/session_contexts";
+@import "batch_connect/saved_settings";
 @import "insufficient_quota";
 @import "insufficient_balance";
 @import "fa_shims";
@@ -167,9 +180,13 @@ small.form-text {
 @import "editor";
 @import "icon_picker";
 @import "pinned_apps";
+@import "xdmod";
 @import "support_ticket";
 @import "data_tables";
 @import "projects";
+@import "workflows";
 @import "scripts";
 @import "common";
-@import "uppy/dist/uppy.min";
+@import "module_browser";
+@import "@uppy/core/dist/style";
+@import "@uppy/dashboard/dist/style";

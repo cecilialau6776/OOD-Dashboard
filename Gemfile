@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 
+gem 'bigdecimal'
+gem 'mutex_m'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.1.7.6'
 

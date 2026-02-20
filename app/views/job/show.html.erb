@@ -8,9 +8,9 @@
               <i class="fas fa-arrow-left" aria-hidden="true"></i>
             </a>
             <div class="d-flex align-items-center">
-              <h3 class="font-weight-bold mb-0">
-                <i class="fas fa-terminal text-primary mr-2"></i>
-                Job: <span id="jobId" class="ml-2"><%= @job_id %></span>
+              <h3 class="fw-bold mb-0">
+                <i class="fas fa-terminal text-primary me-2"></i>
+                Job: <span id="jobId" class="ms-2"><%= @job_id %></span>
               </h3>
               <span id="jobStateDesktop" class="d-none d-sm-inline-flex"></span>
             </div>
@@ -18,7 +18,7 @@
           <div class="d-flex align-items-center">
             <button onclick="loadJobData(true)" class="btn btn-sm btn-outline-secondary rounded-pill shadow-sm" aria-label="Refresh job data">
               <i class="fas fa-sync-alt" aria-hidden="true"></i>
-              <span class="d-none d-md-inline ml-1">Refresh</span>
+              <span class="d-none d-md-inline ms-1">Refresh</span>
             </button>
           </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="loading-placeholder">
           <div class="d-flex flex-column align-items-center justify-content-center h-100 py-5">
             <div class="spinner-border text-secondary" role="status" aria-label="Loading">
-              <span class="sr-only">Loading...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
             <p class="text-muted mt-2">Loading job information...</p>
           </div>
@@ -43,7 +43,7 @@
         <div class="fixed-action-button mt-4 mt-sm-3">
           <button onclick="cancelJob()" id="cancelJobBtn" class="btn btn-outline-danger rounded-pill shadow-sm d-inline-flex" aria-label="Cancel job">
             <i class="fas fa-times" aria-hidden="true"></i>
-            <span class="ml-1">Cancel Job</span>
+            <span class="ms-1">Cancel Job</span>
           </button>
         </div>
       </div>
@@ -56,16 +56,16 @@
      tabindex="-1" 
      role="dialog" 
      aria-labelledby="cancelJobModalLabel"
-     data-backdrop="static">
+     data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content rounded-lg border-0 shadow-lg">
+    <div class="modal-content rounded-3 border-0 shadow-lg">
       <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title font-weight-bold" id="cancelJobModalLabel">Cancel Job</h5>
+        <h5 class="modal-title fw-bold" id="cancelJobModalLabel">Cancel Job</h5>
         <button type="button" 
-                class="close" 
-                data-dismiss="modal" 
+                class="btn-close" 
+                data-bs-dismiss="modal" 
                 aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          
         </button>
       </div>
       <div class="modal-body px-4 pb-0 pt-4">
@@ -75,7 +75,7 @@
         <button type="button" 
                 class="btn btn-outline-secondary rounded-pill" 
                 id="keepRunningBtn"
-                data-dismiss="modal">No, Keep Running</button>
+                data-bs-dismiss="modal">No, Keep Running</button>
         <button type="button" 
                 class="btn btn-danger rounded-pill" 
                 id="confirmCancelBtn"
@@ -402,11 +402,11 @@ function loadFile(data, tabId, dataKey) {
         'Error Loading File': 'Error loading file'
       };
       content.innerHTML = `
-        <div class="d-flex flex-column align-items-center text-center p-4 m-3 bg-light rounded-lg border">
+        <div class="d-flex flex-column align-items-center text-center p-4 m-3 bg-light rounded-3 border">
           <div class="d-flex align-items-center justify-content-center bg-danger-light rounded p-2 mb-2">
             <i class="fas fa-exclamation-circle text-danger fa-3x"></i>
           </div>
-          <h5 class="font-weight-bold text-dark mb-2">${error.message}</h5>
+          <h5 class="fw-bold text-dark mb-2">${error.message}</h5>
           <p class="text-secondary mb-0">${errorDescriptions[error.message] || 'Error loading file'}</p>
         </div>
       `;
@@ -582,35 +582,35 @@ function renderJobData(data) {
   const tabsHtml = `
     <ul class="nav nav-tabs mb-3" id="jobTabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link ${activeTabId === '#info' ? 'active' : ''}" id="info-tab" data-toggle="tab" href="#info" role="tab">
-          <i class="fas fa-info-circle mr-2"></i>Overview
+        <a class="nav-link ${activeTabId === '#info' ? 'active' : ''}" id="info-tab" data-bs-toggle="tab" href="#info" role="tab">
+          <i class="fas fa-info-circle me-2"></i>Overview
         </a>
       </li>
       ${get(data, 'SessionId') ? `
         <li class="nav-item">
-          <a class="nav-link ${activeTabId === '#session' ? 'active' : ''}" id="session-tab" data-toggle="tab" href="#session" role="tab">
-            <i class="fas fa-desktop mr-2"></i>Session
+          <a class="nav-link ${activeTabId === '#session' ? 'active' : ''}" id="session-tab" data-bs-toggle="tab" href="#session" role="tab">
+            <i class="fas fa-desktop me-2"></i>Session
           </a>
         </li>
       ` : ''}
       ${get(data, 'JobArray') && Array.isArray(data.JobArray) && data.JobArray.length > 0 ? `
         <li class="nav-item">
-          <a class="nav-link ${activeTabId === '#tasks' ? 'active' : ''}" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab">
-            <i class="fas fa-layer-group mr-2"></i>Job Array
+          <a class="nav-link ${activeTabId === '#tasks' ? 'active' : ''}" id="tasks-tab" data-bs-toggle="tab" href="#tasks" role="tab">
+            <i class="fas fa-layer-group me-2"></i>Job Array
           </a>
         </li>
       ` : ''}
       ${get(data, 'StdOut') ? `
         <li class="nav-item">
-          <a class="nav-link ${activeTabId === '#output' ? 'active' : ''}" id="output-tab" data-toggle="tab" href="#output" role="tab">
-            <i class="fas fa-terminal mr-2"></i>Output
+          <a class="nav-link ${activeTabId === '#output' ? 'active' : ''}" id="output-tab" data-bs-toggle="tab" href="#output" role="tab">
+            <i class="fas fa-terminal me-2"></i>Output
           </a>
         </li>
       ` : ''}
       ${get(data, 'StdErr') ? `
         <li class="nav-item">
-          <a class="nav-link ${activeTabId === '#error' ? 'active' : ''}" id="error-tab" data-toggle="tab" href="#error" role="tab">
-            <i class="fas fa-exclamation-triangle mr-2"></i>Error
+          <a class="nav-link ${activeTabId === '#error' ? 'active' : ''}" id="error-tab" data-bs-toggle="tab" href="#error" role="tab">
+            <i class="fas fa-exclamation-triangle me-2"></i>Error
           </a>
         </li>
       ` : ''}
@@ -623,7 +623,7 @@ function renderJobData(data) {
           <div class="job-card-container">
             <div class="info-card">
               <div class="info-card-header py-4 px-4 border-bottom">
-                <i class="fas fa-info-circle text-primary mr-2"></i>
+                <i class="fas fa-info-circle text-primary me-2"></i>
                 Job Information
               </div>
               <div class="info-card-body p-4">
@@ -655,7 +655,7 @@ function renderJobData(data) {
           <div class="job-card-container">
             <div class="info-card">
               <div class="info-card-header py-4 px-4 border-bottom">
-                <i class="fas fa-microchip text-success mr-2"></i>
+                <i class="fas fa-microchip text-success me-2"></i>
                 Resources
               </div>
               <div class="info-card-body p-4">
@@ -668,7 +668,7 @@ function renderJobData(data) {
                   <span class="info-value d-flex align-items-center">
                     ${get(data, 'NNodes')}
                     ${data.NodeList && data.NodeList.length > 0 && data.NodeList[0] !== "None assigned" ? `
-                      <button class="nodelist-toggle ml-2" onclick="toggleNodeList(this)" type="button">
+                      <button class="nodelist-toggle ms-2" onclick="toggleNodeList(this)" type="button">
                         <i class="fas fa-caret-down"></i>
                       </button>
                     ` : ''}
@@ -691,7 +691,7 @@ function renderJobData(data) {
                 ` : ''}
                 ${data.Partition && data.Partition === 'ai' ? `
                 <div class="info-item">
-                  <span class="info-label duration-tooltip" data-toggle="tooltip" title="GPU Hours">GPU Hours</span>
+                  <span class="info-label duration-tooltip" data-bs-toggle="tooltip" title="GPU Hours">GPU Hours</span>
                   <span class="info-value">
                     <span class="text-nowrap">${Number(get(data, 'UsedGPUHours', '0')).toFixed(2)} used</span> / 
                     <span class="text-nowrap">${Number(get(data, 'TotalGPUHours', '0')).toFixed(2)} reserved</span>
@@ -706,15 +706,15 @@ function renderJobData(data) {
           <div class="job-card-container">
             <div class="info-card">
               <div class="info-card-header py-4 px-4 border-bottom">
-                <i class="fas fa-clock text-warning mr-2"></i>
+                <i class="fas fa-clock text-warning me-2"></i>
                 Time
               </div>
               <div class="info-card-body p-4">
                 <div class="info-item">
                   <span class="info-label">Wall Time</span>
                   <span class="info-value duration-tooltip" 
-                        data-toggle="tooltip" 
-                        data-placement="right" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="right" 
                         title="${format_time_display(get(data, 'Elapsed')).raw}">
                     ${format_time_display(get(data, 'Elapsed')).formatted}
                   </span>
@@ -722,8 +722,8 @@ function renderJobData(data) {
                 <div class="info-item">
                   <span class="info-label">Time Limit</span>
                   <span class="info-value duration-tooltip" 
-                        data-toggle="tooltip" 
-                        data-placement="right" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="right" 
                         title="${format_time_display(get(data, 'Timelimit')).raw}">
                     ${format_time_display(get(data, 'Timelimit')).formatted}
                   </span>
@@ -731,8 +731,8 @@ function renderJobData(data) {
                 <div class="info-item">
                   <span class="info-label">CPU Time</span>
                   <span class="info-value duration-tooltip" 
-                        data-toggle="tooltip" 
-                        data-placement="right" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="right" 
                         title="${format_time_display(get(data, 'TotalCPU')).raw}">
                     ${format_time_display(get(data, 'TotalCPU')).formatted}
                   </span>
@@ -745,7 +745,7 @@ function renderJobData(data) {
           <div class="job-card-container">
             <div class="info-card">
               <div class="info-card-header py-4 px-4 border-bottom">
-                <i class="fas fa-chart-line text-info mr-2"></i>
+                <i class="fas fa-chart-line text-info me-2"></i>
                 Efficiency
               </div>
               <div class="info-card-body p-4">
@@ -786,7 +786,7 @@ function renderJobData(data) {
             ${get(data, 'SessionPath') ? `
               <div class="info-item">
                 <span class="info-label">Session Path</span>
-                <span class="info-value text-monospace">
+                <span class="info-value font-monospace">
                   <a href="<%= files_path %>${get(data, 'SessionPath')}" class="text-primary">
                     ${get(data, 'SessionPath')}
                   </a>
@@ -829,11 +829,11 @@ function renderJobData(data) {
                       </a>
                     </td>
                     <td>
-                      <span class="badge badge-pill duration-tooltip" 
-                            data-toggle="tooltip" 
-                            data-placement="bottom"
-                            data-trigger="hover"
-                            data-container="body"
+                      <span class="badge rounded-pill duration-tooltip" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="bottom"
+                            data-bs-trigger="hover"
+                            data-bs-container="body"
                             title="${getStateDescription(get(task, 'State'), get(task, 'Reason')) || ''}"
                             style="background-color: ${getJobStateColor(get(task, 'State')).bg}; 
                                    color: ${getJobStateColor(get(task, 'State')).fg};">
@@ -857,8 +857,8 @@ function renderJobData(data) {
                     <td>${formatDateTime(get(task, 'End'))}</td>
                     <td>
                       <span class="duration-tooltip" 
-                            data-toggle="tooltip" 
-                            data-placement="bottom" 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="bottom" 
                             title="${format_time_display(get(task, 'Elapsed')).raw}">
                         ${get(task, 'Elapsed') && get(task, 'Elapsed') !== '0' ? 
                           format_time_display(get(task, 'Elapsed')).formatted : 
@@ -866,7 +866,7 @@ function renderJobData(data) {
                       </span>
                     </td>
                     <td>
-                      <span class="text-monospace">${get(task, 'ExitCode')}</span>
+                      <span class="font-monospace">${get(task, 'ExitCode')}</span>
                     </td>
                   </tr>
                 `).join('')}
@@ -880,14 +880,14 @@ function renderJobData(data) {
           <div class="output-container px-2">
             <div class="output-header d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center">
-                <i class="fas fa-file-alt mr-2 text-primary" style="font-size: 1.25rem;"></i>
+                <i class="fas fa-file-alt me-2 text-primary" style="font-size: 1.25rem;"></i>
                 <h5 class="mb-0 text-muted">
                   ${(() => {
                     const path = get(data, 'StdOut');
                     const parts = path.split('/');
                     const fileName = parts.pop();
                     return `${parts.join('/')}/`
-                      + `<span class="text-dark font-weight-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
+                      + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
                   })()}
                 </h5>
               </div>
@@ -895,7 +895,7 @@ function renderJobData(data) {
                  class="btn btn-sm btn-outline-secondary rounded-pill ml-3 text-nowrap"
                  target="_blank">
                 <i class="fas fa-external-link-alt"></i>
-                <span class="d-none d-md-inline ml-1">Open in New Tab</span>
+                <span class="d-none d-md-inline ms-1">Open in New Tab</span>
               </a>
             </div>
             <div class="mt-3">
@@ -903,7 +903,7 @@ function renderJobData(data) {
                 <div class="loading-placeholder">
                   <div class="d-flex flex-column align-items-center justify-content-center h-100 py-5">
                     <div class="spinner-border text-secondary" role="status">
-                      <span class="sr-only">Loading...</span>
+                      <span class="visually-hidden">Loading...</span>
                     </div>
                     <p class="text-muted mt-2">Loading output file...</p>
                   </div>
@@ -921,14 +921,14 @@ function renderJobData(data) {
           <div class="output-container px-2">
             <div class="output-header d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center">
-                <i class="fas fa-exclamation-triangle mr-2 text-danger" style="font-size: 1.25rem;"></i>
+                <i class="fas fa-exclamation-triangle me-2 text-danger" style="font-size: 1.25rem;"></i>
                 <h5 class="mb-0 text-muted">
                   ${(() => {
                     const path = get(data, 'StdErr');
                     const parts = path.split('/');
                     const fileName = parts.pop();
                     return `${parts.join('/')}/`
-                      + `<span class="text-dark font-weight-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
+                      + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
                   })()}
                 </h5>
               </div>
@@ -936,7 +936,7 @@ function renderJobData(data) {
                  class="btn btn-sm btn-outline-secondary rounded-pill ml-3 text-nowrap"
                  target="_blank">
                 <i class="fas fa-external-link-alt"></i>
-                <span class="d-none d-md-inline ml-1">Open in New Tab</span>
+                <span class="d-none d-md-inline ms-1">Open in New Tab</span>
               </a>
             </div>
             <div class="mt-3">
@@ -944,7 +944,7 @@ function renderJobData(data) {
                 <div class="loading-placeholder">
                   <div class="d-flex flex-column align-items-center justify-content-center h-100 py-5">
                     <div class="spinner-border text-secondary" role="status">
-                      <span class="sr-only">Loading...</span>
+                      <span class="visually-hidden">Loading...</span>
                     </div>
                     <p class="text-muted mt-2">Loading error output...</p>
                   </div>
@@ -964,9 +964,9 @@ function renderJobData(data) {
   document.getElementById('job_content').innerHTML = timelineHtml + tabsHtml;
 
   const stateBadgeHtml = `
-    <span class="badge badge-pill duration-tooltip ml-sm-3" 
-          data-toggle="tooltip" 
-          data-placement="bottom"
+    <span class="badge rounded-pill duration-tooltip ms-sm-3" 
+          data-bs-toggle="tooltip" 
+          data-bs-placement="bottom"
           title="${getStateDescription(jobState, data.state_reason) || ''}"
           style="background-color: ${stateColors.bg}; color: ${stateColors.fg};">
       ${jobState}
@@ -975,9 +975,9 @@ function renderJobData(data) {
       <div class="d-inline-block d-md-inline-flex align-items-center mx-2 my-1 my-md-0">
         <span class="text-dark text-nowrap" style="font-size: 1.1rem; font-weight: 500;">due to</span>
       </div>
-      <span class="badge badge-pill badge-light duration-tooltip"
-            data-toggle="tooltip"
-            data-placement="bottom"
+      <span class="badge rounded-pill text-bg-light duration-tooltip"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
             title="${SIMPLE_JOB_REASON_CODES[data.Reason] || JOB_REASON_CODES[data.Reason] || ''}">
         ${data.Reason}
       </span>
@@ -988,7 +988,7 @@ function renderJobData(data) {
   document.getElementById('jobStateDesktop').innerHTML = stateBadgeHtml;
 
   // Initialize all tooltips after content is rendered
-  $('[data-toggle="tooltip"]').tooltip('dispose').tooltip({
+  $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip({
     trigger: 'hover',
     container: 'body',
     boundary: 'window',
@@ -1026,7 +1026,7 @@ function loadJobData(forceRefresh = false) {
       loadFile(data, 'error', 'StdErr');
       
       // Re-initialize tooltips after any dynamic updates
-      $('[data-toggle="tooltip"]').tooltip('dispose').tooltip({
+      $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip({
         trigger: 'hover',
         container: 'body',
         boundary: 'window',
@@ -1056,7 +1056,7 @@ function loadJobData(forceRefresh = false) {
 
 // Initialize tooltips on page load
 $(document).ready(function() {
-  $('[data-toggle="tooltip"]').tooltip({
+  $('[data-bs-toggle="tooltip"]').tooltip({
     trigger: 'hover',
     container: 'body'
   });
@@ -1064,12 +1064,12 @@ $(document).ready(function() {
 
 // Destroy tooltips before modal shows to prevent stuck tooltips
 $('#cancelJobModal').on('show.bs.modal', function () {
-  $('[data-toggle="tooltip"]').tooltip('dispose');
+  $('[data-bs-toggle="tooltip"]').tooltip('dispose');
 });
 
 // Re-initialize tooltips after modal is hidden
 $('#cancelJobModal').on('hidden.bs.modal', function () {
-  $('[data-toggle="tooltip"]').tooltip({
+  $('[data-bs-toggle="tooltip"]').tooltip({
     trigger: 'hover',
     container: 'body'
   });

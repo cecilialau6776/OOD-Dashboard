@@ -7,16 +7,16 @@ jQuery(function (){
         const $selectedLauncher = $(event.currentTarget);
         $selectedLauncher.before(SPINNER_HTML);
         $(".app-launcher-container").addClass("app-launcher-disabled");
-        $("[data-toggle='launcher-button']").removeClass("app-launcher-hover");
+        $("[data-bs-toggle='launcher-button']").removeClass("app-launcher-hover");
     }
 
     function hideSpinner() {
         $(".app-launcher-container").removeClass("app-launcher-disabled");
-        $("[data-toggle='launcher-button']").addClass("app-launcher-hover");
+        $("[data-bs-toggle='launcher-button']").addClass("app-launcher-hover");
         $("div.app-launcher-spinner").remove();
     }
 
-    $("[data-toggle='launcher-button'] .launcher-click").each((index, element) => {
+    $("[data-bs-toggle='launcher-button'] .launcher-click").each((index, element) => {
         const $launcherButton = $(element);
         $launcherButton.on("click", showSpinner);
     });

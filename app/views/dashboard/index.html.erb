@@ -1,3 +1,5 @@
+<%=  javascript_include_tag 'dashboard', nonce: true %>
+
 <noscript>
   <div class="alert alert-warning" role="alert">
     JavaScript must be enabled to view widgets.
@@ -39,18 +41,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(async () => {
-    $(".homepage-widgets").removeClass("d-none");
-
-    load_account_list();
-    load_news_feed();
-    load_partition_status();
-    load_job_queue();
-    load_disk_usage();
-  });
-</script>
 
 <style>
   .fab-button {

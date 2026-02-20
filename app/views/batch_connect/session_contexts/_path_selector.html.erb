@@ -14,7 +14,7 @@
 
 <%= form.text_field(attrib.id, class: 'form-control', **options) %>
 
-<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#<%= path_selector_id %>">
+<button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#<%= path_selector_id %>">
   Select Path
 </button>
 
@@ -37,8 +37,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modal-path-selector-title">Select Your Working Directory</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          
         </button>
       </div>
       <div class="modal-body">
@@ -67,7 +67,7 @@
 
               <div class="d-flex justify-content-center">
                 <div id="loading-icon" class="spinner-border rem-5" role="status">
-                  <span class="sr-only">Loading...</span> 
+                  <span class="visually-hidden">Loading...</span> 
                 </div>
               </div>
               <table class="table table-hover table-condensed d-table w-100" id="<%= table_id %>">
@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="modal-footer sticky-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="<%= button_id %>">Select Path</button>
       </div>
     </div>
