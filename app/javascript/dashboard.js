@@ -106,11 +106,6 @@ jQuery(function () {
 
   $(() => {
     $(".homepage-widgets").removeClass("d-none");
-    load_account_list();
-    load_news_feed();
-    load_partition_status();
-    load_job_queue();
-    load_disk_usage();
   });
 
 });
