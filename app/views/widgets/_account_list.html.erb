@@ -9,7 +9,7 @@
             title="Click to learn more about accounts and queues on <%= Configuration.cluster_name %>"
             aria-label="Documentation about accounts and queues on <%= Configuration.cluster_name %>"
             target="_blank">
-            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
         </a>
     </div>
     <button onclick="load_account_list(true)" 
@@ -126,107 +126,34 @@
             forceRefresh,
             cacheDuration: 1 * 60 * 1000  // Cache for 1 minute
         }).then(data => {
-            const tableHtml = data.length === 0 ? '<div class="h5 mb-2">No allocations available</div>' : data.map((row) => {
-                const percentCPU = (row.cpu_running / row.cpu_total) * 100 || 0;
-                const percentGPU = (row.gpu_used / row.gpu_total) * 100 || 0;
-
-                const barHtml = `
-                    <div class="mb-3">
-                        <div class="pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <div class="h5 mb-0">
-                                    ${row.account}
-                                </div>
-                                <div class="btn-group">
-                                    <button id="${row.account}-export-dropdown-button" 
-                                            class="btn btn-sm action-btn dropdown-toggle" 
-                                            style="background: hsl(0 0% 100%); border: 1px solid hsl(214.3 31.8% 91.4%); color: hsl(222.2 84% 4.9%); border-radius: 8px; padding: 0.375rem 0.75rem; font-weight: 500; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.875rem;"
-                                            onmouseover="this.style.background='hsl(210 40% 98%)'; this.style.borderColor='hsl(214.3 31.8% 85%)'"
-                                            onmouseout="this.style.background='hsl(0 0% 100%)'; this.style.borderColor='hsl(214.3 31.8% 91.4%)'"
-                                            data-bs-toggle="dropdown" 
-                                            aria-expanded="false">
-                                        <i class="fas fa-download"></i> <span class="d-none d-sm-inline">Export</span>
-                                    </button>
-                                    <div class="gpu-hour-export-dropdown dropdown-menu dropdown-menu-end shadow-sm" 
-                                         aria-labelledby="${row.account}-export-dropdown-button" 
-                                         data-account="${row.account}"
-                                         data-total-gpu-hours-used="${row.gpu_used}"
-                                         data-total-gpu-hours-limit="${row.gpu_total}">
-                                        <button class="dropdown-item text-body" style="font-size: 0.875rem;">
-                                            <i class="fas fa-file-csv"></i> CSV
-                                        </button>
-                                        <button class="dropdown-item text-body" style="font-size: 0.875rem;">
-                                            <i class="fas fa-file-excel"></i> Excel
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            ${row.cpu_total != 0 ? `
-                <div class="d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-center">
-                <div class="text-nowrap" style="font-size: 1rem;">
-                ${row.cpu_total === "No limit" ? 
-                  `<b>${formatLargeNumber(+row.cpu_running)}</b> CPUs in use <span class="text-muted">(No CPU limit)</span>` :
-                  `<b>${formatLargeNumber(+row.cpu_running)}</b> / 
-                                        <b>${formatLargeNumber(+row.cpu_total)}</b> CPUs in use
-                                        <span class="text-muted">
-                                            (<b>${formatLargeNumber(+row.cpu_queue)}</b> queued)
-                                        </span>`
-                }
-                </div>
-                <div class="text-muted ms-2 text-nowrap" style="min-width: 3rem; text-align: right; font-size: 1rem;">
-                ${row.cpu_total === "No limit" ? '' : `${Math.round(percentCPU)}%`}
-                </div>
-                </div>
-                <div class="progress mt-2" style="height: 8px; border-radius: 4px;">
-                <div class="progress-bar" role="progressbar" 
-                style="background-color: ${row.cpu_total === "No limit" ? '#28a745' : 
-                                        percentCPU > 95 ? '#dc3545' : 
-                                        percentCPU > 75 ? '#ffc107' : '#28a745'}; 
-                                    width: 0; transition: width 0.6s ease-in-out;" 
-                      aria-valuenow="${row.cpu_total === "No limit" ? 0 : percentCPU}" 
-                aria-valuemin="0" 
-                aria-valuemax="100">
-                </div>
-                </div>
-                </div>
-                ` : ''}
-                        ${row.gpu_total != 0 ? `
-                <div class="d-flex flex-column mt-1">
-                <div class="d-flex justify-content-between align-items-center">
-                <div class="text-nowrap" style="font-size: 1rem;">
-                ${row.gpu_total === "No limit" ? 
-                  `<b>${formatLargeNumber(+row.gpu_used)}</b> <span class="text-muted">(No GPU hour limit)</span>` :
-                  `<b>${formatLargeNumber(+row.gpu_used)}</b> / 
-                                            <b>${formatLargeNumber(+row.gpu_total)}</b> GPU hours used
-                                            <span class="text-muted">
-                                                (user: <b>${formatLargeNumber(+row.user_gpu_used)}</b>)
-                                            </span>
-                  `
-                }
-                </div>
-                <div class="text-muted ms-2 text-nowrap" style="min-width: 3rem; text-align: right; font-size: 1rem;">
-                ${row.gpu_total === "No limit" ? '' : `${Math.round(percentGPU)}%`}
-                </div>
-                </div>
-                <div class="progress mt-2" style="height: 8px; border-radius: 4px;">
-                <div class="progress-bar" role="progressbar" 
-                style="background-color: ${row.gpu_total === "No limit" ? '#28a745' : 
-                                            percentGPU > 95 ? '#dc3545' : 
-                                            percentGPU > 75 ? '#ffc107' : '#28a745'}; 
-                                        width: 0; transition: width 0.6s ease-in-out;" 
-                      aria-valuenow="${row.gpu_total === "No limit" ? 0 : percentGPU}" 
-                aria-valuemin="0" 
-                aria-valuemax="100">
-                </div>
-                </div>
-                </div>
-                ` : ''}
-                    </div>
-                </div>
+            let tableHtml;
+            if (data.length === 0) {
+                tableHtml = '<div class="h5 mb-2">No allocations available</div>';
+            } else {
+                const tableRowsHtml = data.map((row) => {
+                    const defaultQos = row.qos.filter((qos) => qos.is_default)[0];
+                    const rowHtml = `
+                    <tr>
+                        <th scope="row">${row.name}</th>
+                        <td>${defaultQos.name}</td>
+                    </tr>
+                    `;
+                    return rowHtml;
+                }).join("");
+                tableHtml = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">QOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRowsHtml}
+                    </tbody>
+                </table>
                 `;
-                return barHtml;
-            }).join("");
+            }
 
             $("#account_list_card_content").html(tableHtml);
             // Add small delay to trigger animation
