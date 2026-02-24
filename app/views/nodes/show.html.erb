@@ -1,9 +1,9 @@
-<div id="node-container" class="container-fluid">
+<div id="node-container" class="container-fluid mt-4">
   <div class="card">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center">
-          <a href="<%= cluster_status_path %>" class="btn btn-link text-secondary p-0 mr-3" aria-label="Back to cluster status">
+          <a href="<%= cluster_status_path %>" class="btn btn-link text-secondary p-0 me-3" aria-label="Back to cluster status">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
           </a>
           <h3 class="fw-bold mb-0">
@@ -101,7 +101,7 @@ function parseTRES(tres) {
 
 function renderNodeData(data) {
   // Store current tab state before rendering
-  const activeTabId = $('.nav-tabs .nav-link.active').attr('href') || '#details';
+  const activeTabId = $('.nav-tabs .nav-link.active').attr('href') || '#jobs';
   
   // Helper function to safely get nested values
   const get = (obj, key, defaultValue = 'N/A') => {
@@ -220,11 +220,12 @@ function renderNodeData(data) {
           <div class="card-body">
             <!-- Single set of tabs for both desktop and mobile -->
             <ul class="nav nav-tabs modern-tabs" id="nodeTabs" role="tablist">
+              <!-- 
               <li class="nav-item">
                 <a class="nav-link ${activeTabId === '#details' ? 'active' : ''}" id="details-tab" data-bs-toggle="tab" href="#details" role="tab">
                   <i class="fas fa-info-circle me-2"></i>Node Details
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link ${activeTabId === '#jobs' ? 'active' : ''}" id="jobs-tab" data-bs-toggle="tab" href="#jobs" role="tab">
                   <i class="fas fa-tasks me-2"></i>Running Jobs
@@ -233,6 +234,7 @@ function renderNodeData(data) {
             </ul>
 
             <div class="tab-content pt-4" id="nodeTabContent">
+              <!--
               <div class="tab-pane fade ${activeTabId === '#details' ? 'show active' : ''}" id="details" role="tabpanel">
                 <div class="row">
                   <div class="col-md-6">
@@ -320,7 +322,7 @@ function renderNodeData(data) {
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </div> -->
               </div>
               
               <div class="tab-pane fade ${activeTabId === '#jobs' ? 'show active' : ''}" id="jobs" role="tabpanel">
