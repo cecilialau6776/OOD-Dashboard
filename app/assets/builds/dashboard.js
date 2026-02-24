@@ -11062,6 +11062,9 @@ jQuery(function() {
       $("div[role=main]").prepend(html.split("ALERT_MSG").join(msg));
     }
   });
+  $(() => {
+    $(".homepage-widgets").removeClass("d-none");
+  });
 });
 /**
  * @license

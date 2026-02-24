@@ -16,16 +16,14 @@
 
 import jQuery from 'jquery';
 import 'jquery-ujs';
-import DataTable from 'datatables.net';
+import DataTable from 'datatables.net-bs5';
 import 'datatables.net-select/js/dataTables.select';
+import 'datatables.net-fixedheader';
 
 import Rails from '@rails/ujs';
 
 // Import Bootstrap
 import 'bootstrap/dist/js/bootstrap';
-
-// import 'moment';
-// import 'daterangepicker';
 
 // lots of inline scripts and stuff rely on jquery just being available
 window.jQuery = jQuery;

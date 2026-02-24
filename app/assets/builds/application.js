@@ -86,12 +86,12 @@ var require_jquery = __commonJS({
         }
         return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
       }
-      var version = "3.7.1", rhtmlSuffix = /HTML$/i, jQuery3 = function(selector, context) {
-        return new jQuery3.fn.init(selector, context);
+      var version = "3.7.1", rhtmlSuffix = /HTML$/i, jQuery5 = function(selector, context) {
+        return new jQuery5.fn.init(selector, context);
       };
-      jQuery3.fn = jQuery3.prototype = {
+      jQuery5.fn = jQuery5.prototype = {
         jquery: version,
-        constructor: jQuery3,
+        constructor: jQuery5,
         length: 0,
         toArray: function() {
           return slice.call(this);
@@ -103,15 +103,15 @@ var require_jquery = __commonJS({
           return num < 0 ? this[num + this.length] : this[num];
         },
         pushStack: function(elems) {
-          var ret = jQuery3.merge(this.constructor(), elems);
+          var ret = jQuery5.merge(this.constructor(), elems);
           ret.prevObject = this;
           return ret;
         },
         each: function(callback) {
-          return jQuery3.each(this, callback);
+          return jQuery5.each(this, callback);
         },
         map: function(callback) {
-          return this.pushStack(jQuery3.map(this, function(elem, i) {
+          return this.pushStack(jQuery5.map(this, function(elem, i) {
             return callback.call(elem, i, elem);
           }));
         },
@@ -125,12 +125,12 @@ var require_jquery = __commonJS({
           return this.eq(-1);
         },
         even: function() {
-          return this.pushStack(jQuery3.grep(this, function(_elem, i) {
+          return this.pushStack(jQuery5.grep(this, function(_elem, i) {
             return (i + 1) % 2;
           }));
         },
         odd: function() {
-          return this.pushStack(jQuery3.grep(this, function(_elem, i) {
+          return this.pushStack(jQuery5.grep(this, function(_elem, i) {
             return i % 2;
           }));
         },
@@ -145,7 +145,7 @@ var require_jquery = __commonJS({
         sort: arr.sort,
         splice: arr.splice
       };
-      jQuery3.extend = jQuery3.fn.extend = function() {
+      jQuery5.extend = jQuery5.fn.extend = function() {
         var options, name, src, copy, copyIsArray, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;
         if (typeof target === "boolean") {
           deep = target;
@@ -166,17 +166,17 @@ var require_jquery = __commonJS({
               if (name === "__proto__" || target === copy) {
                 continue;
               }
-              if (deep && copy && (jQuery3.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
+              if (deep && copy && (jQuery5.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
                 src = target[name];
                 if (copyIsArray && !Array.isArray(src)) {
                   clone = [];
-                } else if (!copyIsArray && !jQuery3.isPlainObject(src)) {
+                } else if (!copyIsArray && !jQuery5.isPlainObject(src)) {
                   clone = {};
                 } else {
                   clone = src;
                 }
                 copyIsArray = false;
-                target[name] = jQuery3.extend(deep, clone, copy);
+                target[name] = jQuery5.extend(deep, clone, copy);
               } else if (copy !== void 0) {
                 target[name] = copy;
               }
@@ -185,7 +185,7 @@ var require_jquery = __commonJS({
         }
         return target;
       };
-      jQuery3.extend({
+      jQuery5.extend({
         expando: "jQuery" + (version + Math.random()).replace(/\D/g, ""),
         isReady: true,
         error: function(msg) {
@@ -237,7 +237,7 @@ var require_jquery = __commonJS({
           var node, ret = "", i = 0, nodeType = elem.nodeType;
           if (!nodeType) {
             while (node = elem[i++]) {
-              ret += jQuery3.text(node);
+              ret += jQuery5.text(node);
             }
           }
           if (nodeType === 1 || nodeType === 11) {
@@ -255,7 +255,7 @@ var require_jquery = __commonJS({
           var ret = results || [];
           if (arr2 != null) {
             if (isArrayLike(Object(arr2))) {
-              jQuery3.merge(
+              jQuery5.merge(
                 ret,
                 typeof arr2 === "string" ? [arr2] : arr2
               );
@@ -314,9 +314,9 @@ var require_jquery = __commonJS({
         support
       });
       if (typeof Symbol === "function") {
-        jQuery3.fn[Symbol.iterator] = arr[Symbol.iterator];
+        jQuery5.fn[Symbol.iterator] = arr[Symbol.iterator];
       }
-      jQuery3.each(
+      jQuery5.each(
         "Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "),
         function(_i, name) {
           class2type["[object " + name + "]"] = name.toLowerCase();
@@ -340,7 +340,7 @@ var require_jquery = __commonJS({
         "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$",
         "g"
       );
-      jQuery3.contains = function(a, b) {
+      jQuery5.contains = function(a, b) {
         var bup = b && b.parentNode;
         return a === bup || !!(bup && bup.nodeType === 1 && (a.contains ? a.contains(bup) : a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16));
       };
@@ -354,12 +354,12 @@ var require_jquery = __commonJS({
         }
         return "\\" + ch;
       }
-      jQuery3.escapeSelector = function(sel) {
+      jQuery5.escapeSelector = function(sel) {
         return (sel + "").replace(rcssescape, fcssescape);
       };
       var preferredDoc = document2, pushNative = push;
       (function() {
-        var i, Expr, outermostContext, sortInput, hasDuplicate, push2 = pushNative, document3, documentElement2, documentIsHTML, rbuggyQSA, matches2, expando = jQuery3.expando, dirruns = 0, done = 0, classCache = createCache(), tokenCache = createCache(), compilerCache = createCache(), nonnativeSelectorCache = createCache(), sortOrder = function(a, b) {
+        var i, Expr, outermostContext, sortInput, hasDuplicate, push2 = pushNative, document3, documentElement2, documentIsHTML, rbuggyQSA, matches2, expando = jQuery5.expando, dirruns = 0, done = 0, classCache = createCache(), tokenCache = createCache(), compilerCache = createCache(), nonnativeSelectorCache = createCache(), sortOrder = function(a, b) {
           if (a === b) {
             hasDuplicate = true;
           }
@@ -454,7 +454,7 @@ var require_jquery = __commonJS({
                   newContext = rsibling.test(selector) && testContext(context.parentNode) || context;
                   if (newContext != context || !support.scope) {
                     if (nid = context.getAttribute("id")) {
-                      nid = jQuery3.escapeSelector(nid);
+                      nid = jQuery5.escapeSelector(nid);
                     } else {
                       context.setAttribute("id", nid = expando);
                     }
@@ -564,14 +564,14 @@ var require_jquery = __commonJS({
           }
           document3 = doc;
           documentElement2 = document3.documentElement;
-          documentIsHTML = !jQuery3.isXMLDoc(document3);
+          documentIsHTML = !jQuery5.isXMLDoc(document3);
           matches2 = documentElement2.matches || documentElement2.webkitMatchesSelector || documentElement2.msMatchesSelector;
           if (documentElement2.msMatchesSelector && preferredDoc != document3 && (subWindow = document3.defaultView) && subWindow.top !== subWindow) {
             subWindow.addEventListener("unload", unloadHandler);
           }
           support.getById = assert(function(el) {
-            documentElement2.appendChild(el).id = jQuery3.expando;
-            return !document3.getElementsByName || !document3.getElementsByName(jQuery3.expando).length;
+            documentElement2.appendChild(el).id = jQuery5.expando;
+            return !document3.getElementsByName || !document3.getElementsByName(jQuery5.expando).length;
           });
           support.disconnectedMatch = assert(function(el) {
             return matches2.call(el, "*");
@@ -719,7 +719,7 @@ var require_jquery = __commonJS({
           if ((context.ownerDocument || context) != document3) {
             setDocument(context);
           }
-          return jQuery3.contains(context, elem);
+          return jQuery5.contains(context, elem);
         };
         find.attr = function(elem, name) {
           if ((elem.ownerDocument || elem) != document3) {
@@ -734,7 +734,7 @@ var require_jquery = __commonJS({
         find.error = function(msg) {
           throw new Error("Syntax error, unrecognized expression: " + msg);
         };
-        jQuery3.uniqueSort = function(results) {
+        jQuery5.uniqueSort = function(results) {
           var elem, duplicates = [], j = 0, i2 = 0;
           hasDuplicate = !support.sortStable;
           sortInput = !support.sortStable && slice.call(results, 0);
@@ -752,10 +752,10 @@ var require_jquery = __commonJS({
           sortInput = null;
           return results;
         };
-        jQuery3.fn.uniqueSort = function() {
-          return this.pushStack(jQuery3.uniqueSort(slice.apply(this)));
+        jQuery5.fn.uniqueSort = function() {
+          return this.pushStack(jQuery5.uniqueSort(slice.apply(this)));
         };
-        Expr = jQuery3.expr = {
+        Expr = jQuery5.expr = {
           cacheLength: 50,
           createPseudo: markFunction,
           match: matchExpr,
@@ -957,7 +957,7 @@ var require_jquery = __commonJS({
             contains: markFunction(function(text) {
               text = text.replace(runescape, funescape);
               return function(elem) {
-                return (elem.textContent || jQuery3.text(elem)).indexOf(text) > -1;
+                return (elem.textContent || jQuery5.text(elem)).indexOf(text) > -1;
               };
             }),
             lang: markFunction(function(lang) {
@@ -1348,7 +1348,7 @@ var require_jquery = __commonJS({
               }
               push2.apply(results, setMatched);
               if (outermost && !seed && setMatched.length > 0 && matchedCount + setMatchers.length > 1) {
-                jQuery3.uniqueSort(results);
+                jQuery5.uniqueSort(results);
               }
             }
             if (outermost) {
@@ -1435,25 +1435,25 @@ var require_jquery = __commonJS({
         support.sortDetached = assert(function(el) {
           return el.compareDocumentPosition(document3.createElement("fieldset")) & 1;
         });
-        jQuery3.find = find;
-        jQuery3.expr[":"] = jQuery3.expr.pseudos;
-        jQuery3.unique = jQuery3.uniqueSort;
+        jQuery5.find = find;
+        jQuery5.expr[":"] = jQuery5.expr.pseudos;
+        jQuery5.unique = jQuery5.uniqueSort;
         find.compile = compile;
         find.select = select;
         find.setDocument = setDocument;
         find.tokenize = tokenize;
-        find.escape = jQuery3.escapeSelector;
-        find.getText = jQuery3.text;
-        find.isXML = jQuery3.isXMLDoc;
-        find.selectors = jQuery3.expr;
-        find.support = jQuery3.support;
-        find.uniqueSort = jQuery3.uniqueSort;
+        find.escape = jQuery5.escapeSelector;
+        find.getText = jQuery5.text;
+        find.isXML = jQuery5.isXMLDoc;
+        find.selectors = jQuery5.expr;
+        find.support = jQuery5.support;
+        find.uniqueSort = jQuery5.uniqueSort;
       })();
       var dir = function(elem, dir2, until) {
         var matched = [], truncate = until !== void 0;
         while ((elem = elem[dir2]) && elem.nodeType !== 9) {
           if (elem.nodeType === 1) {
-            if (truncate && jQuery3(elem).is(until)) {
+            if (truncate && jQuery5(elem).is(until)) {
               break;
             }
             matched.push(elem);
@@ -1470,45 +1470,45 @@ var require_jquery = __commonJS({
         }
         return matched;
       };
-      var rneedsContext = jQuery3.expr.match.needsContext;
+      var rneedsContext = jQuery5.expr.match.needsContext;
       var rsingleTag = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i;
       function winnow(elements, qualifier, not) {
         if (isFunction(qualifier)) {
-          return jQuery3.grep(elements, function(elem, i) {
+          return jQuery5.grep(elements, function(elem, i) {
             return !!qualifier.call(elem, i, elem) !== not;
           });
         }
         if (qualifier.nodeType) {
-          return jQuery3.grep(elements, function(elem) {
+          return jQuery5.grep(elements, function(elem) {
             return elem === qualifier !== not;
           });
         }
         if (typeof qualifier !== "string") {
-          return jQuery3.grep(elements, function(elem) {
+          return jQuery5.grep(elements, function(elem) {
             return indexOf.call(qualifier, elem) > -1 !== not;
           });
         }
-        return jQuery3.filter(qualifier, elements, not);
+        return jQuery5.filter(qualifier, elements, not);
       }
-      jQuery3.filter = function(expr, elems, not) {
+      jQuery5.filter = function(expr, elems, not) {
         var elem = elems[0];
         if (not) {
           expr = ":not(" + expr + ")";
         }
         if (elems.length === 1 && elem.nodeType === 1) {
-          return jQuery3.find.matchesSelector(elem, expr) ? [elem] : [];
+          return jQuery5.find.matchesSelector(elem, expr) ? [elem] : [];
         }
-        return jQuery3.find.matches(expr, jQuery3.grep(elems, function(elem2) {
+        return jQuery5.find.matches(expr, jQuery5.grep(elems, function(elem2) {
           return elem2.nodeType === 1;
         }));
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         find: function(selector) {
           var i, ret, len = this.length, self2 = this;
           if (typeof selector !== "string") {
-            return this.pushStack(jQuery3(selector).filter(function() {
+            return this.pushStack(jQuery5(selector).filter(function() {
               for (i = 0; i < len; i++) {
-                if (jQuery3.contains(self2[i], this)) {
+                if (jQuery5.contains(self2[i], this)) {
                   return true;
                 }
               }
@@ -1516,9 +1516,9 @@ var require_jquery = __commonJS({
           }
           ret = this.pushStack([]);
           for (i = 0; i < len; i++) {
-            jQuery3.find(selector, self2[i], ret);
+            jQuery5.find(selector, self2[i], ret);
           }
-          return len > 1 ? jQuery3.uniqueSort(ret) : ret;
+          return len > 1 ? jQuery5.uniqueSort(ret) : ret;
         },
         filter: function(selector) {
           return this.pushStack(winnow(this, selector || [], false));
@@ -1529,12 +1529,12 @@ var require_jquery = __commonJS({
         is: function(selector) {
           return !!winnow(
             this,
-            typeof selector === "string" && rneedsContext.test(selector) ? jQuery3(selector) : selector || [],
+            typeof selector === "string" && rneedsContext.test(selector) ? jQuery5(selector) : selector || [],
             false
           ).length;
         }
       });
-      var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init = jQuery3.fn.init = function(selector, context, root) {
+      var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init = jQuery5.fn.init = function(selector, context, root) {
         var match, elem;
         if (!selector) {
           return this;
@@ -1548,13 +1548,13 @@ var require_jquery = __commonJS({
           }
           if (match && (match[1] || !context)) {
             if (match[1]) {
-              context = context instanceof jQuery3 ? context[0] : context;
-              jQuery3.merge(this, jQuery3.parseHTML(
+              context = context instanceof jQuery5 ? context[0] : context;
+              jQuery5.merge(this, jQuery5.parseHTML(
                 match[1],
                 context && context.nodeType ? context.ownerDocument || context : document2,
                 true
               ));
-              if (rsingleTag.test(match[1]) && jQuery3.isPlainObject(context)) {
+              if (rsingleTag.test(match[1]) && jQuery5.isPlainObject(context)) {
                 for (match in context) {
                   if (isFunction(this[match])) {
                     this[match](context[match]);
@@ -1582,50 +1582,50 @@ var require_jquery = __commonJS({
           this.length = 1;
           return this;
         } else if (isFunction(selector)) {
-          return root.ready !== void 0 ? root.ready(selector) : selector(jQuery3);
+          return root.ready !== void 0 ? root.ready(selector) : selector(jQuery5);
         }
-        return jQuery3.makeArray(selector, this);
+        return jQuery5.makeArray(selector, this);
       };
-      init.prototype = jQuery3.fn;
-      rootjQuery = jQuery3(document2);
+      init.prototype = jQuery5.fn;
+      rootjQuery = jQuery5(document2);
       var rparentsprev = /^(?:parents|prev(?:Until|All))/, guaranteedUnique = {
         children: true,
         contents: true,
         next: true,
         prev: true
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         has: function(target) {
-          var targets = jQuery3(target, this), l = targets.length;
+          var targets = jQuery5(target, this), l = targets.length;
           return this.filter(function() {
             var i = 0;
             for (; i < l; i++) {
-              if (jQuery3.contains(this, targets[i])) {
+              if (jQuery5.contains(this, targets[i])) {
                 return true;
               }
             }
           });
         },
         closest: function(selectors, context) {
-          var cur, i = 0, l = this.length, matched = [], targets = typeof selectors !== "string" && jQuery3(selectors);
+          var cur, i = 0, l = this.length, matched = [], targets = typeof selectors !== "string" && jQuery5(selectors);
           if (!rneedsContext.test(selectors)) {
             for (; i < l; i++) {
               for (cur = this[i]; cur && cur !== context; cur = cur.parentNode) {
-                if (cur.nodeType < 11 && (targets ? targets.index(cur) > -1 : cur.nodeType === 1 && jQuery3.find.matchesSelector(cur, selectors))) {
+                if (cur.nodeType < 11 && (targets ? targets.index(cur) > -1 : cur.nodeType === 1 && jQuery5.find.matchesSelector(cur, selectors))) {
                   matched.push(cur);
                   break;
                 }
               }
             }
           }
-          return this.pushStack(matched.length > 1 ? jQuery3.uniqueSort(matched) : matched);
+          return this.pushStack(matched.length > 1 ? jQuery5.uniqueSort(matched) : matched);
         },
         index: function(elem) {
           if (!elem) {
             return this[0] && this[0].parentNode ? this.first().prevAll().length : -1;
           }
           if (typeof elem === "string") {
-            return indexOf.call(jQuery3(elem), this[0]);
+            return indexOf.call(jQuery5(elem), this[0]);
           }
           return indexOf.call(
             this,
@@ -1634,8 +1634,8 @@ var require_jquery = __commonJS({
         },
         add: function(selector, context) {
           return this.pushStack(
-            jQuery3.uniqueSort(
-              jQuery3.merge(this.get(), jQuery3(selector, context))
+            jQuery5.uniqueSort(
+              jQuery5.merge(this.get(), jQuery5(selector, context))
             )
           );
         },
@@ -1650,7 +1650,7 @@ var require_jquery = __commonJS({
         }
         return cur;
       }
-      jQuery3.each({
+      jQuery5.each({
         parent: function(elem) {
           var parent = elem.parentNode;
           return parent && parent.nodeType !== 11 ? parent : null;
@@ -1692,20 +1692,20 @@ var require_jquery = __commonJS({
           if (nodeName(elem, "template")) {
             elem = elem.content || elem;
           }
-          return jQuery3.merge([], elem.childNodes);
+          return jQuery5.merge([], elem.childNodes);
         }
       }, function(name, fn) {
-        jQuery3.fn[name] = function(until, selector) {
-          var matched = jQuery3.map(this, fn, until);
+        jQuery5.fn[name] = function(until, selector) {
+          var matched = jQuery5.map(this, fn, until);
           if (name.slice(-5) !== "Until") {
             selector = until;
           }
           if (selector && typeof selector === "string") {
-            matched = jQuery3.filter(selector, matched);
+            matched = jQuery5.filter(selector, matched);
           }
           if (this.length > 1) {
             if (!guaranteedUnique[name]) {
-              jQuery3.uniqueSort(matched);
+              jQuery5.uniqueSort(matched);
             }
             if (rparentsprev.test(name)) {
               matched.reverse();
@@ -1717,13 +1717,13 @@ var require_jquery = __commonJS({
       var rnothtmlwhite = /[^\x20\t\r\n\f]+/g;
       function createOptions(options) {
         var object = {};
-        jQuery3.each(options.match(rnothtmlwhite) || [], function(_, flag) {
+        jQuery5.each(options.match(rnothtmlwhite) || [], function(_, flag) {
           object[flag] = true;
         });
         return object;
       }
-      jQuery3.Callbacks = function(options) {
-        options = typeof options === "string" ? createOptions(options) : jQuery3.extend({}, options);
+      jQuery5.Callbacks = function(options) {
+        options = typeof options === "string" ? createOptions(options) : jQuery5.extend({}, options);
         var firing, memory, fired, locked, list = [], queue = [], firingIndex = -1, fire2 = function() {
           locked = locked || options.once;
           fired = firing = true;
@@ -1755,7 +1755,7 @@ var require_jquery = __commonJS({
                 queue.push(memory);
               }
               (function add(args) {
-                jQuery3.each(args, function(_, arg) {
+                jQuery5.each(args, function(_, arg) {
                   if (isFunction(arg)) {
                     if (!options.unique || !self2.has(arg)) {
                       list.push(arg);
@@ -1772,9 +1772,9 @@ var require_jquery = __commonJS({
             return this;
           },
           remove: function() {
-            jQuery3.each(arguments, function(_, arg) {
+            jQuery5.each(arguments, function(_, arg) {
               var index;
-              while ((index = jQuery3.inArray(arg, list, index)) > -1) {
+              while ((index = jQuery5.inArray(arg, list, index)) > -1) {
                 list.splice(index, 1);
                 if (index <= firingIndex) {
                   firingIndex--;
@@ -1784,7 +1784,7 @@ var require_jquery = __commonJS({
             return this;
           },
           has: function(fn) {
-            return fn ? jQuery3.inArray(fn, list) > -1 : list.length > 0;
+            return fn ? jQuery5.inArray(fn, list) > -1 : list.length > 0;
           },
           empty: function() {
             if (list) {
@@ -1851,29 +1851,29 @@ var require_jquery = __commonJS({
           reject.apply(void 0, [value2]);
         }
       }
-      jQuery3.extend({
+      jQuery5.extend({
         Deferred: function(func) {
           var tuples = [
             [
               "notify",
               "progress",
-              jQuery3.Callbacks("memory"),
-              jQuery3.Callbacks("memory"),
+              jQuery5.Callbacks("memory"),
+              jQuery5.Callbacks("memory"),
               2
             ],
             [
               "resolve",
               "done",
-              jQuery3.Callbacks("once memory"),
-              jQuery3.Callbacks("once memory"),
+              jQuery5.Callbacks("once memory"),
+              jQuery5.Callbacks("once memory"),
               0,
               "resolved"
             ],
             [
               "reject",
               "fail",
-              jQuery3.Callbacks("once memory"),
-              jQuery3.Callbacks("once memory"),
+              jQuery5.Callbacks("once memory"),
+              jQuery5.Callbacks("once memory"),
               1,
               "rejected"
             ]
@@ -1890,8 +1890,8 @@ var require_jquery = __commonJS({
             },
             pipe: function() {
               var fns = arguments;
-              return jQuery3.Deferred(function(newDefer) {
-                jQuery3.each(tuples, function(_i, tuple) {
+              return jQuery5.Deferred(function(newDefer) {
+                jQuery5.each(tuples, function(_i, tuple) {
                   var fn = isFunction(fns[tuple[4]]) && fns[tuple[4]];
                   deferred[tuple[1]](function() {
                     var returned = fn && fn.apply(this, arguments);
@@ -1954,8 +1954,8 @@ var require_jquery = __commonJS({
                     try {
                       mightThrow();
                     } catch (e) {
-                      if (jQuery3.Deferred.exceptionHook) {
-                        jQuery3.Deferred.exceptionHook(
+                      if (jQuery5.Deferred.exceptionHook) {
+                        jQuery5.Deferred.exceptionHook(
                           e,
                           process.error
                         );
@@ -1972,16 +1972,16 @@ var require_jquery = __commonJS({
                   if (depth) {
                     process();
                   } else {
-                    if (jQuery3.Deferred.getErrorHook) {
-                      process.error = jQuery3.Deferred.getErrorHook();
-                    } else if (jQuery3.Deferred.getStackHook) {
-                      process.error = jQuery3.Deferred.getStackHook();
+                    if (jQuery5.Deferred.getErrorHook) {
+                      process.error = jQuery5.Deferred.getErrorHook();
+                    } else if (jQuery5.Deferred.getStackHook) {
+                      process.error = jQuery5.Deferred.getStackHook();
                     }
                     window2.setTimeout(process);
                   }
                 };
               }
-              return jQuery3.Deferred(function(newDefer) {
+              return jQuery5.Deferred(function(newDefer) {
                 tuples[0][3].add(
                   resolve(
                     0,
@@ -2007,10 +2007,10 @@ var require_jquery = __commonJS({
               }).promise();
             },
             promise: function(obj) {
-              return obj != null ? jQuery3.extend(obj, promise) : promise;
+              return obj != null ? jQuery5.extend(obj, promise) : promise;
             }
           }, deferred = {};
-          jQuery3.each(tuples, function(i, tuple) {
+          jQuery5.each(tuples, function(i, tuple) {
             var list = tuple[2], stateString = tuple[5];
             promise[tuple[1]] = list.add;
             if (stateString) {
@@ -2038,7 +2038,7 @@ var require_jquery = __commonJS({
           return deferred;
         },
         when: function(singleValue) {
-          var remaining = arguments.length, i = remaining, resolveContexts = Array(i), resolveValues = slice.call(arguments), primary = jQuery3.Deferred(), updateFunc = function(i2) {
+          var remaining = arguments.length, i = remaining, resolveContexts = Array(i), resolveValues = slice.call(arguments), primary = jQuery5.Deferred(), updateFunc = function(i2) {
             return function(value) {
               resolveContexts[i2] = this;
               resolveValues[i2] = arguments.length > 1 ? slice.call(arguments) : value;
@@ -2065,7 +2065,7 @@ var require_jquery = __commonJS({
         }
       });
       var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
-      jQuery3.Deferred.exceptionHook = function(error, asyncError) {
+      jQuery5.Deferred.exceptionHook = function(error, asyncError) {
         if (window2.console && window2.console.warn && error && rerrorNames.test(error.name)) {
           window2.console.warn(
             "jQuery.Deferred exception: " + error.message,
@@ -2074,40 +2074,40 @@ var require_jquery = __commonJS({
           );
         }
       };
-      jQuery3.readyException = function(error) {
+      jQuery5.readyException = function(error) {
         window2.setTimeout(function() {
           throw error;
         });
       };
-      var readyList = jQuery3.Deferred();
-      jQuery3.fn.ready = function(fn) {
+      var readyList = jQuery5.Deferred();
+      jQuery5.fn.ready = function(fn) {
         readyList.then(fn).catch(function(error) {
-          jQuery3.readyException(error);
+          jQuery5.readyException(error);
         });
         return this;
       };
-      jQuery3.extend({
+      jQuery5.extend({
         isReady: false,
         readyWait: 1,
         ready: function(wait) {
-          if (wait === true ? --jQuery3.readyWait : jQuery3.isReady) {
+          if (wait === true ? --jQuery5.readyWait : jQuery5.isReady) {
             return;
           }
-          jQuery3.isReady = true;
-          if (wait !== true && --jQuery3.readyWait > 0) {
+          jQuery5.isReady = true;
+          if (wait !== true && --jQuery5.readyWait > 0) {
             return;
           }
-          readyList.resolveWith(document2, [jQuery3]);
+          readyList.resolveWith(document2, [jQuery5]);
         }
       });
-      jQuery3.ready.then = readyList.then;
+      jQuery5.ready.then = readyList.then;
       function completed() {
         document2.removeEventListener("DOMContentLoaded", completed);
         window2.removeEventListener("load", completed);
-        jQuery3.ready();
+        jQuery5.ready();
       }
       if (document2.readyState === "complete" || document2.readyState !== "loading" && !document2.documentElement.doScroll) {
-        window2.setTimeout(jQuery3.ready);
+        window2.setTimeout(jQuery5.ready);
       } else {
         document2.addEventListener("DOMContentLoaded", completed);
         window2.addEventListener("load", completed);
@@ -2131,7 +2131,7 @@ var require_jquery = __commonJS({
             } else {
               bulk = fn;
               fn = function(elem, _key, value2) {
-                return bulk.call(jQuery3(elem), value2);
+                return bulk.call(jQuery5(elem), value2);
               };
             }
           }
@@ -2164,7 +2164,7 @@ var require_jquery = __commonJS({
         return owner.nodeType === 1 || owner.nodeType === 9 || !+owner.nodeType;
       };
       function Data() {
-        this.expando = jQuery3.expando + Data.uid++;
+        this.expando = jQuery5.expando + Data.uid++;
       }
       Data.uid = 1;
       Data.prototype = {
@@ -2223,7 +2223,7 @@ var require_jquery = __commonJS({
               delete cache[key[i]];
             }
           }
-          if (key === void 0 || jQuery3.isEmptyObject(cache)) {
+          if (key === void 0 || jQuery5.isEmptyObject(cache)) {
             if (owner.nodeType) {
               owner[this.expando] = void 0;
             } else {
@@ -2233,7 +2233,7 @@ var require_jquery = __commonJS({
         },
         hasData: function(owner) {
           var cache = owner[this.expando];
-          return cache !== void 0 && !jQuery3.isEmptyObject(cache);
+          return cache !== void 0 && !jQuery5.isEmptyObject(cache);
         }
       };
       var dataPriv = new Data();
@@ -2274,7 +2274,7 @@ var require_jquery = __commonJS({
         }
         return data;
       }
-      jQuery3.extend({
+      jQuery5.extend({
         hasData: function(elem) {
           return dataUser.hasData(elem) || dataPriv.hasData(elem);
         },
@@ -2291,7 +2291,7 @@ var require_jquery = __commonJS({
           dataPriv.remove(elem, name);
         }
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         data: function(key, value) {
           var i, name, data, elem = this[0], attrs = elem && elem.attributes;
           if (key === void 0) {
@@ -2342,7 +2342,7 @@ var require_jquery = __commonJS({
           });
         }
       });
-      jQuery3.extend({
+      jQuery5.extend({
         queue: function(elem, type, data) {
           var queue;
           if (elem) {
@@ -2350,7 +2350,7 @@ var require_jquery = __commonJS({
             queue = dataPriv.get(elem, type);
             if (data) {
               if (!queue || Array.isArray(data)) {
-                queue = dataPriv.access(elem, type, jQuery3.makeArray(data));
+                queue = dataPriv.access(elem, type, jQuery5.makeArray(data));
               } else {
                 queue.push(data);
               }
@@ -2360,8 +2360,8 @@ var require_jquery = __commonJS({
         },
         dequeue: function(elem, type) {
           type = type || "fx";
-          var queue = jQuery3.queue(elem, type), startLength = queue.length, fn = queue.shift(), hooks = jQuery3._queueHooks(elem, type), next = function() {
-            jQuery3.dequeue(elem, type);
+          var queue = jQuery5.queue(elem, type), startLength = queue.length, fn = queue.shift(), hooks = jQuery5._queueHooks(elem, type), next = function() {
+            jQuery5.dequeue(elem, type);
           };
           if (fn === "inprogress") {
             fn = queue.shift();
@@ -2381,13 +2381,13 @@ var require_jquery = __commonJS({
         _queueHooks: function(elem, type) {
           var key = type + "queueHooks";
           return dataPriv.get(elem, key) || dataPriv.access(elem, key, {
-            empty: jQuery3.Callbacks("once memory").add(function() {
+            empty: jQuery5.Callbacks("once memory").add(function() {
               dataPriv.remove(elem, [type + "queue", key]);
             })
           });
         }
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         queue: function(type, data) {
           var setter = 2;
           if (typeof type !== "string") {
@@ -2396,26 +2396,26 @@ var require_jquery = __commonJS({
             setter--;
           }
           if (arguments.length < setter) {
-            return jQuery3.queue(this[0], type);
+            return jQuery5.queue(this[0], type);
           }
           return data === void 0 ? this : this.each(function() {
-            var queue = jQuery3.queue(this, type, data);
-            jQuery3._queueHooks(this, type);
+            var queue = jQuery5.queue(this, type, data);
+            jQuery5._queueHooks(this, type);
             if (type === "fx" && queue[0] !== "inprogress") {
-              jQuery3.dequeue(this, type);
+              jQuery5.dequeue(this, type);
             }
           });
         },
         dequeue: function(type) {
           return this.each(function() {
-            jQuery3.dequeue(this, type);
+            jQuery5.dequeue(this, type);
           });
         },
         clearQueue: function(type) {
           return this.queue(type || "fx", []);
         },
         promise: function(type, obj) {
-          var tmp, count = 1, defer = jQuery3.Deferred(), elements = this, i = this.length, resolve = function() {
+          var tmp, count = 1, defer = jQuery5.Deferred(), elements = this, i = this.length, resolve = function() {
             if (!--count) {
               defer.resolveWith(elements, [elements]);
             }
@@ -2441,36 +2441,36 @@ var require_jquery = __commonJS({
       var cssExpand = ["Top", "Right", "Bottom", "Left"];
       var documentElement = document2.documentElement;
       var isAttached = function(elem) {
-        return jQuery3.contains(elem.ownerDocument, elem);
+        return jQuery5.contains(elem.ownerDocument, elem);
       }, composed = { composed: true };
       if (documentElement.getRootNode) {
         isAttached = function(elem) {
-          return jQuery3.contains(elem.ownerDocument, elem) || elem.getRootNode(composed) === elem.ownerDocument;
+          return jQuery5.contains(elem.ownerDocument, elem) || elem.getRootNode(composed) === elem.ownerDocument;
         };
       }
       var isHiddenWithinTree = function(elem, el) {
         elem = el || elem;
-        return elem.style.display === "none" || elem.style.display === "" && isAttached(elem) && jQuery3.css(elem, "display") === "none";
+        return elem.style.display === "none" || elem.style.display === "" && isAttached(elem) && jQuery5.css(elem, "display") === "none";
       };
       function adjustCSS(elem, prop, valueParts, tween) {
         var adjusted, scale, maxIterations = 20, currentValue = tween ? function() {
           return tween.cur();
         } : function() {
-          return jQuery3.css(elem, prop, "");
-        }, initial = currentValue(), unit = valueParts && valueParts[3] || (jQuery3.cssNumber[prop] ? "" : "px"), initialInUnit = elem.nodeType && (jQuery3.cssNumber[prop] || unit !== "px" && +initial) && rcssNum.exec(jQuery3.css(elem, prop));
+          return jQuery5.css(elem, prop, "");
+        }, initial = currentValue(), unit = valueParts && valueParts[3] || (jQuery5.cssNumber[prop] ? "" : "px"), initialInUnit = elem.nodeType && (jQuery5.cssNumber[prop] || unit !== "px" && +initial) && rcssNum.exec(jQuery5.css(elem, prop));
         if (initialInUnit && initialInUnit[3] !== unit) {
           initial = initial / 2;
           unit = unit || initialInUnit[3];
           initialInUnit = +initial || 1;
           while (maxIterations--) {
-            jQuery3.style(elem, prop, initialInUnit + unit);
+            jQuery5.style(elem, prop, initialInUnit + unit);
             if ((1 - scale) * (1 - (scale = currentValue() / initial || 0.5)) <= 0) {
               maxIterations = 0;
             }
             initialInUnit = initialInUnit / scale;
           }
           initialInUnit = initialInUnit * 2;
-          jQuery3.style(elem, prop, initialInUnit + unit);
+          jQuery5.style(elem, prop, initialInUnit + unit);
           valueParts = valueParts || [];
         }
         if (valueParts) {
@@ -2491,7 +2491,7 @@ var require_jquery = __commonJS({
           return display;
         }
         temp = doc.body.appendChild(doc.createElement(nodeName2));
-        display = jQuery3.css(temp, "display");
+        display = jQuery5.css(temp, "display");
         temp.parentNode.removeChild(temp);
         if (display === "none") {
           display = "block";
@@ -2531,7 +2531,7 @@ var require_jquery = __commonJS({
         }
         return elements;
       }
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         show: function() {
           return showHide(this, true);
         },
@@ -2544,9 +2544,9 @@ var require_jquery = __commonJS({
           }
           return this.each(function() {
             if (isHiddenWithinTree(this)) {
-              jQuery3(this).show();
+              jQuery5(this).show();
             } else {
-              jQuery3(this).hide();
+              jQuery5(this).hide();
             }
           });
         }
@@ -2588,7 +2588,7 @@ var require_jquery = __commonJS({
           ret = [];
         }
         if (tag === void 0 || tag && nodeName(context, tag)) {
-          return jQuery3.merge([context], ret);
+          return jQuery5.merge([context], ret);
         }
         return ret;
       }
@@ -2609,19 +2609,19 @@ var require_jquery = __commonJS({
           elem = elems[i];
           if (elem || elem === 0) {
             if (toType(elem) === "object") {
-              jQuery3.merge(nodes, elem.nodeType ? [elem] : elem);
+              jQuery5.merge(nodes, elem.nodeType ? [elem] : elem);
             } else if (!rhtml.test(elem)) {
               nodes.push(context.createTextNode(elem));
             } else {
               tmp = tmp || fragment.appendChild(context.createElement("div"));
               tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();
               wrap = wrapMap[tag] || wrapMap._default;
-              tmp.innerHTML = wrap[1] + jQuery3.htmlPrefilter(elem) + wrap[2];
+              tmp.innerHTML = wrap[1] + jQuery5.htmlPrefilter(elem) + wrap[2];
               j = wrap[0];
               while (j--) {
                 tmp = tmp.lastChild;
               }
-              jQuery3.merge(nodes, tmp.childNodes);
+              jQuery5.merge(nodes, tmp.childNodes);
               tmp = fragment.firstChild;
               tmp.textContent = "";
             }
@@ -2630,7 +2630,7 @@ var require_jquery = __commonJS({
         fragment.textContent = "";
         i = 0;
         while (elem = nodes[i++]) {
-          if (selection && jQuery3.inArray(elem, selection) > -1) {
+          if (selection && jQuery5.inArray(elem, selection) > -1) {
             if (ignored) {
               ignored.push(elem);
             }
@@ -2692,16 +2692,16 @@ var require_jquery = __commonJS({
         if (one === 1) {
           origFn = fn;
           fn = function(event) {
-            jQuery3().off(event);
+            jQuery5().off(event);
             return origFn.apply(this, arguments);
           };
-          fn.guid = origFn.guid || (origFn.guid = jQuery3.guid++);
+          fn.guid = origFn.guid || (origFn.guid = jQuery5.guid++);
         }
         return elem.each(function() {
-          jQuery3.event.add(this, types, fn, data, selector);
+          jQuery5.event.add(this, types, fn, data, selector);
         });
       }
-      jQuery3.event = {
+      jQuery5.event = {
         global: {},
         add: function(elem, types, handler, data, selector) {
           var handleObjIn, eventHandle, tmp, events, t, handleObj, special, handlers, type, namespaces, origType, elemData = dataPriv.get(elem);
@@ -2714,17 +2714,17 @@ var require_jquery = __commonJS({
             selector = handleObjIn.selector;
           }
           if (selector) {
-            jQuery3.find.matchesSelector(documentElement, selector);
+            jQuery5.find.matchesSelector(documentElement, selector);
           }
           if (!handler.guid) {
-            handler.guid = jQuery3.guid++;
+            handler.guid = jQuery5.guid++;
           }
           if (!(events = elemData.events)) {
             events = elemData.events = /* @__PURE__ */ Object.create(null);
           }
           if (!(eventHandle = elemData.handle)) {
             eventHandle = elemData.handle = function(e) {
-              return typeof jQuery3 !== "undefined" && jQuery3.event.triggered !== e.type ? jQuery3.event.dispatch.apply(elem, arguments) : void 0;
+              return typeof jQuery5 !== "undefined" && jQuery5.event.triggered !== e.type ? jQuery5.event.dispatch.apply(elem, arguments) : void 0;
             };
           }
           types = (types || "").match(rnothtmlwhite) || [""];
@@ -2736,17 +2736,17 @@ var require_jquery = __commonJS({
             if (!type) {
               continue;
             }
-            special = jQuery3.event.special[type] || {};
+            special = jQuery5.event.special[type] || {};
             type = (selector ? special.delegateType : special.bindType) || type;
-            special = jQuery3.event.special[type] || {};
-            handleObj = jQuery3.extend({
+            special = jQuery5.event.special[type] || {};
+            handleObj = jQuery5.extend({
               type,
               origType,
               data,
               handler,
               guid: handler.guid,
               selector,
-              needsContext: selector && jQuery3.expr.match.needsContext.test(selector),
+              needsContext: selector && jQuery5.expr.match.needsContext.test(selector),
               namespace: namespaces.join(".")
             }, handleObjIn);
             if (!(handlers = events[type])) {
@@ -2769,7 +2769,7 @@ var require_jquery = __commonJS({
             } else {
               handlers.push(handleObj);
             }
-            jQuery3.event.global[type] = true;
+            jQuery5.event.global[type] = true;
           }
         },
         remove: function(elem, types, handler, selector, mappedTypes) {
@@ -2785,11 +2785,11 @@ var require_jquery = __commonJS({
             namespaces = (tmp[2] || "").split(".").sort();
             if (!type) {
               for (type in events) {
-                jQuery3.event.remove(elem, type + types[t], handler, selector, true);
+                jQuery5.event.remove(elem, type + types[t], handler, selector, true);
               }
               continue;
             }
-            special = jQuery3.event.special[type] || {};
+            special = jQuery5.event.special[type] || {};
             type = (selector ? special.delegateType : special.bindType) || type;
             handlers = events[type] || [];
             tmp = tmp[2] && new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)");
@@ -2808,17 +2808,17 @@ var require_jquery = __commonJS({
             }
             if (origCount && !handlers.length) {
               if (!special.teardown || special.teardown.call(elem, namespaces, elemData.handle) === false) {
-                jQuery3.removeEvent(elem, type, elemData.handle);
+                jQuery5.removeEvent(elem, type, elemData.handle);
               }
               delete events[type];
             }
           }
-          if (jQuery3.isEmptyObject(events)) {
+          if (jQuery5.isEmptyObject(events)) {
             dataPriv.remove(elem, "handle events");
           }
         },
         dispatch: function(nativeEvent) {
-          var i, j, ret, matched, handleObj, handlerQueue, args = new Array(arguments.length), event = jQuery3.event.fix(nativeEvent), handlers = (dataPriv.get(this, "events") || /* @__PURE__ */ Object.create(null))[event.type] || [], special = jQuery3.event.special[event.type] || {};
+          var i, j, ret, matched, handleObj, handlerQueue, args = new Array(arguments.length), event = jQuery5.event.fix(nativeEvent), handlers = (dataPriv.get(this, "events") || /* @__PURE__ */ Object.create(null))[event.type] || [], special = jQuery5.event.special[event.type] || {};
           args[0] = event;
           for (i = 1; i < arguments.length; i++) {
             args[i] = arguments[i];
@@ -2827,7 +2827,7 @@ var require_jquery = __commonJS({
           if (special.preDispatch && special.preDispatch.call(this, event) === false) {
             return;
           }
-          handlerQueue = jQuery3.event.handlers.call(this, event, handlers);
+          handlerQueue = jQuery5.event.handlers.call(this, event, handlers);
           i = 0;
           while ((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {
             event.currentTarget = matched.elem;
@@ -2836,7 +2836,7 @@ var require_jquery = __commonJS({
               if (!event.rnamespace || handleObj.namespace === false || event.rnamespace.test(handleObj.namespace)) {
                 event.handleObj = handleObj;
                 event.data = handleObj.data;
-                ret = ((jQuery3.event.special[handleObj.origType] || {}).handle || handleObj.handler).apply(matched.elem, args);
+                ret = ((jQuery5.event.special[handleObj.origType] || {}).handle || handleObj.handler).apply(matched.elem, args);
                 if (ret !== void 0) {
                   if ((event.result = ret) === false) {
                     event.preventDefault();
@@ -2862,7 +2862,7 @@ var require_jquery = __commonJS({
                   handleObj = handlers[i];
                   sel = handleObj.selector + " ";
                   if (matchedSelectors[sel] === void 0) {
-                    matchedSelectors[sel] = handleObj.needsContext ? jQuery3(sel, this).index(cur) > -1 : jQuery3.find(sel, this, null, [cur]).length;
+                    matchedSelectors[sel] = handleObj.needsContext ? jQuery5(sel, this).index(cur) > -1 : jQuery5.find(sel, this, null, [cur]).length;
                   }
                   if (matchedSelectors[sel]) {
                     matchedHandlers.push(handleObj);
@@ -2881,7 +2881,7 @@ var require_jquery = __commonJS({
           return handlerQueue;
         },
         addProp: function(name, hook) {
-          Object.defineProperty(jQuery3.Event.prototype, name, {
+          Object.defineProperty(jQuery5.Event.prototype, name, {
             enumerable: true,
             configurable: true,
             get: isFunction(hook) ? function() {
@@ -2904,7 +2904,7 @@ var require_jquery = __commonJS({
           });
         },
         fix: function(originalEvent) {
-          return originalEvent[jQuery3.expando] ? originalEvent : new jQuery3.Event(originalEvent);
+          return originalEvent[jQuery5.expando] ? originalEvent : new jQuery5.Event(originalEvent);
         },
         special: {
           load: {
@@ -2942,12 +2942,12 @@ var require_jquery = __commonJS({
       function leverageNative(el, type, isSetup) {
         if (!isSetup) {
           if (dataPriv.get(el, type) === void 0) {
-            jQuery3.event.add(el, type, returnTrue);
+            jQuery5.event.add(el, type, returnTrue);
           }
           return;
         }
         dataPriv.set(el, type, false);
-        jQuery3.event.add(el, type, {
+        jQuery5.event.add(el, type, {
           namespace: false,
           handler: function(event) {
             var result, saved = dataPriv.get(this, type);
@@ -2963,11 +2963,11 @@ var require_jquery = __commonJS({
                   event.preventDefault();
                   return result;
                 }
-              } else if ((jQuery3.event.special[type] || {}).delegateType) {
+              } else if ((jQuery5.event.special[type] || {}).delegateType) {
                 event.stopPropagation();
               }
             } else if (saved) {
-              dataPriv.set(this, type, jQuery3.event.trigger(
+              dataPriv.set(this, type, jQuery5.event.trigger(
                 saved[0],
                 saved.slice(1),
                 this
@@ -2978,14 +2978,14 @@ var require_jquery = __commonJS({
           }
         });
       }
-      jQuery3.removeEvent = function(elem, type, handle) {
+      jQuery5.removeEvent = function(elem, type, handle) {
         if (elem.removeEventListener) {
           elem.removeEventListener(type, handle);
         }
       };
-      jQuery3.Event = function(src, props) {
-        if (!(this instanceof jQuery3.Event)) {
-          return new jQuery3.Event(src, props);
+      jQuery5.Event = function(src, props) {
+        if (!(this instanceof jQuery5.Event)) {
+          return new jQuery5.Event(src, props);
         }
         if (src && src.type) {
           this.originalEvent = src;
@@ -2998,13 +2998,13 @@ var require_jquery = __commonJS({
           this.type = src;
         }
         if (props) {
-          jQuery3.extend(this, props);
+          jQuery5.extend(this, props);
         }
         this.timeStamp = src && src.timeStamp || Date.now();
-        this[jQuery3.expando] = true;
+        this[jQuery5.expando] = true;
       };
-      jQuery3.Event.prototype = {
-        constructor: jQuery3.Event,
+      jQuery5.Event.prototype = {
+        constructor: jQuery5.Event,
         isDefaultPrevented: returnFalse,
         isPropagationStopped: returnFalse,
         isImmediatePropagationStopped: returnFalse,
@@ -3032,7 +3032,7 @@ var require_jquery = __commonJS({
           this.stopPropagation();
         }
       };
-      jQuery3.each({
+      jQuery5.each({
         altKey: true,
         bubbles: true,
         cancelable: true,
@@ -3064,11 +3064,11 @@ var require_jquery = __commonJS({
         toElement: true,
         touches: true,
         which: true
-      }, jQuery3.event.addProp);
-      jQuery3.each({ focus: "focusin", blur: "focusout" }, function(type, delegateType) {
+      }, jQuery5.event.addProp);
+      jQuery5.each({ focus: "focusin", blur: "focusout" }, function(type, delegateType) {
         function focusMappedHandler(nativeEvent) {
           if (document2.documentMode) {
-            var handle = dataPriv.get(this, "handle"), event = jQuery3.event.fix(nativeEvent);
+            var handle = dataPriv.get(this, "handle"), event = jQuery5.event.fix(nativeEvent);
             event.type = nativeEvent.type === "focusin" ? "focus" : "blur";
             event.isSimulated = true;
             handle(nativeEvent);
@@ -3076,14 +3076,14 @@ var require_jquery = __commonJS({
               handle(event);
             }
           } else {
-            jQuery3.event.simulate(
+            jQuery5.event.simulate(
               delegateType,
               nativeEvent.target,
-              jQuery3.event.fix(nativeEvent)
+              jQuery5.event.fix(nativeEvent)
             );
           }
         }
-        jQuery3.event.special[type] = {
+        jQuery5.event.special[type] = {
           setup: function() {
             var attaches;
             leverageNative(this, type, true);
@@ -3120,7 +3120,7 @@ var require_jquery = __commonJS({
           },
           delegateType
         };
-        jQuery3.event.special[delegateType] = {
+        jQuery5.event.special[delegateType] = {
           setup: function() {
             var doc = this.ownerDocument || this.document || this, dataHolder = document2.documentMode ? this : doc, attaches = dataPriv.get(dataHolder, delegateType);
             if (!attaches) {
@@ -3147,18 +3147,18 @@ var require_jquery = __commonJS({
           }
         };
       });
-      jQuery3.each({
+      jQuery5.each({
         mouseenter: "mouseover",
         mouseleave: "mouseout",
         pointerenter: "pointerover",
         pointerleave: "pointerout"
       }, function(orig, fix) {
-        jQuery3.event.special[orig] = {
+        jQuery5.event.special[orig] = {
           delegateType: fix,
           bindType: fix,
           handle: function(event) {
             var ret, target = this, related = event.relatedTarget, handleObj = event.handleObj;
-            if (!related || related !== target && !jQuery3.contains(target, related)) {
+            if (!related || related !== target && !jQuery5.contains(target, related)) {
               event.type = handleObj.origType;
               ret = handleObj.handler.apply(this, arguments);
               event.type = fix;
@@ -3167,7 +3167,7 @@ var require_jquery = __commonJS({
           }
         };
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         on: function(types, selector, data, fn) {
           return on(this, types, selector, data, fn);
         },
@@ -3178,7 +3178,7 @@ var require_jquery = __commonJS({
           var handleObj, type;
           if (types && types.preventDefault && types.handleObj) {
             handleObj = types.handleObj;
-            jQuery3(types.delegateTarget).off(
+            jQuery5(types.delegateTarget).off(
               handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
               handleObj.selector,
               handleObj.handler
@@ -3199,14 +3199,14 @@ var require_jquery = __commonJS({
             fn = returnFalse;
           }
           return this.each(function() {
-            jQuery3.event.remove(this, types, fn, selector);
+            jQuery5.event.remove(this, types, fn, selector);
           });
         }
       });
       var rnoInnerhtml = /<script|<style|<link/i, rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i, rcleanScript = /^\s*<!\[CDATA\[|\]\]>\s*$/g;
       function manipulationTarget(elem, content) {
         if (nodeName(elem, "table") && nodeName(content.nodeType !== 11 ? content : content.firstChild, "tr")) {
-          return jQuery3(elem).children("tbody")[0] || elem;
+          return jQuery5(elem).children("tbody")[0] || elem;
         }
         return elem;
       }
@@ -3234,14 +3234,14 @@ var require_jquery = __commonJS({
             dataPriv.remove(dest, "handle events");
             for (type in events) {
               for (i = 0, l = events[type].length; i < l; i++) {
-                jQuery3.event.add(dest, type, events[type][i]);
+                jQuery5.event.add(dest, type, events[type][i]);
               }
             }
           }
         }
         if (dataUser.hasData(src)) {
           udataOld = dataUser.access(src);
-          udataCur = jQuery3.extend({}, udataOld);
+          udataCur = jQuery5.extend({}, udataOld);
           dataUser.set(dest, udataCur);
         }
       }
@@ -3272,27 +3272,27 @@ var require_jquery = __commonJS({
             fragment = first;
           }
           if (first || ignored) {
-            scripts = jQuery3.map(getAll(fragment, "script"), disableScript);
+            scripts = jQuery5.map(getAll(fragment, "script"), disableScript);
             hasScripts = scripts.length;
             for (; i < l; i++) {
               node = fragment;
               if (i !== iNoClone) {
-                node = jQuery3.clone(node, true, true);
+                node = jQuery5.clone(node, true, true);
                 if (hasScripts) {
-                  jQuery3.merge(scripts, getAll(node, "script"));
+                  jQuery5.merge(scripts, getAll(node, "script"));
                 }
               }
               callback.call(collection[i], node, i);
             }
             if (hasScripts) {
               doc = scripts[scripts.length - 1].ownerDocument;
-              jQuery3.map(scripts, restoreScript);
+              jQuery5.map(scripts, restoreScript);
               for (i = 0; i < hasScripts; i++) {
                 node = scripts[i];
-                if (rscriptType.test(node.type || "") && !dataPriv.access(node, "globalEval") && jQuery3.contains(doc, node)) {
+                if (rscriptType.test(node.type || "") && !dataPriv.access(node, "globalEval") && jQuery5.contains(doc, node)) {
                   if (node.src && (node.type || "").toLowerCase() !== "module") {
-                    if (jQuery3._evalUrl && !node.noModule) {
-                      jQuery3._evalUrl(node.src, {
+                    if (jQuery5._evalUrl && !node.noModule) {
+                      jQuery5._evalUrl(node.src, {
                         nonce: node.nonce || node.getAttribute("nonce")
                       }, doc);
                     }
@@ -3307,10 +3307,10 @@ var require_jquery = __commonJS({
         return collection;
       }
       function remove(elem, selector, keepData) {
-        var node, nodes = selector ? jQuery3.filter(selector, elem) : elem, i = 0;
+        var node, nodes = selector ? jQuery5.filter(selector, elem) : elem, i = 0;
         for (; (node = nodes[i]) != null; i++) {
           if (!keepData && node.nodeType === 1) {
-            jQuery3.cleanData(getAll(node));
+            jQuery5.cleanData(getAll(node));
           }
           if (node.parentNode) {
             if (keepData && isAttached(node)) {
@@ -3321,13 +3321,13 @@ var require_jquery = __commonJS({
         }
         return elem;
       }
-      jQuery3.extend({
+      jQuery5.extend({
         htmlPrefilter: function(html) {
           return html;
         },
         clone: function(elem, dataAndEvents, deepDataAndEvents) {
           var i, l, srcElements, destElements, clone = elem.cloneNode(true), inPage = isAttached(elem);
-          if (!support.noCloneChecked && (elem.nodeType === 1 || elem.nodeType === 11) && !jQuery3.isXMLDoc(elem)) {
+          if (!support.noCloneChecked && (elem.nodeType === 1 || elem.nodeType === 11) && !jQuery5.isXMLDoc(elem)) {
             destElements = getAll(clone);
             srcElements = getAll(elem);
             for (i = 0, l = srcElements.length; i < l; i++) {
@@ -3352,16 +3352,16 @@ var require_jquery = __commonJS({
           return clone;
         },
         cleanData: function(elems) {
-          var data, elem, type, special = jQuery3.event.special, i = 0;
+          var data, elem, type, special = jQuery5.event.special, i = 0;
           for (; (elem = elems[i]) !== void 0; i++) {
             if (acceptData(elem)) {
               if (data = elem[dataPriv.expando]) {
                 if (data.events) {
                   for (type in data.events) {
                     if (special[type]) {
-                      jQuery3.event.remove(elem, type);
+                      jQuery5.event.remove(elem, type);
                     } else {
-                      jQuery3.removeEvent(elem, type, data.handle);
+                      jQuery5.removeEvent(elem, type, data.handle);
                     }
                   }
                 }
@@ -3374,7 +3374,7 @@ var require_jquery = __commonJS({
           }
         }
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         detach: function(selector) {
           return remove(this, selector, true);
         },
@@ -3383,7 +3383,7 @@ var require_jquery = __commonJS({
         },
         text: function(value) {
           return access(this, function(value2) {
-            return value2 === void 0 ? jQuery3.text(this) : this.empty().each(function() {
+            return value2 === void 0 ? jQuery5.text(this) : this.empty().each(function() {
               if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
                 this.textContent = value2;
               }
@@ -3424,7 +3424,7 @@ var require_jquery = __commonJS({
           var elem, i = 0;
           for (; (elem = this[i]) != null; i++) {
             if (elem.nodeType === 1) {
-              jQuery3.cleanData(getAll(elem, false));
+              jQuery5.cleanData(getAll(elem, false));
               elem.textContent = "";
             }
           }
@@ -3434,7 +3434,7 @@ var require_jquery = __commonJS({
           dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
           deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
           return this.map(function() {
-            return jQuery3.clone(this, dataAndEvents, deepDataAndEvents);
+            return jQuery5.clone(this, dataAndEvents, deepDataAndEvents);
           });
         },
         html: function(value) {
@@ -3444,12 +3444,12 @@ var require_jquery = __commonJS({
               return elem.innerHTML;
             }
             if (typeof value2 === "string" && !rnoInnerhtml.test(value2) && !wrapMap[(rtagName.exec(value2) || ["", ""])[1].toLowerCase()]) {
-              value2 = jQuery3.htmlPrefilter(value2);
+              value2 = jQuery5.htmlPrefilter(value2);
               try {
                 for (; i < l; i++) {
                   elem = this[i] || {};
                   if (elem.nodeType === 1) {
-                    jQuery3.cleanData(getAll(elem, false));
+                    jQuery5.cleanData(getAll(elem, false));
                     elem.innerHTML = value2;
                   }
                 }
@@ -3466,8 +3466,8 @@ var require_jquery = __commonJS({
           var ignored = [];
           return domManip(this, arguments, function(elem) {
             var parent = this.parentNode;
-            if (jQuery3.inArray(this, ignored) < 0) {
-              jQuery3.cleanData(getAll(this));
+            if (jQuery5.inArray(this, ignored) < 0) {
+              jQuery5.cleanData(getAll(this));
               if (parent) {
                 parent.replaceChild(elem, this);
               }
@@ -3475,18 +3475,18 @@ var require_jquery = __commonJS({
           }, ignored);
         }
       });
-      jQuery3.each({
+      jQuery5.each({
         appendTo: "append",
         prependTo: "prepend",
         insertBefore: "before",
         insertAfter: "after",
         replaceAll: "replaceWith"
       }, function(name, original) {
-        jQuery3.fn[name] = function(selector) {
-          var elems, ret = [], insert = jQuery3(selector), last = insert.length - 1, i = 0;
+        jQuery5.fn[name] = function(selector) {
+          var elems, ret = [], insert = jQuery5(selector), last = insert.length - 1, i = 0;
           for (; i <= last; i++) {
             elems = i === last ? this : this.clone(true);
-            jQuery3(insert[i])[original](elems);
+            jQuery5(insert[i])[original](elems);
             push.apply(ret, elems.get());
           }
           return this.pushStack(ret);
@@ -3543,7 +3543,7 @@ var require_jquery = __commonJS({
         div.style.backgroundClip = "content-box";
         div.cloneNode(true).style.backgroundClip = "";
         support.clearCloneStyle = div.style.backgroundClip === "content-box";
-        jQuery3.extend(support, {
+        jQuery5.extend(support, {
           boxSizingReliable: function() {
             computeStyleTests();
             return boxSizingReliableVal;
@@ -3593,7 +3593,7 @@ var require_jquery = __commonJS({
             ret = ret.replace(rtrimCSS, "$1") || void 0;
           }
           if (ret === "" && !isAttached(elem)) {
-            ret = jQuery3.style(elem, name);
+            ret = jQuery5.style(elem, name);
           }
           if (!support.pixelBoxStyles() && rnumnonpx.test(ret) && rboxStyle.test(name)) {
             width = style.width;
@@ -3630,7 +3630,7 @@ var require_jquery = __commonJS({
         }
       }
       function finalPropName(name) {
-        var final = jQuery3.cssProps[name] || vendorProps[name];
+        var final = jQuery5.cssProps[name] || vendorProps[name];
         if (final) {
           return final;
         }
@@ -3654,21 +3654,21 @@ var require_jquery = __commonJS({
         }
         for (; i < 4; i += 2) {
           if (box === "margin") {
-            marginDelta += jQuery3.css(elem, box + cssExpand[i], true, styles);
+            marginDelta += jQuery5.css(elem, box + cssExpand[i], true, styles);
           }
           if (!isBorderBox) {
-            delta += jQuery3.css(elem, "padding" + cssExpand[i], true, styles);
+            delta += jQuery5.css(elem, "padding" + cssExpand[i], true, styles);
             if (box !== "padding") {
-              delta += jQuery3.css(elem, "border" + cssExpand[i] + "Width", true, styles);
+              delta += jQuery5.css(elem, "border" + cssExpand[i] + "Width", true, styles);
             } else {
-              extra += jQuery3.css(elem, "border" + cssExpand[i] + "Width", true, styles);
+              extra += jQuery5.css(elem, "border" + cssExpand[i] + "Width", true, styles);
             }
           } else {
             if (box === "content") {
-              delta -= jQuery3.css(elem, "padding" + cssExpand[i], true, styles);
+              delta -= jQuery5.css(elem, "padding" + cssExpand[i], true, styles);
             }
             if (box !== "margin") {
-              delta -= jQuery3.css(elem, "border" + cssExpand[i] + "Width", true, styles);
+              delta -= jQuery5.css(elem, "border" + cssExpand[i] + "Width", true, styles);
             }
           }
         }
@@ -3680,15 +3680,15 @@ var require_jquery = __commonJS({
         return delta + marginDelta;
       }
       function getWidthOrHeight(elem, dimension, extra) {
-        var styles = getStyles(elem), boxSizingNeeded = !support.boxSizingReliable() || extra, isBorderBox = boxSizingNeeded && jQuery3.css(elem, "boxSizing", false, styles) === "border-box", valueIsBorderBox = isBorderBox, val = curCSS(elem, dimension, styles), offsetProp = "offset" + dimension[0].toUpperCase() + dimension.slice(1);
+        var styles = getStyles(elem), boxSizingNeeded = !support.boxSizingReliable() || extra, isBorderBox = boxSizingNeeded && jQuery5.css(elem, "boxSizing", false, styles) === "border-box", valueIsBorderBox = isBorderBox, val = curCSS(elem, dimension, styles), offsetProp = "offset" + dimension[0].toUpperCase() + dimension.slice(1);
         if (rnumnonpx.test(val)) {
           if (!extra) {
             return val;
           }
           val = "auto";
         }
-        if ((!support.boxSizingReliable() && isBorderBox || !support.reliableTrDimensions() && nodeName(elem, "tr") || val === "auto" || !parseFloat(val) && jQuery3.css(elem, "display", false, styles) === "inline") && elem.getClientRects().length) {
-          isBorderBox = jQuery3.css(elem, "boxSizing", false, styles) === "border-box";
+        if ((!support.boxSizingReliable() && isBorderBox || !support.reliableTrDimensions() && nodeName(elem, "tr") || val === "auto" || !parseFloat(val) && jQuery5.css(elem, "display", false, styles) === "inline") && elem.getClientRects().length) {
+          isBorderBox = jQuery5.css(elem, "boxSizing", false, styles) === "border-box";
           valueIsBorderBox = offsetProp in elem;
           if (valueIsBorderBox) {
             val = elem[offsetProp];
@@ -3704,7 +3704,7 @@ var require_jquery = __commonJS({
           val
         ) + "px";
       }
-      jQuery3.extend({
+      jQuery5.extend({
         cssHooks: {
           opacity: {
             get: function(elem, computed) {
@@ -3753,7 +3753,7 @@ var require_jquery = __commonJS({
           if (!isCustomProp) {
             name = finalPropName(origName);
           }
-          hooks = jQuery3.cssHooks[name] || jQuery3.cssHooks[origName];
+          hooks = jQuery5.cssHooks[name] || jQuery5.cssHooks[origName];
           if (value !== void 0) {
             type = typeof value;
             if (type === "string" && (ret = rcssNum.exec(value)) && ret[1]) {
@@ -3764,7 +3764,7 @@ var require_jquery = __commonJS({
               return;
             }
             if (type === "number" && !isCustomProp) {
-              value += ret && ret[3] || (jQuery3.cssNumber[origName] ? "" : "px");
+              value += ret && ret[3] || (jQuery5.cssNumber[origName] ? "" : "px");
             }
             if (!support.clearCloneStyle && value === "" && name.indexOf("background") === 0) {
               style[name] = "inherit";
@@ -3788,7 +3788,7 @@ var require_jquery = __commonJS({
           if (!isCustomProp) {
             name = finalPropName(origName);
           }
-          hooks = jQuery3.cssHooks[name] || jQuery3.cssHooks[origName];
+          hooks = jQuery5.cssHooks[name] || jQuery5.cssHooks[origName];
           if (hooks && "get" in hooks) {
             val = hooks.get(elem, true, extra);
           }
@@ -3805,17 +3805,17 @@ var require_jquery = __commonJS({
           return val;
         }
       });
-      jQuery3.each(["height", "width"], function(_i, dimension) {
-        jQuery3.cssHooks[dimension] = {
+      jQuery5.each(["height", "width"], function(_i, dimension) {
+        jQuery5.cssHooks[dimension] = {
           get: function(elem, computed, extra) {
             if (computed) {
-              return rdisplayswap.test(jQuery3.css(elem, "display")) && (!elem.getClientRects().length || !elem.getBoundingClientRect().width) ? swap(elem, cssShow, function() {
+              return rdisplayswap.test(jQuery5.css(elem, "display")) && (!elem.getClientRects().length || !elem.getBoundingClientRect().width) ? swap(elem, cssShow, function() {
                 return getWidthOrHeight(elem, dimension, extra);
               }) : getWidthOrHeight(elem, dimension, extra);
             }
           },
           set: function(elem, value, extra) {
-            var matches2, styles = getStyles(elem), scrollboxSizeBuggy = !support.scrollboxSize() && styles.position === "absolute", boxSizingNeeded = scrollboxSizeBuggy || extra, isBorderBox = boxSizingNeeded && jQuery3.css(elem, "boxSizing", false, styles) === "border-box", subtract = extra ? boxModelAdjustment(
+            var matches2, styles = getStyles(elem), scrollboxSizeBuggy = !support.scrollboxSize() && styles.position === "absolute", boxSizingNeeded = scrollboxSizeBuggy || extra, isBorderBox = boxSizingNeeded && jQuery5.css(elem, "boxSizing", false, styles) === "border-box", subtract = extra ? boxModelAdjustment(
               elem,
               dimension,
               extra,
@@ -3829,13 +3829,13 @@ var require_jquery = __commonJS({
             }
             if (subtract && (matches2 = rcssNum.exec(value)) && (matches2[3] || "px") !== "px") {
               elem.style[dimension] = value;
-              value = jQuery3.css(elem, dimension);
+              value = jQuery5.css(elem, dimension);
             }
             return setPositiveNumber(elem, value, subtract);
           }
         };
       });
-      jQuery3.cssHooks.marginLeft = addGetHookIf(
+      jQuery5.cssHooks.marginLeft = addGetHookIf(
         support.reliableMarginLeft,
         function(elem, computed) {
           if (computed) {
@@ -3845,12 +3845,12 @@ var require_jquery = __commonJS({
           }
         }
       );
-      jQuery3.each({
+      jQuery5.each({
         margin: "",
         padding: "",
         border: "Width"
       }, function(prefix, suffix) {
-        jQuery3.cssHooks[prefix + suffix] = {
+        jQuery5.cssHooks[prefix + suffix] = {
           expand: function(value) {
             var i = 0, expanded = {}, parts = typeof value === "string" ? value.split(" ") : [value];
             for (; i < 4; i++) {
@@ -3860,10 +3860,10 @@ var require_jquery = __commonJS({
           }
         };
         if (prefix !== "margin") {
-          jQuery3.cssHooks[prefix + suffix].set = setPositiveNumber;
+          jQuery5.cssHooks[prefix + suffix].set = setPositiveNumber;
         }
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         css: function(name, value) {
           return access(this, function(elem, name2, value2) {
             var styles, len, map = {}, i = 0;
@@ -3871,28 +3871,28 @@ var require_jquery = __commonJS({
               styles = getStyles(elem);
               len = name2.length;
               for (; i < len; i++) {
-                map[name2[i]] = jQuery3.css(elem, name2[i], false, styles);
+                map[name2[i]] = jQuery5.css(elem, name2[i], false, styles);
               }
               return map;
             }
-            return value2 !== void 0 ? jQuery3.style(elem, name2, value2) : jQuery3.css(elem, name2);
+            return value2 !== void 0 ? jQuery5.style(elem, name2, value2) : jQuery5.css(elem, name2);
           }, name, value, arguments.length > 1);
         }
       });
       function Tween(elem, options, prop, end, easing) {
         return new Tween.prototype.init(elem, options, prop, end, easing);
       }
-      jQuery3.Tween = Tween;
+      jQuery5.Tween = Tween;
       Tween.prototype = {
         constructor: Tween,
         init: function(elem, options, prop, end, easing, unit) {
           this.elem = elem;
           this.prop = prop;
-          this.easing = easing || jQuery3.easing._default;
+          this.easing = easing || jQuery5.easing._default;
           this.options = options;
           this.start = this.now = this.cur();
           this.end = end;
-          this.unit = unit || (jQuery3.cssNumber[prop] ? "" : "px");
+          this.unit = unit || (jQuery5.cssNumber[prop] ? "" : "px");
         },
         cur: function() {
           var hooks = Tween.propHooks[this.prop];
@@ -3901,7 +3901,7 @@ var require_jquery = __commonJS({
         run: function(percent) {
           var eased, hooks = Tween.propHooks[this.prop];
           if (this.options.duration) {
-            this.pos = eased = jQuery3.easing[this.easing](
+            this.pos = eased = jQuery5.easing[this.easing](
               percent,
               this.options.duration * percent,
               0,
@@ -3931,14 +3931,14 @@ var require_jquery = __commonJS({
             if (tween.elem.nodeType !== 1 || tween.elem[tween.prop] != null && tween.elem.style[tween.prop] == null) {
               return tween.elem[tween.prop];
             }
-            result = jQuery3.css(tween.elem, tween.prop, "");
+            result = jQuery5.css(tween.elem, tween.prop, "");
             return !result || result === "auto" ? 0 : result;
           },
           set: function(tween) {
-            if (jQuery3.fx.step[tween.prop]) {
-              jQuery3.fx.step[tween.prop](tween);
-            } else if (tween.elem.nodeType === 1 && (jQuery3.cssHooks[tween.prop] || tween.elem.style[finalPropName(tween.prop)] != null)) {
-              jQuery3.style(tween.elem, tween.prop, tween.now + tween.unit);
+            if (jQuery5.fx.step[tween.prop]) {
+              jQuery5.fx.step[tween.prop](tween);
+            } else if (tween.elem.nodeType === 1 && (jQuery5.cssHooks[tween.prop] || tween.elem.style[finalPropName(tween.prop)] != null)) {
+              jQuery5.style(tween.elem, tween.prop, tween.now + tween.unit);
             } else {
               tween.elem[tween.prop] = tween.now;
             }
@@ -3952,7 +3952,7 @@ var require_jquery = __commonJS({
           }
         }
       };
-      jQuery3.easing = {
+      jQuery5.easing = {
         linear: function(p) {
           return p;
         },
@@ -3961,17 +3961,17 @@ var require_jquery = __commonJS({
         },
         _default: "swing"
       };
-      jQuery3.fx = Tween.prototype.init;
-      jQuery3.fx.step = {};
+      jQuery5.fx = Tween.prototype.init;
+      jQuery5.fx.step = {};
       var fxNow, inProgress, rfxtypes = /^(?:toggle|show|hide)$/, rrun = /queueHooks$/;
       function schedule() {
         if (inProgress) {
           if (document2.hidden === false && window2.requestAnimationFrame) {
             window2.requestAnimationFrame(schedule);
           } else {
-            window2.setTimeout(schedule, jQuery3.fx.interval);
+            window2.setTimeout(schedule, jQuery5.fx.interval);
           }
-          jQuery3.fx.tick();
+          jQuery5.fx.tick();
         }
       }
       function createFxNow() {
@@ -4003,7 +4003,7 @@ var require_jquery = __commonJS({
       function defaultPrefilter(elem, props, opts) {
         var prop, value, toggle, hooks, oldfire, propTween, restoreDisplay, display, isBox = "width" in props || "height" in props, anim = this, orig = {}, style = elem.style, hidden = elem.nodeType && isHiddenWithinTree(elem), dataShow = dataPriv.get(elem, "fxshow");
         if (!opts.queue) {
-          hooks = jQuery3._queueHooks(elem, "fx");
+          hooks = jQuery5._queueHooks(elem, "fx");
           if (hooks.unqueued == null) {
             hooks.unqueued = 0;
             oldfire = hooks.empty.fire;
@@ -4017,7 +4017,7 @@ var require_jquery = __commonJS({
           anim.always(function() {
             anim.always(function() {
               hooks.unqueued--;
-              if (!jQuery3.queue(elem, "fx").length) {
+              if (!jQuery5.queue(elem, "fx").length) {
                 hooks.empty.fire();
               }
             });
@@ -4035,11 +4035,11 @@ var require_jquery = __commonJS({
                 continue;
               }
             }
-            orig[prop] = dataShow && dataShow[prop] || jQuery3.style(elem, prop);
+            orig[prop] = dataShow && dataShow[prop] || jQuery5.style(elem, prop);
           }
         }
-        propTween = !jQuery3.isEmptyObject(props);
-        if (!propTween && jQuery3.isEmptyObject(orig)) {
+        propTween = !jQuery5.isEmptyObject(props);
+        if (!propTween && jQuery5.isEmptyObject(orig)) {
           return;
         }
         if (isBox && elem.nodeType === 1) {
@@ -4048,19 +4048,19 @@ var require_jquery = __commonJS({
           if (restoreDisplay == null) {
             restoreDisplay = dataPriv.get(elem, "display");
           }
-          display = jQuery3.css(elem, "display");
+          display = jQuery5.css(elem, "display");
           if (display === "none") {
             if (restoreDisplay) {
               display = restoreDisplay;
             } else {
               showHide([elem], true);
               restoreDisplay = elem.style.display || restoreDisplay;
-              display = jQuery3.css(elem, "display");
+              display = jQuery5.css(elem, "display");
               showHide([elem]);
             }
           }
           if (display === "inline" || display === "inline-block" && restoreDisplay != null) {
-            if (jQuery3.css(elem, "float") === "none") {
+            if (jQuery5.css(elem, "float") === "none") {
               if (!propTween) {
                 anim.done(function() {
                   style.display = restoreDisplay;
@@ -4104,7 +4104,7 @@ var require_jquery = __commonJS({
               }
               dataPriv.remove(elem, "fxshow");
               for (prop in orig) {
-                jQuery3.style(elem, prop, orig[prop]);
+                jQuery5.style(elem, prop, orig[prop]);
               }
             });
           }
@@ -4132,7 +4132,7 @@ var require_jquery = __commonJS({
             props[name] = value;
             delete props[index];
           }
-          hooks = jQuery3.cssHooks[name];
+          hooks = jQuery5.cssHooks[name];
           if (hooks && "expand" in hooks) {
             value = hooks.expand(value);
             delete props[name];
@@ -4148,7 +4148,7 @@ var require_jquery = __commonJS({
         }
       }
       function Animation(elem, properties, options) {
-        var result, stopped, index = 0, length = Animation.prefilters.length, deferred = jQuery3.Deferred().always(function() {
+        var result, stopped, index = 0, length = Animation.prefilters.length, deferred = jQuery5.Deferred().always(function() {
           delete tick.elem;
         }), tick = function() {
           if (stopped) {
@@ -4169,10 +4169,10 @@ var require_jquery = __commonJS({
           return false;
         }, animation = deferred.promise({
           elem,
-          props: jQuery3.extend({}, properties),
-          opts: jQuery3.extend(true, {
+          props: jQuery5.extend({}, properties),
+          opts: jQuery5.extend(true, {
             specialEasing: {},
-            easing: jQuery3.easing._default
+            easing: jQuery5.easing._default
           }, options),
           originalProperties: properties,
           originalOptions: options,
@@ -4180,7 +4180,7 @@ var require_jquery = __commonJS({
           duration: options.duration,
           tweens: [],
           createTween: function(prop, end) {
-            var tween = jQuery3.Tween(
+            var tween = jQuery5.Tween(
               elem,
               animation.opts,
               prop,
@@ -4213,18 +4213,18 @@ var require_jquery = __commonJS({
           result = Animation.prefilters[index].call(animation, elem, props, animation.opts);
           if (result) {
             if (isFunction(result.stop)) {
-              jQuery3._queueHooks(animation.elem, animation.opts.queue).stop = result.stop.bind(result);
+              jQuery5._queueHooks(animation.elem, animation.opts.queue).stop = result.stop.bind(result);
             }
             return result;
           }
         }
-        jQuery3.map(props, createTween, animation);
+        jQuery5.map(props, createTween, animation);
         if (isFunction(animation.opts.start)) {
           animation.opts.start.call(elem, animation);
         }
         animation.progress(animation.opts.progress).done(animation.opts.done, animation.opts.complete).fail(animation.opts.fail).always(animation.opts.always);
-        jQuery3.fx.timer(
-          jQuery3.extend(tick, {
+        jQuery5.fx.timer(
+          jQuery5.extend(tick, {
             elem,
             anim: animation,
             queue: animation.opts.queue
@@ -4232,7 +4232,7 @@ var require_jquery = __commonJS({
         );
         return animation;
       }
-      jQuery3.Animation = jQuery3.extend(Animation, {
+      jQuery5.Animation = jQuery5.extend(Animation, {
         tweeners: {
           "*": [function(prop, value) {
             var tween = this.createTween(prop, value);
@@ -4263,20 +4263,20 @@ var require_jquery = __commonJS({
           }
         }
       });
-      jQuery3.speed = function(speed, easing, fn) {
-        var opt = speed && typeof speed === "object" ? jQuery3.extend({}, speed) : {
+      jQuery5.speed = function(speed, easing, fn) {
+        var opt = speed && typeof speed === "object" ? jQuery5.extend({}, speed) : {
           complete: fn || !fn && easing || isFunction(speed) && speed,
           duration: speed,
           easing: fn && easing || easing && !isFunction(easing) && easing
         };
-        if (jQuery3.fx.off) {
+        if (jQuery5.fx.off) {
           opt.duration = 0;
         } else {
           if (typeof opt.duration !== "number") {
-            if (opt.duration in jQuery3.fx.speeds) {
-              opt.duration = jQuery3.fx.speeds[opt.duration];
+            if (opt.duration in jQuery5.fx.speeds) {
+              opt.duration = jQuery5.fx.speeds[opt.duration];
             } else {
-              opt.duration = jQuery3.fx.speeds._default;
+              opt.duration = jQuery5.fx.speeds._default;
             }
           }
         }
@@ -4289,18 +4289,18 @@ var require_jquery = __commonJS({
             opt.old.call(this);
           }
           if (opt.queue) {
-            jQuery3.dequeue(this, opt.queue);
+            jQuery5.dequeue(this, opt.queue);
           }
         };
         return opt;
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         fadeTo: function(speed, to, easing, callback) {
           return this.filter(isHiddenWithinTree).css("opacity", 0).show().end().animate({ opacity: to }, speed, easing, callback);
         },
         animate: function(prop, speed, easing, callback) {
-          var empty = jQuery3.isEmptyObject(prop), optall = jQuery3.speed(speed, easing, callback), doAnimation = function() {
-            var anim = Animation(this, jQuery3.extend({}, prop), optall);
+          var empty = jQuery5.isEmptyObject(prop), optall = jQuery5.speed(speed, easing, callback), doAnimation = function() {
+            var anim = Animation(this, jQuery5.extend({}, prop), optall);
             if (empty || dataPriv.get(this, "finish")) {
               anim.stop(true);
             }
@@ -4323,7 +4323,7 @@ var require_jquery = __commonJS({
             this.queue(type || "fx", []);
           }
           return this.each(function() {
-            var dequeue = true, index = type != null && type + "queueHooks", timers = jQuery3.timers, data = dataPriv.get(this);
+            var dequeue = true, index = type != null && type + "queueHooks", timers = jQuery5.timers, data = dataPriv.get(this);
             if (index) {
               if (data[index] && data[index].stop) {
                 stopQueue(data[index]);
@@ -4343,7 +4343,7 @@ var require_jquery = __commonJS({
               }
             }
             if (dequeue || !gotoEnd) {
-              jQuery3.dequeue(this, type);
+              jQuery5.dequeue(this, type);
             }
           });
         },
@@ -4352,9 +4352,9 @@ var require_jquery = __commonJS({
             type = type || "fx";
           }
           return this.each(function() {
-            var index, data = dataPriv.get(this), queue = data[type + "queue"], hooks = data[type + "queueHooks"], timers = jQuery3.timers, length = queue ? queue.length : 0;
+            var index, data = dataPriv.get(this), queue = data[type + "queue"], hooks = data[type + "queueHooks"], timers = jQuery5.timers, length = queue ? queue.length : 0;
             data.finish = true;
-            jQuery3.queue(this, type, []);
+            jQuery5.queue(this, type, []);
             if (hooks && hooks.stop) {
               hooks.stop.call(this, true);
             }
@@ -4373,13 +4373,13 @@ var require_jquery = __commonJS({
           });
         }
       });
-      jQuery3.each(["toggle", "show", "hide"], function(_i, name) {
-        var cssFn = jQuery3.fn[name];
-        jQuery3.fn[name] = function(speed, easing, callback) {
+      jQuery5.each(["toggle", "show", "hide"], function(_i, name) {
+        var cssFn = jQuery5.fn[name];
+        jQuery5.fn[name] = function(speed, easing, callback) {
           return speed == null || typeof speed === "boolean" ? cssFn.apply(this, arguments) : this.animate(genFx(name, true), speed, easing, callback);
         };
       });
-      jQuery3.each({
+      jQuery5.each({
         slideDown: genFx("show"),
         slideUp: genFx("hide"),
         slideToggle: genFx("toggle"),
@@ -4387,13 +4387,13 @@ var require_jquery = __commonJS({
         fadeOut: { opacity: "hide" },
         fadeToggle: { opacity: "toggle" }
       }, function(name, props) {
-        jQuery3.fn[name] = function(speed, easing, callback) {
+        jQuery5.fn[name] = function(speed, easing, callback) {
           return this.animate(props, speed, easing, callback);
         };
       });
-      jQuery3.timers = [];
-      jQuery3.fx.tick = function() {
-        var timer, i = 0, timers = jQuery3.timers;
+      jQuery5.timers = [];
+      jQuery5.fx.tick = function() {
+        var timer, i = 0, timers = jQuery5.timers;
         fxNow = Date.now();
         for (; i < timers.length; i++) {
           timer = timers[i];
@@ -4402,32 +4402,32 @@ var require_jquery = __commonJS({
           }
         }
         if (!timers.length) {
-          jQuery3.fx.stop();
+          jQuery5.fx.stop();
         }
         fxNow = void 0;
       };
-      jQuery3.fx.timer = function(timer) {
-        jQuery3.timers.push(timer);
-        jQuery3.fx.start();
+      jQuery5.fx.timer = function(timer) {
+        jQuery5.timers.push(timer);
+        jQuery5.fx.start();
       };
-      jQuery3.fx.interval = 13;
-      jQuery3.fx.start = function() {
+      jQuery5.fx.interval = 13;
+      jQuery5.fx.start = function() {
         if (inProgress) {
           return;
         }
         inProgress = true;
         schedule();
       };
-      jQuery3.fx.stop = function() {
+      jQuery5.fx.stop = function() {
         inProgress = null;
       };
-      jQuery3.fx.speeds = {
+      jQuery5.fx.speeds = {
         slow: 600,
         fast: 200,
         _default: 400
       };
-      jQuery3.fn.delay = function(time, type) {
-        time = jQuery3.fx ? jQuery3.fx.speeds[time] || time : time;
+      jQuery5.fn.delay = function(time, type) {
+        time = jQuery5.fx ? jQuery5.fx.speeds[time] || time : time;
         type = type || "fx";
         return this.queue(type, function(next, hooks) {
           var timeout = window2.setTimeout(next, time);
@@ -4446,32 +4446,32 @@ var require_jquery = __commonJS({
         input.type = "radio";
         support.radioValue = input.value === "t";
       })();
-      var boolHook, attrHandle = jQuery3.expr.attrHandle;
-      jQuery3.fn.extend({
+      var boolHook, attrHandle = jQuery5.expr.attrHandle;
+      jQuery5.fn.extend({
         attr: function(name, value) {
-          return access(this, jQuery3.attr, name, value, arguments.length > 1);
+          return access(this, jQuery5.attr, name, value, arguments.length > 1);
         },
         removeAttr: function(name) {
           return this.each(function() {
-            jQuery3.removeAttr(this, name);
+            jQuery5.removeAttr(this, name);
           });
         }
       });
-      jQuery3.extend({
+      jQuery5.extend({
         attr: function(elem, name, value) {
           var ret, hooks, nType = elem.nodeType;
           if (nType === 3 || nType === 8 || nType === 2) {
             return;
           }
           if (typeof elem.getAttribute === "undefined") {
-            return jQuery3.prop(elem, name, value);
+            return jQuery5.prop(elem, name, value);
           }
-          if (nType !== 1 || !jQuery3.isXMLDoc(elem)) {
-            hooks = jQuery3.attrHooks[name.toLowerCase()] || (jQuery3.expr.match.bool.test(name) ? boolHook : void 0);
+          if (nType !== 1 || !jQuery5.isXMLDoc(elem)) {
+            hooks = jQuery5.attrHooks[name.toLowerCase()] || (jQuery5.expr.match.bool.test(name) ? boolHook : void 0);
           }
           if (value !== void 0) {
             if (value === null) {
-              jQuery3.removeAttr(elem, name);
+              jQuery5.removeAttr(elem, name);
               return;
             }
             if (hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== void 0) {
@@ -4483,7 +4483,7 @@ var require_jquery = __commonJS({
           if (hooks && "get" in hooks && (ret = hooks.get(elem, name)) !== null) {
             return ret;
           }
-          ret = jQuery3.find.attr(elem, name);
+          ret = jQuery5.find.attr(elem, name);
           return ret == null ? void 0 : ret;
         },
         attrHooks: {
@@ -4512,15 +4512,15 @@ var require_jquery = __commonJS({
       boolHook = {
         set: function(elem, value, name) {
           if (value === false) {
-            jQuery3.removeAttr(elem, name);
+            jQuery5.removeAttr(elem, name);
           } else {
             elem.setAttribute(name, name);
           }
           return name;
         }
       };
-      jQuery3.each(jQuery3.expr.match.bool.source.match(/\w+/g), function(_i, name) {
-        var getter = attrHandle[name] || jQuery3.find.attr;
+      jQuery5.each(jQuery5.expr.match.bool.source.match(/\w+/g), function(_i, name) {
+        var getter = attrHandle[name] || jQuery5.find.attr;
         attrHandle[name] = function(elem, name2, isXML) {
           var ret, handle, lowercaseName = name2.toLowerCase();
           if (!isXML) {
@@ -4533,25 +4533,25 @@ var require_jquery = __commonJS({
         };
       });
       var rfocusable = /^(?:input|select|textarea|button)$/i, rclickable = /^(?:a|area)$/i;
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         prop: function(name, value) {
-          return access(this, jQuery3.prop, name, value, arguments.length > 1);
+          return access(this, jQuery5.prop, name, value, arguments.length > 1);
         },
         removeProp: function(name) {
           return this.each(function() {
-            delete this[jQuery3.propFix[name] || name];
+            delete this[jQuery5.propFix[name] || name];
           });
         }
       });
-      jQuery3.extend({
+      jQuery5.extend({
         prop: function(elem, name, value) {
           var ret, hooks, nType = elem.nodeType;
           if (nType === 3 || nType === 8 || nType === 2) {
             return;
           }
-          if (nType !== 1 || !jQuery3.isXMLDoc(elem)) {
-            name = jQuery3.propFix[name] || name;
-            hooks = jQuery3.propHooks[name];
+          if (nType !== 1 || !jQuery5.isXMLDoc(elem)) {
+            name = jQuery5.propFix[name] || name;
+            hooks = jQuery5.propHooks[name];
           }
           if (value !== void 0) {
             if (hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== void 0) {
@@ -4567,7 +4567,7 @@ var require_jquery = __commonJS({
         propHooks: {
           tabIndex: {
             get: function(elem) {
-              var tabindex = jQuery3.find.attr(elem, "tabindex");
+              var tabindex = jQuery5.find.attr(elem, "tabindex");
               if (tabindex) {
                 return parseInt(tabindex, 10);
               }
@@ -4584,7 +4584,7 @@ var require_jquery = __commonJS({
         }
       });
       if (!support.optSelected) {
-        jQuery3.propHooks.selected = {
+        jQuery5.propHooks.selected = {
           get: function(elem) {
             var parent = elem.parentNode;
             if (parent && parent.parentNode) {
@@ -4603,7 +4603,7 @@ var require_jquery = __commonJS({
           }
         };
       }
-      jQuery3.each([
+      jQuery5.each([
         "tabIndex",
         "readOnly",
         "maxLength",
@@ -4615,7 +4615,7 @@ var require_jquery = __commonJS({
         "frameBorder",
         "contentEditable"
       ], function() {
-        jQuery3.propFix[this.toLowerCase()] = this;
+        jQuery5.propFix[this.toLowerCase()] = this;
       });
       function stripAndCollapse(value) {
         var tokens = value.match(rnothtmlwhite) || [];
@@ -4633,12 +4633,12 @@ var require_jquery = __commonJS({
         }
         return [];
       }
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         addClass: function(value) {
           var classNames, cur, curValue, className, i, finalValue;
           if (isFunction(value)) {
             return this.each(function(j) {
-              jQuery3(this).addClass(value.call(this, j, getClass(this)));
+              jQuery5(this).addClass(value.call(this, j, getClass(this)));
             });
           }
           classNames = classesToArray(value);
@@ -4666,7 +4666,7 @@ var require_jquery = __commonJS({
           var classNames, cur, curValue, className, i, finalValue;
           if (isFunction(value)) {
             return this.each(function(j) {
-              jQuery3(this).removeClass(value.call(this, j, getClass(this)));
+              jQuery5(this).removeClass(value.call(this, j, getClass(this)));
             });
           }
           if (!arguments.length) {
@@ -4697,7 +4697,7 @@ var require_jquery = __commonJS({
           var classNames, className, i, self2, type = typeof value, isValidValue = type === "string" || Array.isArray(value);
           if (isFunction(value)) {
             return this.each(function(i2) {
-              jQuery3(this).toggleClass(
+              jQuery5(this).toggleClass(
                 value.call(this, i2, getClass(this), stateVal),
                 stateVal
               );
@@ -4709,7 +4709,7 @@ var require_jquery = __commonJS({
           classNames = classesToArray(value);
           return this.each(function() {
             if (isValidValue) {
-              self2 = jQuery3(this);
+              self2 = jQuery5(this);
               for (i = 0; i < classNames.length; i++) {
                 className = classNames[i];
                 if (self2.hasClass(className)) {
@@ -4744,12 +4744,12 @@ var require_jquery = __commonJS({
         }
       });
       var rreturn = /\r/g;
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         val: function(value) {
           var hooks, ret, valueIsFunction, elem = this[0];
           if (!arguments.length) {
             if (elem) {
-              hooks = jQuery3.valHooks[elem.type] || jQuery3.valHooks[elem.nodeName.toLowerCase()];
+              hooks = jQuery5.valHooks[elem.type] || jQuery5.valHooks[elem.nodeName.toLowerCase()];
               if (hooks && "get" in hooks && (ret = hooks.get(elem, "value")) !== void 0) {
                 return ret;
               }
@@ -4768,7 +4768,7 @@ var require_jquery = __commonJS({
               return;
             }
             if (valueIsFunction) {
-              val = value.call(this, i, jQuery3(this).val());
+              val = value.call(this, i, jQuery5(this).val());
             } else {
               val = value;
             }
@@ -4777,23 +4777,23 @@ var require_jquery = __commonJS({
             } else if (typeof val === "number") {
               val += "";
             } else if (Array.isArray(val)) {
-              val = jQuery3.map(val, function(value2) {
+              val = jQuery5.map(val, function(value2) {
                 return value2 == null ? "" : value2 + "";
               });
             }
-            hooks = jQuery3.valHooks[this.type] || jQuery3.valHooks[this.nodeName.toLowerCase()];
+            hooks = jQuery5.valHooks[this.type] || jQuery5.valHooks[this.nodeName.toLowerCase()];
             if (!hooks || !("set" in hooks) || hooks.set(this, val, "value") === void 0) {
               this.value = val;
             }
           });
         }
       });
-      jQuery3.extend({
+      jQuery5.extend({
         valHooks: {
           option: {
             get: function(elem) {
-              var val = jQuery3.find.attr(elem, "value");
-              return val != null ? val : stripAndCollapse(jQuery3.text(elem));
+              var val = jQuery5.find.attr(elem, "value");
+              return val != null ? val : stripAndCollapse(jQuery5.text(elem));
             }
           },
           select: {
@@ -4807,7 +4807,7 @@ var require_jquery = __commonJS({
               for (; i < max; i++) {
                 option = options[i];
                 if ((option.selected || i === index) && !option.disabled && (!option.parentNode.disabled || !nodeName(option.parentNode, "optgroup"))) {
-                  value = jQuery3(option).val();
+                  value = jQuery5(option).val();
                   if (one) {
                     return value;
                   }
@@ -4817,10 +4817,10 @@ var require_jquery = __commonJS({
               return values;
             },
             set: function(elem, value) {
-              var optionSet, option, options = elem.options, values = jQuery3.makeArray(value), i = options.length;
+              var optionSet, option, options = elem.options, values = jQuery5.makeArray(value), i = options.length;
               while (i--) {
                 option = options[i];
-                if (option.selected = jQuery3.inArray(jQuery3.valHooks.option.get(option), values) > -1) {
+                if (option.selected = jQuery5.inArray(jQuery5.valHooks.option.get(option), values) > -1) {
                   optionSet = true;
                 }
               }
@@ -4832,16 +4832,16 @@ var require_jquery = __commonJS({
           }
         }
       });
-      jQuery3.each(["radio", "checkbox"], function() {
-        jQuery3.valHooks[this] = {
+      jQuery5.each(["radio", "checkbox"], function() {
+        jQuery5.valHooks[this] = {
           set: function(elem, value) {
             if (Array.isArray(value)) {
-              return elem.checked = jQuery3.inArray(jQuery3(elem).val(), value) > -1;
+              return elem.checked = jQuery5.inArray(jQuery5(elem).val(), value) > -1;
             }
           }
         };
         if (!support.checkOn) {
-          jQuery3.valHooks[this].get = function(elem) {
+          jQuery5.valHooks[this].get = function(elem) {
             return elem.getAttribute("value") === null ? "on" : elem.value;
           };
         }
@@ -4849,7 +4849,7 @@ var require_jquery = __commonJS({
       var location2 = window2.location;
       var nonce2 = { guid: Date.now() };
       var rquery = /\?/;
-      jQuery3.parseXML = function(data) {
+      jQuery5.parseXML = function(data) {
         var xml, parserErrorElem;
         if (!data || typeof data !== "string") {
           return null;
@@ -4860,7 +4860,7 @@ var require_jquery = __commonJS({
         }
         parserErrorElem = xml && xml.getElementsByTagName("parsererror")[0];
         if (!xml || parserErrorElem) {
-          jQuery3.error("Invalid XML: " + (parserErrorElem ? jQuery3.map(parserErrorElem.childNodes, function(el) {
+          jQuery5.error("Invalid XML: " + (parserErrorElem ? jQuery5.map(parserErrorElem.childNodes, function(el) {
             return el.textContent;
           }).join("\n") : data));
         }
@@ -4869,14 +4869,14 @@ var require_jquery = __commonJS({
       var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/, stopPropagationCallback = function(e) {
         e.stopPropagation();
       };
-      jQuery3.extend(jQuery3.event, {
+      jQuery5.extend(jQuery5.event, {
         trigger: function(event, data, elem, onlyHandlers) {
           var i, cur, tmp, bubbleType, ontype, handle, special, lastElement, eventPath = [elem || document2], type = hasOwn.call(event, "type") ? event.type : event, namespaces = hasOwn.call(event, "namespace") ? event.namespace.split(".") : [];
           cur = lastElement = tmp = elem = elem || document2;
           if (elem.nodeType === 3 || elem.nodeType === 8) {
             return;
           }
-          if (rfocusMorph.test(type + jQuery3.event.triggered)) {
+          if (rfocusMorph.test(type + jQuery5.event.triggered)) {
             return;
           }
           if (type.indexOf(".") > -1) {
@@ -4885,7 +4885,7 @@ var require_jquery = __commonJS({
             namespaces.sort();
           }
           ontype = type.indexOf(":") < 0 && "on" + type;
-          event = event[jQuery3.expando] ? event : new jQuery3.Event(type, typeof event === "object" && event);
+          event = event[jQuery5.expando] ? event : new jQuery5.Event(type, typeof event === "object" && event);
           event.isTrigger = onlyHandlers ? 2 : 3;
           event.namespace = namespaces.join(".");
           event.rnamespace = event.namespace ? new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)") : null;
@@ -4893,8 +4893,8 @@ var require_jquery = __commonJS({
           if (!event.target) {
             event.target = elem;
           }
-          data = data == null ? [event] : jQuery3.makeArray(data, [event]);
-          special = jQuery3.event.special[type] || {};
+          data = data == null ? [event] : jQuery5.makeArray(data, [event]);
+          special = jQuery5.event.special[type] || {};
           if (!onlyHandlers && special.trigger && special.trigger.apply(elem, data) === false) {
             return;
           }
@@ -4935,7 +4935,7 @@ var require_jquery = __commonJS({
                 if (tmp) {
                   elem[ontype] = null;
                 }
-                jQuery3.event.triggered = type;
+                jQuery5.event.triggered = type;
                 if (event.isPropagationStopped()) {
                   lastElement.addEventListener(type, stopPropagationCallback);
                 }
@@ -4943,7 +4943,7 @@ var require_jquery = __commonJS({
                 if (event.isPropagationStopped()) {
                   lastElement.removeEventListener(type, stopPropagationCallback);
                 }
-                jQuery3.event.triggered = void 0;
+                jQuery5.event.triggered = void 0;
                 if (tmp) {
                   elem[ontype] = tmp;
                 }
@@ -4953,27 +4953,27 @@ var require_jquery = __commonJS({
           return event.result;
         },
         simulate: function(type, elem, event) {
-          var e = jQuery3.extend(
-            new jQuery3.Event(),
+          var e = jQuery5.extend(
+            new jQuery5.Event(),
             event,
             {
               type,
               isSimulated: true
             }
           );
-          jQuery3.event.trigger(e, null, elem);
+          jQuery5.event.trigger(e, null, elem);
         }
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         trigger: function(type, data) {
           return this.each(function() {
-            jQuery3.event.trigger(type, data, this);
+            jQuery5.event.trigger(type, data, this);
           });
         },
         triggerHandler: function(type, data) {
           var elem = this[0];
           if (elem) {
-            return jQuery3.event.trigger(type, data, elem, true);
+            return jQuery5.event.trigger(type, data, elem, true);
           }
         }
       });
@@ -4981,7 +4981,7 @@ var require_jquery = __commonJS({
       function buildParams(prefix, obj, traditional, add) {
         var name;
         if (Array.isArray(obj)) {
-          jQuery3.each(obj, function(i, v) {
+          jQuery5.each(obj, function(i, v) {
             if (traditional || rbracket.test(prefix)) {
               add(prefix, v);
             } else {
@@ -5001,7 +5001,7 @@ var require_jquery = __commonJS({
           add(prefix, obj);
         }
       }
-      jQuery3.param = function(a, traditional) {
+      jQuery5.param = function(a, traditional) {
         var prefix, s = [], add = function(key, valueOrFunction) {
           var value = isFunction(valueOrFunction) ? valueOrFunction() : valueOrFunction;
           s[s.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value == null ? "" : value);
@@ -5009,8 +5009,8 @@ var require_jquery = __commonJS({
         if (a == null) {
           return "";
         }
-        if (Array.isArray(a) || a.jquery && !jQuery3.isPlainObject(a)) {
-          jQuery3.each(a, function() {
+        if (Array.isArray(a) || a.jquery && !jQuery5.isPlainObject(a)) {
+          jQuery5.each(a, function() {
             add(this.name, this.value);
           });
         } else {
@@ -5020,24 +5020,24 @@ var require_jquery = __commonJS({
         }
         return s.join("&");
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         serialize: function() {
-          return jQuery3.param(this.serializeArray());
+          return jQuery5.param(this.serializeArray());
         },
         serializeArray: function() {
           return this.map(function() {
-            var elements = jQuery3.prop(this, "elements");
-            return elements ? jQuery3.makeArray(elements) : this;
+            var elements = jQuery5.prop(this, "elements");
+            return elements ? jQuery5.makeArray(elements) : this;
           }).filter(function() {
             var type = this.type;
-            return this.name && !jQuery3(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));
+            return this.name && !jQuery5(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));
           }).map(function(_i, elem) {
-            var val = jQuery3(this).val();
+            var val = jQuery5(this).val();
             if (val == null) {
               return null;
             }
             if (Array.isArray(val)) {
-              return jQuery3.map(val, function(val2) {
+              return jQuery5.map(val, function(val2) {
                 return { name: elem.name, value: val2.replace(rCRLF, "\r\n") };
               });
             }
@@ -5071,7 +5071,7 @@ var require_jquery = __commonJS({
         function inspect(dataType) {
           var selected;
           inspected[dataType] = true;
-          jQuery3.each(structure[dataType] || [], function(_, prefilterOrFactory) {
+          jQuery5.each(structure[dataType] || [], function(_, prefilterOrFactory) {
             var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
             if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
               options.dataTypes.unshift(dataTypeOrTransport);
@@ -5086,14 +5086,14 @@ var require_jquery = __commonJS({
         return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");
       }
       function ajaxExtend(target, src) {
-        var key, deep, flatOptions = jQuery3.ajaxSettings.flatOptions || {};
+        var key, deep, flatOptions = jQuery5.ajaxSettings.flatOptions || {};
         for (key in src) {
           if (src[key] !== void 0) {
             (flatOptions[key] ? target : deep || (deep = {}))[key] = src[key];
           }
         }
         if (deep) {
-          jQuery3.extend(true, target, deep);
+          jQuery5.extend(true, target, deep);
         }
         return target;
       }
@@ -5192,7 +5192,7 @@ var require_jquery = __commonJS({
         }
         return { state: "success", data: response };
       }
-      jQuery3.extend({
+      jQuery5.extend({
         active: 0,
         lastModified: {},
         etag: {},
@@ -5225,7 +5225,7 @@ var require_jquery = __commonJS({
             "* text": String,
             "text html": true,
             "text json": JSON.parse,
-            "text xml": jQuery3.parseXML
+            "text xml": jQuery5.parseXML
           },
           flatOptions: {
             url: true,
@@ -5233,7 +5233,7 @@ var require_jquery = __commonJS({
           }
         },
         ajaxSetup: function(target, settings) {
-          return settings ? ajaxExtend(ajaxExtend(target, jQuery3.ajaxSettings), settings) : ajaxExtend(jQuery3.ajaxSettings, target);
+          return settings ? ajaxExtend(ajaxExtend(target, jQuery5.ajaxSettings), settings) : ajaxExtend(jQuery5.ajaxSettings, target);
         },
         ajaxPrefilter: addToPrefiltersOrTransports(prefilters),
         ajaxTransport: addToPrefiltersOrTransports(transports),
@@ -5243,7 +5243,7 @@ var require_jquery = __commonJS({
             url = void 0;
           }
           options = options || {};
-          var transport, cacheURL, responseHeadersString, responseHeaders, timeoutTimer, urlAnchor, completed2, fireGlobals, i, uncached, s = jQuery3.ajaxSetup({}, options), callbackContext = s.context || s, globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ? jQuery3(callbackContext) : jQuery3.event, deferred = jQuery3.Deferred(), completeDeferred = jQuery3.Callbacks("once memory"), statusCode = s.statusCode || {}, requestHeaders = {}, requestHeadersNames = {}, strAbort = "canceled", jqXHR = {
+          var transport, cacheURL, responseHeadersString, responseHeaders, timeoutTimer, urlAnchor, completed2, fireGlobals, i, uncached, s = jQuery5.ajaxSetup({}, options), callbackContext = s.context || s, globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ? jQuery5(callbackContext) : jQuery5.event, deferred = jQuery5.Deferred(), completeDeferred = jQuery5.Callbacks("once memory"), statusCode = s.statusCode || {}, requestHeaders = {}, requestHeadersNames = {}, strAbort = "canceled", jqXHR = {
             readyState: 0,
             getResponseHeader: function(key) {
               var match;
@@ -5311,15 +5311,15 @@ var require_jquery = __commonJS({
             }
           }
           if (s.data && s.processData && typeof s.data !== "string") {
-            s.data = jQuery3.param(s.data, s.traditional);
+            s.data = jQuery5.param(s.data, s.traditional);
           }
           inspectPrefiltersOrTransports(prefilters, s, options, jqXHR);
           if (completed2) {
             return jqXHR;
           }
-          fireGlobals = jQuery3.event && s.global;
-          if (fireGlobals && jQuery3.active++ === 0) {
-            jQuery3.event.trigger("ajaxStart");
+          fireGlobals = jQuery5.event && s.global;
+          if (fireGlobals && jQuery5.active++ === 0) {
+            jQuery5.event.trigger("ajaxStart");
           }
           s.type = s.type.toUpperCase();
           s.hasContent = !rnoContent.test(s.type);
@@ -5339,11 +5339,11 @@ var require_jquery = __commonJS({
             s.data = s.data.replace(r20, "+");
           }
           if (s.ifModified) {
-            if (jQuery3.lastModified[cacheURL]) {
-              jqXHR.setRequestHeader("If-Modified-Since", jQuery3.lastModified[cacheURL]);
+            if (jQuery5.lastModified[cacheURL]) {
+              jqXHR.setRequestHeader("If-Modified-Since", jQuery5.lastModified[cacheURL]);
             }
-            if (jQuery3.etag[cacheURL]) {
-              jqXHR.setRequestHeader("If-None-Match", jQuery3.etag[cacheURL]);
+            if (jQuery5.etag[cacheURL]) {
+              jqXHR.setRequestHeader("If-None-Match", jQuery5.etag[cacheURL]);
             }
           }
           if (s.data && s.hasContent && s.contentType !== false || options.contentType) {
@@ -5405,7 +5405,7 @@ var require_jquery = __commonJS({
             if (responses) {
               response = ajaxHandleResponses(s, jqXHR, responses);
             }
-            if (!isSuccess && jQuery3.inArray("script", s.dataTypes) > -1 && jQuery3.inArray("json", s.dataTypes) < 0) {
+            if (!isSuccess && jQuery5.inArray("script", s.dataTypes) > -1 && jQuery5.inArray("json", s.dataTypes) < 0) {
               s.converters["text script"] = function() {
               };
             }
@@ -5414,11 +5414,11 @@ var require_jquery = __commonJS({
               if (s.ifModified) {
                 modified = jqXHR.getResponseHeader("Last-Modified");
                 if (modified) {
-                  jQuery3.lastModified[cacheURL] = modified;
+                  jQuery5.lastModified[cacheURL] = modified;
                 }
                 modified = jqXHR.getResponseHeader("etag");
                 if (modified) {
-                  jQuery3.etag[cacheURL] = modified;
+                  jQuery5.etag[cacheURL] = modified;
                 }
               }
               if (status === 204 || s.type === "HEAD") {
@@ -5458,37 +5458,37 @@ var require_jquery = __commonJS({
             completeDeferred.fireWith(callbackContext, [jqXHR, statusText]);
             if (fireGlobals) {
               globalEventContext.trigger("ajaxComplete", [jqXHR, s]);
-              if (!--jQuery3.active) {
-                jQuery3.event.trigger("ajaxStop");
+              if (!--jQuery5.active) {
+                jQuery5.event.trigger("ajaxStop");
               }
             }
           }
           return jqXHR;
         },
         getJSON: function(url, data, callback) {
-          return jQuery3.get(url, data, callback, "json");
+          return jQuery5.get(url, data, callback, "json");
         },
         getScript: function(url, callback) {
-          return jQuery3.get(url, void 0, callback, "script");
+          return jQuery5.get(url, void 0, callback, "script");
         }
       });
-      jQuery3.each(["get", "post"], function(_i, method) {
-        jQuery3[method] = function(url, data, callback, type) {
+      jQuery5.each(["get", "post"], function(_i, method) {
+        jQuery5[method] = function(url, data, callback, type) {
           if (isFunction(data)) {
             type = type || callback;
             callback = data;
             data = void 0;
           }
-          return jQuery3.ajax(jQuery3.extend({
+          return jQuery5.ajax(jQuery5.extend({
             url,
             type: method,
             dataType: type,
             data,
             success: callback
-          }, jQuery3.isPlainObject(url) && url));
+          }, jQuery5.isPlainObject(url) && url));
         };
       });
-      jQuery3.ajaxPrefilter(function(s) {
+      jQuery5.ajaxPrefilter(function(s) {
         var i;
         for (i in s.headers) {
           if (i.toLowerCase() === "content-type") {
@@ -5496,8 +5496,8 @@ var require_jquery = __commonJS({
           }
         }
       });
-      jQuery3._evalUrl = function(url, options, doc) {
-        return jQuery3.ajax({
+      jQuery5._evalUrl = function(url, options, doc) {
+        return jQuery5.ajax({
           url,
           type: "GET",
           dataType: "script",
@@ -5509,18 +5509,18 @@ var require_jquery = __commonJS({
             }
           },
           dataFilter: function(response) {
-            jQuery3.globalEval(response, options, doc);
+            jQuery5.globalEval(response, options, doc);
           }
         });
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         wrapAll: function(html) {
           var wrap;
           if (this[0]) {
             if (isFunction(html)) {
               html = html.call(this[0]);
             }
-            wrap = jQuery3(html, this[0].ownerDocument).eq(0).clone(true);
+            wrap = jQuery5(html, this[0].ownerDocument).eq(0).clone(true);
             if (this[0].parentNode) {
               wrap.insertBefore(this[0]);
             }
@@ -5537,11 +5537,11 @@ var require_jquery = __commonJS({
         wrapInner: function(html) {
           if (isFunction(html)) {
             return this.each(function(i) {
-              jQuery3(this).wrapInner(html.call(this, i));
+              jQuery5(this).wrapInner(html.call(this, i));
             });
           }
           return this.each(function() {
-            var self2 = jQuery3(this), contents = self2.contents();
+            var self2 = jQuery5(this), contents = self2.contents();
             if (contents.length) {
               contents.wrapAll(html);
             } else {
@@ -5552,23 +5552,23 @@ var require_jquery = __commonJS({
         wrap: function(html) {
           var htmlIsFunction = isFunction(html);
           return this.each(function(i) {
-            jQuery3(this).wrapAll(htmlIsFunction ? html.call(this, i) : html);
+            jQuery5(this).wrapAll(htmlIsFunction ? html.call(this, i) : html);
           });
         },
         unwrap: function(selector) {
           this.parent(selector).not("body").each(function() {
-            jQuery3(this).replaceWith(this.childNodes);
+            jQuery5(this).replaceWith(this.childNodes);
           });
           return this;
         }
       });
-      jQuery3.expr.pseudos.hidden = function(elem) {
-        return !jQuery3.expr.pseudos.visible(elem);
+      jQuery5.expr.pseudos.hidden = function(elem) {
+        return !jQuery5.expr.pseudos.visible(elem);
       };
-      jQuery3.expr.pseudos.visible = function(elem) {
+      jQuery5.expr.pseudos.visible = function(elem) {
         return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
       };
-      jQuery3.ajaxSettings.xhr = function() {
+      jQuery5.ajaxSettings.xhr = function() {
         try {
           return new window2.XMLHttpRequest();
         } catch (e) {
@@ -5577,10 +5577,10 @@ var require_jquery = __commonJS({
       var xhrSuccessStatus = {
         0: 200,
         1223: 204
-      }, xhrSupported = jQuery3.ajaxSettings.xhr();
+      }, xhrSupported = jQuery5.ajaxSettings.xhr();
       support.cors = !!xhrSupported && "withCredentials" in xhrSupported;
       support.ajax = xhrSupported = !!xhrSupported;
-      jQuery3.ajaxTransport(function(options) {
+      jQuery5.ajaxTransport(function(options) {
         var callback, errorCallback;
         if (support.cors || xhrSupported && !options.crossDomain) {
           return {
@@ -5665,12 +5665,12 @@ var require_jquery = __commonJS({
           };
         }
       });
-      jQuery3.ajaxPrefilter(function(s) {
+      jQuery5.ajaxPrefilter(function(s) {
         if (s.crossDomain) {
           s.contents.script = false;
         }
       });
-      jQuery3.ajaxSetup({
+      jQuery5.ajaxSetup({
         accepts: {
           script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
         },
@@ -5679,12 +5679,12 @@ var require_jquery = __commonJS({
         },
         converters: {
           "text script": function(text) {
-            jQuery3.globalEval(text);
+            jQuery5.globalEval(text);
             return text;
           }
         }
       });
-      jQuery3.ajaxPrefilter("script", function(s) {
+      jQuery5.ajaxPrefilter("script", function(s) {
         if (s.cache === void 0) {
           s.cache = false;
         }
@@ -5692,12 +5692,12 @@ var require_jquery = __commonJS({
           s.type = "GET";
         }
       });
-      jQuery3.ajaxTransport("script", function(s) {
+      jQuery5.ajaxTransport("script", function(s) {
         if (s.crossDomain || s.scriptAttrs) {
           var script, callback;
           return {
             send: function(_, complete) {
-              script = jQuery3("<script>").attr(s.scriptAttrs || {}).prop({ charset: s.scriptCharset, src: s.url }).on("load error", callback = function(evt) {
+              script = jQuery5("<script>").attr(s.scriptAttrs || {}).prop({ charset: s.scriptCharset, src: s.url }).on("load error", callback = function(evt) {
                 script.remove();
                 callback = null;
                 if (evt) {
@@ -5715,15 +5715,15 @@ var require_jquery = __commonJS({
         }
       });
       var oldCallbacks = [], rjsonp = /(=)\?(?=&|$)|\?\?/;
-      jQuery3.ajaxSetup({
+      jQuery5.ajaxSetup({
         jsonp: "callback",
         jsonpCallback: function() {
-          var callback = oldCallbacks.pop() || jQuery3.expando + "_" + nonce2.guid++;
+          var callback = oldCallbacks.pop() || jQuery5.expando + "_" + nonce2.guid++;
           this[callback] = true;
           return callback;
         }
       });
-      jQuery3.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
+      jQuery5.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
         var callbackName, overwritten, responseContainer, jsonProp = s.jsonp !== false && (rjsonp.test(s.url) ? "url" : typeof s.data === "string" && (s.contentType || "").indexOf("application/x-www-form-urlencoded") === 0 && rjsonp.test(s.data) && "data");
         if (jsonProp || s.dataTypes[0] === "jsonp") {
           callbackName = s.jsonpCallback = isFunction(s.jsonpCallback) ? s.jsonpCallback() : s.jsonpCallback;
@@ -5734,7 +5734,7 @@ var require_jquery = __commonJS({
           }
           s.converters["script json"] = function() {
             if (!responseContainer) {
-              jQuery3.error(callbackName + " was not called");
+              jQuery5.error(callbackName + " was not called");
             }
             return responseContainer[0];
           };
@@ -5745,7 +5745,7 @@ var require_jquery = __commonJS({
           };
           jqXHR.always(function() {
             if (overwritten === void 0) {
-              jQuery3(window2).removeProp(callbackName);
+              jQuery5(window2).removeProp(callbackName);
             } else {
               window2[callbackName] = overwritten;
             }
@@ -5766,7 +5766,7 @@ var require_jquery = __commonJS({
         body.innerHTML = "<form></form><form></form>";
         return body.childNodes.length === 2;
       }();
-      jQuery3.parseHTML = function(data, context, keepScripts) {
+      jQuery5.parseHTML = function(data, context, keepScripts) {
         if (typeof data !== "string") {
           return [];
         }
@@ -5792,11 +5792,11 @@ var require_jquery = __commonJS({
         }
         parsed = buildFragment([data], context, scripts);
         if (scripts && scripts.length) {
-          jQuery3(scripts).remove();
+          jQuery5(scripts).remove();
         }
-        return jQuery3.merge([], parsed.childNodes);
+        return jQuery5.merge([], parsed.childNodes);
       };
-      jQuery3.fn.load = function(url, params, callback) {
+      jQuery5.fn.load = function(url, params, callback) {
         var selector, type, response, self2 = this, off = url.indexOf(" ");
         if (off > -1) {
           selector = stripAndCollapse(url.slice(off));
@@ -5809,14 +5809,14 @@ var require_jquery = __commonJS({
           type = "POST";
         }
         if (self2.length > 0) {
-          jQuery3.ajax({
+          jQuery5.ajax({
             url,
             type: type || "GET",
             dataType: "html",
             data: params
           }).done(function(responseText) {
             response = arguments;
-            self2.html(selector ? jQuery3("<div>").append(jQuery3.parseHTML(responseText)).find(selector) : responseText);
+            self2.html(selector ? jQuery5("<div>").append(jQuery5.parseHTML(responseText)).find(selector) : responseText);
           }).always(callback && function(jqXHR, status) {
             self2.each(function() {
               callback.apply(this, response || [jqXHR.responseText, status, jqXHR]);
@@ -5825,20 +5825,20 @@ var require_jquery = __commonJS({
         }
         return this;
       };
-      jQuery3.expr.pseudos.animated = function(elem) {
-        return jQuery3.grep(jQuery3.timers, function(fn) {
+      jQuery5.expr.pseudos.animated = function(elem) {
+        return jQuery5.grep(jQuery5.timers, function(fn) {
           return elem === fn.elem;
         }).length;
       };
-      jQuery3.offset = {
+      jQuery5.offset = {
         setOffset: function(elem, options, i) {
-          var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition, position = jQuery3.css(elem, "position"), curElem = jQuery3(elem), props = {};
+          var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition, position = jQuery5.css(elem, "position"), curElem = jQuery5(elem), props = {};
           if (position === "static") {
             elem.style.position = "relative";
           }
           curOffset = curElem.offset();
-          curCSSTop = jQuery3.css(elem, "top");
-          curCSSLeft = jQuery3.css(elem, "left");
+          curCSSTop = jQuery5.css(elem, "top");
+          curCSSLeft = jQuery5.css(elem, "left");
           calculatePosition = (position === "absolute" || position === "fixed") && (curCSSTop + curCSSLeft).indexOf("auto") > -1;
           if (calculatePosition) {
             curPosition = curElem.position();
@@ -5849,7 +5849,7 @@ var require_jquery = __commonJS({
             curLeft = parseFloat(curCSSLeft) || 0;
           }
           if (isFunction(options)) {
-            options = options.call(elem, i, jQuery3.extend({}, curOffset));
+            options = options.call(elem, i, jQuery5.extend({}, curOffset));
           }
           if (options.top != null) {
             props.top = options.top - curOffset.top + curTop;
@@ -5864,11 +5864,11 @@ var require_jquery = __commonJS({
           }
         }
       };
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         offset: function(options) {
           if (arguments.length) {
             return options === void 0 ? this : this.each(function(i) {
-              jQuery3.offset.setOffset(this, options, i);
+              jQuery5.offset.setOffset(this, options, i);
             });
           }
           var rect, win, elem = this[0];
@@ -5890,39 +5890,39 @@ var require_jquery = __commonJS({
             return;
           }
           var offsetParent, offset, doc, elem = this[0], parentOffset = { top: 0, left: 0 };
-          if (jQuery3.css(elem, "position") === "fixed") {
+          if (jQuery5.css(elem, "position") === "fixed") {
             offset = elem.getBoundingClientRect();
           } else {
             offset = this.offset();
             doc = elem.ownerDocument;
             offsetParent = elem.offsetParent || doc.documentElement;
-            while (offsetParent && (offsetParent === doc.body || offsetParent === doc.documentElement) && jQuery3.css(offsetParent, "position") === "static") {
+            while (offsetParent && (offsetParent === doc.body || offsetParent === doc.documentElement) && jQuery5.css(offsetParent, "position") === "static") {
               offsetParent = offsetParent.parentNode;
             }
             if (offsetParent && offsetParent !== elem && offsetParent.nodeType === 1) {
-              parentOffset = jQuery3(offsetParent).offset();
-              parentOffset.top += jQuery3.css(offsetParent, "borderTopWidth", true);
-              parentOffset.left += jQuery3.css(offsetParent, "borderLeftWidth", true);
+              parentOffset = jQuery5(offsetParent).offset();
+              parentOffset.top += jQuery5.css(offsetParent, "borderTopWidth", true);
+              parentOffset.left += jQuery5.css(offsetParent, "borderLeftWidth", true);
             }
           }
           return {
-            top: offset.top - parentOffset.top - jQuery3.css(elem, "marginTop", true),
-            left: offset.left - parentOffset.left - jQuery3.css(elem, "marginLeft", true)
+            top: offset.top - parentOffset.top - jQuery5.css(elem, "marginTop", true),
+            left: offset.left - parentOffset.left - jQuery5.css(elem, "marginLeft", true)
           };
         },
         offsetParent: function() {
           return this.map(function() {
             var offsetParent = this.offsetParent;
-            while (offsetParent && jQuery3.css(offsetParent, "position") === "static") {
+            while (offsetParent && jQuery5.css(offsetParent, "position") === "static") {
               offsetParent = offsetParent.offsetParent;
             }
             return offsetParent || documentElement;
           });
         }
       });
-      jQuery3.each({ scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function(method, prop) {
+      jQuery5.each({ scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function(method, prop) {
         var top = "pageYOffset" === prop;
-        jQuery3.fn[method] = function(val) {
+        jQuery5.fn[method] = function(val) {
           return access(this, function(elem, method2, val2) {
             var win;
             if (isWindow(elem)) {
@@ -5944,24 +5944,24 @@ var require_jquery = __commonJS({
           }, method, val, arguments.length);
         };
       });
-      jQuery3.each(["top", "left"], function(_i, prop) {
-        jQuery3.cssHooks[prop] = addGetHookIf(
+      jQuery5.each(["top", "left"], function(_i, prop) {
+        jQuery5.cssHooks[prop] = addGetHookIf(
           support.pixelPosition,
           function(elem, computed) {
             if (computed) {
               computed = curCSS(elem, prop);
-              return rnumnonpx.test(computed) ? jQuery3(elem).position()[prop] + "px" : computed;
+              return rnumnonpx.test(computed) ? jQuery5(elem).position()[prop] + "px" : computed;
             }
           }
         );
       });
-      jQuery3.each({ Height: "height", Width: "width" }, function(name, type) {
-        jQuery3.each({
+      jQuery5.each({ Height: "height", Width: "width" }, function(name, type) {
+        jQuery5.each({
           padding: "inner" + name,
           content: type,
           "": "outer" + name
         }, function(defaultExtra, funcName) {
-          jQuery3.fn[funcName] = function(margin, value) {
+          jQuery5.fn[funcName] = function(margin, value) {
             var chainable = arguments.length && (defaultExtra || typeof margin !== "boolean"), extra = defaultExtra || (margin === true || value === true ? "margin" : "border");
             return access(this, function(elem, type2, value2) {
               var doc;
@@ -5978,12 +5978,12 @@ var require_jquery = __commonJS({
                   doc["client" + name]
                 );
               }
-              return value2 === void 0 ? jQuery3.css(elem, type2, extra) : jQuery3.style(elem, type2, value2, extra);
+              return value2 === void 0 ? jQuery5.css(elem, type2, extra) : jQuery5.style(elem, type2, value2, extra);
             }, type, chainable ? margin : void 0, chainable);
           };
         });
       });
-      jQuery3.each([
+      jQuery5.each([
         "ajaxStart",
         "ajaxStop",
         "ajaxComplete",
@@ -5991,11 +5991,11 @@ var require_jquery = __commonJS({
         "ajaxSuccess",
         "ajaxSend"
       ], function(_i, type) {
-        jQuery3.fn[type] = function(fn) {
+        jQuery5.fn[type] = function(fn) {
           return this.on(type, fn);
         };
       });
-      jQuery3.fn.extend({
+      jQuery5.fn.extend({
         bind: function(types, data, fn) {
           return this.on(types, null, data, fn);
         },
@@ -6012,16 +6012,16 @@ var require_jquery = __commonJS({
           return this.on("mouseenter", fnOver).on("mouseleave", fnOut || fnOver);
         }
       });
-      jQuery3.each(
+      jQuery5.each(
         "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" "),
         function(_i, name) {
-          jQuery3.fn[name] = function(data, fn) {
+          jQuery5.fn[name] = function(data, fn) {
             return arguments.length > 0 ? this.on(name, null, data, fn) : this.trigger(name);
           };
         }
       );
       var rtrim = /^[\s\uFEFF\xA0]+|([^\s\uFEFF\xA0])[\s\uFEFF\xA0]+$/g;
-      jQuery3.proxy = function(fn, context) {
+      jQuery5.proxy = function(fn, context) {
         var tmp, args, proxy;
         if (typeof context === "string") {
           tmp = fn[context];
@@ -6035,50 +6035,50 @@ var require_jquery = __commonJS({
         proxy = function() {
           return fn.apply(context || this, args.concat(slice.call(arguments)));
         };
-        proxy.guid = fn.guid = fn.guid || jQuery3.guid++;
+        proxy.guid = fn.guid = fn.guid || jQuery5.guid++;
         return proxy;
       };
-      jQuery3.holdReady = function(hold) {
+      jQuery5.holdReady = function(hold) {
         if (hold) {
-          jQuery3.readyWait++;
+          jQuery5.readyWait++;
         } else {
-          jQuery3.ready(true);
+          jQuery5.ready(true);
         }
       };
-      jQuery3.isArray = Array.isArray;
-      jQuery3.parseJSON = JSON.parse;
-      jQuery3.nodeName = nodeName;
-      jQuery3.isFunction = isFunction;
-      jQuery3.isWindow = isWindow;
-      jQuery3.camelCase = camelCase;
-      jQuery3.type = toType;
-      jQuery3.now = Date.now;
-      jQuery3.isNumeric = function(obj) {
-        var type = jQuery3.type(obj);
+      jQuery5.isArray = Array.isArray;
+      jQuery5.parseJSON = JSON.parse;
+      jQuery5.nodeName = nodeName;
+      jQuery5.isFunction = isFunction;
+      jQuery5.isWindow = isWindow;
+      jQuery5.camelCase = camelCase;
+      jQuery5.type = toType;
+      jQuery5.now = Date.now;
+      jQuery5.isNumeric = function(obj) {
+        var type = jQuery5.type(obj);
         return (type === "number" || type === "string") && !isNaN(obj - parseFloat(obj));
       };
-      jQuery3.trim = function(text) {
+      jQuery5.trim = function(text) {
         return text == null ? "" : (text + "").replace(rtrim, "$1");
       };
       if (typeof define === "function" && define.amd) {
         define("jquery", [], function() {
-          return jQuery3;
+          return jQuery5;
         });
       }
       var _jQuery = window2.jQuery, _$ = window2.$;
-      jQuery3.noConflict = function(deep) {
-        if (window2.$ === jQuery3) {
+      jQuery5.noConflict = function(deep) {
+        if (window2.$ === jQuery5) {
           window2.$ = _$;
         }
-        if (deep && window2.jQuery === jQuery3) {
+        if (deep && window2.jQuery === jQuery5) {
           window2.jQuery = _jQuery;
         }
-        return jQuery3;
+        return jQuery5;
       };
       if (typeof noGlobal === "undefined") {
-        window2.jQuery = window2.$ = jQuery3;
+        window2.jQuery = window2.$ = jQuery5;
       }
-      return jQuery3;
+      return jQuery5;
     });
   }
 });
@@ -6088,13 +6088,13 @@ var require_rails = __commonJS({
   "node_modules/jquery-ujs/src/rails.js"(exports, module) {
     (function() {
       "use strict";
-      var jqueryUjsInit = function($3, undefined2) {
-        if ($3.rails !== undefined2) {
-          $3.error("jquery-ujs has already been loaded!");
+      var jqueryUjsInit = function($5, undefined2) {
+        if ($5.rails !== undefined2) {
+          $5.error("jquery-ujs has already been loaded!");
         }
         var rails;
-        var $document = $3(document);
-        $3.rails = rails = {
+        var $document = $5(document);
+        $5.rails = rails = {
           linkClickSelector: "a[data-confirm], a[data-method], a[data-remote]:not([disabled]), a[data-disable-with], a[data-disable]",
           buttonClickSelector: "button[data-remote]:not([form]):not(form button), button[data-confirm]:not([form]):not(form button)",
           inputChangeSelector: "select[data-remote], input[data-remote], textarea[data-remote]",
@@ -6107,10 +6107,10 @@ var require_rails = __commonJS({
           linkDisableSelector: "a[data-disable-with], a[data-disable]",
           buttonDisableSelector: "button[data-remote][data-disable-with], button[data-remote][data-disable]",
           csrfToken: function() {
-            return $3("meta[name=csrf-token]").attr("content");
+            return $5("meta[name=csrf-token]").attr("content");
           },
           csrfParam: function() {
-            return $3("meta[name=csrf-param]").attr("content");
+            return $5("meta[name=csrf-param]").attr("content");
           },
           CSRFProtection: function(xhr) {
             var token = rails.csrfToken();
@@ -6118,10 +6118,10 @@ var require_rails = __commonJS({
               xhr.setRequestHeader("X-CSRF-Token", token);
           },
           refreshCSRFTokens: function() {
-            $3('form input[name="' + rails.csrfParam() + '"]').val(rails.csrfToken());
+            $5('form input[name="' + rails.csrfParam() + '"]').val(rails.csrfToken());
           },
           fire: function(obj, name, data) {
-            var event = $3.Event(name);
+            var event = $5.Event(name);
             obj.trigger(event, data);
             return event.result !== false;
           },
@@ -6129,7 +6129,7 @@ var require_rails = __commonJS({
             return confirm(message);
           },
           ajax: function(options) {
-            return $3.ajax(options);
+            return $5.ajax(options);
           },
           href: function(element) {
             return element[0].href;
@@ -6141,11 +6141,11 @@ var require_rails = __commonJS({
             var method, url, data, withCredentials, dataType, options;
             if (rails.fire(element, "ajax:before")) {
               withCredentials = element.data("with-credentials") || null;
-              dataType = element.data("type") || $3.ajaxSettings && $3.ajaxSettings.dataType;
+              dataType = element.data("type") || $5.ajaxSettings && $5.ajaxSettings.dataType;
               if (element.is("form")) {
                 method = element.data("ujs:submit-button-formmethod") || element.attr("method");
                 url = element.data("ujs:submit-button-formaction") || element.attr("action");
-                data = $3(element[0]).serializeArray();
+                data = $5(element[0]).serializeArray();
                 var button = element.data("ujs:submit-button");
                 if (button) {
                   data.push(button);
@@ -6221,7 +6221,7 @@ var require_rails = __commonJS({
             }
           },
           handleMethod: function(link) {
-            var href2 = rails.href(link), method = link.data("method"), target = link.attr("target"), csrfToken2 = rails.csrfToken(), csrfParam2 = rails.csrfParam(), form = $3('<form method="post" action="' + href2 + '"></form>'), metadataInput = '<input name="_method" value="' + method + '" type="hidden" />';
+            var href2 = rails.href(link), method = link.data("method"), target = link.attr("target"), csrfToken2 = rails.csrfToken(), csrfParam2 = rails.csrfParam(), form = $5('<form method="post" action="' + href2 + '"></form>'), metadataInput = '<input name="_method" value="' + method + '" type="hidden" />';
             if (csrfParam2 !== undefined2 && csrfToken2 !== undefined2 && !rails.isCrossDomain(href2)) {
               metadataInput += '<input name="' + csrfParam2 + '" value="' + csrfToken2 + '" type="hidden" />';
             }
@@ -6232,11 +6232,11 @@ var require_rails = __commonJS({
             form.submit();
           },
           formElements: function(form, selector) {
-            return form.is("form") ? $3(form[0].elements).filter(selector) : form.find(selector);
+            return form.is("form") ? $5(form[0].elements).filter(selector) : form.find(selector);
           },
           disableFormElements: function(form) {
             rails.formElements(form, rails.disableSelector).each(function() {
-              rails.disableFormElement($3(this));
+              rails.disableFormElement($5(this));
             });
           },
           disableFormElement: function(element) {
@@ -6252,7 +6252,7 @@ var require_rails = __commonJS({
           },
           enableFormElements: function(form) {
             rails.formElements(form, rails.enableSelector).each(function() {
-              rails.enableFormElement($3(this));
+              rails.enableFormElement($5(this));
             });
           },
           enableFormElement: function(element) {
@@ -6280,9 +6280,9 @@ var require_rails = __commonJS({
             return answer && callback;
           },
           blankInputs: function(form, specifiedSelector, nonBlank) {
-            var foundInputs = $3(), input, valueToCheck, radiosForNameWithNoneSelected, radioName, selector = specifiedSelector || "input,textarea", requiredInputs = form.find(selector), checkedRadioButtonNames = {};
+            var foundInputs = $5(), input, valueToCheck, radiosForNameWithNoneSelected, radioName, selector = specifiedSelector || "input,textarea", requiredInputs = form.find(selector), checkedRadioButtonNames = {};
             requiredInputs.each(function() {
-              input = $3(this);
+              input = $5(this);
               if (input.is("input[type=radio]")) {
                 radioName = input.attr("name");
                 if (!checkedRadioButtonNames[radioName]) {
@@ -6307,7 +6307,7 @@ var require_rails = __commonJS({
             return rails.blankInputs(form, specifiedSelector, true);
           },
           stopEverything: function(e) {
-            $3(e.target).trigger("ujs:everythingStopped");
+            $5(e.target).trigger("ujs:everythingStopped");
             e.stopImmediatePropagation();
             return false;
           },
@@ -6332,33 +6332,33 @@ var require_rails = __commonJS({
           }
         };
         if (rails.fire($document, "rails:attachBindings")) {
-          $3.ajaxPrefilter(function(options, originalOptions, xhr) {
+          $5.ajaxPrefilter(function(options, originalOptions, xhr) {
             if (!options.crossDomain) {
               rails.CSRFProtection(xhr);
             }
           });
-          $3(window).on("pageshow.rails", function() {
-            $3($3.rails.enableSelector).each(function() {
-              var element = $3(this);
+          $5(window).on("pageshow.rails", function() {
+            $5($5.rails.enableSelector).each(function() {
+              var element = $5(this);
               if (element.data("ujs:disabled")) {
-                $3.rails.enableFormElement(element);
+                $5.rails.enableFormElement(element);
               }
             });
-            $3($3.rails.linkDisableSelector).each(function() {
-              var element = $3(this);
+            $5($5.rails.linkDisableSelector).each(function() {
+              var element = $5(this);
               if (element.data("ujs:disabled")) {
-                $3.rails.enableElement(element);
+                $5.rails.enableElement(element);
               }
             });
           });
           $document.on("ajax:complete", rails.linkDisableSelector, function() {
-            rails.enableElement($3(this));
+            rails.enableElement($5(this));
           });
           $document.on("ajax:complete", rails.buttonDisableSelector, function() {
-            rails.enableFormElement($3(this));
+            rails.enableFormElement($5(this));
           });
           $document.on("click.rails", rails.linkClickSelector, function(e) {
-            var link = $3(this), method = link.data("method"), data = link.data("params"), metaClick = e.metaKey || e.ctrlKey;
+            var link = $5(this), method = link.data("method"), data = link.data("params"), metaClick = e.metaKey || e.ctrlKey;
             if (!rails.allowAction(link))
               return rails.stopEverything(e);
             if (!metaClick && link.is(rails.linkDisableSelector))
@@ -6382,7 +6382,7 @@ var require_rails = __commonJS({
             }
           });
           $document.on("click.rails", rails.buttonClickSelector, function(e) {
-            var button = $3(this);
+            var button = $5(this);
             if (!rails.allowAction(button) || !rails.isRemote(button))
               return rails.stopEverything(e);
             if (button.is(rails.buttonDisableSelector))
@@ -6398,14 +6398,14 @@ var require_rails = __commonJS({
             return false;
           });
           $document.on("change.rails", rails.inputChangeSelector, function(e) {
-            var link = $3(this);
+            var link = $5(this);
             if (!rails.allowAction(link) || !rails.isRemote(link))
               return rails.stopEverything(e);
             rails.handleRemote(link);
             return false;
           });
           $document.on("submit.rails", rails.formSubmitSelector, function(e) {
-            var form = $3(this), remote = rails.isRemote(form), blankRequiredInputs, nonBlankFileInputs;
+            var form = $5(this), remote = rails.isRemote(form), blankRequiredInputs, nonBlankFileInputs;
             if (!rails.allowAction(form))
               return rails.stopEverything(e);
             if (form.attr("novalidate") === undefined2) {
@@ -6441,13 +6441,13 @@ var require_rails = __commonJS({
             }
           });
           $document.on("click.rails", rails.formInputClickSelector, function(event) {
-            var button = $3(this);
+            var button = $5(this);
             if (!rails.allowAction(button))
               return rails.stopEverything(event);
             var name = button.attr("name"), data = name ? { name, value: button.val() } : null;
             var form = button.closest("form");
             if (form.length === 0) {
-              form = $3("#" + button.attr("form"));
+              form = $5("#" + button.attr("form"));
             }
             form.data("ujs:submit-button", data);
             form.data("ujs:formnovalidate-button", button.attr("formnovalidate"));
@@ -6456,13 +6456,13 @@ var require_rails = __commonJS({
           });
           $document.on("ajax:send.rails", rails.formSubmitSelector, function(event) {
             if (this === event.target)
-              rails.disableFormElements($3(this));
+              rails.disableFormElements($5(this));
           });
           $document.on("ajax:complete.rails", rails.formSubmitSelector, function(event) {
             if (this === event.target)
-              rails.enableFormElements($3(this));
+              rails.enableFormElements($5(this));
           });
-          $3(function() {
+          $5(function() {
             rails.refreshCSRFTokens();
           });
         }
@@ -6482,20 +6482,20 @@ var require_dataTables = __commonJS({
     (function(factory) {
       "use strict";
       if (typeof define === "function" && define.amd) {
-        define(["jquery"], function($3) {
-          return factory($3, window, document);
+        define(["jquery"], function($5) {
+          return factory($5, window, document);
         });
       } else if (typeof exports === "object") {
         var jq = require_jquery();
         if (typeof window === "undefined") {
-          module.exports = function(root, $3) {
+          module.exports = function(root, $5) {
             if (!root) {
               root = window;
             }
-            if (!$3) {
-              $3 = jq(root);
+            if (!$5) {
+              $5 = jq(root);
             }
-            return factory($3, root, root.document);
+            return factory($5, root, root.document);
           };
         } else {
           module.exports = factory(jq, window, window.document);
@@ -6503,14 +6503,14 @@ var require_dataTables = __commonJS({
       } else {
         window.DataTable = factory(jQuery, window, document);
       }
-    })(function($3, window2, document2) {
+    })(function($5, window2, document2) {
       "use strict";
-      var DataTable2 = function(selector, options) {
-        if (DataTable2.factory(selector, options)) {
-          return DataTable2;
+      var DataTable3 = function(selector, options) {
+        if (DataTable3.factory(selector, options)) {
+          return DataTable3;
         }
-        if (this instanceof DataTable2) {
-          return $3(selector).DataTable(options);
+        if (this instanceof DataTable3) {
+          return $5(selector).DataTable(options);
         } else {
           options = selector;
         }
@@ -6528,8 +6528,8 @@ var require_dataTables = __commonJS({
           var oInit = len > 1 ? _fnExtend(o, options, true) : options;
           var i2 = 0, iLen;
           var sId = this.getAttribute("id");
-          var defaults = DataTable2.defaults;
-          var $this = $3(this);
+          var defaults = DataTable3.defaults;
+          var $this = $5(this);
           if (this.nodeName.toLowerCase() != "table") {
             _fnLog(null, 0, "Non-table node initialisation (" + this.nodeName + ")", 2);
             return;
@@ -6542,8 +6542,8 @@ var require_dataTables = __commonJS({
           _fnCompatCols(defaults.column);
           _fnCamelToHungarian(defaults, defaults, true);
           _fnCamelToHungarian(defaults.column, defaults.column, true);
-          _fnCamelToHungarian(defaults, $3.extend(oInit, _fnEscapeObject($this.data())), true);
-          var allSettings = DataTable2.settings;
+          _fnCamelToHungarian(defaults, $5.extend(oInit, _fnEscapeObject($this.data())), true);
+          var allSettings = DataTable3.settings;
           for (i2 = 0, iLen = allSettings.length; i2 < iLen; i2++) {
             var s = allSettings[i2];
             if (s.nTable == this || s.nTHead && s.nTHead.parentNode == this || s.nTFoot && s.nTFoot.parentNode == this) {
@@ -6552,7 +6552,7 @@ var require_dataTables = __commonJS({
               if (emptyInit || bRetrieve) {
                 return s.oInstance;
               } else if (bDestroy) {
-                new DataTable2.Api(s).destroy();
+                new DataTable3.Api(s).destroy();
                 break;
               } else {
                 _fnLog(s, 0, "Cannot reinitialise DataTable", 3);
@@ -6565,15 +6565,15 @@ var require_dataTables = __commonJS({
             }
           }
           if (sId === null || sId === "") {
-            sId = "DataTables_Table_" + DataTable2.ext._unique++;
+            sId = "DataTables_Table_" + DataTable3.ext._unique++;
             this.id = sId;
           }
           $this.children("colgroup").remove();
-          var oSettings = $3.extend(true, {}, DataTable2.models.oSettings, {
+          var oSettings = $5.extend(true, {}, DataTable3.models.oSettings, {
             "sDestroyWidth": $this[0].style.width,
             "sInstance": sId,
             "sTableId": sId,
-            colgroup: $3("<colgroup>"),
+            colgroup: $5("<colgroup>"),
             fastData: function(row, column, type) {
               return _fnGetCellData(oSettings, row, column, type);
             }
@@ -6585,9 +6585,9 @@ var require_dataTables = __commonJS({
           oSettings.oInstance = _that.length === 1 ? _that : $this.dataTable();
           _fnCompatOpts(oInit);
           if (oInit.aLengthMenu && !oInit.iDisplayLength) {
-            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : $3.isPlainObject(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0].value : oInit.aLengthMenu[0];
+            oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0][0] : $5.isPlainObject(oInit.aLengthMenu[0]) ? oInit.aLengthMenu[0].value : oInit.aLengthMenu[0];
           }
-          oInit = _fnExtend($3.extend(true, {}, defaults), oInit);
+          oInit = _fnExtend($5.extend(true, {}, defaults), oInit);
           _fnMap(oSettings.oFeatures, oInit, [
             "bPaginate",
             "bLengthChange",
@@ -6656,7 +6656,7 @@ var require_dataTables = __commonJS({
           }
           _fnBrowserDetect(oSettings);
           var oClasses = oSettings.oClasses;
-          $3.extend(oClasses, DataTable2.ext.classes, oInit.oClasses);
+          $5.extend(oClasses, DataTable3.ext.classes, oInit.oClasses);
           $this.addClass(oClasses.table);
           if (!oSettings.oFeatures.bPaginate) {
             oInit.iDisplayStart = 0;
@@ -6693,7 +6693,7 @@ var require_dataTables = __commonJS({
             var a = function(cell, name) {
               return cell.getAttribute("data-" + name) !== null ? name : null;
             };
-            $3(rowOne[0]).children("th, td").each(function(i3, cell) {
+            $5(rowOne[0]).children("th, td").each(function(i3, cell) {
               var col = oSettings.aoColumns[i3];
               if (!col) {
                 _fnLog(oSettings, 0, "Incorrect column count", 18);
@@ -6734,7 +6734,7 @@ var require_dataTables = __commonJS({
           var caption = $this.children("caption");
           if (oSettings.caption) {
             if (caption.length === 0) {
-              caption = $3("<caption/>").prependTo($this);
+              caption = $5("<caption/>").prependTo($this);
             }
             caption.html(oSettings.caption);
           }
@@ -6748,30 +6748,30 @@ var require_dataTables = __commonJS({
             oSettings.colgroup.prependTo(oSettings.nTable);
           }
           if (thead.length === 0) {
-            thead = $3("<thead/>").appendTo($this);
+            thead = $5("<thead/>").appendTo($this);
           }
           oSettings.nTHead = thead[0];
           var tbody = $this.children("tbody");
           if (tbody.length === 0) {
-            tbody = $3("<tbody/>").insertAfter(thead);
+            tbody = $5("<tbody/>").insertAfter(thead);
           }
           oSettings.nTBody = tbody[0];
           var tfoot = $this.children("tfoot");
           if (tfoot.length === 0) {
-            tfoot = $3("<tfoot/>").appendTo($this);
+            tfoot = $5("<tfoot/>").appendTo($this);
           }
           oSettings.nTFoot = tfoot[0];
           oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
           oSettings.bInitialised = true;
           var oLanguage = oSettings.oLanguage;
-          $3.extend(true, oLanguage, oInit.oLanguage);
+          $5.extend(true, oLanguage, oInit.oLanguage);
           if (oLanguage.sUrl) {
-            $3.ajax({
+            $5.ajax({
               dataType: "json",
               url: oLanguage.sUrl,
               success: function(json) {
                 _fnCamelToHungarian(defaults.oLanguage, json);
-                $3.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
+                $5.extend(true, oLanguage, json, oSettings.oInit.oLanguage);
                 _fnCallbackFire(oSettings, null, "i18n", [oSettings], true);
                 _fnInitialise(oSettings);
               },
@@ -6788,7 +6788,7 @@ var require_dataTables = __commonJS({
         _that = null;
         return this;
       };
-      DataTable2.ext = _ext = {
+      DataTable3.ext = _ext = {
         builder: "-source-",
         buttons: {},
         ccContent: {},
@@ -6822,11 +6822,11 @@ var require_dataTables = __commonJS({
           order: {}
         },
         _unique: 0,
-        fnVersionCheck: DataTable2.fnVersionCheck,
+        fnVersionCheck: DataTable3.fnVersionCheck,
         iApiIndex: 0,
-        sVersion: DataTable2.version
+        sVersion: DataTable3.version
       };
-      $3.extend(_ext, {
+      $5.extend(_ext, {
         afnFiltering: _ext.search,
         aTypes: _ext.type.detect,
         ofnSearch: _ext.type.search,
@@ -6836,7 +6836,7 @@ var require_dataTables = __commonJS({
         oStdClasses: _ext.classes,
         oPagination: _ext.pager
       });
-      $3.extend(DataTable2.ext.classes, {
+      $5.extend(DataTable3.ext.classes, {
         container: "dt-container",
         empty: {
           row: "dt-empty"
@@ -7101,7 +7101,7 @@ var require_dataTables = __commonJS({
           });
         }
       }
-      DataTable2.util = {
+      DataTable3.util = {
         diacritics: function(mixed, both) {
           var type = typeof mixed;
           if (type !== "function") {
@@ -7140,8 +7140,8 @@ var require_dataTables = __commonJS({
           return val.replace(_re_escape_regex, "\\$1");
         },
         set: function(source) {
-          if ($3.isPlainObject(source)) {
-            return DataTable2.util.set(source._);
+          if ($5.isPlainObject(source)) {
+            return DataTable3.util.set(source._);
           } else if (source === null) {
             return function() {
             };
@@ -7201,11 +7201,11 @@ var require_dataTables = __commonJS({
           }
         },
         get: function(source) {
-          if ($3.isPlainObject(source)) {
+          if ($5.isPlainObject(source)) {
             var o = {};
-            $3.each(source, function(key, val) {
+            $5.each(source, function(key, val) {
               if (val) {
-                o[key] = DataTable2.util.get(val);
+                o[key] = DataTable3.util.get(val);
               }
             });
             return function(data, type, row, meta) {
@@ -7292,7 +7292,7 @@ var require_dataTables = __commonJS({
       };
       function _fnHungarianMap(o) {
         var hungarian = "a aa ai ao as b fn i m o s ", match, newKey, map = {};
-        $3.each(o, function(key) {
+        $5.each(o, function(key) {
           match = key.match(/^([^A-Z]+?)([A-Z])/);
           if (match && hungarian.indexOf(match[1] + " ") !== -1) {
             newKey = key.replace(match[0], match[2].toLowerCase());
@@ -7309,14 +7309,14 @@ var require_dataTables = __commonJS({
           _fnHungarianMap(src);
         }
         var hungarianKey;
-        $3.each(user, function(key) {
+        $5.each(user, function(key) {
           hungarianKey = src._hungarianMap[key];
           if (hungarianKey !== void 0 && (force || user[hungarianKey] === void 0)) {
             if (hungarianKey.charAt(0) === "o") {
               if (!user[hungarianKey]) {
                 user[hungarianKey] = {};
               }
-              $3.extend(true, user[hungarianKey], user[key]);
+              $5.extend(true, user[hungarianKey], user[key]);
               _fnCamelToHungarian(src[hungarianKey], user[hungarianKey], force);
             } else {
               user[hungarianKey] = user[key];
@@ -7364,7 +7364,7 @@ var require_dataTables = __commonJS({
         if (searchCols) {
           for (var i2 = 0, iLen = searchCols.length; i2 < iLen; i2++) {
             if (searchCols[i2]) {
-              _fnCamelToHungarian(DataTable2.models.oSearch, searchCols[i2]);
+              _fnCamelToHungarian(DataTable3.models.oSearch, searchCols[i2]);
             }
           }
         }
@@ -7383,10 +7383,10 @@ var require_dataTables = __commonJS({
         }
       }
       function _fnBrowserDetect(settings) {
-        if (!DataTable2.__browser) {
+        if (!DataTable3.__browser) {
           var browser = {};
-          DataTable2.__browser = browser;
-          var n = $3("<div/>").css({
+          DataTable3.__browser = browser;
+          var n = $5("<div/>").css({
             position: "fixed",
             top: 0,
             left: -1 * window2.pageXOffset,
@@ -7394,14 +7394,14 @@ var require_dataTables = __commonJS({
             width: 1,
             overflow: "hidden"
           }).append(
-            $3("<div/>").css({
+            $5("<div/>").css({
               position: "absolute",
               top: 1,
               left: 1,
               width: 100,
               overflow: "scroll"
             }).append(
-              $3("<div/>").css({
+              $5("<div/>").css({
                 width: "100%",
                 height: 10
               })
@@ -7413,28 +7413,28 @@ var require_dataTables = __commonJS({
           browser.bScrollbarLeft = Math.round(inner.offset().left) !== 1;
           n.remove();
         }
-        $3.extend(settings.oBrowser, DataTable2.__browser);
-        settings.oScroll.iBarWidth = DataTable2.__browser.barWidth;
+        $5.extend(settings.oBrowser, DataTable3.__browser);
+        settings.oScroll.iBarWidth = DataTable3.__browser.barWidth;
       }
       function _fnAddColumn(oSettings) {
-        var oDefaults = DataTable2.defaults.column;
+        var oDefaults = DataTable3.defaults.column;
         var iCol = oSettings.aoColumns.length;
-        var oCol = $3.extend({}, DataTable2.models.oColumn, oDefaults, {
+        var oCol = $5.extend({}, DataTable3.models.oColumn, oDefaults, {
           "aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
           "mData": oDefaults.mData ? oDefaults.mData : iCol,
           idx: iCol,
           searchFixed: {},
-          colEl: $3("<col>").attr("data-dt-column", iCol)
+          colEl: $5("<col>").attr("data-dt-column", iCol)
         });
         oSettings.aoColumns.push(oCol);
         var searchCols = oSettings.aoPreSearchCols;
-        searchCols[iCol] = $3.extend({}, DataTable2.models.oSearch, searchCols[iCol]);
+        searchCols[iCol] = $5.extend({}, DataTable3.models.oSearch, searchCols[iCol]);
       }
       function _fnColumnOptions(oSettings, iCol, oOptions) {
         var oCol = oSettings.aoColumns[iCol];
         if (oOptions !== void 0 && oOptions !== null) {
           _fnCompatCols(oOptions);
-          _fnCamelToHungarian(DataTable2.defaults.column, oOptions, true);
+          _fnCamelToHungarian(DataTable3.defaults.column, oOptions, true);
           if (oOptions.mDataProp !== void 0 && !oOptions.mData) {
             oOptions.mData = oOptions.mDataProp;
           }
@@ -7445,7 +7445,7 @@ var require_dataTables = __commonJS({
             oOptions.sClass = oOptions.className;
           }
           var origClass = oCol.sClass;
-          $3.extend(oCol, oOptions);
+          $5.extend(oCol, oOptions);
           _fnMap(oCol, oOptions, "sWidth", "sWidthOrig");
           if (origClass !== oCol.sClass) {
             oCol.sClass = origClass + " " + oCol.sClass;
@@ -7460,13 +7460,13 @@ var require_dataTables = __commonJS({
         if (oCol.mRender && Array.isArray(oCol.mRender)) {
           var copy = oCol.mRender.slice();
           var name = copy.shift();
-          oCol.mRender = DataTable2.render[name].apply(window2, copy);
+          oCol.mRender = DataTable3.render[name].apply(window2, copy);
         }
         oCol._render = oCol.mRender ? _fnGetObjectDataFn(oCol.mRender) : null;
         var attrTest = function(src) {
           return typeof src === "string" && src.indexOf("@") !== -1;
         };
-        oCol._bAttrSrc = $3.isPlainObject(mDataSrc) && (attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter));
+        oCol._bAttrSrc = $5.isPlainObject(mDataSrc) && (attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter));
         oCol._setter = null;
         oCol.fnGetData = function(rowData, type, meta) {
           var innerData = mData(rowData, type, void 0, meta);
@@ -7516,7 +7516,7 @@ var require_dataTables = __commonJS({
         var vis = 0;
         if (layout.length) {
           for (var i2 = 0, iLen = layout[0].length; i2 < iLen; i2++) {
-            if (columns[i2].bVisible && $3(layout[0][i2].cell).css("display") !== "none") {
+            if (columns[i2].bVisible && $5(layout[0][i2].cell).css("display") !== "none") {
               vis++;
             }
           }
@@ -7538,7 +7538,7 @@ var require_dataTables = __commonJS({
       function _fnColumnTypes(settings) {
         var columns = settings.aoColumns;
         var data = settings.aoData;
-        var types = DataTable2.ext.type.detect;
+        var types = DataTable3.ext.type.detect;
         var i2, iLen, j, jen, k, ken;
         var col, detectedType, cache;
         for (i2 = 0, iLen = columns.length; i2 < iLen; i2++) {
@@ -7598,7 +7598,7 @@ var require_dataTables = __commonJS({
           }
           var renderer = _ext.type.render[col.sType];
           if (renderer && !col._render) {
-            col._render = DataTable2.util.get(renderer);
+            col._render = DataTable3.util.get(renderer);
             _columnAutoRender(settings, i2);
           }
         }
@@ -7657,7 +7657,7 @@ var require_dataTables = __commonJS({
                   } else {
                     headerLayout.forEach(function(row) {
                       if (row[k]) {
-                        var cell = $3(row[k].cell);
+                        var cell = $5(row[k].cell);
                         if (target.match(/^[a-z][\w-]*$/i)) {
                           target = "." + target;
                         }
@@ -7707,7 +7707,7 @@ var require_dataTables = __commonJS({
         return sum + unit;
       }
       function _fnColumnsFromHeader(cell) {
-        var attr = $3(cell).closest("[data-dt-column]").attr("data-dt-column");
+        var attr = $5(cell).closest("[data-dt-column]").attr("data-dt-column");
         if (!attr) {
           return [];
         }
@@ -7717,7 +7717,7 @@ var require_dataTables = __commonJS({
       }
       function _fnAddData(settings, dataIn, tr, tds) {
         var rowIdx = settings.aoData.length;
-        var rowModel = $3.extend(true, {}, DataTable2.models.oRow, {
+        var rowModel = $5.extend(true, {}, DataTable3.models.oRow, {
           src: tr ? "dom" : "data",
           idx: rowIdx
         });
@@ -7739,8 +7739,8 @@ var require_dataTables = __commonJS({
       }
       function _fnAddTr(settings, trs) {
         var row;
-        if (!(trs instanceof $3)) {
-          trs = $3(trs);
+        if (!(trs instanceof $5)) {
+          trs = $5(trs);
         }
         return trs.map(function(i2, el) {
           row = _fnGetRowElements(settings, el);
@@ -7785,7 +7785,7 @@ var require_dataTables = __commonJS({
           return "";
         }
         if (type === "filter") {
-          var formatters = DataTable2.ext.type.search;
+          var formatters = DataTable3.ext.type.search;
           if (formatters[col.sType]) {
             cellData = formatters[col.sType](cellData);
           }
@@ -7803,7 +7803,7 @@ var require_dataTables = __commonJS({
       }
       function _fnWriteCell(td, val) {
         if (val && typeof val === "object" && val.nodeName) {
-          $3(td).empty().append(val);
+          $5(td).empty().append(val);
         } else {
           td.innerHTML = val;
         }
@@ -7816,8 +7816,8 @@ var require_dataTables = __commonJS({
           return s.replace(/\\\./g, ".");
         });
       }
-      var _fnGetObjectDataFn = DataTable2.util.get;
-      var _fnSetObjectDataFn = DataTable2.util.set;
+      var _fnGetObjectDataFn = DataTable3.util.get;
+      var _fnSetObjectDataFn = DataTable3.util.set;
       function _fnGetDataMaster(settings) {
         return _pluck(settings.aoData, "_aData");
       }
@@ -7963,7 +7963,7 @@ var require_dataTables = __commonJS({
             };
             cells.push(nTd);
             var display = _fnGetRowDisplay(oSettings, iRow);
-            if (create || (oCol.mRender || oCol.mData !== i2) && (!$3.isPlainObject(oCol.mData) || oCol.mData._ !== i2 + ".display")) {
+            if (create || (oCol.mRender || oCol.mData !== i2) && (!$5.isPlainObject(oCol.mData) || oCol.mData._ !== i2 + ".display")) {
               _fnWriteCell(nTd, display[i2]);
             }
             _addClass(nTd, oCol.sClass);
@@ -7999,13 +7999,13 @@ var require_dataTables = __commonJS({
           if (data.DT_RowClass) {
             var a = data.DT_RowClass.split(" ");
             row.__rowc = row.__rowc ? _unique(row.__rowc.concat(a)) : a;
-            $3(tr).removeClass(row.__rowc.join(" ")).addClass(data.DT_RowClass);
+            $5(tr).removeClass(row.__rowc.join(" ")).addClass(data.DT_RowClass);
           }
           if (data.DT_RowAttr) {
-            $3(tr).attr(data.DT_RowAttr);
+            $5(tr).attr(data.DT_RowAttr);
           }
           if (data.DT_RowData) {
-            $3(tr).data(data.DT_RowData);
+            $5(tr).data(data.DT_RowData);
           }
         }
       }
@@ -8019,32 +8019,32 @@ var require_dataTables = __commonJS({
           return;
         }
         if (side === "header" || _pluck(settings.aoColumns, titleProp).join("")) {
-          row = $3("tr", target);
+          row = $5("tr", target);
           if (!row.length) {
-            row = $3("<tr/>").appendTo(target);
+            row = $5("<tr/>").appendTo(target);
           }
           if (row.length === 1) {
             var cellCount = 0;
-            $3("td, th", row).each(function() {
+            $5("td, th", row).each(function() {
               cellCount += this.colSpan;
             });
             for (i2 = cellCount, iLen = columns.length; i2 < iLen; i2++) {
-              $3("<th/>").html(columns[i2][titleProp] || "").appendTo(row);
+              $5("<th/>").html(columns[i2][titleProp] || "").appendTo(row);
             }
           }
         }
         var detected = _fnDetectHeader(settings, target, true);
         if (side === "header") {
           settings.aoHeader = detected;
-          $3("tr", target).addClass(classes.thead.row);
+          $5("tr", target).addClass(classes.thead.row);
         } else {
           settings.aoFooter = detected;
-          $3("tr", target).addClass(classes.tfoot.row);
+          $5("tr", target).addClass(classes.tfoot.row);
         }
-        $3(target).children("tr").children("th, td").each(function() {
+        $5(target).children("tr").children("th, td").each(function() {
           _fnRenderer(settings, side)(
             settings,
-            $3(this),
+            $5(this),
             classes
           );
         });
@@ -8086,12 +8086,12 @@ var require_dataTables = __commonJS({
                 }
                 colspan++;
               }
-              var titleSpan = $3(".dt-column-title", cell);
+              var titleSpan = $5(".dt-column-title", cell);
               structure[row][column] = {
                 cell,
                 colspan,
                 rowspan,
-                title: titleSpan.length ? titleSpan.html() : $3(cell).html()
+                title: titleSpan.length ? titleSpan.html() : $5(cell).html()
               };
             }
           }
@@ -8111,7 +8111,7 @@ var require_dataTables = __commonJS({
           for (var column = 0; column < layout[row].length; column++) {
             var point = layout[row][column];
             if (point) {
-              $3(point.cell).appendTo(tr).attr("rowspan", point.rowspan).attr("colspan", point.colspan);
+              $5(point.cell).appendTo(tr).attr("rowspan", point.rowspan).attr("colspan", point.colspan);
             }
           }
         }
@@ -8130,7 +8130,7 @@ var require_dataTables = __commonJS({
         var iDisplayStart = oSettings._iDisplayStart;
         var iDisplayEnd = oSettings.fnDisplayEnd();
         var columns = oSettings.aoColumns;
-        var body = $3(oSettings.nTBody);
+        var body = $5(oSettings.nTBody);
         oSettings.bDrawing = true;
         if (oSettings.deferLoading) {
           oSettings.deferLoading = false;
@@ -8177,14 +8177,14 @@ var require_dataTables = __commonJS({
           anRows[0] = _emptyRow(oSettings);
         }
         _fnCallbackFire(oSettings, "aoHeaderCallback", "header", [
-          $3(oSettings.nTHead).children("tr")[0],
+          $5(oSettings.nTHead).children("tr")[0],
           _fnGetDataMaster(oSettings),
           iDisplayStart,
           iDisplayEnd,
           aiDisplay
         ]);
         _fnCallbackFire(oSettings, "aoFooterCallback", "footer", [
-          $3(oSettings.nTFoot).children("tr")[0],
+          $5(oSettings.nTFoot).children("tr")[0],
           _fnGetDataMaster(oSettings),
           iDisplayStart,
           iDisplayEnd,
@@ -8194,9 +8194,9 @@ var require_dataTables = __commonJS({
           body[0].replaceChildren.apply(body[0], anRows);
         } else {
           body.children().detach();
-          body.append($3(anRows));
+          body.append($5(anRows));
         }
-        $3(oSettings.nTableWrapper).toggleClass("dt-empty-footer", $3("tr", oSettings.nTFoot).length === 0);
+        $5(oSettings.nTableWrapper).toggleClass("dt-empty-footer", $5("tr", oSettings.nTFoot).length === 0);
         _fnCallbackFire(oSettings, "aoDrawCallback", "draw", [oSettings], true);
         oSettings.bSorted = false;
         oSettings.bFiltered = false;
@@ -8233,7 +8233,7 @@ var require_dataTables = __commonJS({
         } else if (oLang.sEmptyTable && settings.fnRecordsTotal() === 0) {
           zero = oLang.sEmptyTable;
         }
-        return $3("<tr/>").append($3("<td />", {
+        return $5("<tr/>").append($5("<td />", {
           "colSpan": _fnVisibleColumns(settings),
           "class": settings.oClasses.empty.row
         }).html(zero))[0];
@@ -8246,7 +8246,7 @@ var require_dataTables = __commonJS({
           return;
         }
         var rowCell = row[align];
-        if ($3.isPlainObject(items)) {
+        if ($5.isPlainObject(items)) {
           if (items.features) {
             if (items.rowId) {
               row.id = items.rowId;
@@ -8295,7 +8295,7 @@ var require_dataTables = __commonJS({
       }
       function _layoutArray(settings, layout, side) {
         var rows = [];
-        $3.each(layout, function(pos, items) {
+        $5.each(layout, function(pos, items) {
           if (items === null) {
             return;
           }
@@ -8343,7 +8343,7 @@ var require_dataTables = __commonJS({
               continue;
             } else if (typeof line[i2] === "string") {
               line[i2] = getFeature(line[i2], null);
-            } else if ($3.isPlainObject(line[i2])) {
+            } else if ($5.isPlainObject(line[i2])) {
               line[i2] = getFeature(line[i2].feature, line[i2].opts);
             } else if (typeof line[i2].node === "function") {
               line[i2] = line[i2].node(settings);
@@ -8359,8 +8359,8 @@ var require_dataTables = __commonJS({
       }
       function _fnAddOptionsHtml(settings) {
         var classes = settings.oClasses;
-        var table = $3(settings.nTable);
-        var insert = $3("<div/>").attr({
+        var table = $5(settings.nTable);
+        var insert = $5("<div/>").attr({
           id: settings.sTableId + "_wrapper",
           "class": classes.container
         }).insertBefore(table);
@@ -8393,7 +8393,7 @@ var require_dataTables = __commonJS({
           featureNode = null;
           option = parts[i2];
           if (option == "<") {
-            newNode = $3("<div/>");
+            newNode = $5("<div/>");
             next = parts[i2 + 1];
             if (next[0] == "'" || next[0] == '"') {
               attr = next.replace(/['"]/g, "");
@@ -8417,7 +8417,7 @@ var require_dataTables = __commonJS({
           } else if (option == "t") {
             featureNode = _fnFeatureHtmlTable(settings);
           } else {
-            DataTable2.ext.feature.forEach(function(feature) {
+            DataTable3.ext.feature.forEach(function(feature) {
               if (option == feature.cFeature) {
                 featureNode = feature.fnInit(settings);
               }
@@ -8430,7 +8430,7 @@ var require_dataTables = __commonJS({
       }
       function _fnDetectHeader(settings, thead, write) {
         var columns = settings.aoColumns;
-        var rows = $3(thead).children("tr");
+        var rows = $5(thead).children("tr");
         var row, cell;
         var i2, k, l, iLen, shifted, column, colspan, rowspan;
         var titleRow = settings.titleRow;
@@ -8454,7 +8454,7 @@ var require_dataTables = __commonJS({
           while (cell) {
             if (cell.nodeName.toUpperCase() == "TD" || cell.nodeName.toUpperCase() == "TH") {
               var cols = [];
-              var jqCell = $3(cell);
+              var jqCell = $5(cell);
               colspan = cell.getAttribute("colspan") * 1;
               rowspan = cell.getAttribute("rowspan") * 1;
               colspan = !colspan || colspan === 0 || colspan === 1 ? 1 : colspan;
@@ -8493,15 +8493,15 @@ var require_dataTables = __commonJS({
                     jqCell.addClass(columnDef.className);
                   }
                 }
-                if ($3(".dt-column-title", cell).length === 0) {
-                  $3(document2.createElement(settings.columnTitleTag)).addClass("dt-column-title").append(cell.childNodes).appendTo(cell);
+                if ($5(".dt-column-title", cell).length === 0) {
+                  $5(document2.createElement(settings.columnTitleTag)).addClass("dt-column-title").append(cell.childNodes).appendTo(cell);
                 }
-                if (settings.orderIndicators && isHeader && jqCell.filter(":not([data-dt-order=disable])").length !== 0 && jqCell.parent(":not([data-dt-order=disable])").length !== 0 && $3(".dt-column-order", cell).length === 0) {
-                  $3(document2.createElement(settings.columnTitleTag)).addClass("dt-column-order").appendTo(cell);
+                if (settings.orderIndicators && isHeader && jqCell.filter(":not([data-dt-order=disable])").length !== 0 && jqCell.parent(":not([data-dt-order=disable])").length !== 0 && $5(".dt-column-order", cell).length === 0) {
+                  $5(document2.createElement(settings.columnTitleTag)).addClass("dt-column-order").appendTo(cell);
                 }
                 var headerFooter = isHeader ? "header" : "footer";
-                if ($3("div.dt-column-" + headerFooter, cell).length === 0) {
-                  $3("<div>").addClass("dt-column-" + headerFooter).append(cell.childNodes).appendTo(cell);
+                if ($5("div.dt-column-" + headerFooter, cell).length === 0) {
+                  $5("<div>").addClass("dt-column-" + headerFooter).append(cell.childNodes).appendTo(cell);
                 }
               }
               for (l = 0; l < colspan; l++) {
@@ -8553,10 +8553,10 @@ var require_dataTables = __commonJS({
           _fnCallbackFire(oSettings, null, "xhr", [oSettings, json, oSettings.jqXHR], true);
           fn(json);
         };
-        if ($3.isPlainObject(ajax2) && ajax2.data) {
+        if ($5.isPlainObject(ajax2) && ajax2.data) {
           ajaxData = ajax2.data;
           var newData = typeof ajaxData === "function" ? ajaxData(data, oSettings) : ajaxData;
-          data = typeof ajaxData === "function" && newData ? newData : $3.extend(true, data, newData);
+          data = typeof ajaxData === "function" && newData ? newData : $5.extend(true, data, newData);
           delete ajax2.data;
         }
         var baseAjax = {
@@ -8584,8 +8584,8 @@ var require_dataTables = __commonJS({
             _fnProcessingDisplay(oSettings, false);
           }
         };
-        if ($3.isPlainObject(ajax2)) {
-          $3.extend(baseAjax, ajax2);
+        if ($5.isPlainObject(ajax2)) {
+          $5.extend(baseAjax, ajax2);
         }
         oSettings.oAjaxData = data;
         _fnCallbackFire(oSettings, null, "preXhr", [oSettings, data, baseAjax], true);
@@ -8602,7 +8602,7 @@ var require_dataTables = __commonJS({
           _fnAjaxDataSrc(oSettings, empty, []);
           callback(empty);
         } else {
-          oSettings.jqXHR = $3.ajax(baseAjax);
+          oSettings.jqXHR = $5.ajax(baseAjax);
         }
         if (ajaxData) {
           ajax2.data = ajaxData;
@@ -8688,7 +8688,7 @@ var require_dataTables = __commonJS({
       }
       function _fnAjaxDataSrc(settings, json, write) {
         var dataProp = "data";
-        if ($3.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== void 0) {
+        if ($5.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== void 0) {
           var dataSrc = settings.ajax.dataSrc;
           if (typeof dataSrc === "string" || typeof dataSrc === "function") {
             dataProp = dataSrc;
@@ -8705,7 +8705,7 @@ var require_dataTables = __commonJS({
         _fnSetObjectDataFn(dataProp)(json, write);
       }
       function _fnAjaxDataSrcParam(settings, param, json) {
-        var dataSrc = $3.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+        var dataSrc = $5.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
         if (dataSrc && dataSrc[param]) {
           return _fnGetObjectDataFn(dataSrc[param])(json);
         }
@@ -8725,7 +8725,7 @@ var require_dataTables = __commonJS({
           _fnFilterData(settings);
           settings.aiDisplay = settings.aiDisplayMaster.slice();
           _fnFilter(settings.aiDisplay, settings, input.search, input);
-          $3.each(settings.searchFixed, function(name, term) {
+          $5.each(settings.searchFixed, function(name, term) {
             _fnFilter(settings.aiDisplay, settings, term, {});
           });
           for (var i2 = 0; i2 < columnsSearch.length; i2++) {
@@ -8737,7 +8737,7 @@ var require_dataTables = __commonJS({
               col,
               i2
             );
-            $3.each(settings.aoColumns[i2].searchFixed, function(name, term) {
+            $5.each(settings.aoColumns[i2].searchFixed, function(name, term) {
               _fnFilter(settings.aiDisplay, settings, term, {}, i2);
             });
           }
@@ -8747,7 +8747,7 @@ var require_dataTables = __commonJS({
         _fnCallbackFire(settings, null, "search", [settings]);
       }
       function _fnFilterCustom(settings) {
-        var filters = DataTable2.ext.search;
+        var filters = DataTable3.ext.search;
         var displayRows = settings.aiDisplay;
         var row, rowIdx;
         for (var i2 = 0, iLen = filters.length; i2 < iLen; i2++) {
@@ -8785,7 +8785,7 @@ var require_dataTables = __commonJS({
       }
       function _fnFilterCreateSearch(search, inOpts) {
         var not = [];
-        var options = $3.extend({}, {
+        var options = $5.extend({}, {
           boundary: false,
           caseInsensitive: true,
           exact: false,
@@ -8833,8 +8833,8 @@ var require_dataTables = __commonJS({
         }
         return new RegExp(search, options.caseInsensitive ? "i" : "");
       }
-      var _fnEscapeRegex = DataTable2.util.escapeRegex;
-      var __filter_div = $3("<div>")[0];
+      var _fnEscapeRegex = DataTable3.util.escapeRegex;
+      var __filter_div = $5("<div>")[0];
       var __filter_div_textContent = __filter_div.textContent !== void 0;
       function _fnFilterData(settings) {
         var columns = settings.aoColumns;
@@ -8900,7 +8900,7 @@ var require_dataTables = __commonJS({
               _fnAddData(settings, init.aaData[i2]);
             }
           } else if (deferLoading || dataSrc == "dom") {
-            _fnAddTr(settings, $3(settings.nTBody).children("tr"));
+            _fnAddTr(settings, $5(settings.nTBody).children("tr"));
           }
           settings.aiDisplay = settings.aiDisplayMaster.slice();
           _fnAddOptionsHtml(settings);
@@ -8983,17 +8983,17 @@ var require_dataTables = __commonJS({
         var table = settings.nTable;
         var scrolling = settings.oScroll.sX !== "" || settings.oScroll.sY !== "";
         if (settings.oFeatures.bProcessing) {
-          var n = $3("<div/>", {
+          var n = $5("<div/>", {
             "id": settings.sTableId + "_processing",
             "class": settings.oClasses.processing.container,
             "role": "status"
           }).html(settings.oLanguage.sProcessing).append("<div><div></div><div></div><div></div><div></div></div>");
           if (scrolling) {
-            n.prependTo($3("div.dt-scroll", settings.nTableWrapper));
+            n.prependTo($5("div.dt-scroll", settings.nTableWrapper));
           } else {
             n.insertBefore(table);
           }
-          $3(table).on("processing.dt.DT", function(e, s, show) {
+          $5(table).on("processing.dt.DT", function(e, s, show) {
             n.css("display", show ? "block" : "none");
           });
         }
@@ -9016,7 +9016,7 @@ var require_dataTables = __commonJS({
         }
       }
       function _fnFeatureHtmlTable(settings) {
-        var table = $3(settings.nTable);
+        var table = $5(settings.nTable);
         var scroll = settings.oScroll;
         if (scroll.sX === "" && scroll.sY === "") {
           return settings.nTable;
@@ -9026,8 +9026,8 @@ var require_dataTables = __commonJS({
         var classes = settings.oClasses.scrolling;
         var caption = settings.captionNode;
         var captionSide = caption ? caption._captionSide : null;
-        var headerClone = $3(table[0].cloneNode(false));
-        var footerClone = $3(table[0].cloneNode(false));
+        var headerClone = $5(table[0].cloneNode(false));
+        var footerClone = $5(table[0].cloneNode(false));
         var footer = table.children("tfoot");
         var _div = "<div/>";
         var size = function(s) {
@@ -9036,14 +9036,14 @@ var require_dataTables = __commonJS({
         if (!footer.length) {
           footer = null;
         }
-        var scroller = $3(_div, { "class": classes.container }).append(
-          $3(_div, { "class": classes.header.self }).css({
+        var scroller = $5(_div, { "class": classes.container }).append(
+          $5(_div, { "class": classes.header.self }).css({
             overflow: "hidden",
             position: "relative",
             border: 0,
             width: scrollX ? size(scrollX) : "100%"
           }).append(
-            $3(_div, { "class": classes.header.inner }).css({
+            $5(_div, { "class": classes.header.inner }).css({
               "box-sizing": "content-box",
               width: scroll.sXInner || "100%"
             }).append(
@@ -9053,7 +9053,7 @@ var require_dataTables = __commonJS({
             )
           )
         ).append(
-          $3(_div, { "class": classes.body }).css({
+          $5(_div, { "class": classes.body }).css({
             position: "relative",
             overflow: "auto",
             width: size(scrollX)
@@ -9061,12 +9061,12 @@ var require_dataTables = __commonJS({
         );
         if (footer) {
           scroller.append(
-            $3(_div, { "class": classes.footer.self }).css({
+            $5(_div, { "class": classes.footer.self }).css({
               overflow: "hidden",
               border: 0,
               width: scrollX ? size(scrollX) : "100%"
             }).append(
-              $3(_div, { "class": classes.footer.inner }).append(
+              $5(_div, { "class": classes.footer.inner }).append(
                 footerClone.removeAttr("id").css("margin-left", 0).append(captionSide === "bottom" ? caption : null).append(
                   table.children("tfoot")
                 )
@@ -9078,23 +9078,23 @@ var require_dataTables = __commonJS({
         var scrollHead = children[0];
         var scrollBody = children[1];
         var scrollFoot = footer ? children[2] : null;
-        $3(scrollBody).on("scroll.DT", function() {
+        $5(scrollBody).on("scroll.DT", function() {
           var scrollLeft = this.scrollLeft;
           scrollHead.scrollLeft = scrollLeft;
           if (footer) {
             scrollFoot.scrollLeft = scrollLeft;
           }
         });
-        $3("th, td", scrollHead).on("focus", function() {
+        $5("th, td", scrollHead).on("focus", function() {
           var scrollLeft = scrollHead.scrollLeft;
           scrollBody.scrollLeft = scrollLeft;
           if (footer) {
             scrollBody.scrollLeft = scrollLeft;
           }
         });
-        $3(scrollBody).css("max-height", scrollY);
+        $5(scrollBody).css("max-height", scrollY);
         if (!scroll.bCollapse) {
-          $3(scrollBody).css("height", scrollY);
+          $5(scrollBody).css("height", scrollY);
         }
         settings.nScrollHead = scrollHead;
         settings.nScrollBody = scrollBody;
@@ -9103,7 +9103,7 @@ var require_dataTables = __commonJS({
         return scroller[0];
       }
       function _fnScrollDraw(settings) {
-        var scroll = settings.oScroll, barWidth = scroll.iBarWidth, divHeader = $3(settings.nScrollHead), divHeaderInner = divHeader.children("div"), divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $3(divBodyEl), divFooter = $3(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $3(settings.nTHead), table = $3(settings.nTable), footer = settings.nTFoot && $3("th, td", settings.nTFoot).length ? $3(settings.nTFoot) : null, browser = settings.oBrowser, headerCopy, footerCopy;
+        var scroll = settings.oScroll, barWidth = scroll.iBarWidth, divHeader = $5(settings.nScrollHead), divHeaderInner = divHeader.children("div"), divHeaderTable = divHeaderInner.children("table"), divBodyEl = settings.nScrollBody, divBody = $5(divBodyEl), divFooter = $5(settings.nScrollFoot), divFooterInner = divFooter.children("div"), divFooterTable = divFooterInner.children("table"), header = $5(settings.nTHead), table = $5(settings.nTable), footer = settings.nTFoot && $5("th, td", settings.nTFoot).length ? $5(settings.nTFoot) : null, browser = settings.oBrowser, headerCopy, footerCopy;
         var scrollBarVis = divBodyEl.scrollHeight > divBodyEl.clientHeight;
         if (settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== void 0) {
           settings.scrollBarVis = scrollBarVis;
@@ -9132,10 +9132,10 @@ var require_dataTables = __commonJS({
             }
           }
           if (firstTr) {
-            var colSizes = $3(firstTr).children("th, td").map(function(vis) {
+            var colSizes = $5(firstTr).children("th, td").map(function(vis) {
               return {
                 idx: _fnVisibleToColumnIndex(settings, vis),
-                width: $3(this).outerWidth()
+                width: $5(this).outerWidth()
               };
             });
             for (var i2 = 0; i2 < colSizes.length; i2++) {
@@ -9156,12 +9156,12 @@ var require_dataTables = __commonJS({
           divFooterTable.find("colgroup").remove();
           divFooterTable.append(settings.colgroup.clone());
         }
-        $3("th, td", headerCopy).each(function() {
-          $3(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+        $5("th, td", headerCopy).each(function() {
+          $5(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
         });
         if (footer) {
-          $3("th, td", footerCopy).each(function() {
-            $3(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+          $5("th, td", footerCopy).each(function() {
+            $5(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
           });
         }
         var isScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css("overflow-y") == "scroll";
@@ -9204,9 +9204,9 @@ var require_dataTables = __commonJS({
           { visible: visibleColumns },
           false
         );
-        var tmpTable = $3(table.cloneNode()).css("visibility", "hidden").css("margin", 0).removeAttr("id");
+        var tmpTable = $5(table.cloneNode()).css("visibility", "hidden").css("margin", 0).removeAttr("id");
         tmpTable.append("<tbody/>");
-        tmpTable.append($3(settings.nTHead).clone()).append($3(settings.nTFoot).clone());
+        tmpTable.append($5(settings.nTHead).clone()).append($5(settings.nTFoot).clone());
         tmpTable.find("tfoot th, tfoot td").css("width", "");
         tmpTable.find("thead th, thead td").each(function() {
           var width = _fnColumnsSumWidth(settings, this, true, false);
@@ -9214,7 +9214,7 @@ var require_dataTables = __commonJS({
             this.style.width = width;
             if (scrollX) {
               this.style.minWidth = width;
-              $3(this).append($3("<div/>").css({
+              $5(this).append($5("<div/>").css({
                 width,
                 margin: 0,
                 padding: 0,
@@ -9232,7 +9232,7 @@ var require_dataTables = __commonJS({
         }
         if (longestData.length) {
           for (i2 = 0; i2 < longestData[0].length; i2++) {
-            var tr = $3("<tr/>").appendTo(tmpTable.find("tbody"));
+            var tr = $5("<tr/>").appendTo(tmpTable.find("tbody"));
             for (j = 0; j < visibleColumns.length; j++) {
               columnIdx = visibleColumns[j];
               column = columns[columnIdx];
@@ -9241,12 +9241,12 @@ var require_dataTables = __commonJS({
               var padding = column.sContentPadding || (scrollX ? "-" : "");
               var text = longest + padding;
               var insert = longest.indexOf("<") === -1 && longest.indexOf("&") === -1 ? document2.createTextNode(text) : text;
-              $3("<td/>").addClass(autoClass).addClass(column.sClass).append(insert).appendTo(tr);
+              $5("<td/>").addClass(autoClass).addClass(column.sClass).append(insert).appendTo(tr);
             }
           }
         }
-        $3("[name]", tmpTable).removeAttr("name");
-        var holder = $3("<div/>").css(
+        $5("[name]", tmpTable).removeAttr("name");
+        var holder = $5("<div/>").css(
           scrollX || scrollY ? {
             position: "absolute",
             top: 0,
@@ -9282,15 +9282,15 @@ var require_dataTables = __commonJS({
           table.style.width = _fnStringToCss(tableWidthAttr);
         }
         if ((tableWidthAttr || scrollX) && !settings._reszEvt) {
-          var resize = DataTable2.util.throttle(function() {
+          var resize = DataTable3.util.throttle(function() {
             var newWidth = _fnWrapperWidth(settings);
             if (!settings.bDestroying && newWidth !== 0) {
               _fnAdjustColumnSizing(settings);
             }
           });
           if (window2.ResizeObserver) {
-            var first = $3(settings.nTableWrapper).is(":visible");
-            var resizer = $3("<div>").css({
+            var first = $5(settings.nTableWrapper).is(":visible");
+            var resizer = $5("<div>").css({
               width: "100%",
               height: 0
             }).addClass("dt-autosize").appendTo(settings.nTableWrapper);
@@ -9303,13 +9303,13 @@ var require_dataTables = __commonJS({
             });
             settings.resizeObserver.observe(resizer[0]);
           } else {
-            $3(window2).on("resize.DT-" + settings.sInstance, resize);
+            $5(window2).on("resize.DT-" + settings.sInstance, resize);
           }
           settings._reszEvt = true;
         }
       }
       function _fnWrapperWidth(settings) {
-        return $3(settings.nTableWrapper).is(":visible") ? $3(settings.nTableWrapper).width() : 0;
+        return $5(settings.nTableWrapper).is(":visible") ? $5(settings.nTableWrapper).width() : 0;
       }
       function _fnGetWideStrings(settings, colIdx) {
         var column = settings.aoColumns[colIdx];
@@ -9439,7 +9439,7 @@ var require_dataTables = __commonJS({
       }
       function _fnSortResolve(settings, nestedSort, sort) {
         var push = function(a) {
-          if ($3.isPlainObject(a)) {
+          if ($5.isPlainObject(a)) {
             if (a.idx !== void 0) {
               nestedSort.push([a.idx, a.dir]);
             } else if (a.name) {
@@ -9453,7 +9453,7 @@ var require_dataTables = __commonJS({
             nestedSort.push(a);
           }
         };
-        if ($3.isPlainObject(sort)) {
+        if ($5.isPlainObject(sort)) {
           push(sort);
         } else if (sort.length && typeof sort[0] === "number") {
           push(sort);
@@ -9464,7 +9464,7 @@ var require_dataTables = __commonJS({
         }
       }
       function _fnSortFlatten(settings) {
-        var i2, k, kLen, aSort = [], extSort = DataTable2.ext.type.order, aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $3.isPlainObject(fixed), nestedSort = [];
+        var i2, k, kLen, aSort = [], extSort = DataTable3.ext.type.order, aoColumns = settings.aoColumns, aDataSort, iCol, sType, srcCol, fixed = settings.aaSortingFixed, fixedObj = $5.isPlainObject(fixed), nestedSort = [];
         if (!settings.oFeatures.bSort) {
           return aSort;
         }
@@ -9505,7 +9505,7 @@ var require_dataTables = __commonJS({
         return aSort;
       }
       function _fnSort(oSettings, col, dir) {
-        var i2, iLen, aiOrig = [], extSort = DataTable2.ext.type.order, aoData = oSettings.aoData, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
+        var i2, iLen, aiOrig = [], extSort = DataTable3.ext.type.order, aoData = oSettings.aoData, sortCol, displayMaster = oSettings.aiDisplayMaster, aSort;
         _fnColumnTypes(oSettings);
         if (col !== void 0) {
           var srcCol = oSettings.aoColumns[col];
@@ -9625,18 +9625,18 @@ var require_dataTables = __commonJS({
         if (features.bSort && features.bSortClasses) {
           for (i2 = 0, iLen = oldSort.length; i2 < iLen; i2++) {
             colIdx = oldSort[i2].src;
-            $3(_pluck(settings.aoData, "anCells", colIdx)).removeClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
+            $5(_pluck(settings.aoData, "anCells", colIdx)).removeClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
           for (i2 = 0, iLen = sort.length; i2 < iLen; i2++) {
             colIdx = sort[i2].src;
-            $3(_pluck(settings.aoData, "anCells", colIdx)).addClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
+            $5(_pluck(settings.aoData, "anCells", colIdx)).addClass(sortClass + (i2 < 2 ? i2 + 1 : 3));
           }
         }
         settings.aLastSort = sort;
       }
       function _fnSortData(settings, colIdx) {
         var column = settings.aoColumns[colIdx];
-        var customSort = DataTable2.ext.order[column.sSortDataType];
+        var customSort = DataTable3.ext.order[column.sSortDataType];
         var customData;
         if (customSort) {
           customData = customSort.call(
@@ -9647,7 +9647,7 @@ var require_dataTables = __commonJS({
           );
         }
         var row, cellData;
-        var formatter = DataTable2.ext.type.order[column.sType + "-pre"];
+        var formatter = DataTable3.ext.type.order[column.sType + "-pre"];
         var data = settings.aoData;
         for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
           if (!data[rowIdx]) {
@@ -9677,12 +9677,12 @@ var require_dataTables = __commonJS({
           order: sorting.map(function(sort) {
             return columns[sort[0]] && columns[sort[0]].sName ? [columns[sort[0]].sName, sort[1]] : sort.slice();
           }),
-          search: $3.extend({}, settings.oPreviousSearch),
+          search: $5.extend({}, settings.oPreviousSearch),
           columns: settings.aoColumns.map(function(col, i2) {
             return {
               name: col.sName,
               visible: col.bVisible,
-              search: $3.extend({}, settings.aoPreSearchCols[i2])
+              search: $5.extend({}, settings.aoPreSearchCols[i2])
             };
           })
         };
@@ -9711,7 +9711,7 @@ var require_dataTables = __commonJS({
         var columns = settings.aoColumns;
         var currentNames = _pluck(settings.aoColumns, "sName");
         settings._bLoadingState = true;
-        var api = settings._bInitComplete ? new DataTable2.Api(settings) : null;
+        var api = settings._bInitComplete ? new DataTable3.Api(settings) : null;
         if (!s || !s.time) {
           settings._bLoadingState = false;
           callback();
@@ -9729,7 +9729,7 @@ var require_dataTables = __commonJS({
           callback();
           return;
         }
-        settings.oLoadedState = $3.extend(true, {}, s);
+        settings.oLoadedState = $5.extend(true, {}, s);
         _fnCallbackFire(settings, null, "stateLoadInit", [settings, s], true);
         if (s.length !== void 0) {
           if (api) {
@@ -9748,7 +9748,7 @@ var require_dataTables = __commonJS({
         }
         if (s.order !== void 0) {
           settings.aaSorting = [];
-          $3.each(s.order, function(i3, col2) {
+          $5.each(s.order, function(i3, col2) {
             var set2 = [col2[0], col2[1]];
             if (typeof col2[0] === "string") {
               var idx2 = currentNames.indexOf(col2[0]);
@@ -9763,7 +9763,7 @@ var require_dataTables = __commonJS({
           });
         }
         if (s.search !== void 0) {
-          $3.extend(settings.oPreviousSearch, s.search);
+          $5.extend(settings.oPreviousSearch, s.search);
         }
         if (s.columns) {
           var set = s.columns;
@@ -9794,7 +9794,7 @@ var require_dataTables = __commonJS({
                 }
               }
               if (col.search !== void 0) {
-                $3.extend(settings.aoPreSearchCols[i2], col.search);
+                $5.extend(settings.aoPreSearchCols[i2], col.search);
               }
             }
             if (api) {
@@ -9814,7 +9814,7 @@ var require_dataTables = __commonJS({
           msg += ". For more information about this error, please see https://datatables.net/tn/" + tn;
         }
         if (!level) {
-          var ext = DataTable2.ext;
+          var ext = DataTable3.ext;
           var type = ext.sErrMode || ext.errMode;
           if (settings) {
             _fnCallbackFire(settings, null, "dt-error", [settings, tn, msg], true);
@@ -9832,7 +9832,7 @@ var require_dataTables = __commonJS({
       }
       function _fnMap(ret, src, name, mappedName) {
         if (Array.isArray(name)) {
-          $3.each(name, function(i2, val) {
+          $5.each(name, function(i2, val) {
             if (Array.isArray(val)) {
               _fnMap(ret, src, val[0], val[1]);
             } else {
@@ -9853,11 +9853,11 @@ var require_dataTables = __commonJS({
         for (var prop in extender) {
           if (Object.prototype.hasOwnProperty.call(extender, prop)) {
             val = extender[prop];
-            if ($3.isPlainObject(val)) {
-              if (!$3.isPlainObject(out[prop])) {
+            if ($5.isPlainObject(val)) {
+              if (!$5.isPlainObject(out[prop])) {
                 out[prop] = {};
               }
-              $3.extend(true, out[prop], val);
+              $5.extend(true, out[prop], val);
             } else if (breakRefs && prop !== "data" && prop !== "aaData" && Array.isArray(val)) {
               out[prop] = val.slice();
             } else {
@@ -9868,7 +9868,7 @@ var require_dataTables = __commonJS({
         return out;
       }
       function _fnBindAction(n, selector, fn) {
-        $3(n).on("click.DT", selector, function(e) {
+        $5(n).on("click.DT", selector, function(e) {
           fn(e);
         }).on("keypress.DT", selector, function(e) {
           if (e.which === 13) {
@@ -9892,12 +9892,12 @@ var require_dataTables = __commonJS({
           });
         }
         if (eventName !== null) {
-          var e = $3.Event(eventName + ".dt");
-          var table = $3(settings.nTable);
+          var e = $5.Event(eventName + ".dt");
+          var table = $5(settings.nTable);
           e.dt = settings.api;
           table[bubbles ? "trigger" : "triggerHandler"](e, args);
           if (bubbles && table.parents("body").length === 0) {
-            $3("body").trigger(e, args);
+            $5("body").trigger(e, args);
           }
           ret.push(e.result);
         }
@@ -9916,8 +9916,8 @@ var require_dataTables = __commonJS({
       }
       function _fnRenderer(settings, type) {
         var renderer = settings.renderer;
-        var host = DataTable2.ext.renderer[type];
-        if ($3.isPlainObject(renderer) && renderer[type]) {
+        var host = DataTable3.ext.renderer[type];
+        if ($5.isPlainObject(renderer) && renderer[type]) {
           return host[renderer[type]] || host._;
         } else if (typeof renderer === "string") {
           return host[renderer] || host._;
@@ -9957,8 +9957,8 @@ var require_dataTables = __commonJS({
         }
       }
       function _fnEscapeObject(obj) {
-        if (DataTable2.ext.escape.attributes) {
-          $3.each(obj, function(key, val) {
+        if (DataTable3.ext.escape.attributes) {
+          $5.each(obj, function(key, val) {
             obj[key] = _escapeHtml(val);
           });
         }
@@ -9968,7 +9968,7 @@ var require_dataTables = __commonJS({
       var __arrayProto = Array.prototype;
       var _toSettings = function(mixed) {
         var idx, jq;
-        var settings = DataTable2.settings;
+        var settings = DataTable3.settings;
         var tables = _pluck(settings, "nTable");
         if (!mixed) {
           return [];
@@ -9980,8 +9980,8 @@ var require_dataTables = __commonJS({
         } else if (mixed && typeof mixed.settings === "function") {
           return mixed.settings().toArray();
         } else if (typeof mixed === "string") {
-          jq = $3(mixed).get();
-        } else if (mixed instanceof $3) {
+          jq = $5(mixed).get();
+        } else if (mixed instanceof $5) {
           jq = mixed.get();
         }
         if (jq) {
@@ -10018,8 +10018,8 @@ var require_dataTables = __commonJS({
         };
         _Api.extend(this, this, __apiStruct);
       };
-      DataTable2.Api = _Api;
-      $3.extend(_Api.prototype, {
+      DataTable3.Api = _Api;
+      $5.extend(_Api.prototype, {
         any: function() {
           return this.count() !== 0;
         },
@@ -10108,7 +10108,7 @@ var require_dataTables = __commonJS({
           return new _Api(this.context, a);
         },
         pluck: function(prop) {
-          var fn = DataTable2.util.get(prop);
+          var fn = DataTable3.util.get(prop);
           return this.map(function(el) {
             return fn(el);
           });
@@ -10129,10 +10129,10 @@ var require_dataTables = __commonJS({
           return __arrayProto.slice.call(this);
         },
         to$: function() {
-          return $3(this);
+          return $5(this);
         },
         toJQuery: function() {
-          return $3(this);
+          return $5(this);
         },
         unique: function() {
           return new _Api(this.context, _unique(this.toArray()));
@@ -10194,7 +10194,7 @@ var require_dataTables = __commonJS({
           }
           if (i2 === iLen - 1) {
             src.val = val;
-            src.type = typeof val === "function" ? "function" : $3.isPlainObject(val) ? "object" : "other";
+            src.type = typeof val === "function" ? "function" : $5.isPlainObject(val) ? "object" : "other";
           } else {
             struct = method ? src.methodExt : src.propExt;
           }
@@ -10229,7 +10229,7 @@ var require_dataTables = __commonJS({
         var nodes = a.map(function(el) {
           return el.nTable;
         });
-        return $3(nodes).filter(selector).map(function() {
+        return $5(nodes).filter(selector).map(function() {
           var idx = nodes.indexOf(this);
           return a[idx];
         }).toArray();
@@ -10294,11 +10294,11 @@ var require_dataTables = __commonJS({
           return caption && context.length ? caption.innerHTML : null;
         }
         return this.iterator("table", function(ctx) {
-          var table = $3(ctx.nTable);
-          var caption2 = $3(ctx.captionNode);
-          var container = $3(ctx.nTableWrapper);
+          var table = $5(ctx.nTable);
+          var caption2 = $5(ctx.captionNode);
+          var container = $5(ctx.nTableWrapper);
           if (!caption2.length) {
-            caption2 = $3("<caption/>").html(value);
+            caption2 = $5("<caption/>").html(value);
             ctx.captionNode = caption2[0];
             if (!side) {
               table.prepend(caption2);
@@ -10417,10 +10417,10 @@ var require_dataTables = __commonJS({
             return void 0;
           }
           ctx = ctx[0];
-          return $3.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
+          return $5.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
         }
         return this.iterator("table", function(settings) {
-          if ($3.isPlainObject(settings.ajax)) {
+          if ($5.isPlainObject(settings.ajax)) {
             settings.ajax.url = url;
           } else {
             settings.ajax = url;
@@ -10461,7 +10461,7 @@ var require_dataTables = __commonJS({
         if (opts.filter && opts.search === void 0) {
           opts.search = opts.filter;
         }
-        return $3.extend({
+        return $5.extend({
           columnOrder: "implied",
           search: "none",
           order: "current",
@@ -10564,7 +10564,7 @@ var require_dataTables = __commonJS({
             } else if (cellIdx) {
               return aoData[cellIdx.row] && aoData[cellIdx.row].nTr === sel.parentNode ? [cellIdx.row] : [];
             } else {
-              var host = $3(sel).closest("*[data-dt-row]");
+              var host = $5(sel).closest("*[data-dt-row]");
               return host.length ? [host.data("dt-row")] : [];
             }
           }
@@ -10577,7 +10577,7 @@ var require_dataTables = __commonJS({
           var nodes = _removeEmpty(
             _pluck_order(settings.aoData, rows, "nTr")
           );
-          return $3(nodes).filter(sel).map(function() {
+          return $5(nodes).filter(sel).map(function() {
             return this._DT_RowIndex;
           }).toArray();
         };
@@ -10590,7 +10590,7 @@ var require_dataTables = __commonJS({
       _api_register("rows()", function(selector, opts) {
         if (selector === void 0) {
           selector = "";
-        } else if ($3.isPlainObject(selector)) {
+        } else if ($5.isPlainObject(selector)) {
           opts = selector;
           selector = "";
         }
@@ -10705,7 +10705,7 @@ var require_dataTables = __commonJS({
         return null;
       });
       _api_register("row.add()", function(row) {
-        if (row instanceof $3 && row.length) {
+        if (row instanceof $5 && row.length) {
           row = row[0];
         }
         var rows = this.iterator("table", function(settings) {
@@ -10716,7 +10716,7 @@ var require_dataTables = __commonJS({
         });
         return this.row(rows[0]);
       });
-      $3(document2).on("plugin-init.dt", function(e, context) {
+      $5(document2).on("plugin-init.dt", function(e, context) {
         var api = new _Api(context);
         api.on("stateSaveParams.DT", function(e2, settings, d) {
           var idFn = settings.rowIdFn;
@@ -10748,7 +10748,7 @@ var require_dataTables = __commonJS({
       var __details_add = function(ctx, row, data, klass) {
         var rows = [];
         var addRow = function(r, k) {
-          if (Array.isArray(r) || r instanceof $3) {
+          if (Array.isArray(r) || r instanceof $5) {
             for (var i2 = 0, iLen = r.length; i2 < iLen; i2++) {
               addRow(r[i2], k);
             }
@@ -10758,8 +10758,8 @@ var require_dataTables = __commonJS({
             r.setAttribute("data-dt-row", row.idx);
             rows.push(r);
           } else {
-            var created = $3("<tr><td></td></tr>").attr("data-dt-row", row.idx).addClass(k);
-            $3("td", created).addClass(k).html(r)[0].colSpan = _fnVisibleColumns(ctx);
+            var created = $5("<tr><td></td></tr>").attr("data-dt-row", row.idx).addClass(k);
+            $5("td", created).addClass(k).html(r)[0].colSpan = _fnVisibleColumns(ctx);
             rows.push(created[0]);
           }
         };
@@ -10767,12 +10767,12 @@ var require_dataTables = __commonJS({
         if (row._details) {
           row._details.detach();
         }
-        row._details = $3(rows);
+        row._details = $5(rows);
         if (row._detailsShow) {
           row._details.insertAfter(row.nTr);
         }
       };
-      var __details_state = DataTable2.util.throttle(
+      var __details_state = DataTable3.util.throttle(
         function(ctx) {
           _fnSaveState(ctx[0]);
         },
@@ -10786,7 +10786,7 @@ var require_dataTables = __commonJS({
             row._details.detach();
             row._detailsShow = void 0;
             row._details = void 0;
-            $3(row.nTr).removeClass("dt-hasChild");
+            $5(row.nTr).removeClass("dt-hasChild");
             __details_state(ctx);
           }
         }
@@ -10799,10 +10799,10 @@ var require_dataTables = __commonJS({
             row._detailsShow = show;
             if (show) {
               row._details.insertAfter(row.nTr);
-              $3(row.nTr).addClass("dt-hasChild");
+              $5(row.nTr).addClass("dt-hasChild");
             } else {
               row._details.detach();
-              $3(row.nTr).removeClass("dt-hasChild");
+              $5(row.nTr).removeClass("dt-hasChild");
             }
             _fnCallbackFire(ctx[0], null, "childRow", [show, api.row(api[0])]);
             __details_events(ctx[0]);
@@ -10839,7 +10839,7 @@ var require_dataTables = __commonJS({
               row = data[i2];
               if (row && row._details) {
                 row._details.each(function() {
-                  var el = $3(this).children("td");
+                  var el = $5(this).children("td");
                   if (el.length == 1) {
                     el.attr("colspan", visible);
                   }
@@ -10925,7 +10925,7 @@ var require_dataTables = __commonJS({
           target = titleRow;
         } else {
           for (var i2 = 0; i2 < header.length; i2++) {
-            if (header[i2][column].unique && $3(".dt-column-title", header[i2][column].cell).text()) {
+            if (header[i2][column].unique && $5(".dt-column-title", header[i2][column].cell).text()) {
               target = i2;
             }
           }
@@ -10992,7 +10992,7 @@ var require_dataTables = __commonJS({
                     return null;
                   }
                   if (match[1]) {
-                    return $3(nodes[idx2]).filter(match[1]).length > 0 ? idx2 : null;
+                    return $5(nodes[idx2]).filter(match[1]).length > 0 ? idx2 : null;
                   }
                   return idx2;
                 });
@@ -11017,7 +11017,7 @@ var require_dataTables = __commonJS({
           if (s.nodeName && s._DT_CellIndex) {
             return [s._DT_CellIndex.column];
           }
-          var jqResult = $3(nodes).filter(s).map(function() {
+          var jqResult = $5(nodes).filter(s).map(function() {
             return _fnColumnsFromHeader(this);
           }).toArray().sort(function(a, b) {
             return a - b;
@@ -11025,7 +11025,7 @@ var require_dataTables = __commonJS({
           if (jqResult.length || !s.nodeName) {
             return jqResult;
           }
-          var host = $3(s).closest("*[data-dt-column]");
+          var host = $5(s).closest("*[data-dt-column]");
           return host.length ? [host.data("dt-column")] : [];
         };
         var selected = _selector_run("column", selector, run, settings, opts);
@@ -11053,7 +11053,7 @@ var require_dataTables = __commonJS({
             }
           }
         } else {
-          $3(_pluck(settings.aoData, "anCells", column)).detach();
+          $5(_pluck(settings.aoData, "anCells", column)).detach();
         }
         col.bVisible = vis;
         _colGroup(settings);
@@ -11062,7 +11062,7 @@ var require_dataTables = __commonJS({
       _api_register("columns()", function(selector, opts) {
         if (selector === void 0) {
           selector = "";
-        } else if ($3.isPlainObject(selector)) {
+        } else if ($5.isPlainObject(selector)) {
           opts = selector;
           selector = "";
         }
@@ -11132,7 +11132,7 @@ var require_dataTables = __commonJS({
             row = title;
             title = void 0;
           }
-          var span = $3(".dt-column-title", this.column(column).header(row));
+          var span = $5(".dt-column-title", this.column(column).header(row));
           if (title !== void 0) {
             span.html(title);
             return this;
@@ -11167,7 +11167,7 @@ var require_dataTables = __commonJS({
             _fnDrawHead(settings, settings.aoHeader);
             _fnDrawHead(settings, settings.aoFooter);
             if (!settings.aiDisplay.length) {
-              $3(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisibleColumns(settings));
+              $5(settings.nTBody).find("td[colspan]").attr("colspan", _fnVisibleColumns(settings));
             }
             _fnSaveState(settings);
             that.iterator("column", function(settings2, column) {
@@ -11184,10 +11184,10 @@ var require_dataTables = __commonJS({
       });
       _api_registerPlural("columns().widths()", "column().width()", function() {
         var columns = this.columns(":visible").count();
-        var row = $3("<tr>").html("<td>" + Array(columns).join("</td><td>") + "</td>");
-        $3(this.table().body()).append(row);
+        var row = $5("<tr>").html("<td>" + Array(columns).join("</td><td>") + "</td>");
+        $5(this.table().body()).append(row);
         var widths = row.children().map(function() {
-          return $3(this).outerWidth();
+          return $5(this).outerWidth();
         });
         row.remove();
         return this.iterator("column", function(settings, column) {
@@ -11223,7 +11223,7 @@ var require_dataTables = __commonJS({
         var data = settings.aoData;
         var rows = _selector_row_indexes(settings, opts);
         var cells = _removeEmpty(_pluck_order(data, rows, "anCells"));
-        var allCells = $3(_flatten([], cells));
+        var allCells = $5(_flatten([], cells));
         var row;
         var columns = settings.aoColumns.length;
         var a, i2, iLen, j, o, host;
@@ -11250,7 +11250,7 @@ var require_dataTables = __commonJS({
             }
             return a;
           }
-          if ($3.isPlainObject(s)) {
+          if ($5.isPlainObject(s)) {
             return s.column !== void 0 && s.row !== void 0 && rows.indexOf(s.row) !== -1 ? [s] : [];
           }
           var jqResult = allCells.filter(s).map(function(i3, el) {
@@ -11262,7 +11262,7 @@ var require_dataTables = __commonJS({
           if (jqResult.length || !s.nodeName) {
             return jqResult;
           }
-          host = $3(s).closest("*[data-dt-row]");
+          host = $5(s).closest("*[data-dt-row]");
           return host.length ? [{
             row: host.data("dt-row"),
             column: host.data("dt-column")
@@ -11271,7 +11271,7 @@ var require_dataTables = __commonJS({
         return _selector_run("cell", selector, run, settings, opts);
       };
       _api_register("cells()", function(rowSelector, columnSelector, opts) {
-        if ($3.isPlainObject(rowSelector)) {
+        if ($5.isPlainObject(rowSelector)) {
           if (rowSelector.row === void 0) {
             opts = rowSelector;
             rowSelector = null;
@@ -11280,7 +11280,7 @@ var require_dataTables = __commonJS({
             columnSelector = null;
           }
         }
-        if ($3.isPlainObject(columnSelector)) {
+        if ($5.isPlainObject(columnSelector)) {
           opts = columnSelector;
           columnSelector = null;
         }
@@ -11310,7 +11310,7 @@ var require_dataTables = __commonJS({
           return a;
         }, 1);
         var cells = opts && opts.selected ? this.cells(cellsNoOpts, opts) : cellsNoOpts;
-        $3.extend(cells.selector, {
+        $5.extend(cells.selector, {
           cols: columnSelector,
           rows: rowSelector,
           opts
@@ -11395,7 +11395,7 @@ var require_dataTables = __commonJS({
           return Array.isArray(fixed) ? { pre: fixed } : fixed;
         }
         return this.iterator("table", function(settings) {
-          settings.aaSortingFixed = $3.extend(true, {}, set);
+          settings.aaSortingFixed = $5.extend(true, {}, set);
         });
       });
       _api_register([
@@ -11442,11 +11442,11 @@ var require_dataTables = __commonJS({
             return;
           }
           if (typeof regex === "object") {
-            _fnFilterComplete(settings, $3.extend(settings.oPreviousSearch, regex, {
+            _fnFilterComplete(settings, $5.extend(settings.oPreviousSearch, regex, {
               search: input
             }));
           } else {
-            _fnFilterComplete(settings, $3.extend(settings.oPreviousSearch, {
+            _fnFilterComplete(settings, $5.extend(settings.oPreviousSearch, {
               search: input,
               regex: regex === null ? false : regex,
               smart: smart === null ? true : smart,
@@ -11484,11 +11484,11 @@ var require_dataTables = __commonJS({
               return;
             }
             if (typeof regex === "object") {
-              $3.extend(preSearch[column], regex, {
+              $5.extend(preSearch[column], regex, {
                 search: input
               });
             } else {
-              $3.extend(preSearch[column], {
+              $5.extend(preSearch[column], {
                 search: input,
                 regex: regex === null ? false : regex,
                 smart: smart === null ? true : smart,
@@ -11525,7 +11525,7 @@ var require_dataTables = __commonJS({
         if (!set) {
           return this.context.length ? this.context[0].oSavedState : null;
         }
-        var setMutate = $3.extend(true, {}, set);
+        var setMutate = $5.extend(true, {}, set);
         return this.iterator("table", function(settings) {
           if (ignoreTime !== false) {
             setMutate.time = +new Date() + 100;
@@ -11549,18 +11549,18 @@ var require_dataTables = __commonJS({
       });
       var __bootstrap;
       var __foundation;
-      DataTable2.use = function(arg1, arg2) {
+      DataTable3.use = function(arg1, arg2) {
         var module2 = typeof arg1 === "string" ? arg2 : arg1;
         var type = typeof arg2 === "string" ? arg2 : arg1;
         if (module2 === void 0 && typeof type === "string") {
           switch (type) {
             case "lib":
             case "jq":
-              return $3;
+              return $5;
             case "win":
               return window2;
             case "datetime":
-              return DataTable2.DateTime;
+              return DataTable3.DateTime;
             case "luxon":
               return __luxon;
             case "moment":
@@ -11574,12 +11574,12 @@ var require_dataTables = __commonJS({
           }
         }
         if (type === "lib" || type === "jq" || module2 && module2.fn && module2.fn.jquery) {
-          $3 = module2;
+          $5 = module2;
         } else if (type === "win" || module2 && module2.document) {
           window2 = module2;
           document2 = module2.document;
         } else if (type === "datetime" || module2 && module2.type === "DateTime") {
-          DataTable2.DateTime = module2;
+          DataTable3.DateTime = module2;
         } else if (type === "luxon" || module2 && module2.FixedOffsetZone) {
           __luxon = module2;
         } else if (type === "moment" || module2 && module2.isMoment) {
@@ -11590,20 +11590,20 @@ var require_dataTables = __commonJS({
           __foundation = module2;
         }
       };
-      DataTable2.factory = function(root, jq) {
+      DataTable3.factory = function(root, jq) {
         var is = false;
         if (root && root.document) {
           window2 = root;
           document2 = root.document;
         }
         if (jq && jq.fn && jq.fn.jquery) {
-          $3 = jq;
+          $5 = jq;
           is = true;
         }
         return is;
       };
-      DataTable2.versionCheck = function(version, version2) {
-        var aThis = version2 ? version2.split(".") : DataTable2.version.split(".");
+      DataTable3.versionCheck = function(version, version2) {
+        var aThis = version2 ? version2.split(".") : DataTable3.version.split(".");
         var aThat = version.split(".");
         var iThis, iThat;
         for (var i2 = 0, iLen = aThat.length; i2 < iLen; i2++) {
@@ -11616,49 +11616,49 @@ var require_dataTables = __commonJS({
         }
         return true;
       };
-      DataTable2.isDataTable = function(table) {
-        var t = $3(table).get(0);
+      DataTable3.isDataTable = function(table) {
+        var t = $5(table).get(0);
         var is = false;
-        if (table instanceof DataTable2.Api) {
+        if (table instanceof DataTable3.Api) {
           return true;
         }
-        $3.each(DataTable2.settings, function(i2, o) {
-          var head = o.nScrollHead ? $3("table", o.nScrollHead)[0] : null;
-          var foot = o.nScrollFoot ? $3("table", o.nScrollFoot)[0] : null;
+        $5.each(DataTable3.settings, function(i2, o) {
+          var head = o.nScrollHead ? $5("table", o.nScrollHead)[0] : null;
+          var foot = o.nScrollFoot ? $5("table", o.nScrollFoot)[0] : null;
           if (o.nTable === t || head === t || foot === t) {
             is = true;
           }
         });
         return is;
       };
-      DataTable2.tables = function(visible) {
+      DataTable3.tables = function(visible) {
         var api = false;
-        if ($3.isPlainObject(visible)) {
+        if ($5.isPlainObject(visible)) {
           api = visible.api;
           visible = visible.visible;
         }
-        var a = DataTable2.settings.filter(function(o) {
-          return !visible || visible && $3(o.nTable).is(":visible") ? true : false;
+        var a = DataTable3.settings.filter(function(o) {
+          return !visible || visible && $5(o.nTable).is(":visible") ? true : false;
         }).map(function(o) {
           return o.nTable;
         });
         return api ? new _Api(a) : a;
       };
-      DataTable2.camelToHungarian = _fnCamelToHungarian;
+      DataTable3.camelToHungarian = _fnCamelToHungarian;
       _api_register("$()", function(selector, opts) {
-        var rows = this.rows(opts).nodes(), jqRows = $3(rows);
-        return $3([].concat(
+        var rows = this.rows(opts).nodes(), jqRows = $5(rows);
+        return $5([].concat(
           jqRows.filter(selector).toArray(),
           jqRows.find(selector).toArray()
         ));
       });
-      $3.each(["on", "one", "off"], function(i2, key) {
+      $5.each(["on", "one", "off"], function(i2, key) {
         _api_register(key + "()", function() {
           var args = Array.prototype.slice.call(arguments);
           args[0] = args[0].split(/\s/).map(function(e) {
             return !e.match(/\.dt\b/) ? e + ".dt" : e;
           }).join(" ");
-          var inst = $3(this.tables().nodes());
+          var inst = $5(this.tables().nodes());
           inst[key].apply(inst, args);
           return this;
         });
@@ -11714,9 +11714,9 @@ var require_dataTables = __commonJS({
           var tbody = settings.nTBody;
           var thead = settings.nTHead;
           var tfoot = settings.nTFoot;
-          var jqTable = $3(table);
-          var jqTbody = $3(tbody);
-          var jqWrapper = $3(settings.nTableWrapper);
+          var jqTable = $5(table);
+          var jqTbody = $5(tbody);
+          var jqWrapper = $5(settings.nTableWrapper);
           var rows = settings.aoData.map(function(r) {
             return r ? r.nTr : null;
           });
@@ -11730,7 +11730,7 @@ var require_dataTables = __commonJS({
             settings.resizeObserver.disconnect();
           }
           jqWrapper.off(".DT").find(":not(tbody *)").off(".DT");
-          $3(window2).off(".DT-" + settings.sInstance);
+          $5(window2).off(".DT-" + settings.sInstance);
           if (table != thead.parentNode) {
             jqTable.children("thead").detach();
             jqTable.append(thead);
@@ -11745,12 +11745,12 @@ var require_dataTables = __commonJS({
           settings.aaSorting = [];
           settings.aaSortingFixed = [];
           _fnSortingClasses(settings);
-          $3(jqTable).find("th, td").removeClass(
-            $3.map(DataTable2.ext.type.className, function(v) {
+          $5(jqTable).find("th, td").removeClass(
+            $5.map(DataTable3.ext.type.className, function(v) {
               return v;
             }).join(" ")
           );
-          $3("th, td", thead).removeClass(
+          $5("th, td", thead).removeClass(
             orderClasses.none + " " + orderClasses.canAsc + " " + orderClasses.canDesc + " " + orderClasses.isAsc + " " + orderClasses.isDesc
           ).css("width", "").removeAttr("aria-sort");
           jqTbody.children().detach();
@@ -11764,13 +11764,13 @@ var require_dataTables = __commonJS({
             orig.insertBefore(table, insertBefore);
             jqTable.css("width", settings.sDestroyWidth).removeClass(classes.table);
           }
-          var idx = DataTable2.settings.indexOf(settings);
+          var idx = DataTable3.settings.indexOf(settings);
           if (idx !== -1) {
-            DataTable2.settings.splice(idx, 1);
+            DataTable3.settings.splice(idx, 1);
           }
         });
       });
-      $3.each(["column", "row", "cell"], function(i2, type) {
+      $5.each(["column", "row", "cell"], function(i2, type) {
         _api_register(type + "s().every()", function(fn) {
           var opts = this.selector.opts;
           var api = this;
@@ -11793,32 +11793,32 @@ var require_dataTables = __commonJS({
         if (resolved === void 0) {
           resolved = def;
         }
-        if ($3.isPlainObject(resolved)) {
+        if ($5.isPlainObject(resolved)) {
           resolved = plural !== void 0 && resolved[plural] !== void 0 ? resolved[plural] : plural === false ? resolved : resolved._;
         }
         return typeof resolved === "string" ? resolved.replace("%d", plural) : resolved;
       });
       function cleanHeader(node, className) {
-        $3(node).find(".dt-column-order").remove();
-        $3(node).find(".dt-column-title").each(function() {
-          var title = $3(this).html();
-          $3(this).parent().parent().append(title);
-          $3(this).remove();
+        $5(node).find(".dt-column-order").remove();
+        $5(node).find(".dt-column-title").each(function() {
+          var title = $5(this).html();
+          $5(this).parent().parent().append(title);
+          $5(this).remove();
         });
-        $3(node).find("div.dt-column-" + className).remove();
-        $3("th, td", node).removeAttr("data-dt-column");
+        $5(node).find("div.dt-column-" + className).remove();
+        $5("th, td", node).removeAttr("data-dt-column");
       }
-      DataTable2.version = "2.3.7";
-      DataTable2.settings = [];
-      DataTable2.models = {};
-      DataTable2.models.oSearch = {
+      DataTable3.version = "2.3.7";
+      DataTable3.settings = [];
+      DataTable3.models = {};
+      DataTable3.models.oSearch = {
         "caseInsensitive": true,
         "search": "",
         "regex": false,
         "smart": true,
         "return": false
       };
-      DataTable2.models.oRow = {
+      DataTable3.models.oRow = {
         "nTr": null,
         "anCells": null,
         "_aData": [],
@@ -11829,7 +11829,7 @@ var require_dataTables = __commonJS({
         "idx": -1,
         displayData: null
       };
-      DataTable2.models.oColumn = {
+      DataTable3.models.oColumn = {
         "idx": null,
         "aDataSort": null,
         "asSorting": null,
@@ -11856,7 +11856,7 @@ var require_dataTables = __commonJS({
         wideStrings: null,
         searchFixed: null
       };
-      DataTable2.defaults = {
+      DataTable3.defaults = {
         "aaData": null,
         "aaSorting": [[0, "asc"]],
         "aaSortingFixed": [],
@@ -11966,7 +11966,7 @@ var require_dataTables = __commonJS({
           "sZeroRecords": "No matching records found"
         },
         orderDescReverse: true,
-        "oSearch": $3.extend({}, DataTable2.models.oSearch),
+        "oSearch": $5.extend({}, DataTable3.models.oSearch),
         layout: {
           topStart: "pageLength",
           topEnd: "search",
@@ -11987,8 +11987,8 @@ var require_dataTables = __commonJS({
         on: null,
         columnTitleTag: "span"
       };
-      _fnHungarianMap(DataTable2.defaults);
-      DataTable2.defaults.column = {
+      _fnHungarianMap(DataTable3.defaults);
+      DataTable3.defaults.column = {
         "aDataSort": null,
         "iDataSort": -1,
         ariaTitle: "",
@@ -12009,8 +12009,8 @@ var require_dataTables = __commonJS({
         "sType": null,
         "sWidth": null
       };
-      _fnHungarianMap(DataTable2.defaults.column);
-      DataTable2.models.oSettings = {
+      _fnHungarianMap(DataTable3.defaults.column);
+      DataTable3.models.oSettings = {
         "oFeatures": {
           "bAutoWidth": null,
           "bDeferRender": null,
@@ -12137,8 +12137,8 @@ var require_dataTables = __commonJS({
         titleRow: null,
         columnTitleTag: "span"
       };
-      var extPagination = DataTable2.ext.pager;
-      $3.extend(extPagination, {
+      var extPagination = DataTable3.ext.pager;
+      $5.extend(extPagination, {
         simple: function() {
           return ["previous", "next"];
         },
@@ -12163,7 +12163,7 @@ var require_dataTables = __commonJS({
         _numbers: _pagingNumbers,
         numbers_length: 7
       });
-      $3.extend(true, DataTable2.ext.renderer, {
+      $5.extend(true, DataTable3.ext.renderer, {
         pagingButton: {
           _: function(settings, buttonType, content, active, disabled) {
             var classes = settings.oClasses.paging;
@@ -12176,9 +12176,9 @@ var require_dataTables = __commonJS({
               btnClasses.push(classes.disabled);
             }
             if (buttonType === "ellipsis") {
-              btn = $3('<span class="ellipsis"></span>').html(content)[0];
+              btn = $5('<span class="ellipsis"></span>').html(content)[0];
             } else {
-              btn = $3("<button>", {
+              btn = $5("<button>", {
                 class: btnClasses.join(" "),
                 role: "link",
                 type: "button"
@@ -12270,8 +12270,8 @@ var require_dataTables = __commonJS({
             from = null;
           }
           var typeName = "datetime" + (to ? "-" + to : "");
-          if (!DataTable2.ext.type.order[typeName + "-pre"]) {
-            DataTable2.type(typeName, {
+          if (!DataTable3.ext.type.order[typeName + "-pre"]) {
+            DataTable3.type(typeName, {
               detect: function(d) {
                 return d === typeName ? typeName : false;
               },
@@ -12338,13 +12338,13 @@ var require_dataTables = __commonJS({
         } catch (e) {
         }
       }
-      DataTable2.datetime = function(format, locale) {
+      DataTable3.datetime = function(format, locale) {
         var typeName = "datetime-" + format;
         if (!locale) {
           locale = "en";
         }
-        if (!DataTable2.ext.type.order[typeName]) {
-          DataTable2.type(typeName, {
+        if (!DataTable3.ext.type.order[typeName]) {
+          DataTable3.type(typeName, {
             detect: function(d) {
               var dt = __mldObj(d, format, locale);
               return d === "" || dt ? typeName : false;
@@ -12358,7 +12358,7 @@ var require_dataTables = __commonJS({
           });
         }
       };
-      DataTable2.render = {
+      DataTable3.render = {
         date: __mlHelper("toLocaleDateString"),
         datetime: __mlHelper("toLocaleString"),
         time: __mlHelper("toLocaleTimeString"),
@@ -12408,8 +12408,8 @@ var require_dataTables = __commonJS({
           };
         }
       };
-      var _extTypes = DataTable2.ext.type;
-      DataTable2.type = function(name, prop, val) {
+      var _extTypes = DataTable3.ext.type;
+      DataTable3.type = function(name, prop, val) {
         if (!prop) {
           return {
             className: _extTypes.className[name],
@@ -12476,7 +12476,7 @@ var require_dataTables = __commonJS({
           }
         }
       };
-      DataTable2.types = function() {
+      DataTable3.types = function() {
         return _extTypes.detect.map(function(fn) {
           return fn._name;
         });
@@ -12494,7 +12494,7 @@ var require_dataTables = __commonJS({
         b = _stripHtml(b);
         return __diacriticSort(a, b);
       };
-      DataTable2.type("string", {
+      DataTable3.type("string", {
         detect: function() {
           return "string";
         },
@@ -12505,7 +12505,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(false, true)
       });
-      DataTable2.type("string-utf8", {
+      DataTable3.type("string-utf8", {
         detect: {
           allOf: function(d) {
             return true;
@@ -12522,7 +12522,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(false, true)
       });
-      DataTable2.type("html", {
+      DataTable3.type("html", {
         detect: {
           allOf: function(d) {
             return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
@@ -12538,7 +12538,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(true, true)
       });
-      DataTable2.type("html-utf8", {
+      DataTable3.type("html-utf8", {
         detect: {
           allOf: function(d) {
             return _empty(d) || typeof d === "string" && d.indexOf("<") !== -1;
@@ -12555,7 +12555,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(true, true)
       });
-      DataTable2.type("date", {
+      DataTable3.type("date", {
         className: "dt-type-date",
         detect: {
           allOf: function(d) {
@@ -12576,7 +12576,7 @@ var require_dataTables = __commonJS({
           }
         }
       });
-      DataTable2.type("html-num-fmt", {
+      DataTable3.type("html-num-fmt", {
         className: "dt-type-numeric",
         detect: {
           allOf: function(d, settings) {
@@ -12596,7 +12596,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(true, true)
       });
-      DataTable2.type("html-num", {
+      DataTable3.type("html-num", {
         className: "dt-type-numeric",
         detect: {
           allOf: function(d, settings) {
@@ -12616,7 +12616,7 @@ var require_dataTables = __commonJS({
         },
         search: _filterString(true, true)
       });
-      DataTable2.type("num-fmt", {
+      DataTable3.type("num-fmt", {
         className: "dt-type-numeric",
         detect: {
           allOf: function(d, settings) {
@@ -12635,7 +12635,7 @@ var require_dataTables = __commonJS({
           }
         }
       });
-      DataTable2.type("num", {
+      DataTable3.type("num", {
         className: "dt-type-numeric",
         detect: {
           allOf: function(d, settings) {
@@ -12675,7 +12675,7 @@ var require_dataTables = __commonJS({
         }
         return d * 1;
       };
-      $3.extend(true, DataTable2.ext.renderer, {
+      $5.extend(true, DataTable3.ext.renderer, {
         footer: {
           _: function(settings, cell, classes) {
             cell.addClass(classes.tfoot.cell);
@@ -12693,7 +12693,7 @@ var require_dataTables = __commonJS({
             if (cell.attr("data-dt-order") === "disable" || cell.parent().attr("data-dt-order") === "disable" || titleRow === true && rowIdx !== 0 || titleRow === false && rowIdx !== headerRows.length - 1 || typeof titleRow === "number" && rowIdx !== titleRow) {
               return;
             }
-            $3(settings.nTable).on("order.dt.DT column-visibility.dt.DT", function(e, ctx, column) {
+            $5(settings.nTable).on("order.dt.DT column-visibility.dt.DT", function(e, ctx, column) {
               if (settings !== ctx) {
                 return;
               }
@@ -12761,8 +12761,8 @@ var require_dataTables = __commonJS({
         layout: {
           _: function(settings, container, items) {
             var classes = settings.oClasses.layout;
-            var row = $3("<div/>").attr("id", items.id || null).addClass(items.className || classes.row).appendTo(container);
-            DataTable2.ext.renderer.layout._forLayoutRow(items, function(key, val) {
+            var row = $5("<div/>").attr("id", items.id || null).addClass(items.className || classes.row).appendTo(container);
+            DataTable3.ext.renderer.layout._forLayoutRow(items, function(key, val) {
               if (key === "id" || key === "className") {
                 return;
               }
@@ -12778,7 +12778,7 @@ var require_dataTables = __commonJS({
               } else {
                 klass += classes.full;
               }
-              $3("<div/>").attr({
+              $5("<div/>").attr({
                 id: val.id || null,
                 "class": val.className ? val.className : classes.cell + " " + klass
               }).append(val.contents).appendTo(row);
@@ -12805,9 +12805,9 @@ var require_dataTables = __commonJS({
           }
         }
       });
-      DataTable2.feature = {};
-      DataTable2.feature.register = function(name, cb, legacy) {
-        DataTable2.ext.features[name] = cb;
+      DataTable3.feature = {};
+      DataTable3.feature.register = function(name, cb, legacy) {
+        DataTable3.ext.features[name] = cb;
         if (legacy) {
           _ext.feature.push({
             cFeature: legacy,
@@ -12820,8 +12820,8 @@ var require_dataTables = __commonJS({
           el[prop] = val;
         }
       }
-      DataTable2.feature.register("div", function(settings, opts) {
-        var n = $3("<div>")[0];
+      DataTable3.feature.register("div", function(settings, opts) {
+        var n = $5("<div>")[0];
         if (opts) {
           _divProp(n, "className", opts.className);
           _divProp(n, "id", opts.id);
@@ -12830,14 +12830,14 @@ var require_dataTables = __commonJS({
         }
         return n;
       });
-      DataTable2.feature.register("info", function(settings, opts) {
+      DataTable3.feature.register("info", function(settings, opts) {
         if (!settings.oFeatures.bInfo) {
           return null;
         }
-        var lang = settings.oLanguage, tid = settings.sTableId, n = $3("<div/>", {
+        var lang = settings.oLanguage, tid = settings.sTableId, n = $5("<div/>", {
           "class": settings.oClasses.info.container
         });
-        opts = $3.extend({
+        opts = $5.extend({
           callback: lang.fnInfoCallback,
           empty: lang.sInfoEmpty,
           postfix: lang.sInfoPostFix,
@@ -12853,7 +12853,7 @@ var require_dataTables = __commonJS({
             id: tid + "_info",
             role: "status"
           });
-          $3(settings.nTable).attr("aria-describedby", tid + "_info");
+          $5(settings.nTable).attr("aria-describedby", tid + "_info");
           settings._infoEl = n;
         }
         return n;
@@ -12880,7 +12880,7 @@ var require_dataTables = __commonJS({
         _fnCallbackFire(settings, null, "info", [settings, node[0], out]);
       }
       var __searchCounter = 0;
-      DataTable2.feature.register("search", function(settings, opts) {
+      DataTable3.feature.register("search", function(settings, opts) {
         if (!settings.oFeatures.bFilter) {
           return null;
         }
@@ -12889,7 +12889,7 @@ var require_dataTables = __commonJS({
         var language = settings.oLanguage;
         var previousSearch = settings.oPreviousSearch;
         var input = '<input type="search" class="' + classes.input + '"/>';
-        opts = $3.extend({
+        opts = $5.extend({
           placeholder: language.sSearchPlaceholder,
           processing: false,
           text: language.sSearch
@@ -12907,7 +12907,7 @@ var require_dataTables = __commonJS({
         } else if (end) {
           str = "<label>" + removed + "</label>_INPUT_";
         }
-        var filter = $3("<div>").addClass(classes.container).append(str.replace(/_INPUT_/, input));
+        var filter = $5("<div>").addClass(classes.container).append(str.replace(/_INPUT_/, input));
         filter.find("label").attr("for", "dt-search-" + __searchCounter);
         filter.find("input").attr("id", "dt-search-" + __searchCounter);
         __searchCounter++;
@@ -12926,9 +12926,9 @@ var require_dataTables = __commonJS({
           }
         };
         var searchDelay = settings.searchDelay !== null ? settings.searchDelay : 0;
-        var jqFilter = $3("input", filter).val(previousSearch.search).attr("placeholder", opts.placeholder).on(
+        var jqFilter = $5("input", filter).val(previousSearch.search).attr("placeholder", opts.placeholder).on(
           "keyup.DT search.DT input.DT paste.DT cut.DT",
-          searchDelay ? DataTable2.util.debounce(searchFn, searchDelay) : searchFn
+          searchDelay ? DataTable3.util.debounce(searchFn, searchDelay) : searchFn
         ).on("mouseup.DT", function(e) {
           setTimeout(function() {
             searchFn.call(jqFilter[0], e);
@@ -12938,7 +12938,7 @@ var require_dataTables = __commonJS({
             return false;
           }
         }).attr("aria-controls", tableId);
-        $3(settings.nTable).on("search.dt.DT", function(ev, s) {
+        $5(settings.nTable).on("search.dt.DT", function(ev, s) {
           if (settings === s && jqFilter[0] !== document2.activeElement) {
             jqFilter.val(
               typeof previousSearch.search !== "function" ? previousSearch.search : ""
@@ -12947,26 +12947,26 @@ var require_dataTables = __commonJS({
         });
         return filter;
       }, "f");
-      DataTable2.feature.register("paging", function(settings, opts) {
+      DataTable3.feature.register("paging", function(settings, opts) {
         if (!settings.oFeatures.bPaginate) {
           return null;
         }
-        opts = $3.extend({
-          buttons: DataTable2.ext.pager.numbers_length,
+        opts = $5.extend({
+          buttons: DataTable3.ext.pager.numbers_length,
           type: settings.sPaginationType,
           boundaryNumbers: true,
           firstLast: true,
           previousNext: true,
           numbers: true
         }, opts);
-        var host = $3("<div/>").addClass(settings.oClasses.paging.container + (opts.type ? " paging_" + opts.type : "")).append(
-          $3("<nav>").attr("aria-label", "pagination").addClass(settings.oClasses.paging.nav)
+        var host = $5("<div/>").addClass(settings.oClasses.paging.container + (opts.type ? " paging_" + opts.type : "")).append(
+          $5("<nav>").attr("aria-label", "pagination").addClass(settings.oClasses.paging.nav)
         );
         var draw = function() {
           _pagingDraw(settings, host.children(), opts);
         };
         settings.aoDrawCallback.push(draw);
-        $3(settings.nTable).on("column-sizing.dt.DT", draw);
+        $5(settings.nTable).on("column-sizing.dt.DT", draw);
         return host;
       }, "p");
       function _pagingDynamic(opts) {
@@ -12988,7 +12988,7 @@ var require_dataTables = __commonJS({
         if (!settings._bInitComplete) {
           return;
         }
-        var plugin = opts.type ? DataTable2.ext.pager[opts.type] : _pagingDynamic, aria = settings.oLanguage.oAria.paginate || {}, start2 = settings._iDisplayStart, len = settings._iDisplayLength, visRecords = settings.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start2 / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = [], buttonEls = [], buttonsNested = plugin(opts).map(function(val) {
+        var plugin = opts.type ? DataTable3.ext.pager[opts.type] : _pagingDynamic, aria = settings.oLanguage.oAria.paginate || {}, start2 = settings._iDisplayStart, len = settings._iDisplayLength, visRecords = settings.fnRecordsDisplay(), all = len === -1, page = all ? 0 : Math.ceil(start2 / len), pages = all ? 1 : Math.ceil(visRecords / len), buttons = [], buttonEls = [], buttonsNested = plugin(opts).map(function(val) {
           return val === "numbers" ? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers) : val;
         });
         buttons = buttons.concat.apply(buttons, buttonsNested);
@@ -13003,7 +13003,7 @@ var require_dataTables = __commonJS({
             btnInfo.disabled
           );
           var ariaLabel = typeof button === "string" ? aria[button] : aria.number ? aria.number + (button + 1) : null;
-          $3(btn.clicker).attr({
+          $5(btn.clicker).attr({
             "aria-controls": settings.sTableId,
             "aria-disabled": btnInfo.disabled ? "true" : null,
             "aria-current": btnInfo.active ? "page" : null,
@@ -13012,7 +13012,7 @@ var require_dataTables = __commonJS({
             "tabIndex": btnInfo.disabled ? -1 : settings.iTabIndex && btn.clicker[0].nodeName.toLowerCase() !== "span" ? settings.iTabIndex : null
           });
           if (typeof button !== "number") {
-            $3(btn.clicker).addClass(button);
+            $5(btn.clicker).addClass(button);
           }
           _fnBindAction(
             btn.clicker,
@@ -13034,9 +13034,9 @@ var require_dataTables = __commonJS({
           host.find("[data-dt-idx=" + activeEl + "]").trigger("focus");
         }
         if (buttonEls.length) {
-          var outerHeight = $3(buttonEls[0]).outerHeight();
-          if (opts.buttons > 1 && outerHeight > 0 && $3(host).height() >= outerHeight * 2 - 10) {
-            _pagingDraw(settings, host, $3.extend({}, opts, { buttons: opts.buttons - 2 }));
+          var outerHeight = $5(buttonEls[0]).outerHeight();
+          if (opts.buttons > 1 && outerHeight > 0 && $5(host).height() >= outerHeight * 2 - 10) {
+            _pagingDraw(settings, host, $5.extend({}, opts, { buttons: opts.buttons - 2 }));
           }
         }
       }
@@ -13125,12 +13125,12 @@ var require_dataTables = __commonJS({
         return numbers;
       }
       var __lengthCounter = 0;
-      DataTable2.feature.register("pageLength", function(settings, opts) {
+      DataTable3.feature.register("pageLength", function(settings, opts) {
         var features = settings.oFeatures;
         if (!features.bPaginate || !features.bLengthChange) {
           return null;
         }
-        opts = $3.extend({
+        opts = $5.extend({
           menu: settings.aLengthMenu,
           text: settings.oLanguage.sLengthMenu
         }, opts);
@@ -13140,7 +13140,7 @@ var require_dataTables = __commonJS({
           language = menu[1];
         } else {
           for (i2 = 0; i2 < menu.length; i2++) {
-            if ($3.isPlainObject(menu[i2])) {
+            if ($5.isPlainObject(menu[i2])) {
               lengths.push(menu[i2].value);
               language.push(menu[i2].label);
             } else {
@@ -13159,7 +13159,7 @@ var require_dataTables = __commonJS({
           str = "<label>" + removed + "</label>_MENU_";
         }
         var tmpId = "tmp-" + +new Date();
-        var div = $3("<div/>").addClass(classes.container).append(
+        var div = $5("<div/>").addClass(classes.container).append(
           str.replace("_MENU_", '<span id="' + tmpId + '"></span>')
         );
         var textNodes = [];
@@ -13176,7 +13176,7 @@ var require_dataTables = __commonJS({
             node.el.textContent = _fnMacros(settings, node.text, len);
           });
         };
-        var select = $3("<select/>", {
+        var select = $5("<select/>", {
           "aria-controls": tableId,
           "class": classes.select
         });
@@ -13191,30 +13191,30 @@ var require_dataTables = __commonJS({
         select.attr("id", "dt-length-" + __lengthCounter);
         __lengthCounter++;
         div.find("#" + tmpId).replaceWith(select);
-        $3("select", div).val(settings._iDisplayLength).on("change.DT", function() {
-          _fnLengthChange(settings, $3(this).val());
+        $5("select", div).val(settings._iDisplayLength).on("change.DT", function() {
+          _fnLengthChange(settings, $5(this).val());
           _fnDraw(settings);
         });
-        $3(settings.nTable).on("length.dt.DT", function(e, s, len) {
+        $5(settings.nTable).on("length.dt.DT", function(e, s, len) {
           if (settings === s) {
-            $3("select", div).val(len);
+            $5("select", div).val(len);
             updateEntries(len);
           }
         });
         updateEntries(settings._iDisplayLength);
         return div;
       }, "l");
-      $3.fn.dataTable = DataTable2;
-      DataTable2.$ = $3;
-      $3.fn.dataTableSettings = DataTable2.settings;
-      $3.fn.dataTableExt = DataTable2.ext;
-      $3.fn.DataTable = function(opts) {
-        return $3(this).dataTable(opts).api();
+      $5.fn.dataTable = DataTable3;
+      DataTable3.$ = $5;
+      $5.fn.dataTableSettings = DataTable3.settings;
+      $5.fn.dataTableExt = DataTable3.ext;
+      $5.fn.DataTable = function(opts) {
+        return $5(this).dataTable(opts).api();
       };
-      $3.each(DataTable2, function(prop, val) {
-        $3.fn.DataTable[prop] = val;
+      $5.each(DataTable3, function(prop, val) {
+        $5.fn.DataTable[prop] = val;
       });
-      return DataTable2;
+      return DataTable3;
     });
   }
 });
@@ -13224,26 +13224,26 @@ var require_dataTables_select = __commonJS({
   "node_modules/datatables.net-select/js/dataTables.select.js"(exports, module) {
     (function(factory) {
       if (typeof define === "function" && define.amd) {
-        define(["jquery", "datatables.net"], function($3) {
-          return factory($3, window, document);
+        define(["jquery", "datatables.net"], function($5) {
+          return factory($5, window, document);
         });
       } else if (typeof exports === "object") {
         var jq = require_jquery();
-        var cjsRequires = function(root, $3) {
-          if (!$3.fn.dataTable) {
-            require_dataTables()(root, $3);
+        var cjsRequires = function(root, $5) {
+          if (!$5.fn.dataTable) {
+            require_dataTables()(root, $5);
           }
         };
         if (typeof window === "undefined") {
-          module.exports = function(root, $3) {
+          module.exports = function(root, $5) {
             if (!root) {
               root = window;
             }
-            if (!$3) {
-              $3 = jq(root);
+            if (!$5) {
+              $5 = jq(root);
             }
-            cjsRequires(root, $3);
-            return factory($3, root, root.document);
+            cjsRequires(root, $5);
+            return factory($5, root, root.document);
           };
         } else {
           cjsRequires(window, jq);
@@ -13252,17 +13252,17 @@ var require_dataTables_select = __commonJS({
       } else {
         factory(jQuery, window, document);
       }
-    })(function($3, window2, document2) {
+    })(function($5, window2, document2) {
       "use strict";
-      var DataTable2 = $3.fn.dataTable;
-      DataTable2.select = {};
-      DataTable2.select.classes = {
+      var DataTable3 = $5.fn.dataTable;
+      DataTable3.select = {};
+      DataTable3.select.classes = {
         checkbox: "dt-select-checkbox"
       };
-      DataTable2.select.version = "3.1.3";
-      DataTable2.select.init = function(dt) {
+      DataTable3.select.version = "3.1.3";
+      DataTable3.select.init = function(dt) {
         var ctx = dt.settings()[0];
-        if (!DataTable2.versionCheck("2")) {
+        if (!DataTable3.versionCheck("2")) {
           throw "Warning: Select requires DataTables 2 or newer";
         }
         if (ctx._select) {
@@ -13306,7 +13306,7 @@ var require_dataTables_select = __commonJS({
           selectAndSave(void 0, void 0, savedSelected);
         });
         var init2 = ctx.oInit.select;
-        var defaults = DataTable2.defaults.select;
+        var defaults = DataTable3.defaults.select;
         var opts = init2 === void 0 ? defaults : init2;
         var items = "row";
         var style = "api";
@@ -13329,7 +13329,7 @@ var require_dataTables_select = __commonJS({
         } else if (typeof opts === "string") {
           style = opts;
           setStyle = true;
-        } else if ($3.isPlainObject(opts)) {
+        } else if ($5.isPlainObject(opts)) {
           if (opts.blurable !== void 0) {
             blurable = opts.blurable;
           }
@@ -13377,7 +13377,7 @@ var require_dataTables_select = __commonJS({
         dt.select.keys(keys, keysWrap);
         dt.select.selectable(selectable);
         ctx._select.className = className;
-        if (!setStyle && $3(dt.table().node()).hasClass("selectable")) {
+        if (!setStyle && $5(dt.table().node()).hasClass("selectable")) {
           dt.select.style("os");
         }
         if (headerCheckbox || headerCheckbox === "select-page" || headerCheckbox === "select-all") {
@@ -13442,17 +13442,17 @@ var require_dataTables_select = __commonJS({
         }
       }
       function checkboxClass(selector) {
-        var name = DataTable2.select.classes.checkbox;
+        var name = DataTable3.select.classes.checkbox;
         return selector ? name.replace(/ /g, ".") : name;
       }
       function disableMouseSelection(dt) {
         var ctx = dt.settings()[0];
         var selector = ctx._select.selector;
-        $3(dt.table().container()).off("mousedown.dtSelect", selector).off("mouseup.dtSelect", selector).off("click.dtSelect", selector);
-        $3("body").off("click.dtSelect" + _safeId(dt.table().node()));
+        $5(dt.table().container()).off("mousedown.dtSelect", selector).off("mouseup.dtSelect", selector).off("click.dtSelect", selector);
+        $5("body").off("click.dtSelect" + _safeId(dt.table().node()));
       }
       function enableMouseSelection(dt) {
-        var container = $3(dt.table().container());
+        var container = $5(dt.table().container());
         var ctx = dt.settings()[0];
         var selector = ctx._select.selector;
         var matchSelection;
@@ -13472,7 +13472,7 @@ var require_dataTables_select = __commonJS({
           var idx;
           if (matchSelection) {
             var selection = window2.getSelection();
-            if (!selection.anchorNode || $3(selection.anchorNode).closest("table")[0] === dt.table().node()) {
+            if (!selection.anchorNode || $5(selection.anchorNode).closest("table")[0] === dt.table().node()) {
               if (selection !== matchSelection) {
                 return;
               }
@@ -13480,14 +13480,14 @@ var require_dataTables_select = __commonJS({
           }
           var ctx2 = dt.settings()[0];
           var container2 = dt.table().container();
-          if ($3(e.target).closest("div.dt-container")[0] != container2) {
+          if ($5(e.target).closest("div.dt-container")[0] != container2) {
             return;
           }
-          var cell = dt.cell($3(e.target).closest("td, th"));
+          var cell = dt.cell($5(e.target).closest("td, th"));
           if (!cell.any()) {
             return;
           }
-          var event = $3.Event("user-select.dt");
+          var event = $5.Event("user-select.dt");
           eventTrigger(dt, event, [items, cell, e]);
           if (event.isDefaultPrevented()) {
             return;
@@ -13505,18 +13505,18 @@ var require_dataTables_select = __commonJS({
           }
           ctx2._select_lastCell = cellIndex;
         });
-        $3("body").on("click.dtSelect" + _safeId(dt.table().node()), function(e) {
+        $5("body").on("click.dtSelect" + _safeId(dt.table().node()), function(e) {
           if (ctx._select.blurable) {
-            if ($3(e.target).parents().filter(dt.table().container()).length) {
+            if ($5(e.target).parents().filter(dt.table().container()).length) {
               return;
             }
-            if ($3(e.target).parents("html").length === 0) {
+            if ($5(e.target).parents("html").length === 0) {
               return;
             }
-            if ($3(e.target).parents("div.DTE").length) {
+            if ($5(e.target).parents("div.DTE").length) {
               return;
             }
-            var event = $3.Event("select-blur.dt");
+            var event = $5.Event("select-blur.dt");
             eventTrigger(dt, event, [e.target, e]);
             if (event.isDefaultPrevented()) {
               return;
@@ -13533,7 +13533,7 @@ var require_dataTables_select = __commonJS({
           type = type + ".dt";
         }
         args.unshift(api);
-        $3(api.table().node()).trigger(type, args);
+        $5(api.table().node()).trigger(type, args);
       }
       function isCheckboxColumn(col) {
         return col.mRender && col.mRender._name === "selectCheckbox";
@@ -13559,7 +13559,7 @@ var require_dataTables_select = __commonJS({
         }
         var add = function(el2, name, num) {
           el2.append(
-            $3('<span class="select-item"/>').append(
+            $5('<span class="select-item"/>').append(
               api.i18n(
                 "select." + name + "s",
                 { _: "%d " + name + "s selected", 0: "", 1: "1 " + name + " selected" },
@@ -13568,8 +13568,8 @@ var require_dataTables_select = __commonJS({
             )
           );
         };
-        var el = $3(node);
-        var output = $3('<span class="select-info"/>');
+        var el = $5(node);
+        var output = $5('<span class="select-info"/>');
         add(output, "row", rows);
         add(output, "column", columns);
         add(output, "cell", cells);
@@ -13590,12 +13590,12 @@ var require_dataTables_select = __commonJS({
             return;
           }
           var header = dt.column(idx).header();
-          var liner = $3("div.dt-column-header", header);
+          var liner = $5("div.dt-column-header", header);
           if (liner.length) {
             header = liner;
           }
-          if (!$3("input", header).length) {
-            var input = $3("<input>").attr({
+          if (!$5("input", header).length) {
+            var input = $5("<input>").attr({
               class: checkboxClass(false),
               type: "checkbox",
               "aria-label": dt.i18n("select.aria.headerCheckbox") || "Select all rows"
@@ -13637,11 +13637,11 @@ var require_dataTables_select = __commonJS({
         var wrap = ctx._select.keysWrap;
         var namespace = "dts-keys-" + ctx.sTableId;
         if (flag) {
-          $3(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
+          $5(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
           dt.on("draw." + namespace, function() {
-            $3(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
+            $5(dt.rows({ page: "current" }).nodes()).attr("tabindex", 0);
           });
-          $3(document2).on("keydown." + namespace, function(e) {
+          $5(document2).on("keydown." + namespace, function(e) {
             var key = e.keyCode;
             var active = document2.activeElement;
             if (![9, 13, 32, 38, 40].includes(key)) {
@@ -13692,9 +13692,9 @@ var require_dataTables_select = __commonJS({
             }
           });
         } else {
-          $3(dt.rows().nodes()).removeAttr("tabindex");
+          $5(dt.rows().nodes()).removeAttr("tabindex");
           dt.off("draw." + namespace);
-          $3(document2).off("keydown." + namespace);
+          $5(document2).off("keydown." + namespace);
         }
       }
       function keysPageChange(dt, page, focus) {
@@ -13727,7 +13727,7 @@ var require_dataTables_select = __commonJS({
         };
       }
       function init(ctx) {
-        var api = new DataTable2.Api(ctx);
+        var api = new DataTable3.Api(ctx);
         ctx._select_init = true;
         ctx._select_mode = "additive";
         ctx._select_set = [];
@@ -13738,11 +13738,11 @@ var require_dataTables_select = __commonJS({
             var id = api.row(index).id();
             if (d._select_selected || ctx._select_mode === "additive" && ctx._select_set.includes(id) || ctx._select_mode === "subtractive" && !ctx._select_set.includes(id)) {
               d._select_selected = true;
-              $3(row).addClass(ctx._select.className).find("input." + checkboxClass(true)).prop("checked", true);
+              $5(row).addClass(ctx._select.className).find("input." + checkboxClass(true)).prop("checked", true);
             }
             for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
               if (ctx.aoColumns[i]._select_selected || d._selected_cells && d._selected_cells[i]) {
-                $3(d.anCells[i]).addClass(ctx._select.className);
+                $5(d.anCells[i]).addClass(ctx._select.className);
               }
             }
           }
@@ -13761,11 +13761,11 @@ var require_dataTables_select = __commonJS({
           api.state.save();
         });
         api.on("destroy.dtSelect", function() {
-          $3(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._select.className);
-          $3("input." + checkboxClass(true), api.table().header()).remove();
+          $5(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._select.className);
+          $5("input." + checkboxClass(true), api.table().header()).remove();
           disableMouseSelection(api);
           api.off(".dtSelect");
-          $3("body").off(".dtSelect" + _safeId(api.table().node()));
+          $5("body").off(".dtSelect" + _safeId(api.table().node()));
         });
       }
       function rowColumnRange(dt, type, idx, last) {
@@ -13792,7 +13792,7 @@ var require_dataTables_select = __commonJS({
       }
       function clear(ctx, force) {
         if (force || ctx._select.style === "single") {
-          var api = new DataTable2.Api(ctx);
+          var api = new DataTable3.Api(ctx);
           api.rows({ selected: true }).deselect();
           api.columns({ selected: true }).deselect();
           api.cells({ selected: true }).deselect();
@@ -13891,13 +13891,13 @@ var require_dataTables_select = __commonJS({
           }
         }
       }
-      $3.each(
+      $5.each(
         [
           { type: "row", prop: "aoData" },
           { type: "column", prop: "aoColumns" }
         ],
         function(i, o) {
-          DataTable2.ext.selector[o.type].push(function(settings, opts, indexes) {
+          DataTable3.ext.selector[o.type].push(function(settings, opts, indexes) {
             var selected = opts.selected;
             var data;
             var out = [];
@@ -13914,7 +13914,7 @@ var require_dataTables_select = __commonJS({
           });
         }
       );
-      DataTable2.ext.selector.cell.push(function(settings, opts, cells) {
+      DataTable3.ext.selector.cell.push(function(settings, opts, cells) {
         var selected = opts.selected;
         var rowData;
         var out = [];
@@ -13929,11 +13929,11 @@ var require_dataTables_select = __commonJS({
         }
         return out;
       });
-      var apiRegister = DataTable2.Api.register;
-      var apiRegisterPlural = DataTable2.Api.registerPlural;
+      var apiRegister = DataTable3.Api.register;
+      var apiRegisterPlural = DataTable3.Api.registerPlural;
       apiRegister("select()", function() {
         return this.iterator("table", function(ctx) {
-          DataTable2.select.init(new DataTable2.Api(ctx));
+          DataTable3.select.init(new DataTable3.Api(ctx));
         });
       });
       apiRegister("select.blurable()", function(flag) {
@@ -13966,7 +13966,7 @@ var require_dataTables_select = __commonJS({
         }
         return this.iterator("table", function(ctx) {
           ctx._select.items = items;
-          eventTrigger(new DataTable2.Api(ctx), "selectItems", [items]);
+          eventTrigger(new DataTable3.Api(ctx), "selectItems", [items]);
         });
       });
       apiRegister("select.keys()", function(flag, wrap) {
@@ -13975,11 +13975,11 @@ var require_dataTables_select = __commonJS({
         }
         return this.iterator("table", function(ctx) {
           if (!ctx._select) {
-            DataTable2.select.init(new DataTable2.Api(ctx));
+            DataTable3.select.init(new DataTable3.Api(ctx));
           }
           ctx._select.keys = flag;
           ctx._select.keysWrap = wrap;
-          keysSet(new DataTable2.Api(ctx));
+          keysSet(new DataTable3.Api(ctx));
         });
       });
       apiRegister("select.style()", function(style) {
@@ -13988,13 +13988,13 @@ var require_dataTables_select = __commonJS({
         }
         return this.iterator("table", function(ctx) {
           if (!ctx._select) {
-            DataTable2.select.init(new DataTable2.Api(ctx));
+            DataTable3.select.init(new DataTable3.Api(ctx));
           }
           if (!ctx._select_init) {
             init(ctx);
           }
           ctx._select.style = style;
-          var dt = new DataTable2.Api(ctx);
+          var dt = new DataTable3.Api(ctx);
           if (style !== "api") {
             dt.ready(function() {
               disableMouseSelection(dt);
@@ -14003,7 +14003,7 @@ var require_dataTables_select = __commonJS({
           } else {
             disableMouseSelection(dt);
           }
-          eventTrigger(new DataTable2.Api(ctx), "selectStyle", [style]);
+          eventTrigger(new DataTable3.Api(ctx), "selectStyle", [style]);
         });
       });
       apiRegister("select.selector()", function(selector) {
@@ -14011,7 +14011,7 @@ var require_dataTables_select = __commonJS({
           return this.context[0]._select.selector;
         }
         return this.iterator("table", function(ctx) {
-          var dt = new DataTable2.Api(ctx);
+          var dt = new DataTable3.Api(ctx);
           var style = ctx._select.style;
           disableMouseSelection(dt);
           ctx._select.selector = selector;
@@ -14047,7 +14047,7 @@ var require_dataTables_select = __commonJS({
             if (ctx2._select_mode === mode) {
               return;
             }
-            var dt = new DataTable2.Api(ctx2);
+            var dt = new DataTable3.Api(ctx2);
             if (mode === "subtractive") {
               var unselected = dt.rows({ selected: false }).ids().toArray();
               ctx2._select_mode = mode;
@@ -14086,7 +14086,7 @@ var require_dataTables_select = __commonJS({
               return;
             }
           }
-          $3(dtData.nTr).addClass(ctx._select.className);
+          $5(dtData.nTr).addClass(ctx._select.className);
           dtData._select_selected = true;
           selectedIndexes.push(idx);
           for (var i = 0; i < dtColumns.length; i++) {
@@ -14097,7 +14097,7 @@ var require_dataTables_select = __commonJS({
             if (isCheckboxColumn(col)) {
               var cells = dtData.anCells;
               if (cells && cells[i]) {
-                $3("input." + checkboxClass(true), cells[i]).prop("checked", true);
+                $5("input." + checkboxClass(true), cells[i]).prop("checked", true);
               }
               if (dtData._aSortData !== null) {
                 dtData._aSortData[i] = null;
@@ -14137,9 +14137,9 @@ var require_dataTables_select = __commonJS({
         this.iterator("column", function(ctx, idx) {
           clear(ctx);
           ctx.aoColumns[idx]._select_selected = true;
-          var column = new DataTable2.Api(ctx).column(idx);
-          $3(column.header()).addClass(ctx._select.className);
-          $3(column.footer()).addClass(ctx._select.className);
+          var column = new DataTable3.Api(ctx).column(idx);
+          $5(column.header()).addClass(ctx._select.className);
+          $5(column.footer()).addClass(ctx._select.className);
           column.nodes().to$().addClass(ctx._select.className);
         });
         this.iterator("table", function(ctx, i) {
@@ -14167,7 +14167,7 @@ var require_dataTables_select = __commonJS({
           }
           data._selected_cells[colIdx] = true;
           if (data.anCells) {
-            $3(data.anCells[colIdx]).addClass(ctx._select.className);
+            $5(data.anCells[colIdx]).addClass(ctx._select.className);
           }
         });
         this.iterator("table", function(ctx, i) {
@@ -14190,7 +14190,7 @@ var require_dataTables_select = __commonJS({
         this.iterator("row", function(ctx, idx) {
           var dtData = ctx.aoData[idx];
           var dtColumns = ctx.aoColumns;
-          $3(dtData.nTr).removeClass(ctx._select.className);
+          $5(dtData.nTr).removeClass(ctx._select.className);
           dtData._select_selected = false;
           ctx._select_lastCell = null;
           for (var i = 0; i < dtColumns.length; i++) {
@@ -14201,7 +14201,7 @@ var require_dataTables_select = __commonJS({
             if (isCheckboxColumn(col)) {
               var cells = dtData.anCells;
               if (cells && cells[i]) {
-                $3("input." + checkboxClass(true), dtData.anCells[i]).prop("checked", false);
+                $5("input." + checkboxClass(true), dtData.anCells[i]).prop("checked", false);
               }
               if (dtData._aSortData !== null) {
                 dtData._aSortData[i] = null;
@@ -14218,15 +14218,15 @@ var require_dataTables_select = __commonJS({
         var api = this;
         this.iterator("column", function(ctx, idx) {
           ctx.aoColumns[idx]._select_selected = false;
-          var api2 = new DataTable2.Api(ctx);
+          var api2 = new DataTable3.Api(ctx);
           var column = api2.column(idx);
-          $3(column.header()).removeClass(ctx._select.className);
-          $3(column.footer()).removeClass(ctx._select.className);
+          $5(column.header()).removeClass(ctx._select.className);
+          $5(column.footer()).removeClass(ctx._select.className);
           api2.cells(null, idx).indexes().each(function(cellIdx) {
             var data = ctx.aoData[cellIdx.row];
             var cellSelected = data._selected_cells;
             if (data.anCells && (!cellSelected || !cellSelected[cellIdx.column])) {
-              $3(data.anCells[cellIdx.column]).removeClass(ctx._select.className);
+              $5(data.anCells[cellIdx.column]).removeClass(ctx._select.className);
             }
           });
         });
@@ -14243,7 +14243,7 @@ var require_dataTables_select = __commonJS({
             data._selected_cells[colIdx] = false;
           }
           if (data.anCells && !ctx.aoColumns[colIdx]._select_selected) {
-            $3(data.anCells[colIdx]).removeClass(ctx._select.className);
+            $5(data.anCells[colIdx]).removeClass(ctx._select.className);
           }
         });
         this.iterator("table", function(ctx, i) {
@@ -14273,7 +14273,7 @@ var require_dataTables_select = __commonJS({
         return false;
       }
       var _buttonNamespace = 0;
-      $3.extend(DataTable2.ext.buttons, {
+      $5.extend(DataTable3.ext.buttons, {
         selected: {
           text: i18n("selected", "Selected"),
           className: "buttons-selected",
@@ -14359,9 +14359,9 @@ var require_dataTables_select = __commonJS({
           }
         }
       });
-      $3.each(["Row", "Column", "Cell"], function(i, item) {
+      $5.each(["Row", "Column", "Cell"], function(i, item) {
         var lc = item.toLowerCase();
-        DataTable2.ext.buttons["select" + item + "s"] = {
+        DataTable3.ext.buttons["select" + item + "s"] = {
           text: i18n("select" + item + "s", "Select " + lc + "s"),
           className: "buttons-select-" + lc + "s",
           action: function() {
@@ -14376,9 +14376,9 @@ var require_dataTables_select = __commonJS({
           }
         };
       });
-      DataTable2.type("select-checkbox", {
+      DataTable3.type("select-checkbox", {
         className: "dt-select",
-        detect: DataTable2.versionCheck("2.1") ? {
+        detect: DataTable3.versionCheck("2.1") ? {
           oneOf: function() {
             return false;
           },
@@ -14397,16 +14397,16 @@ var require_dataTables_select = __commonJS({
           }
         }
       });
-      $3.extend(true, DataTable2.defaults.oLanguage, {
+      $5.extend(true, DataTable3.defaults.oLanguage, {
         select: {
           aria: {
             rowCheckbox: "Select row"
           }
         }
       });
-      DataTable2.render.select = function(valueProp, nameProp) {
-        var valueFn = valueProp ? DataTable2.util.get(valueProp) : null;
-        var nameFn = nameProp ? DataTable2.util.get(nameProp) : null;
+      DataTable3.render.select = function(valueProp, nameProp) {
+        var valueFn = valueProp ? DataTable3.util.get(valueProp) : null;
+        var nameFn = nameProp ? DataTable3.util.get(nameProp) : null;
         var fn = function(data, type, row, meta) {
           var dtRow = meta.settings.aoData[meta.row];
           var selected = dtRow._select_selected;
@@ -14419,7 +14419,7 @@ var require_dataTables_select = __commonJS({
                 return "";
               }
             }
-            return $3("<input>").attr({
+            return $5("<input>").attr({
               "aria-label": ariaLabel,
               class: checkboxClass(),
               name: nameFn ? nameFn(row) : null,
@@ -14428,7 +14428,7 @@ var require_dataTables_select = __commonJS({
               checked: selected
             }).on("input", function(e) {
               e.preventDefault();
-              this.checked = $3(this).closest("tr").hasClass("selected");
+              this.checked = $5(this).closest("tr").hasClass("selected");
             })[0];
           } else if (type === "type") {
             return "select-checkbox";
@@ -14440,24 +14440,24 @@ var require_dataTables_select = __commonJS({
         fn._name = "selectCheckbox";
         return fn;
       };
-      DataTable2.ext.order["select-checkbox"] = function(settings, col) {
+      DataTable3.ext.order["select-checkbox"] = function(settings, col) {
         return this.api().column(col, { order: "index" }).nodes().map(function(td) {
           if (settings._select.items === "row") {
-            return $3(td).parent().hasClass(settings._select.className).toString();
+            return $5(td).parent().hasClass(settings._select.className).toString();
           } else if (settings._select.items === "cell") {
-            return $3(td).hasClass(settings._select.className).toString();
+            return $5(td).hasClass(settings._select.className).toString();
           }
           return false;
         });
       };
-      $3.fn.DataTable.select = DataTable2.select;
-      $3(document2).on("i18n.dt.dtSelect preInit.dt.dtSelect", function(e, ctx) {
+      $5.fn.DataTable.select = DataTable3.select;
+      $5(document2).on("i18n.dt.dtSelect preInit.dt.dtSelect", function(e, ctx) {
         if (e.namespace !== "dt") {
           return;
         }
-        DataTable2.select.init(new DataTable2.Api(ctx));
+        DataTable3.select.init(new DataTable3.Api(ctx));
       });
-      return DataTable2;
+      return DataTable3;
     });
   }
 });
@@ -15997,14 +15997,14 @@ var require_bootstrap = __commonJS({
       const isRTL = () => document.documentElement.dir === "rtl";
       const defineJQueryPlugin = (plugin) => {
         onDOMContentLoaded(() => {
-          const $3 = getjQuery();
-          if ($3) {
+          const $5 = getjQuery();
+          if ($5) {
             const name = plugin.NAME;
-            const JQUERY_NO_CONFLICT = $3.fn[name];
-            $3.fn[name] = plugin.jQueryInterface;
-            $3.fn[name].Constructor = plugin;
-            $3.fn[name].noConflict = () => {
-              $3.fn[name] = JQUERY_NO_CONFLICT;
+            const JQUERY_NO_CONFLICT = $5.fn[name];
+            $5.fn[name] = plugin.jQueryInterface;
+            $5.fn[name].Constructor = plugin;
+            $5.fn[name].noConflict = () => {
+              $5.fn[name] = JQUERY_NO_CONFLICT;
               return plugin.jQueryInterface;
             };
           }
@@ -16203,16 +16203,16 @@ var require_bootstrap = __commonJS({
           if (typeof event !== "string" || !element) {
             return null;
           }
-          const $3 = getjQuery();
+          const $5 = getjQuery();
           const typeEvent = getTypeEvent(event);
           const inNamespace = event !== typeEvent;
           let jQueryEvent = null;
           let bubbles = true;
           let nativeDispatch = true;
           let defaultPrevented = false;
-          if (inNamespace && $3) {
-            jQueryEvent = $3.Event(event, args);
-            $3(element).trigger(jQueryEvent);
+          if (inNamespace && $5) {
+            jQueryEvent = $5.Event(event, args);
+            $5(element).trigger(jQueryEvent);
             bubbles = !jQueryEvent.isPropagationStopped();
             nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
             defaultPrevented = jQueryEvent.isDefaultPrevented();
@@ -19416,10 +19416,723 @@ var require_bootstrap = __commonJS({
 });
 
 // app/javascript/application.js
-var import_jquery = __toESM(require_jquery());
+var import_jquery3 = __toESM(require_jquery());
 var import_jquery_ujs = __toESM(require_rails());
-var import_datatables = __toESM(require_dataTables());
+
+// node_modules/datatables.net-bs5/js/dataTables.bootstrap5.mjs
+var import_jquery = __toESM(require_jquery(), 1);
+var import_datatables = __toESM(require_dataTables(), 1);
+var $2 = import_jquery.default;
+$2.extend(true, import_datatables.default.defaults, {
+  renderer: "bootstrap"
+});
+$2.extend(true, import_datatables.default.ext.classes, {
+  container: "dt-container dt-bootstrap5",
+  search: {
+    input: "form-control form-control-sm"
+  },
+  length: {
+    select: "form-select form-select-sm"
+  },
+  processing: {
+    container: "dt-processing card"
+  },
+  layout: {
+    row: "row mt-2 justify-content-between",
+    cell: "d-md-flex justify-content-between align-items-center",
+    tableCell: "col-12",
+    start: "dt-layout-start col-md-auto me-auto",
+    end: "dt-layout-end col-md-auto ms-auto",
+    full: "dt-layout-full col-md"
+  }
+});
+import_datatables.default.ext.renderer.pagingButton.bootstrap = function(settings, buttonType, content, active, disabled) {
+  var btnClasses = ["dt-paging-button", "page-item"];
+  if (active) {
+    btnClasses.push("active");
+  }
+  if (disabled) {
+    btnClasses.push("disabled");
+  }
+  var li = $2("<li>").addClass(btnClasses.join(" "));
+  var a = $2("<button>", {
+    "class": "page-link",
+    role: "link",
+    type: "button"
+  }).html(content).appendTo(li);
+  return {
+    display: li,
+    clicker: a
+  };
+};
+import_datatables.default.ext.renderer.pagingContainer.bootstrap = function(settings, buttonEls) {
+  return $2("<ul/>").addClass("pagination").append(buttonEls);
+};
+var dataTables_bootstrap5_default = import_datatables.default;
+
+// app/javascript/application.js
 var import_dataTables = __toESM(require_dataTables_select());
+
+// node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.mjs
+var import_jquery2 = __toESM(require_jquery(), 1);
+var import_datatables2 = __toESM(require_dataTables(), 1);
+var $3 = import_jquery2.default;
+var _instCounter = 0;
+var FixedHeader = function(dt, config) {
+  if (!import_datatables2.default.versionCheck("2")) {
+    throw "Warning: FixedHeader requires DataTables 2 or newer";
+  }
+  if (!(this instanceof FixedHeader)) {
+    throw "FixedHeader must be initialised with the 'new' keyword.";
+  }
+  if (config === true) {
+    config = {};
+  }
+  dt = new import_datatables2.default.Api(dt);
+  this.c = $3.extend(true, {}, FixedHeader.defaults, config);
+  this.s = {
+    dt,
+    position: {
+      theadTop: 0,
+      tbodyTop: 0,
+      tfootTop: 0,
+      tfootBottom: 0,
+      width: 0,
+      left: 0,
+      tfootHeight: 0,
+      theadHeight: 0,
+      windowHeight: $3(window).height(),
+      visible: true
+    },
+    headerMode: null,
+    footerMode: null,
+    autoWidth: dt.settings()[0].oFeatures.bAutoWidth,
+    namespace: ".dtfc" + _instCounter++,
+    scrollLeft: {
+      header: -1,
+      footer: -1
+    },
+    enable: true,
+    autoDisable: false
+  };
+  this.dom = {
+    floatingHeader: null,
+    thead: $3(dt.table().header()),
+    tbody: $3(dt.table().body()),
+    tfoot: $3(dt.table().footer()),
+    header: {
+      host: null,
+      scrollAdjust: null,
+      floating: null,
+      floatingParent: $3(
+        '<div class="dtfh-floatingparent"><div class="dtfh-floating-limiter"><div></div></div></div>'
+      ),
+      limiter: null,
+      placeholder: null
+    },
+    footer: {
+      host: null,
+      scrollAdjust: null,
+      floating: null,
+      floatingParent: $3(
+        '<div class="dtfh-floatingparent"><div class="dtfh-floating-limiter"><div></div></div></div>'
+      ),
+      limiter: null,
+      placeholder: null
+    }
+  };
+  var dom = this.dom;
+  dom.header.host = dom.thead.parent();
+  dom.header.limiter = dom.header.floatingParent.children();
+  dom.header.scrollAdjust = dom.header.limiter.children();
+  dom.footer.host = dom.tfoot.parent();
+  dom.footer.limiter = dom.footer.floatingParent.children();
+  dom.footer.scrollAdjust = dom.footer.limiter.children();
+  var dtSettings = dt.settings()[0];
+  if (dtSettings._fixedHeader) {
+    throw "FixedHeader already initialised on table " + dtSettings.nTable.id;
+  }
+  dtSettings._fixedHeader = this;
+  this._constructor();
+};
+$3.extend(FixedHeader.prototype, {
+  destroy: function() {
+    var dom = this.dom;
+    this.s.dt.off(".dtfc");
+    $3("body").off(".dtfc");
+    $3(window).off(this.s.namespace);
+    if (dom.header.rightBlocker) {
+      dom.header.rightBlocker.remove();
+    }
+    if (dom.header.leftBlocker) {
+      dom.header.leftBlocker.remove();
+    }
+    if (dom.footer.rightBlocker) {
+      dom.footer.rightBlocker.remove();
+    }
+    if (dom.footer.leftBlocker) {
+      dom.footer.leftBlocker.remove();
+    }
+    if (this.c.header) {
+      this._modeChange("in-place", "header", true);
+    }
+    if (this.c.footer && dom.tfoot.length) {
+      this._modeChange("in-place", "footer", true);
+    }
+  },
+  enable: function(enable, update, type) {
+    this.s.enable = enable;
+    this.s.enableType = type;
+    if (update || update === void 0) {
+      this._positions();
+      this._scroll(true);
+    }
+  },
+  enabled: function() {
+    return this.s.enable;
+  },
+  headerOffset: function(offset) {
+    if (offset !== void 0) {
+      this.c.headerOffset = offset;
+      this.update();
+    }
+    return this.c.headerOffset;
+  },
+  footerOffset: function(offset) {
+    if (offset !== void 0) {
+      this.c.footerOffset = offset;
+      this.update();
+    }
+    return this.c.footerOffset;
+  },
+  update: function(force) {
+    var table = this.s.dt.table().node();
+    if (!this.s.enable && !this.s.autoDisable) {
+      return;
+    }
+    if ($3(table).is(":visible")) {
+      this.s.autoDisable = false;
+      this.enable(true, false);
+    } else {
+      this.s.autoDisable = true;
+      this.enable(false, false);
+    }
+    if ($3(table).children("thead").length === 0) {
+      return;
+    }
+    this._positions();
+    this._scroll(force !== void 0 ? force : true);
+    this._widths(this.dom.header);
+    this._widths(this.dom.footer);
+  },
+  _constructor: function() {
+    var that = this;
+    var dt = this.s.dt;
+    $3(window).on("scroll" + this.s.namespace, function() {
+      that._scroll();
+    }).on(
+      "resize" + this.s.namespace,
+      import_datatables2.default.util.throttle(function() {
+        that.s.position.windowHeight = $3(window).height();
+        that.update();
+      }, 50)
+    );
+    var autoHeader = $3(".fh-fixedHeader");
+    if (!this.c.headerOffset && autoHeader.length) {
+      this.c.headerOffset = autoHeader.outerHeight();
+    }
+    var autoFooter = $3(".fh-fixedFooter");
+    if (!this.c.footerOffset && autoFooter.length) {
+      this.c.footerOffset = autoFooter.outerHeight();
+    }
+    dt.on(
+      "column-reorder.dt.dtfc column-visibility.dt.dtfc column-sizing.dt.dtfc responsive-display.dt.dtfc",
+      function(e, ctx) {
+        that.update();
+      }
+    );
+    $3("body").on("draw.dt.dtfc", function(e, ctx) {
+      that.update(ctx === dt.settings()[0] ? false : true);
+    });
+    dt.on("destroy.dtfc", function() {
+      that.destroy();
+    });
+    this._positions();
+    this._scroll();
+  },
+  _clone: function(item, force) {
+    var that = this;
+    var dt = this.s.dt;
+    var itemDom = this.dom[item];
+    var itemElement = item === "header" ? this.dom.thead : this.dom.tfoot;
+    if (item === "footer" && this._scrollEnabled()) {
+      return;
+    }
+    if (!force && itemDom.floating) {
+      itemDom.floating.removeClass(
+        "fixedHeader-floating fixedHeader-locked"
+      );
+    } else {
+      if (itemDom.floating) {
+        if (itemDom.placeholder !== null) {
+          itemDom.placeholder.detach();
+        }
+        itemDom.floating.detach();
+      }
+      var tableNode = $3(dt.table().node());
+      var scrollBody = $3(tableNode.parent());
+      var scrollEnabled = this._scrollEnabled();
+      itemDom.floating = $3(dt.table().node().cloneNode(false)).attr("aria-hidden", "true").css({
+        top: 0,
+        left: 0
+      }).removeAttr("id");
+      itemDom.floatingParent.css({
+        width: scrollBody[0].offsetWidth,
+        position: "fixed",
+        left: scrollEnabled ? tableNode.offset().left + scrollBody.scrollLeft() : 0
+      }).css(
+        item === "header" ? {
+          top: this.c.headerOffset,
+          bottom: ""
+        } : {
+          top: "",
+          bottom: this.c.footerOffset
+        }
+      ).addClass(
+        item === "footer" ? "dtfh-floatingparent-foot" : "dtfh-floatingparent-head"
+      ).appendTo("body").children().eq(0);
+      itemDom.limiter.css({
+        width: "100%",
+        overflow: "hidden",
+        height: "fit-content"
+      });
+      itemDom.scrollAdjust.append(itemDom.floating);
+      this._stickyPosition(itemDom.floating, "-");
+      var scrollLeftUpdate = function() {
+        var scrollLeft = scrollBody.scrollLeft();
+        that.s.scrollLeft = { footer: scrollLeft, header: scrollLeft };
+        itemDom.limiter.scrollLeft(that.s.scrollLeft.header);
+      };
+      scrollLeftUpdate();
+      scrollBody.off("scroll.dtfh").on("scroll.dtfh", scrollLeftUpdate);
+      itemDom.scrollAdjust.css({
+        width: "fit-content",
+        paddingRight: that.s.dt.settings()[0].oBrowser.barWidth
+      });
+      let blocker = $3(
+        item === "footer" ? "div.dtfc-bottom-blocker" : "div.dtfc-top-blocker",
+        dt.table().container()
+      );
+      if (blocker.length) {
+        blocker.clone().appendTo(itemDom.floatingParent).css({
+          position: "fixed",
+          right: blocker.width()
+        });
+      }
+      itemDom.placeholder = itemElement.clone(false);
+      itemDom.placeholder.find("*[id]").removeAttr("id");
+      $3(itemDom.placeholder).insertAfter(
+        item === "header" ? $3("colgroup", itemDom.host) : $3("tbody", itemDom.host)
+      );
+      itemDom.floating.append(itemElement);
+      this._widths(itemDom);
+      return scrollLeftUpdate;
+    }
+  },
+  _stickyPosition: function(el, sign) {
+    if (this._scrollEnabled()) {
+      var that = this;
+      var rtl = $3(that.s.dt.table().node()).css("direction") === "rtl";
+      el.find("th").each(function() {
+        if ($3(this).css("position") === "sticky") {
+          var right = $3(this).css("right");
+          var left = $3(this).css("left");
+          var potential;
+          if (right !== "auto" && !rtl) {
+            potential = +right.replace(/px/g, "");
+            $3(this).css("right", potential > 0 ? potential : 0);
+          } else if (left !== "auto" && rtl) {
+            potential = +left.replace(/px/g, "");
+            $3(this).css("left", potential > 0 ? potential : 0);
+          }
+        }
+      });
+    }
+  },
+  _horizontal: function(item, scrollLeft) {
+    var itemDom = this.dom[item];
+    var lastScrollLeft = this.s.scrollLeft;
+    if (itemDom.floating && lastScrollLeft[item] !== scrollLeft) {
+      if (this._scrollEnabled()) {
+        var newScrollLeft = $3(
+          $3(this.s.dt.table().node()).parent()
+        ).scrollLeft();
+        itemDom.floating.scrollLeft(newScrollLeft);
+        itemDom.floatingParent.scrollLeft(newScrollLeft);
+      }
+      lastScrollLeft[item] = scrollLeft;
+    }
+  },
+  _modeChange: function(mode, item, forceChange) {
+    var dt = this.s.dt;
+    var itemDom = this.dom[item];
+    var position = this.s.position;
+    var scrollEnabled = this._scrollEnabled();
+    if (item === "footer" && scrollEnabled) {
+      return;
+    }
+    var importantWidth = function(w) {
+      itemDom.floating[0].style.setProperty("width", w + "px", "important");
+      if (!scrollEnabled) {
+        itemDom.floatingParent[0].style.setProperty("width", w + "px", "important");
+      }
+    };
+    var tablePart = this.dom[item === "footer" ? "tfoot" : "thead"];
+    var focus = $3.contains(tablePart[0], document.activeElement) ? document.activeElement : null;
+    var scrollBody = $3($3(this.s.dt.table().node()).parent());
+    if (mode === "in-place") {
+      if (itemDom.placeholder) {
+        itemDom.placeholder.remove();
+        itemDom.placeholder = null;
+      }
+      if (!$3.contains(itemDom.host[0], tablePart[0])) {
+        if (item === "header") {
+          tablePart.insertAfter($3("colgroup", itemDom.host));
+        } else {
+          itemDom.host.append(tablePart);
+        }
+      }
+      if (itemDom.floating) {
+        itemDom.floating.remove();
+        itemDom.floating = null;
+        this._stickyPosition(itemDom.host, "+");
+      }
+      if (itemDom.floatingParent) {
+        itemDom.floatingParent.find("div.dtfc-top-blocker").remove();
+        itemDom.floatingParent.remove();
+      }
+      $3($3(itemDom.host.parent()).parent()).scrollLeft(
+        scrollBody.scrollLeft()
+      );
+    } else if (mode === "in") {
+      let scrollLeftUpdate = this._clone(item, forceChange);
+      var scrollOffset = scrollBody.offset();
+      var windowTop = $3(document).scrollTop();
+      var windowHeight = $3(window).height();
+      var windowBottom = windowTop + windowHeight;
+      var bodyTop = scrollEnabled ? scrollOffset.top : position.tbodyTop;
+      var bodyBottom = scrollEnabled ? scrollOffset.top + scrollBody.outerHeight() : position.tfootTop;
+      var shuffle;
+      if (item === "footer") {
+        shuffle = bodyTop > windowBottom ? position.tfootHeight : bodyTop + position.tfootHeight - windowBottom;
+      } else {
+        shuffle = windowTop + this.c.headerOffset + position.theadHeight - bodyBottom;
+      }
+      var prop = item === "header" ? "top" : "bottom";
+      var val = this.c[item + "Offset"] - (shuffle > 0 ? shuffle : 0);
+      itemDom.floating.addClass("fixedHeader-floating");
+      itemDom.floatingParent.css(prop, val).css({
+        left: position.left,
+        "z-index": 3
+      });
+      importantWidth(position.width);
+      if (scrollLeftUpdate) {
+        scrollLeftUpdate();
+      }
+      if (item === "footer") {
+        itemDom.floating.css("top", "");
+      }
+    } else if (mode === "below") {
+      this._clone(item, forceChange);
+      itemDom.floating.addClass("fixedHeader-locked");
+      itemDom.floatingParent.css({
+        position: "absolute",
+        top: position.tfootTop - position.theadHeight,
+        left: position.left + "px"
+      });
+      importantWidth(position.width);
+    } else if (mode === "above") {
+      this._clone(item, forceChange);
+      itemDom.floating.addClass("fixedHeader-locked");
+      itemDom.floatingParent.css({
+        position: "absolute",
+        top: position.tbodyTop,
+        left: position.left + "px"
+      });
+      importantWidth(position.width);
+    }
+    if (focus && focus !== document.activeElement) {
+      setTimeout(function() {
+        focus.focus();
+      }, 10);
+    }
+    this.s.scrollLeft.header = -1;
+    this.s.scrollLeft.footer = -1;
+    this.s[item + "Mode"] = mode;
+    dt.trigger("fixedheader-mode", [mode, item]);
+  },
+  _positions: function() {
+    var dt = this.s.dt;
+    var table = dt.table();
+    var position = this.s.position;
+    var dom = this.dom;
+    var tableNode = $3(table.node());
+    var scrollEnabled = this._scrollEnabled();
+    var thead = $3(dt.table().header());
+    var tfoot = $3(dt.table().footer());
+    var tbody = dom.tbody;
+    var scrollBody = tableNode.parent();
+    position.visible = tableNode.is(":visible");
+    position.width = tableNode.outerWidth();
+    position.left = tableNode.offset().left;
+    position.theadTop = thead.offset().top;
+    position.tbodyTop = scrollEnabled ? scrollBody.offset().top : tbody.offset().top;
+    position.tbodyHeight = scrollEnabled ? scrollBody.outerHeight() : tbody.outerHeight();
+    position.theadHeight = thead.outerHeight();
+    position.theadBottom = position.theadTop + position.theadHeight;
+    position.tfootTop = position.tbodyTop + position.tbodyHeight;
+    if (tfoot.length) {
+      position.tfootBottom = position.tfootTop + tfoot.outerHeight();
+      position.tfootHeight = tfoot.outerHeight();
+    } else {
+      position.tfootBottom = position.tfootTop;
+      position.tfootHeight = 0;
+    }
+  },
+  _scroll: function(forceChange) {
+    if (this.s.dt.settings()[0].bDestroying) {
+      return;
+    }
+    var scrollEnabled = this._scrollEnabled();
+    var scrollBody = $3(this.s.dt.table().node()).parent();
+    var scrollOffset = scrollBody.offset();
+    var scrollHeight = scrollBody.outerHeight();
+    var windowLeft = $3(document).scrollLeft();
+    var windowTop = $3(document).scrollTop();
+    var windowHeight = $3(window).height();
+    var windowBottom = windowHeight + windowTop;
+    var position = this.s.position;
+    var headerMode, footerMode;
+    var bodyTop = scrollEnabled ? scrollOffset.top : position.tbodyTop;
+    var bodyLeft = scrollEnabled ? scrollOffset.left : position.left;
+    var bodyBottom = scrollEnabled ? scrollOffset.top + scrollHeight : position.tfootTop;
+    var bodyWidth = scrollEnabled ? scrollBody.outerWidth() : position.tbodyWidth;
+    if (this.c.header) {
+      if (!this.s.enable) {
+        headerMode = "in-place";
+      } else if (!position.visible || windowTop + this.c.headerOffset + position.theadHeight <= bodyTop) {
+        headerMode = "in-place";
+      } else if (windowTop + this.c.headerOffset + position.theadHeight > bodyTop && windowTop + this.c.headerOffset + position.theadHeight < bodyBottom) {
+        headerMode = "in";
+        if (windowTop + this.c.headerOffset + position.theadHeight > bodyBottom || this.dom.header.floatingParent === void 0) {
+          forceChange = true;
+        } else {
+          var child = this.dom.header.floatingParent.css({
+            top: this.c.headerOffset,
+            position: "fixed"
+          }).children().eq(0);
+          if (child.find(this.dom.header.floating).length === 0) {
+            child.append(this.dom.header.floating);
+          }
+        }
+      } else {
+        headerMode = "below";
+      }
+      if (forceChange || headerMode !== this.s.headerMode) {
+        this._modeChange(headerMode, "header", forceChange);
+      }
+      this._horizontal("header", windowLeft);
+    }
+    var header = {
+      offset: { top: 0, left: 0 },
+      height: 0
+    };
+    var footer = {
+      offset: { top: 0, left: 0 },
+      height: 0
+    };
+    if (this.c.footer && this.dom.tfoot.length && this.dom.tfoot.find("th, td").length) {
+      if (!this.s.enable) {
+        footerMode = "in-place";
+      } else if (!position.visible || position.tfootBottom + this.c.footerOffset <= windowBottom) {
+        footerMode = "in-place";
+      } else if (bodyBottom + position.tfootHeight + this.c.footerOffset > windowBottom && bodyTop + this.c.footerOffset < windowBottom) {
+        footerMode = "in";
+        forceChange = true;
+      } else {
+        footerMode = "above";
+      }
+      if (forceChange || footerMode !== this.s.footerMode) {
+        this._modeChange(footerMode, "footer", forceChange);
+      }
+      this._horizontal("footer", windowLeft);
+      var getOffsetHeight = function(el) {
+        return {
+          offset: el.offset(),
+          height: el.outerHeight()
+        };
+      };
+      header = this.dom.header.floating ? getOffsetHeight(this.dom.header.floating) : getOffsetHeight(this.dom.thead);
+      footer = this.dom.footer.floating ? getOffsetHeight(this.dom.footer.floating) : getOffsetHeight(this.dom.tfoot);
+      if (scrollEnabled && footer.offset.top > windowTop) {
+        var overlap = windowTop - scrollOffset.top;
+        var newHeight = windowBottom + (overlap > -header.height ? overlap : 0) - (header.offset.top + (overlap < -header.height ? header.height : 0) + footer.height);
+        if (newHeight < 0) {
+          newHeight = 0;
+        }
+        scrollBody.outerHeight(newHeight);
+        if (Math.round(scrollBody.outerHeight()) >= Math.round(newHeight)) {
+          $3(this.dom.tfoot.parent()).addClass("fixedHeader-floating");
+        } else {
+          $3(this.dom.tfoot.parent()).removeClass(
+            "fixedHeader-floating"
+          );
+        }
+      }
+    }
+    if (this.dom.header.floating) {
+      this.dom.header.floatingParent.css("left", bodyLeft - windowLeft);
+    }
+    if (this.dom.footer.floating) {
+      this.dom.footer.floatingParent.css("left", bodyLeft - windowLeft);
+    }
+    if (this.s.dt.settings()[0]._fixedColumns !== void 0) {
+      var adjustBlocker = function(side, end, el) {
+        if (el === void 0) {
+          var blocker = $3(
+            "div.dtfc-" + side + "-" + end + "-blocker"
+          );
+          el = blocker.length === 0 ? null : blocker.clone().css("z-index", 1);
+        }
+        if (el !== null) {
+          if (headerMode === "in" || headerMode === "below") {
+            el.appendTo("body").css({
+              top: end === "top" ? header.offset.top : footer.offset.top,
+              left: side === "right" ? bodyLeft + bodyWidth - el.width() : bodyLeft
+            });
+          } else {
+            el.detach();
+          }
+        }
+        return el;
+      };
+      this.dom.header.rightBlocker = adjustBlocker(
+        "right",
+        "top",
+        this.dom.header.rightBlocker
+      );
+      this.dom.header.leftBlocker = adjustBlocker(
+        "left",
+        "top",
+        this.dom.header.leftBlocker
+      );
+      this.dom.footer.rightBlocker = adjustBlocker(
+        "right",
+        "bottom",
+        this.dom.footer.rightBlocker
+      );
+      this.dom.footer.leftBlocker = adjustBlocker(
+        "left",
+        "bottom",
+        this.dom.footer.leftBlocker
+      );
+    }
+  },
+  _scrollEnabled: function() {
+    var oScroll = this.s.dt.settings()[0].oScroll;
+    if (oScroll.sY !== "" || oScroll.sX !== "") {
+      return true;
+    }
+    return false;
+  },
+  _widths: function(itemDom) {
+    if (!itemDom || !itemDom.placeholder) {
+      return;
+    }
+    var tableNode = $3(this.s.dt.table().node());
+    var scrollBody = $3(tableNode.parent());
+    itemDom.floatingParent.css("width", scrollBody[0].offsetWidth);
+    itemDom.floating.css("width", tableNode[0].offsetWidth);
+    $3("colgroup", itemDom.floating).remove();
+    var cols = itemDom.placeholder.parent().find("colgroup").clone().appendTo(itemDom.floating).find("col");
+    var widths = this.s.dt.columns(":visible").widths();
+    for (var i = 0; i < widths.length; i++) {
+      cols.eq(i).css("width", widths[i]);
+    }
+  }
+});
+FixedHeader.version = "4.0.6";
+FixedHeader.defaults = {
+  header: true,
+  footer: false,
+  headerOffset: 0,
+  footerOffset: 0
+};
+$3.fn.dataTable.FixedHeader = FixedHeader;
+$3.fn.DataTable.FixedHeader = FixedHeader;
+$3(document).on("init.dt.dtfh", function(e, settings, json) {
+  if (e.namespace !== "dt") {
+    return;
+  }
+  var init = settings.oInit.fixedHeader;
+  var defaults = import_datatables2.default.defaults.fixedHeader;
+  if ((init || defaults) && !settings._fixedHeader) {
+    var opts = $3.extend({}, defaults, init);
+    if (init !== false) {
+      new FixedHeader(settings, opts);
+    }
+  }
+});
+import_datatables2.default.Api.register("fixedHeader()", function() {
+});
+import_datatables2.default.Api.register("fixedHeader.adjust()", function() {
+  return this.iterator("table", function(ctx) {
+    var fh = ctx._fixedHeader;
+    if (fh) {
+      fh.update();
+    }
+  });
+});
+import_datatables2.default.Api.register("fixedHeader.enable()", function(flag) {
+  return this.iterator("table", function(ctx) {
+    var fh = ctx._fixedHeader;
+    flag = flag !== void 0 ? flag : true;
+    if (fh && flag !== fh.enabled()) {
+      fh.enable(flag);
+    }
+  });
+});
+import_datatables2.default.Api.register("fixedHeader.enabled()", function() {
+  if (this.context.length) {
+    var fh = this.context[0]._fixedHeader;
+    if (fh) {
+      return fh.enabled();
+    }
+  }
+  return false;
+});
+import_datatables2.default.Api.register("fixedHeader.disable()", function() {
+  return this.iterator("table", function(ctx) {
+    var fh = ctx._fixedHeader;
+    if (fh && fh.enabled()) {
+      fh.enable(false);
+    }
+  });
+});
+$3.each(["header", "footer"], function(i, el) {
+  import_datatables2.default.Api.register("fixedHeader." + el + "Offset()", function(offset) {
+    var ctx = this.context;
+    if (offset === void 0) {
+      return ctx.length && ctx[0]._fixedHeader ? ctx[0]._fixedHeader[el + "Offset"]() : void 0;
+    }
+    return this.iterator("table", function(ctx2) {
+      var fh = ctx2._fixedHeader;
+      if (fh) {
+        fh[el + "Offset"](offset);
+      }
+    });
+  });
+});
 
 // node_modules/@rails/ujs/app/assets/javascripts/rails-ujs.esm.js
 var linkClickSelector = "a[data-confirm], a[data-method], a[data-remote]:not([disabled]), a[data-disable-with], a[data-disable]";
@@ -19457,7 +20170,7 @@ var setData = function(element, key, value) {
   }
   return element[EXPANDO][key] = value;
 };
-var $2 = (selector) => Array.prototype.slice.call(document.querySelectorAll(selector));
+var $4 = (selector) => Array.prototype.slice.call(document.querySelectorAll(selector));
 var isContentEditable = function(element) {
   var isEditable = false;
   do {
@@ -19487,7 +20200,7 @@ var refreshCSRFTokens = () => {
   const token = csrfToken();
   const param = csrfParam();
   if (token && param) {
-    return $2('form input[name="' + param + '"]').forEach((input) => input.value = token);
+    return $4('form input[name="' + param + '"]').forEach((input) => input.value = token);
   }
 };
 var AcceptHeaders = {
@@ -19936,7 +20649,7 @@ var preventInsignificantClick = function(e) {
   }
 };
 var Rails = {
-  $: $2,
+  $: $4,
   ajax,
   buttonClickSelector,
   buttonDisableSelector,
@@ -19982,12 +20695,12 @@ var start = function() {
     throw new Error("rails-ujs has already been loaded!");
   }
   window.addEventListener("pageshow", function() {
-    $2(formEnableSelector).forEach(function(el) {
+    $4(formEnableSelector).forEach(function(el) {
       if (getData(el, "ujs:disabled")) {
         enableElement(el);
       }
     });
-    $2(linkDisableSelector).forEach(function(el) {
+    $4(linkDisableSelector).forEach(function(el) {
       if (getData(el, "ujs:disabled")) {
         enableElement(el);
       }
@@ -20040,11 +20753,11 @@ if (typeof jQuery !== "undefined" && jQuery && jQuery.ajax) {
 
 // app/javascript/application.js
 var import_bootstrap = __toESM(require_bootstrap());
-window.jQuery = import_jquery.default;
-window.$ = import_jquery.default;
-window.DataTable = import_datatables.default;
+window.jQuery = import_jquery3.default;
+window.$ = import_jquery3.default;
+window.DataTable = dataTables_bootstrap5_default;
 Rails.start();
-(0, import_jquery.default)(function() {
+(0, import_jquery3.default)(function() {
   $("li.vdi").popover({
     trigger: "hover",
     content: "A VDI (Virtual Desktop Interface) gives you desktop access to a shared node. This is the graphical version of a login node. Use this for lightweight tasks like accessing & viewing files, submitting jobs, and for visualizations.",
@@ -20078,6 +20791,12 @@ Rails.start();
  * Date: 2023-08-28T13:37Z
  */
 /*! DataTables 2.3.7
+ * © SpryMedia Ltd - datatables.net/license
+ */
+/*! DataTables Bootstrap 5 integration
+ * © SpryMedia Ltd - datatables.net/license
+ */
+/*! FixedHeader 4.0.6
  * © SpryMedia Ltd - datatables.net/license
  */
 /*! Select for DataTables 3.1.3

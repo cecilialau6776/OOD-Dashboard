@@ -1,3 +1,5 @@
+<%=  javascript_include_tag 'my_jobs', nonce: true %>
+
 <div class="card border-0 bg-transparent pt-2">
   <div class="card-body bg-transparent pt-2">
     <h3 class="fw-bold mb-3">
@@ -20,10 +22,12 @@
   </div>
 </div>
 
-<script defer>
-    // CSRF token so we can make DELETE requests to the Rails server
-    const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-stacked100@1.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.1/dist/chartjs-chart-treemap.min.js"></script>
+
+<script defer>
     const isLowTimeEff = (rowData) => (rowData[getColIndex("State")] === "COMPLETED" || rowData[getColIndex("State")] === "TIMEOUT") && rowData[getColIndex("Time Efficiency")] < TIME_EFF_THRESHOLD;
     const isLowCPUMemEff = (rowData) => (rowData[getColIndex("State")] === "COMPLETED" || rowData[getColIndex("State")] === "TIMEOUT") && rowData[getColIndex("Memory Efficiency")] < MEM_EFF_THRESHOLD;
 
@@ -600,7 +604,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-8 col-lg-9 position-relative" style="width: 100%; height: 150px;">
+                        <div class="col-12 col-md-8 col-lg-9 position-relative">
                             <canvas id="chart1"></canvas>
                         </div>
                     </div>
@@ -715,7 +719,7 @@
                                 
                                 <form class="d-flex align-items-center mb-auto mt-1">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input bg-transparent" type="checkbox" id="regex-search-toggle">
+                                        <input class="form-check-input" type="checkbox" id="regex-search-toggle">
                                         <label class="form-check-label" for="regex-search-toggle" title="When checked, use regular expressions. (i.e. type 'cancelled|running' to filter by both cancelled and running jobs)" data-bs-toggle="tooltip">Regex?</label>
                                     </div>
                                     <input class="form-control shadow-none m-1 bg-transparent" id="my-jobs-search" type="search" placeholder="Search" aria-label="Search" style="color: inherit;">
