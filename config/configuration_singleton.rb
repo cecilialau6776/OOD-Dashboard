@@ -19,12 +19,11 @@ require 'dotenv'
 # ConfigurationSingleton and defining it as a class method on Configuration.
 #
 class ConfigurationSingleton
-  attr_writer :app_development_enabled
-  attr_writer :app_sharing_enabled
+  attr_writer :app_development_enabled, :app_sharing_enabled
 
   # FIXME: temporary
   attr_accessor :app_sharing_facls_enabled
-  alias_method :app_sharing_facls_enabled?, :app_sharing_facls_enabled
+  alias app_sharing_facls_enabled? app_sharing_facls_enabled
 
   def initialize
     add_boolean_configs
@@ -37,22 +36,22 @@ class ConfigurationSingleton
   # @return [Hash] key/value pairs of defaults
   def boolean_configs
     {
-      :csp_enabled                  => false,
-      :csp_report_only              => false,
-      :bc_dynamic_js                => false,
-      :bc_simple_auto_accounts      => false,
-      :bc_clean_old_dirs            => false,
-      :bc_saved_settings            => false,
-      :per_cluster_dataroot         => false,
-      :remote_files_enabled         => false,
-      :remote_files_validation      => false,
-      :host_based_profiles          => false,
-      :disable_bc_shell             => false,
-      :cancel_session_enabled       => false,
-      :hide_app_version             => false,
-      :motd_render_html             => false,
-      :upload_enabled               => true,
-      :download_enabled             => true,
+      csp_enabled: false,
+      csp_report_only: false,
+      bc_dynamic_js: false,
+      bc_simple_auto_accounts: false,
+      bc_clean_old_dirs: false,
+      bc_saved_settings: false,
+      per_cluster_dataroot: false,
+      remote_files_enabled: false,
+      remote_files_validation: false,
+      host_based_profiles: false,
+      disable_bc_shell: false,
+      cancel_session_enabled: false,
+      hide_app_version: false,
+      motd_render_html: false,
+      upload_enabled: true,
+      download_enabled: true
     }.freeze
   end
 
@@ -62,27 +61,27 @@ class ConfigurationSingleton
   # @return [Hash] key/value pairs of defaults
   def string_configs
     {
-      :module_file_dir          => nil,
-      :user_settings_file       => Pathname.new("~/.config/ondemand/settings.yml").expand_path.to_s,
-      :facl_domain              => nil,
-      :auto_groups_filter       => nil,
-      :bc_clean_old_dirs_days   => '30',
-      :google_analytics_tag_id  => nil,
-      :project_template_dir     => "#{config_root}/projects",
-      :rclone_extra_config      => nil,
-      :default_profile          => nil,
-      :project_size_timeout     => '15'
+      module_file_dir: nil,
+      user_settings_file: Pathname.new('~/.config/ondemand/settings.yml').expand_path.to_s,
+      facl_domain: nil,
+      auto_groups_filter: nil,
+      bc_clean_old_dirs_days: '30',
+      google_analytics_tag_id: nil,
+      project_template_dir: "#{config_root}/projects",
+      rclone_extra_config: nil,
+      default_profile: nil,
+      project_size_timeout: '15'
     }.freeze
   end
 
   # @return [String] memoized version string
   def app_version
-    @app_version ||= (version_from_file(Rails.root) || version_from_git(Rails.root) || "Unknown").strip
+    @app_version ||= (version_from_file(Rails.root) || version_from_git(Rails.root) || 'Unknown').strip
   end
 
   # @return [String] memoized version string
   def ood_version
-    @ood_version ||= (ood_version_from_env || version_from_file('/opt/ood') || version_from_git('/opt/ood') || "Unknown").strip
+    @ood_version ||= (ood_version_from_env || version_from_file('/opt/ood') || version_from_git('/opt/ood') || 'Unknown').strip
   end
 
   def ood_bc_ssh_to_compute_node
@@ -119,7 +118,7 @@ class ConfigurationSingleton
 
   # @return [String, nil] version string from VERSION file, or nil if no file avail
   def version_from_file(dir)
-    file = Pathname.new(dir).join("VERSION")
+    file = Pathname.new(dir).join('VERSION')
     file.read if file.file?
   end
 
@@ -130,7 +129,7 @@ class ConfigurationSingleton
   # The app's configuration root directory
   # @return [Pathname] path to configuration root
   def config_root
-    Pathname.new(ENV["OOD_APP_CONFIG_ROOT"] || "/etc/ood/config/apps/dashboard")
+    Pathname.new(ENV['OOD_APP_CONFIG_ROOT'] || '/etc/ood/config/apps/dashboard')
   end
 
   def load_external_config?
@@ -140,11 +139,11 @@ class ConfigurationSingleton
   # The root directory that holds configuration information for Batch Connect
   # apps (typically each app will have a sub-directory underneath this)
   def bc_config_root
-    Pathname.new(ENV["OOD_BC_APP_CONFIG_ROOT"] || "/etc/ood/config/apps")
+    Pathname.new(ENV['OOD_BC_APP_CONFIG_ROOT'] || '/etc/ood/config/apps')
   end
 
   def load_external_bc_config?
-    to_bool(ENV["OOD_LOAD_EXTERNAL_BC_CONFIG"] || (rails_env == "production"))
+    to_bool(ENV['OOD_LOAD_EXTERNAL_BC_CONFIG'] || (rails_env == 'production'))
   end
 
   # The paths to the JSON files that store the quota information
@@ -157,13 +156,13 @@ class ConfigurationSingleton
   # @return [Array<String>] quota paths
   def quota_paths
     # regex uses negative lookahead to ignore : preceeding //
-    ENV.fetch("OOD_QUOTA_PATH", "").strip.split(/:(?!\/\/)/)
+    ENV.fetch('OOD_QUOTA_PATH', '').strip.split(%r{:(?!//)})
   end
 
   # The threshold for determining if there is sufficient quota remaining
   # @return [Float] threshold factor
   def quota_threshold
-    ENV.fetch("OOD_QUOTA_THRESHOLD", 0.95).to_f
+    ENV.fetch('OOD_QUOTA_THRESHOLD', 0.95).to_f
   end
 
   # The paths to the JSON files that store the balance information
@@ -176,19 +175,19 @@ class ConfigurationSingleton
   # @return [Array<String>] balance paths
   def balance_paths
     # regex uses negative lookahead to ignore : preceeding //
-    ENV.fetch("OOD_BALANCE_PATH", "").strip.split(/:(?!\/\/)/)
+    ENV.fetch('OOD_BALANCE_PATH', '').strip.split(%r{:(?!//)})
   end
 
   # The threshold for determining if there is sufficient balance remaining
   # @return [Float] threshold factor
   def balance_threshold
-    ENV.fetch("OOD_BALANCE_THRESHOLD", 0).to_f
+    ENV.fetch('OOD_BALANCE_THRESHOLD', 0).to_f
   end
 
   # The XMoD host
   # @return [String, null] the host, or null if not set
   def xdmod_host
-    ENV["OOD_XDMOD_HOST"]
+    ENV['OOD_XDMOD_HOST']
   end
 
   # Whether or not XDMoD integration is enabled
@@ -199,7 +198,9 @@ class ConfigurationSingleton
 
   # Support ticket configuration
   def support_ticket_enabled?
-    config.has_key?(:support_ticket) || config.fetch(:profiles, {}).any? { |_, profile| profile.has_key?(:support_ticket) }
+    config.has_key?(:support_ticket) || config.fetch(:profiles, {}).any? do |_, profile|
+      profile.has_key?(:support_ticket)
+    end
   end
 
   # Globus configuration
@@ -222,32 +223,34 @@ class ConfigurationSingleton
     Dotenv.load(*dotenv_files)
 
     # load overloads
-    Dotenv.overload(*(overload_files(dotenv_files)))
-    Dotenv.overload(*(overload_files(dotenv_local_files)))
+    Dotenv.overload(*overload_files(dotenv_files))
+    Dotenv.overload(*overload_files(dotenv_local_files))
   end
 
   def dev_apps_root_path
-    Pathname.new(ENV["OOD_DEV_APPS_ROOT"] || "/dev/null")
+    Pathname.new(ENV['OOD_DEV_APPS_ROOT'] || '/dev/null')
   end
 
   def app_development_enabled?
     return @app_development_enabled if defined? @app_development_enabled
+
     to_bool(ENV['OOD_APP_DEVELOPMENT'] || DevRouter.base_path.directory? || DevRouter.base_path.symlink?)
   end
-  alias_method :app_development_enabled, :app_development_enabled?
+  alias app_development_enabled app_development_enabled?
 
   def app_sharing_enabled?
     return @app_sharing_enabled if defined? @app_sharing_enabled
+
     @app_sharing_enabled = to_bool(ENV['OOD_APP_SHARING'])
   end
-  alias_method :app_sharing_enabled, :app_sharing_enabled?
+  alias app_sharing_enabled app_sharing_enabled?
 
   def batch_connect_global_cache_enabled?
-    to_bool(ENV["OOD_BATCH_CONNECT_CACHE_ATTR_VALUES"] || true )
+    to_bool(ENV['OOD_BATCH_CONNECT_CACHE_ATTR_VALUES'] || true)
   end
 
   def developer_docs_url
-    ENV['OOD_DASHBOARD_DEV_DOCS_URL'] || "https://go.osu.edu/ood-app-dev"
+    ENV['OOD_DASHBOARD_DEV_DOCS_URL'] || 'https://go.osu.edu/ood-app-dev'
   end
 
   def dataroot
@@ -260,11 +263,11 @@ class ConfigurationSingleton
     # no effect or it affects both.
     #
     root = ENV['OOD_DATAROOT'] || ENV['RAILS_DATAROOT']
-    if rails_env == "production"
-      root ||= "~/#{ENV['OOD_PORTAL'] || 'ondemand'}/data/#{ENV['APP_TOKEN'] || 'sys/dashboard'}"
-    else
-      root ||= app_root.join("data")
-    end
+    root ||= if rails_env == 'production'
+               "~/#{ENV['OOD_PORTAL'] || 'ondemand'}/data/#{ENV['APP_TOKEN'] || 'sys/dashboard'}"
+             else
+               app_root.join('data')
+             end
 
     Pathname.new(root).expand_path
   end
@@ -274,7 +277,7 @@ class ConfigurationSingleton
   end
 
   def locales_root
-    Pathname.new(ENV['OOD_LOCALES_ROOT'] || "/etc/ood/config/locales")
+    Pathname.new(ENV['OOD_LOCALES_ROOT'] || '/etc/ood/config/locales')
   end
 
   # Set the login host in the Native Instructions VNC session partial
@@ -284,7 +287,7 @@ class ConfigurationSingleton
 
   # Set the global configuration directory
   def config_directory
-    Pathname.new(ENV['OOD_CONFIG_D_DIRECTORY'] || "/etc/ood/config/ondemand.d")
+    Pathname.new(ENV['OOD_CONFIG_D_DIRECTORY'] || '/etc/ood/config/ondemand.d')
   end
 
   # Setting terminal functionality in files app
@@ -294,7 +297,7 @@ class ConfigurationSingleton
 
   # Report performance of activejobs table rendering
   def console_log_performance_report?
-    dataroot.join("debug").file? || rails_env != 'production'
+    dataroot.join('debug').file? || rails_env != 'production'
   end
 
   def can_access_activejobs?
@@ -321,7 +324,7 @@ class ConfigurationSingleton
   #   file_upload_max #=> "21474840000"
   # @return [String] Maximum upload size for nginx.
   def file_upload_max
-    [ENV['FILE_UPLOAD_MAX']&.to_i, ENV['NGINX_FILE_UPLOAD_MAX']&.to_i].compact.min || 10737420000
+    [ENV['FILE_UPLOAD_MAX']&.to_i, ENV['NGINX_FILE_UPLOAD_MAX']&.to_i].compact.min || 10_737_420_000
   end
 
   # The timeout (seconds) for "generating" a .zip from a directory.
@@ -337,46 +340,46 @@ class ConfigurationSingleton
   # Default for OOD_DOWNLOAD_DIR_MAX is 10*1024*1024*1024 bytes.
   # @return [Integer]
   def file_download_dir_max
-    ENV['OOD_DOWNLOAD_DIR_MAX']&.to_i || 10737418240
+    ENV['OOD_DOWNLOAD_DIR_MAX']&.to_i || 10_737_418_240
   end
 
   def allowlist_paths
-    (ENV['OOD_ALLOWLIST_PATH'] || ENV['WHITELIST_PATH'] || "").split(':').map{ |s| Pathname.new(s) }
+    (ENV['OOD_ALLOWLIST_PATH'] || ENV['WHITELIST_PATH'] || '').split(':').map { |s| Pathname.new(s) }
   end
 
   # Cluster name
   def cluster_name
-    ENV.fetch("CLUSTER_NAME", "this cluster")
+    ENV.fetch('CLUSTER_NAME', 'this cluster')
   end
 
   # Partitions to exclude from partition status widget
-  def excluded_partitions
-    ENV.fetch("EXCLUDED_PARTITIONS", "").split(',').reject(&:empty?)
+  def included_partitions
+    ENV.fetch('INCLUDED_PARTITIONS', '').split(',').reject(&:empty?)
   end
 
   # GPU partitions
   def gpu_partitions
-    ENV.fetch("GPU_PARTITIONS", "").split(',').reject(&:empty?)
+    ENV.fetch('GPU_PARTITIONS', '')
   end
 
   # Info URL for button in Accounts widget
   def account_list_info_url
-    ENV.fetch("ACCOUNT_LIST_INFO_URL", "")
+    ENV.fetch('ACCOUNT_LIST_INFO_URL', '')
   end
 
   # All Announcements URL for button in Announcements widget
   def news_feed_url
-    ENV.fetch("NEWS_FEED_URL", "")
+    ENV.fetch('NEWS_FEED_URL', '')
   end
 
   # Info URL for button in System Status widget
   def partition_status_info_url
-    ENV.fetch("PARTITION_STATUS_INFO_URL", "")
+    ENV.fetch('PARTITION_STATUS_INFO_URL', '')
   end
 
   # Info URL for button in Storage widget
   def disk_usage_info_url
-    ENV.fetch("DISK_USAGE_INFO_URL", "")
+    ENV.fetch('DISK_USAGE_INFO_URL', '')
   end
 
   # default value for opening apps in new window
@@ -398,7 +401,7 @@ class ConfigurationSingleton
     return 7 if ood_bc_card_time.blank? || /^([+-]\d+|\d+)/.match(ood_bc_card_time.to_s).nil?
 
     ood_bc_card_time_int = ood_bc_card_time.to_i
-    (ood_bc_card_time_int < 0) ? 0 : ood_bc_card_time_int
+    ood_bc_card_time_int < 0 ? 0 : ood_bc_card_time_int
   end
 
   def config
@@ -429,48 +432,46 @@ class ConfigurationSingleton
   end
 
   def read_config
-    files = Pathname.glob(config_directory.join("*.{yml,yaml,yml.erb,yaml.erb}"))
+    files = Pathname.glob(config_directory.join('*.{yml,yaml,yml.erb,yaml.erb}'))
     files.sort.each_with_object({}) do |f, conf|
-      begin
-        content = ERB.new(f.read, trim_mode: "-").result(binding)
-        yml = YAML.safe_load(content, aliases: true) || {}
-        conf.deep_merge!(yml.deep_symbolize_keys)
-      rescue => e
+      content = ERB.new(f.read, trim_mode: '-').result(binding)
+      yml = YAML.safe_load(content, aliases: true) || {}
+      conf.deep_merge!(yml.deep_symbolize_keys)
+      rescue StandardError => e
         Rails.logger.error("Can't read or parse #{f} because of error #{e}")
-      end
     end
   end
 
   # The environment
   # @return [String] "development", "test", or "production"
   def rails_env
-    ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development"
+    ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
   end
 
   # The app's root directory
   # @return [Pathname] path to app root
   def app_root
-    Pathname.new(File.expand_path("../../",  __FILE__))
+    Pathname.new(File.expand_path('..', __dir__))
   end
 
   def dotenv_local_files
     [
       app_root.join(".env.#{rails_env}.local"),
-      (app_root.join(".env.local") unless rails_env == "test"),
+      (app_root.join('.env.local') unless rails_env == 'test')
     ].compact
   end
 
   def dotenv_files
     [
-      (config_root.join("env") if load_external_config?),
+      (config_root.join('env') if load_external_config?),
       app_root.join(".env.#{rails_env}"),
-      app_root.join(".env")
+      app_root.join('.env')
     ].compact
   end
 
   # reverse list and suffix every path with '.overload'
   def overload_files(files)
-    files.reverse.map {|p| p.sub(/$/, '.overload')}
+    files.reverse.map { |p| p.sub(/$/, '.overload') }
   end
 
   FALSE_VALUES = [nil, false, '', 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', 'no', 'NO'].freeze

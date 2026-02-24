@@ -100,9 +100,13 @@
                     return `
                     <div class="mb-2">
                         <div class="pb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <div class="flex-grow-1">
-                                    <div class="h4 mb-0">${row.partition}</div>
+                            <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                <div class="h4">${row.partition}</div>
+                                <div class="ms-2 text-secondary flex-grow-1">
+                                    ${row.allocated_nodes} / ${row.total_nodes - row.other_nodes} nodes in use
+                                </div>
+                                <div class="text-secondary ${row.other_nodes > 0 ? '' : 'd-none'}">
+                                    <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
                                 </div>
                                 <div class="ms-2 px-3 py-1 rounded-pill d-flex align-items-center" 
                                      style="font-size: 1rem; background-color: ${getStatusStyle(row.state).bg}; color: ${getStatusStyle(row.state).text};">
@@ -112,36 +116,25 @@
                             </div>
 
                             <div class="d-flex flex-column">
-                                ${!gpuPartitions.includes(row.partition) ? `
-                                    <div class="mb-2">
-                                        <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                                            <div style="font-size: 1rem;">
-                                                <span class="fw-bold">${row.allocated_cores}</span> / 
-                                                <span class="fw-bold">${row.total_cores - row.other_cores}</span> cores in use
-                                                <span class="text-muted">(${row.free_cores} available)</span>
-                                            </div>
-                                            <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
-                                                ${row.allocated_nodes} / ${row.total_nodes - row.other_nodes} nodes in use
-                                            </div>
+                                <div class="mb-2">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
+                                        <div style="font-size: 1rem;">
+                                            <span class="fw-bold">${row.allocated_cores}</span> / 
+                                            <span class="fw-bold">${row.total_cores - row.other_cores}</span> cores in use
+                                            <span class="text-muted">(${row.free_cores} available)</span>
                                         </div>
-                                        <div class="progress" style="height: 8px; border-radius: 4px;">
-                                            <div class="progress-bar ${getProgressBarColor((row.total_cores - row.other_cores) === 0 ? 0 : row.allocated_cores/(row.total_cores - row.other_cores))}" 
-                                                 style="width: 0; transition: width 0.6s ease-in-out;"
-                                                 aria-valuenow="${(row.total_cores - row.other_cores) === 0 ? 0 : (row.allocated_cores/(row.total_cores - row.other_cores))*100}">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
-                                            <div>
-                                                <span class="fw-bold">${(row.total_cores - row.other_cores) === 0 ? 0 : Math.floor((row.allocated_cores/(row.total_cores - row.other_cores))*100)}</span>% utilization
-                                            </div>
-                                            ${row.other_nodes > 0 ? 
-                                            `<div>
-                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
-                                            </div>` 
-                                            : ''}
+                                        <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
+                                            <span class="fw-bold">${(row.total_cores - row.other_cores) === 0 ? 0 : Math.floor((row.allocated_cores/(row.total_cores - row.other_cores))*100)}</span>% utilization
                                         </div>
                                     </div>
-                                `: gpuPartitions.includes(row.partition) ? (() => {
+                                    <div class="progress" style="height: 8px; border-radius: 4px;">
+                                        <div class="progress-bar ${getProgressBarColor((row.total_cores - row.other_cores) === 0 ? 0 : row.allocated_cores/(row.total_cores - row.other_cores))}" 
+                                                style="width: 0; transition: width 0.6s ease-in-out;"
+                                                aria-valuenow="${(row.total_cores - row.other_cores) === 0 ? 0 : (row.allocated_cores/(row.total_cores - row.other_cores))*100}">
+                                        </div>
+                                    </div>
+                                </div>
+                                ${gpuPartitions.includes(row.partition) ? (() => {
                                     const gpusPerNode = Math.floor(row.total_gpus / row.total_nodes);
                                     const availableGpus = row.total_gpus - gpusPerNode * row.other_nodes;
                                     const utilizationRatio = row.allocated_gpus / availableGpus;
@@ -154,7 +147,7 @@
                                                 <span class="text-muted">(${availableGpus - row.allocated_gpus} available)</span>
                                             </div>
                                             <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
-                                                ${row.allocated_nodes} / ${row.total_nodes - row.other_nodes} nodes in use
+                                                <span class="fw-bold">${availableGpus === 0 ? 0 : Math.floor(utilizationRatio * 100)}</span>% utilization
                                             </div>
                                         </div>
                                         <div class="progress" style="height: 8px; border-radius: 4px;">
@@ -163,45 +156,8 @@
                                                  aria-valuenow="${availableGpus === 0 ? 0 : utilizationRatio * 100}">
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
-                                            <div>
-                                                <span class="fw-bold">${availableGpus === 0 ? 0 : Math.floor(utilizationRatio * 100)}</span>% utilization
-                                            </div>`;
-                                })() + `
-                                            ${row.other_nodes > 0 ? 
-                                            `<div>
-                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
-                                            </div>` 
-                                            : ''}
-                                        </div>
                                     </div>
-                                `: `
-                                    <div class="mb-2">
-                                        <div class="mb-2">
-                                            <div style="font-size: 1rem;">
-                                                <span class="fw-bold">${row.allocated_nodes}</span> / 
-                                                <span class="fw-bold">${row.total_nodes - row.other_nodes}</span> nodes in use
-                                                <span class="text-muted">(${row.free_nodes} available)</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height: 8px; border-radius: 4px;">
-                                            <div class="progress-bar ${getProgressBarColor((row.total_nodes - row.other_nodes) === 0 ? 0 : row.allocated_nodes/(row.total_nodes - row.other_nodes))}"
-                                                 style="width: 0; transition: width 0.6s ease-in-out;"
-                                                 aria-valuenow="${(row.total_nodes - row.other_nodes) === 0 ? 0 : (row.allocated_nodes/(row.total_nodes - row.other_nodes))*100}">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between text-muted small mt-1" style="font-size: 12pt;">
-                                            <div>
-                                                <span class="fw-bold">${(row.total_nodes - row.other_nodes) === 0 ? 0 : Math.floor((row.allocated_nodes/(row.total_nodes - row.other_nodes))*100)}</span>% utilization
-                                            </div>
-                                            ${row.other_nodes > 0 ? 
-                                            `<div>
-                                                <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
-                                            </div>` 
-                                            : ''}
-                                        </div>
-                                    </div>
-                                `}
+                                `})() : ''}
                             </div>
                         </div>
                     </div>
