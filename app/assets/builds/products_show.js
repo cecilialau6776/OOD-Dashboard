@@ -1,54 +1,15 @@
-// app/javascript/products_show.js
-var id = "product_cli_modal";
-var spinnerId = `${id}_spinner`;
-var headerId = `${id}_header`;
-var buttonId = `${id}_button`;
-var closeButton = `<button id="${buttonId}" class="close float-end" data-bs-dismiss="modal">&times;</button>`;
-jQuery(function() {
-  $('[data-bs-toggle="cli"]').on("click", (event) => updateModal(event));
-  $(`#${headerId}`).replaceWith(`
+var t="product_cli_modal",l=`${t}_spinner`,a=`${t}_header`,u=`${t}_button`,d=`<button id="${u}" class="close float-end" data-bs-dismiss="modal">&times;</button>`;jQuery(function(){$('[data-bs-toggle="cli"]').on("click",n=>h(n)),$(`#${a}`).replaceWith(`
     <h2>
       <span>no action</pan>
-      ${closeButton}
+      ${d}
     </h2>
-  `);
-});
-function updateModal(event) {
-  const button = $(`#${event.target["id"]}`);
-  if (button === void 0 || button.data() === {}) {
-    return;
-  }
-  const title = button.data("title");
-  const cmd = button.data("cmd");
-  const target = button.data("target");
-  const header = `$ <code><strong>${cmd}</strong></code>
-`;
-  $(`#${headerId}`).replaceWith(`
+  `)});function h(n){let o=$(`#${n.target.id}`);if(o===void 0||o.data()==={})return;let c=o.data("title"),i=o.data("cmd"),r=o.data("target"),s=`$ <code><strong>${i}</strong></code>
+`;$(`#${a}`).replaceWith(`
     <h2>
-      <span>${title}</pan>
-      ${closeButton}
+      <span>${c}</pan>
+      ${d}
     </h2>
-  `);
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (this.status == 200) {
-      $(`#${id} .product-cli-body`).html(`${header}${this.responseText}`);
-      $(`#${id} .product-cli-body`).scrollTop($(`#${id} .product-cli-body`)[0].scrollHeight);
-    }
-  };
-  xhr.onloadend = function() {
-    $(`#${spinnerId}`).replaceWith(`
+  `);let e=new XMLHttpRequest;e.onreadystatechange=function(){this.status==200&&($(`#${t} .product-cli-body`).html(`${s}${this.responseText}`),$(`#${t} .product-cli-body`).scrollTop($(`#${t} .product-cli-body`)[0].scrollHeight))},e.onloadend=function(){$(`#${l}`).replaceWith(`
       <button class="close float-end" data-bs-dismiss="modal">&times;</button>
-    `);
-    if (this.status != 200) {
-      $(`#${id} .product-cli-body`).html(`${header}A fatal error has occurred`);
-    }
-    ;
-  };
-  xhr.open("PATCH", target);
-  xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
-  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-  xhr.send();
-  window.jQuery(`#${id}`).modal("show");
-}
+    `),this.status!=200&&$(`#${t} .product-cli-body`).html(`${s}A fatal error has occurred`)},e.open("PATCH",r),e.setRequestHeader("X-CSRF-Token",$('meta[name="csrf-token"]').attr("content")),e.setRequestHeader("X-Requested-With","XMLHttpRequest"),e.send(),window.jQuery(`#${t}`).modal("show")}
 //# sourceMappingURL=products_show.js.map

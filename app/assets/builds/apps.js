@@ -1,7 +1,2 @@
-// app/javascript/apps.js
-jQuery(function() {
-  $("#all-apps-table").DataTable({
-    stateSave: true
-  });
-});
+jQuery(function(){$("#all-apps-table").DataTable({stateSave:!0})});
 //# sourceMappingURL=apps.js.map

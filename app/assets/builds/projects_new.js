@@ -1,18 +1,2 @@
-// app/javascript/projects_new.js
-jQuery(function() {
-  $("#project_template").on("change", (event) => templateChange(event));
-});
-function templateChange(event) {
-  const choice = $(`#project_template option[value="${event.target.value}"]`)[0];
-  if (choice === void 0) {
-    return;
-  }
-  const name = choice.label;
-  const description = choice.dataset.description;
-  const icon = choice.dataset.icon;
-  $("#project_name").val(name);
-  $("#project_description").val(description);
-  $("#product_icon_select").val(icon);
-  $("#product_icon_select").trigger("change");
-}
+jQuery(function(){$("#project_template").on("change",t=>a(t))});function a(t){let e=$(`#project_template option[value="${t.target.value}"]`)[0];if(e===void 0)return;let c=e.label,n=e.dataset.description,o=e.dataset.icon;$("#project_name").val(c),$("#project_description").val(n),$("#product_icon_select").val(o),$("#product_icon_select").trigger("change")}
 //# sourceMappingURL=projects_new.js.map

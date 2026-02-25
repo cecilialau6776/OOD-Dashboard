@@ -135,7 +135,7 @@
                     const rowHtml = `
                     <tr>
                         <th scope="row">${row.name}</th>
-                        <td>${defaultQos.name}</td>
+                        <td>${defaultQos?.name ?? "N/A"}</td>
                     </tr>
                     `;
                     return rowHtml;
