@@ -1,7 +1,7 @@
 <%=  javascript_include_tag 'my_jobs', nonce: true %>
 
-<div class="card border-0 bg-transparent pt-2">
-  <div class="card-body bg-transparent pt-2">
+<div class="card border-0 bg-transparent">
+  <div class="card-body bg-transparent">
     <h3 class="fw-bold mb-3">
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center">
@@ -25,7 +25,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-stacked100@1.0.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.1/dist/chartjs-chart-treemap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@3.1.0/dist/chartjs-chart-treemap.min.js"></script>
 
 <script defer>
     const isLowTimeEff = (rowData) => (rowData[getColIndex("State")] === "COMPLETED" || rowData[getColIndex("State")] === "TIMEOUT") && rowData[getColIndex("Time Efficiency")] < TIME_EFF_THRESHOLD;
@@ -448,6 +448,15 @@
                             }
                         ]
                     };
+                    $(getSelectedChart().chartObj.canvas).addClass("d-none");
+                    if ($(getSelectedChart().chartObj.canvas.parentNode).find("#no-data-chart-text").length === 0) {
+                        $(getSelectedChart().chartObj.canvas.parentNode).append(`
+                        <div id="no-data-chart-text" class="w-100 h-100 d-flex justify-content-center">
+                            <div class="h4 d-flex align-items-center">No data to display</div>
+                        </div>
+                        `);
+                    }
+
                 } else {
                     chart.data = {
                         datasets: [

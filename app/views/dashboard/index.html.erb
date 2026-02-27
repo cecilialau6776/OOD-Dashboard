@@ -6,36 +6,31 @@
     </div>
 </noscript>
 
-<div class="row d-none homepage-widgets mx-0 mt-n2" style="background-color: var(--main-bg-color);">
-    <div class="col-lg-6 col-12 p-2">
-        <div class="d-flex flex-column rounded px-2 my-2" style="min-width: 0; word-wrap: break-word;">
+<div class="row d-none homepage-widgets g-5">
+    <div class="col-lg-6 col-12">
+        <div class="d-flex flex-column rounded" style="min-width: 0; word-wrap: break-word;">
             <%= render partial: "/widgets/maintenance" %>
         </div>
     </div>
-    <div class="col-lg-6 col-12 p-2">
-        <div class="d-flex flex-column rounded px-2 my-2" style="overflow-x: auto; min-width: 0; word-wrap: break-word;">
+    <div class="col-lg-6 col-12">
+        <div class="d-flex flex-column rounded overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
             <%= render partial: "/widgets/newsletter" %>
         </div>
     </div>
-</div>
 
-<div class="row d-none homepage-widgets mx-0 mt-n2" style="background-color: var(--main-bg-color);">
-    <div class="col-lg-12 col-12 p-2">
-        <div class="d-flex flex-column rounded px-2 my-2" style="min-width: 0; word-wrap: break-word;">
+    <div class="col-lg-12 col-12">
+        <div class="d-flex flex-column rounded" style="min-width: 0; word-wrap: break-word;">
             <%= render partial: "widgets/job_queue" %>
         </div>
     </div>
-</div>
 
-<div class="row d-none homepage-widgets mx-0 mt-2" style="background-color: var(--main-bg-color);">
-    <div class="col-lg-6 col-md-6 col-12 order-1 p-2">
-        <div class="d-flex flex-column rounded px-2 my-2" style="overflow-x: auto; min-width: 0; word-wrap: break-word;">
+    <div class="col-md-6 col-12">
+        <div class="d-flex flex-column rounded h-100 overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
             <%= render partial: "widgets/partition_status" %>
         </div>
     </div>
-
-    <div class="col-lg-6 col-md-6 col-12 order-2 p-2">
-        <div class="d-flex flex-column rounded px-2 my-2 h-100" style="overflow-x: auto; min-width: 0; word-wrap: break-word;">
+    <div class="col-md-6 col-12">
+        <div class="d-flex flex-column rounded h-100 overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
             <%= render partial: "widgets/account_list" %>
         </div>
     </div>
