@@ -1,20 +1,20 @@
-<div class="font-weight-bold mb-3 d-flex justify-content-between align-items-center">
+<h3 class="mb-3 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
-        <i class="fas fa-wrench text-secondary fs-4"></i>
-        <span class="ms-1 fw-medium fs-4">Maintenance</span>
-        <a href="https://research-computing.git-pages.rit.edu/docs/maintenance.html" 
+        <i class="fas fa-wrench text-secondary"></i>
+        <span class="mx-2">Maintenance</span>
+        <a href="https://research-computing.git-pages.rit.edu/docs/faq.html#maintenance" 
             class="mx-1" 
             style="color: #6c757d; font-size: 1.1rem;"
-            data-toggle="tooltip" 
+            data-bs-toggle="tooltip" 
             title="Click to learn more about maintenance windows."
             aria-label="Click to learn more about maintenance windows."
             target="_blank"
         >
             <i class="fas fa-question-circle" aria-hidden="true"></i>
         </a>
-        <div class="vr"></div>
-        <span id="next_maintenance_span" class="ps-2 font-weight-normal">
-            <%= @maintenance %>
-        </span>
     </div>
-</div>
+</h3>
+<div style="border-bottom: 1px solid rgba(0,0,0,0.1);" class="mb-3"></div>
+<span id="next_maintenance_span" class="ps-2 font-weight-normal">
+    <%= @maintenance %>
+</span>

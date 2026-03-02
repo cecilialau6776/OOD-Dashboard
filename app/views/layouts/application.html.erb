@@ -7,44 +7,6 @@
   <%= render partial: "shared/indexed_db_cache" %>
   <%= render partial: '/layouts/nav/styles', locals: { bg_color: @user_configuration.brand_bg_color, link_active_color:  @user_configuration.brand_link_active_bg_color } %>
 
-
-  <!-- Lodash -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script> -->
-
-  <!-- Popper -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
-
-  <!-- Oboe -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/oboe@2.1.5/dist/oboe-browser.min.js"></script> -->
-
-  <!--Font Awesome 5-->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" /> -->
-
-  <!-- SheetJS -->
-  <!-- <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script> -->
-
-  <!--Chartjs-->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-stacked100@1.0.0"></script>
-       <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.1/dist/chartjs-chart-treemap.min.js"></script>
-  -->
-  <!-- Patternomaly -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/patternomaly/1.3.2/patternomaly.min.js"></script> -->
-
-  <!-- Bootstrap Icons -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" /> -->
-
-  <!-- Handlebars -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.8/dist/handlebars.min.js"></script> -->
-
-  <!-- Highlight.js -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
-  -->
-
   <!-- (Legacy) Sprockets -->
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>
@@ -52,10 +14,6 @@
     <script src="<%= custom_file_config[:src] %>" type="<%= custom_file_config[:type] %>" nonce="<%= content_security_policy_nonce %>"></script>
   <% end %>
 
-  <!--Toastr-->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  -->
   <%= render partial: "layouts/constants" %>
   <%= render partial: "layouts/util" %>
 
