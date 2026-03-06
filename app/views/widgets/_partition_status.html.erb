@@ -1,4 +1,4 @@
-<h3 class="mb-3 d-flex justify-content-between align-items-center">
+<h3 class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <i class="fas fa-server text-primary"></i>
         <span class="mx-2">System Status</span>
@@ -10,7 +10,7 @@
            <i class="fas fa-table me-1"></i> View All <i class="fas fa-chevron-right ms-1" style="font-size: 0.75rem;"></i>
         </a>
     </div>
-    <button onclick="load_partition_status(true)" 
+    <button onclick="load_cluster_status(true)" 
             class="btn btn-sm action-btn"
             style="background: hsl(0 0% 100%); border: 1px solid hsl(214.3 31.8% 91.4%); color: hsl(222.2 84% 4.9%); border-radius: 8px; padding: 0.375rem 0.5rem; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
             onmouseover="this.style.background='hsl(210 40% 98%)'; this.style.borderColor='hsl(214.3 31.8% 85%)'"
@@ -18,8 +18,7 @@
         <i class="fas fa-sync-alt"></i>
     </button>
 </h3>
-<div style="border-bottom: 1px solid rgba(0,0,0,0.1);" class="mb-3"></div>
-<div id="partition_status_card_content"></div>
+<div id="cluster_status_card_content"></div>
 
 <style>
   .btn:focus,
@@ -37,7 +36,6 @@
 </style>
 
 <script defer>
-    const gpuPartitions = "<%= Configuration.gpu_partitions %>".split(",");
     function getProgressBarColor(ratio) {
         if (ratio < 0.7) return 'bg-success';
         if (ratio < 0.9) return 'bg-warning';
@@ -73,7 +71,7 @@
         }
     }
     
-    function load_partition_status(forceRefresh = false) {
+    function load_cluster_status(forceRefresh = false) {
         const loadingHtml = `
         <div class="d-flex flex-column align-items-center justify-content-center h-100">
             <div class="position-relative mb-3">
@@ -81,90 +79,61 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <p class="text-muted mb-0">Loading partition status...</p>
+            <p class="text-muted mb-0">Loading cluster status...</p>
         </div>
         `;
         
-        $("#partition_status_card_content").html(loadingHtml);
+        $("#cluster_status_card_content").html(loadingHtml);
         
-        return fetchWithCache(`<%= url_for controller: "api/partition_status", action: "get" %>`, {
+        return fetchWithCache(`<%= url_for controller: "api/cluster_status", action: "get" %>`, {
             forceRefresh,
             cacheDuration: 30 * 1000  // Cache for 30 seconds
-        }).then(data => {
-            const tableHtml = `
-            <div>
-                ${data.map((row) => {
-                    const statusClass = getStatusStyle(row.state);
-                    return `
-                    <div class="mb-2">
-                        <div class="pb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <div class="d-flex justify-content-between align-items-baseline mb-2">
-                                <div class="h4">${row.partition}</div>
-                                <div class="ms-2 text-secondary flex-grow-1">
-                                    ${row.allocated_nodes} / ${row.total_nodes - row.other_nodes} nodes in use
-                                </div>
-                                <div class="text-secondary ${row.other_nodes > 0 ? '' : 'd-none'}">
-                                    <span class="fw-bold">${row.other_nodes}</span> ${parseInt(row.other_nodes) === 1 ? 'node' : 'nodes'} offline
-                                </div>
-                                <div class="ms-2 px-3 py-1 rounded-pill d-flex align-items-center" 
-                                     style="font-size: 1rem; background-color: ${getStatusStyle(row.state).bg}; color: ${getStatusStyle(row.state).text};">
-                                    <i class="fas ${getStatusStyle(row.state).icon}" style="margin-right: 0.5rem;"></i>
-                                    ${row.state.charAt(0).toUpperCase() + row.state.slice(1).toLowerCase()}
-                                </div>
-                            </div>
+        }).then(nodes => {
+            const counts = {
+                onlineUsed: {count: 0, badge_class: "text-bg-success", name: "Online (In Use)"},
+                onlineIdle: {count: 0, badge_class: "text-bg-info", name: "Online (Idle)"},
+                drained: {count: 0, badge_class: "text-bg-warning", name: "Drained"},
+                maintenance: {count: 0, badge_class: "text-bg-secondary", name: "Maintenance"},
+                down: {count: 0, badge_class: "text-bg-danger", name: "Down"},
+            };
+            nodes.forEach(node => {
+                if (node.State.includes('DOWN')) {
+                    counts.down.count++;
+                } else if (node.State.includes('DRAIN')) {
+                    counts.drained.count++;
+                } else if (node.State.includes('MAINT')) {
+                    counts.maintenance.count++;
+                } else {
+                    // Check if node is in use
+                    const isGPUNode = node.NodeName.startsWith('g');
+                    const usage = parseInt(node.CPUAlloc) || 0;
 
-                            <div class="d-flex flex-column">
-                                <div class="mb-2">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                                        <div style="font-size: 1rem;">
-                                            <span class="fw-bold">${row.allocated_cores}</span> / 
-                                            <span class="fw-bold">${row.total_cores - row.other_cores}</span> cores in use
-                                            <span class="text-muted">(${row.free_cores} available)</span>
-                                        </div>
-                                        <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
-                                            <span class="fw-bold">${(row.total_cores - row.other_cores) === 0 ? 0 : Math.floor((row.allocated_cores/(row.total_cores - row.other_cores))*100)}</span>% utilization
-                                        </div>
-                                    </div>
-                                    <div class="progress" style="height: 8px; border-radius: 4px;">
-                                        <div class="progress-bar ${getProgressBarColor((row.total_cores - row.other_cores) === 0 ? 0 : row.allocated_cores/(row.total_cores - row.other_cores))}" 
-                                                style="width: 0; transition: width 0.6s ease-in-out;"
-                                                aria-valuenow="${(row.total_cores - row.other_cores) === 0 ? 0 : (row.allocated_cores/(row.total_cores - row.other_cores))*100}">
-                                        </div>
-                                    </div>
-                                </div>
-                                ${gpuPartitions.includes(row.partition) ? (() => {
-                                    const gpusPerNode = Math.floor(row.total_gpus / row.total_nodes);
-                                    const availableGpus = row.total_gpus - gpusPerNode * row.other_nodes;
-                                    const utilizationRatio = row.allocated_gpus / availableGpus;
-                                    return `
-                                    <div class="mb-2">
-                                        <div class="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                                            <div style="font-size: 1rem;">
-                                                <span class="fw-bold">${row.allocated_gpus}</span> / 
-                                                <span class="fw-bold">${availableGpus}</span> GPUs in use
-                                                <span class="text-muted">(${availableGpus - row.allocated_gpus} available)</span>
-                                            </div>
-                                            <div class="text-muted mt-1 mt-sm-0" style="font-size: 1rem;">
-                                                <span class="fw-bold">${availableGpus === 0 ? 0 : Math.floor(utilizationRatio * 100)}</span>% utilization
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height: 8px; border-radius: 4px;">
-                                            <div class="progress-bar ${getProgressBarColor(availableGpus === 0 ? 0 : utilizationRatio)}"
-                                                 style="width: 0; transition: width 0.6s ease-in-out;"
-                                                 aria-valuenow="${availableGpus === 0 ? 0 : utilizationRatio * 100}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                `})() : ''}
-                            </div>
+                    if (usage === 0) {
+                        counts.onlineIdle.count++;
+                    } else {
+                        counts.onlineUsed.count++;
+                    }
+                }
+            });
+
+            /* ${acc === "" ? "" : '<div class="col col-12"><hr class="my-2"></div>'} */
+            const rowsHtml = Object.keys(counts).reduce((acc, key) => {
+                return `${acc}
+                    <div class="col col-12">
+                        <div class="d-flex py-2${acc === "" ? "" : " border-top"}">
+                            <span class="fw-medium">${counts[key]["name"]}</span>
+                            <span class="ms-auto align-content-center badge rounded-pill ${counts[key]["badge_class"]}">${counts[key]["count"]}</span>
                         </div>
                     </div>
-                    `;
-                }).join("")}
-            </div>
+                `;
+            }, "");
+            const tableHtml = `
+                <div class="row">
+                    ${rowsHtml}
+                </div>
             `;
 
-            $("#partition_status_card_content").html(tableHtml);
+            $("#cluster_status_card_content").html(tableHtml);
             setTimeout(() => {
                 $('.progress-bar').each(function() {
                     $(this).css('width', $(this).attr('aria-valuenow') + '%');
@@ -176,20 +145,20 @@
                 <div class="text-danger mb-3">
                     <i class="fas fa-exclamation-circle fa-2x"></i>
                 </div>
-                <h5 class="mb-2">Unable to Load Partition Status</h5>
-                <p class="text-muted small mb-3">There was a problem retrieving the partition information</p>
+                <h5 class="mb-2">Unable to Load Cluster Status</h5>
+                <p class="text-muted small mb-3">There was a problem retrieving the cluster information</p>
                 <button class="btn btn-sm action-btn" 
                         style="background: hsl(0 0% 100%); border: 1px solid hsl(214.3 31.8% 91.4%); color: hsl(222.2 84% 4.9%); border-radius: 8px; padding: 0.5rem 1rem; font-weight: 500; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
                         onmouseover="this.style.background='hsl(210 40% 98%)'; this.style.borderColor='hsl(214.3 31.8% 85%)'"
                         onmouseout="this.style.background='hsl(0 0% 100%)'; this.style.borderColor='hsl(214.3 31.8% 91.4%)'"
-                        onclick="load_partition_status(true)">
+                        onclick="load_cluster_status(true)">
                     <i class="fas fa-sync-alt me-1"></i> Retry
                 </button>
             </div>
             `;
 
-            $("#partition_status_card_content").html(errorHtml);
+            $("#cluster_status_card_content").html(errorHtml);
         });
     }
-    $(load_partition_status);
+    $(load_cluster_status);
 </script>

@@ -53,6 +53,8 @@ gem 'local_time', '~> 1.0.3'
 gem 'zip_kit', '~> 6.2'
 gem 'rss', '~> 0.2'
 gem 'climate_control', '~> 0.2'
+gem 'icalendar', '~> 2.12.1'
+gem 'icalendar-recurrence', '~> 1.2.1'
 
 gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'

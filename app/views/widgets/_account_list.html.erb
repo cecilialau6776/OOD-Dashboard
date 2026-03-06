@@ -1,13 +1,13 @@
-<h3 class="mb-3 d-flex justify-content-between align-items-center">
+<h3 class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <i class="fas fa-layer-group text-warning"></i>
-        <span class="mx-2">Accounts</span>
+        <span class="mx-2">Projects</span>
         <a href="<%= Configuration.account_list_info_url %>" 
             class="ms-1" 
             style="color: #6c757d; font-size: 1.1rem;"
             data-bs-toggle="tooltip" 
-            title="Click to learn more about accounts and queues on <%= Configuration.cluster_name %>"
-            aria-label="Documentation about accounts and queues on <%= Configuration.cluster_name %>"
+            title="Click to see more details on ColdFront."
+            aria-label="Link to ColdFront"
             target="_blank">
             <i class="fas fa-question-circle" aria-hidden="true"></i>
         </a>
@@ -20,7 +20,6 @@
         <i class="fas fa-sync-alt"></i>
     </button>
 </h3>
-<div style="border-bottom: 1px solid rgba(0,0,0,0.1);" class="mb-3"></div>
 <div id="account_list_card_content"></div>
 
 <style>

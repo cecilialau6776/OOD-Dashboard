@@ -6,40 +6,50 @@
     </div>
 </noscript>
 
-<div class="row d-none homepage-widgets g-5">
-    <div class="col-12 col-lg-6">
-        <div class="row g-5 g-lg-3">
-            <div class="col-12">
-                <div class="d-flex flex-column rounded" style="min-width: 0; word-wrap: break-word;">
-                    <%= render partial: "/widgets/maintenance" %>
+<div class="row d-none homepage-widgets g-4">
+    <div class="col-12 col-md-6 col-xl-7 border-end-md">
+        <div class="row g-4 h-100">
+            <div class="col-12 col-xl-6 border-end-xl">
+                <div class="d-flex flex-column rounded">
+                    <%= render partial: "widgets/maintenance" %>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="d-flex flex-column rounded overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
-                    <%= render partial: "/widgets/newsletter" %>
+            <div class="col-12 pe-md-4 d-block d-xl-none"><hr></div>
+            <div class="col-12 col-xl-6 h-100">
+                <div class="d-flex flex-column rounded">
+                    <%= render partial: "widgets/newsletter" %>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-6">
-        <div class="d-flex flex-column rounded" style="min-width: 0; word-wrap: break-word;">
-            <%= render partial: "/widgets/documentation" %>
+    <div class="col-12 d-block d-md-none"><hr></div>
+    <div class="col-12 col-md-6 col-xl-5">
+        <div class="d-flex flex-column rounded">
+            <%= render partial: "widgets/documentation" %>
         </div>
     </div>
 
-    <div class="col-12 col-lg-12">
-        <div class="d-flex flex-column rounded" style="min-width: 0; word-wrap: break-word;">
+    <div class="col-12"><hr></div>
+    <div class="col-12 col-md-6 border-end-md">
+        <div class="d-flex flex-column rounded">
             <%= render partial: "widgets/job_queue" %>
         </div>
     </div>
-
+    <div class="col-12 d-block d-md-none"><hr></div>
     <div class="col-12 col-md-6">
-        <div class="d-flex flex-column rounded h-100 overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
+        <div class="d-flex flex-column rounded">
+            <%= render partial: "widgets/news_feed" %>
+        </div>
+    </div>
+    <div class="col-12"><hr></div>
+    <div class="col-12 col-md-6 border-end-md">
+        <div class="d-flex flex-column rounded h-100">
             <%= render partial: "widgets/partition_status" %>
         </div>
     </div>
+    <div class="col-12 d-block d-md-none"><hr></div>
     <div class="col-12 col-md-6">
-        <div class="d-flex flex-column rounded h-100 overflow-x-auto" style="min-width: 0; word-wrap: break-word;">
+        <div class="d-flex flex-column rounded h-100">
             <%= render partial: "widgets/account_list" %>
         </div>
     </div>

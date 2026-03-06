@@ -115,6 +115,16 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    icalendar (2.12.1)
+      base64
+      ice_cube (~> 0.16)
+      logger
+      ostruct
+    icalendar-recurrence (1.2.1)
+      icalendar (~> 2.0)
+      ice_cube (~> 0.16)
+      tzinfo (~> 2.0)
+    ice_cube (0.17.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -122,6 +132,7 @@ GEM
       railties (>= 6.0.0)
     local_time (1.0.3)
       coffee-rails
+    logger (1.7.0)
     lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -175,6 +186,7 @@ GEM
       ood_support (~> 0.0.2)
       rexml (~> 3.2)
     ood_support (0.0.5)
+    ostruct (0.6.3)
     pbs (2.2.1)
       ffi (~> 1.9, >= 1.9.6)
     psych (5.1.2)
@@ -291,6 +303,8 @@ DEPENDENCIES
   dotenv-rails (~> 2.1)
   dotiw
   erubi
+  icalendar (~> 2.12.1)
+  icalendar-recurrence (~> 1.2.1)
   jbuilder (~> 2.0)
   jsbundling-rails (~> 1.0)
   local_time (~> 1.0.3)

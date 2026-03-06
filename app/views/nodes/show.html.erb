@@ -169,11 +169,7 @@ function renderNodeData(data) {
                   <span>${data.CPUAlloc || 0}/${data.CPUTot || data.CPUs || 0}</span>
                 </label>
                 <div class="progress" style="height: 8px;">
-                  <div class="progress-bar ${
-                    cpuUsagePercent > 90 ? 'bg-danger' :
-                    cpuUsagePercent > 75 ? 'bg-warning' :
-                    'bg-success'
-                  }" 
+                  <div class="progress-bar bg-success" 
                     role="progressbar" 
                     style="width: ${cpuUsagePercent}%"></div>
                 </div>
@@ -183,11 +179,7 @@ function renderNodeData(data) {
                     <span>${data.gpu_info.allocated}/${data.gpu_info.total}</span>
                   </label>
                   <div class="progress" style="height: 8px;">
-                    <div class="progress-bar ${
-                      gpuUsagePercent > 90 ? 'bg-danger' :
-                      gpuUsagePercent > 75 ? 'bg-warning' :
-                      'bg-success'
-                    }" 
+                    <div class="progress-bar bg-success" 
                       role="progressbar" 
                       style="width: ${gpuUsagePercent}%"></div>
                   </div>
@@ -199,11 +191,7 @@ function renderNodeData(data) {
                   <span>${formatMemory(memAlloc)}/${formatMemory(memTotal)}</span>
                 </label>
                 <div class="progress" style="height: 8px;">
-                  <div class="progress-bar ${
-                    memUsagePercent > 90 ? 'bg-danger' :   // Red for >90%
-                    memUsagePercent > 75 ? 'bg-warning' :  // Yellow for >75%
-                    'bg-success'                           // Green for ≤75%
-                  }" 
+                  <div class="progress-bar bg-success" 
                        role="progressbar" 
                        style="width: ${memUsagePercent}%"></div>
                 </div>
