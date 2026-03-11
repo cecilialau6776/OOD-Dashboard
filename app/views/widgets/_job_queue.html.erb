@@ -127,7 +127,7 @@
                                class="text-decoration-none">
                                 <div class="d-flex flex-column w-100 p-3 bg-white rounded job-queue-card">
                                     <div class="d-flex flex-row justify-content-between align-items-start flex-md-column">
-                                        <div class="flex-grow-1 text-truncate pr-3 pe-md-0">
+                                        <div class="flex-grow-1 text-truncate pe-3 pe-md-0">
                                             <div class="fw-bold text-truncate text-dark">${job.name.length > 40 ? job.name.substring(0, 40) + '...' : job.name}</div>
                                             <small class="text-muted text-truncate">${job.jobid} • ${job.partition}</small>
                                             <div class="text-muted mt-1 small">
@@ -143,7 +143,7 @@
                                                 ${job.state}
                                             </span>
                                             ${job.reason !== "None" && reason_verbose !== "--" ? 
-                                                `<span class="badge rounded-pill text-bg-secondary ml-0 ms-md-1 shadow-sm d-flex align-items-center"
+                                                `<span class="badge rounded-pill text-bg-secondary ms-0 ms-md-1 shadow-sm d-flex align-items-center"
                                                        style="font-size: 0.8rem;"
                                                        data-bs-toggle="tooltip" 
                                                        data-bs-placement="top" 
