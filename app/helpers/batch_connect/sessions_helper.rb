@@ -7,21 +7,21 @@ module BatchConnect::SessionsHelper
     content_tag(:div, id: "id_#{session.id}", class: "card session-panel mb-4", data: { id: session.id, hash: session.to_hash }) do
       concat(
         content_tag(:div, class: "card-heading") do
-          content_tag(:h5, class: "card-header alert-#{status_context(session)}") do
+          content_tag(:h5, class: "card-header alert alert-#{status_context(session)}") do
             concat link_to(content_tag(:span, session.title, class: "card-text alert-#{status_context(session)}"), new_batch_connect_session_context_path(token: session.token))
             concat tag.span(" (", class: 'card-text')
             concat link_to(session.job_id, job_path(session.job_id), class: 'card-text')
             concat tag.span(")", class: 'card-text')
             concat(
-              content_tag(:div, class: "float-right") do
+              content_tag(:div, class: "float-end") do
                 num_nodes = session.info.allocated_nodes.size
                 num_cores = session.info.procs.to_i
 
                 # Generate nice status display
                 status = []
                 if session.starting? || session.running?
-                  status << content_tag(:span, pluralize(num_nodes, "node"), class: "badge badge-#{status_context(session)} badge-pill") unless num_nodes.zero?
-                  status << content_tag(:span, pluralize(num_cores, "core"), class: "badge badge-#{status_context(session)} badge-pill") unless num_cores.zero?
+                  status << content_tag(:span, pluralize(num_nodes, "node"), class: "badge bg-#{status_context(session)} rounded-pill") unless num_nodes.zero?
+                  status << content_tag(:span, pluralize(num_cores, "core"), class: "badge bg-#{status_context(session)} rounded-pill") unless num_cores.zero?
                 end
                 status << "#{status session}"
                 relaunch(status, session)
@@ -43,7 +43,7 @@ module BatchConnect::SessionsHelper
     capture do
       concat(
         content_tag(:div) do
-          concat content_tag(:div, cancel_or_delete(session), class: 'float-right')
+          concat content_tag(:div, cancel_or_delete(session), class: 'float-end')
           concat host(session)
           concat created(session)
           concat render_session_time(session)
@@ -132,7 +132,7 @@ module BatchConnect::SessionsHelper
     elsif session.queued?
       "info"
     elsif session.completed?
-      "default"
+      "secondary"
     elsif session.held? || session.suspended?
       "danger"
     else
@@ -176,7 +176,7 @@ module BatchConnect::SessionsHelper
     button_to(
       batch_connect_session_path(session.id),
       method: :delete,
-      class: "btn btn-danger float-right btn-delete",
+      class: "btn btn-danger float-end btn-delete",
       title: title,
       'aria-label': title,
       data: { confirm: t('dashboard.batch_connect_sessions_delete_confirm'), toggle: "tooltip", placement: "bottom"}
@@ -190,7 +190,7 @@ module BatchConnect::SessionsHelper
     button_to(
       batch_connect_cancel_session_path(session.id),
       method: :post,
-      class: "btn btn-danger float-right btn-cancel",
+      class: "btn btn-danger float-end btn-cancel",
       title: title,
       'aria-label': title,
       data: { confirm: t('dashboard.batch_connect_sessions_cancel_confirm'), toggle: "tooltip", placement: "bottom" }
