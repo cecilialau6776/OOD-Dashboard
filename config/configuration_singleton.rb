@@ -424,6 +424,11 @@ class ConfigurationSingleton
     sources
   end
 
+  def coldfront_api_key
+    file = Pathname.new('~/.config/.coldfront/api_key').expand_path
+    file.read if file.file?
+  end
+
   private
 
   def can_access_core_app?(name)
@@ -515,4 +520,5 @@ class ConfigurationSingleton
       end
     end
   end
+
 end

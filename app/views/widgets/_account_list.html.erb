@@ -131,9 +131,10 @@
             } else {
                 const tableRowsHtml = data.map((row) => {
                     const defaultQos = row.qos.filter((qos) => qos.is_default)[0];
+                    const rowHeader = "project_id" in row ? `<a href="https://coldfront.rc.rit.edu/project/${row.project_id}/" title="View in ColdFront" target="_blank">${row.name}</a>` : row.name
                     const rowHtml = `
                     <tr>
-                        <th scope="row">${row.name}</th>
+                        <th scope="row">${rowHeader}</th>
                         <td>${defaultQos?.name ?? "N/A"}</td>
                     </tr>
                     `;

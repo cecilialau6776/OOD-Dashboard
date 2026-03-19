@@ -65,31 +65,28 @@
     
     <script type="text/coffee-script-template" id="js-alert-danger-template">
       <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert">
-          
+        ALERT_MSG
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert">
           <span class="visually-hidden">Close</span>
         </button>
-        ALERT_MSG
       </div>
     </script>
 
     <% if alert %>
       <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert">
-          
+        <%= alert %>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert">
           <span class="visually-hidden">Close</span>
         </button>
-        <%= alert %>
       </div>
     <% end %>
 
     <% if notice %>
       <div class="alert alert-success" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert">
-          
+        <%= notice %>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert">
           <span class="visually-hidden">Close</span>
         </button>
-        <%= notice %>
       </div>
     <% end %>
 
