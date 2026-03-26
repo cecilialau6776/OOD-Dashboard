@@ -6,8 +6,13 @@ node_modules
 .ruby-version
 /public/assets
 /public/packs
+/public/packs-test
 testfile.json
 /data
 /vendor/bundle
 /tmp
 .DS_Store
+.bundle
+/app/assets/builds/
+!/app/assets/builds/.keep
+/*/.bundle
