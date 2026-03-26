@@ -23,7 +23,6 @@
     "lodash": "^4.17.21",
     "moment-timezone": "^0.6.0",
     "oboe": "^2.1.5",
-    "popper.js": "^1.16.1",
     "sass": "^1.50.0",
     "sweetalert2": "10.16.9",
     "toastr": "^2.1.4",
