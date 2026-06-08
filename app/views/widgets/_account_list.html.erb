@@ -126,19 +126,18 @@
             cacheDuration: 1 * 60 * 1000  // Cache for 1 minute
         }).then(data => {
             let tableHtml;
-            let project_ids = new Set();
             if (data.length === 0) {
                 tableHtml = '<div class="h5 mb-2">No allocations available</div>';
             } else {
-                const tableRowsHtml = data.map((row) => {
+                const tableRowsHtml = data.toSorted((a, b) => b["project_id"] - a["project_id"])
+                                          .map((row) => {
                     const proj_id = row["project_id"];
-                    if (project_ids.has(proj_id)) return "";
-                    project_ids.add(proj_id);
                     const defaultQos = row.qos.filter((qos) => qos.is_default)[0];
                     const rowHeader = "project_id" in row ? `<a href="https://coldfront.rc.rit.edu/project/${row.project_id}/" title="View in ColdFront" target="_blank">${row.name}</a>` : row.name
                     const rowHtml = `
                     <tr>
                         <th scope="row">${rowHeader}</th>
+                        <td>${row["cluster"].toUpperCase()}</td>
                         <td>${defaultQos?.name ?? "N/A"}</td>
                     </tr>
                     `;
@@ -149,6 +148,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Cluster</th>
                             <th scope="col">QOS</th>
                         </tr>
                     </thead>
