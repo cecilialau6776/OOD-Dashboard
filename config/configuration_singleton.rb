@@ -368,11 +368,62 @@ class ConfigurationSingleton
   #   file_upload_max #=> "21474840000"
   # @return [String] Maximum upload size for nginx.
   def file_upload_max
-    [ENV['FILE_UPLOAD_MAX']&.to_i, ENV['NGINX_FILE_UPLOAD_MAX']&.to_i].compact.min || 10737420000
+    [ENV['FILE_UPLOAD_MAX']&.to_i, ENV['NGINX_FILE_UPLOAD_MAX']&.to_i].compact.min || 10_737_420_000
+  end
+
+  # The timeout (seconds) for "generating" a .zip from a directory.
+  #
+  # Default for OOD_DOWNLOAD_DIR_TIMEOUT_SECONDS is "5" (seconds).
+  # @return [Integer]
+  def file_download_dir_timeout
+    ENV['OOD_DOWNLOAD_DIR_TIMEOUT_SECONDS']&.to_i || 5
+  end
+
+  # The maximum size of a .zip file that can be downloaded.
+  #
+  # Default for OOD_DOWNLOAD_DIR_MAX is 10*1024*1024*1024 bytes.
+  # @return [Integer]
+  def file_download_dir_max
+    ENV['OOD_DOWNLOAD_DIR_MAX']&.to_i || 10_737_418_240
   end
 
   def allowlist_paths
     (ENV['OOD_ALLOWLIST_PATH'] || ENV['WHITELIST_PATH'] || "").split(':').map{ |s| Pathname.new(s) }
+  end
+  
+  # Cluster name
+  def cluster_name
+    ENV.fetch('CLUSTER_NAME', 'this cluster')
+  end
+
+  # Partitions to exclude from partition status widget
+  def included_partitions
+    ENV.fetch('INCLUDED_PARTITIONS', "").split(',').reject(&:empty?)
+  end
+
+  # GPU partitions
+  def gpu_partitions
+    ENV.fetch('GPU_PARTITIONS', "")
+  end
+
+  # Info URL for button in Accounts widget
+  def account_list_info_url
+    ENV.fetch('ACCOUNT_LIST_INFO_URL', "")
+  end
+
+  # All Announcements URL for button in Announcements widget
+  def news_feed_url
+    ENV.fetch('NEWS_FEED_URL', "")
+  end
+
+  # Info URL for button in System Status widget
+  def partition_status_info_url
+    ENV.fetch('PARTITION_STATUS_INFO_URL', "")
+  end
+
+  # Info URL for button in Storage widget
+  def disk_usage_info_url
+    ENV.fetch('DISK_USAGE_INFO_URL', "")
   end
 
   # default value for opening apps in new window
@@ -444,6 +495,11 @@ class ConfigurationSingleton
   def shared_projects_root
     # This environment variable will support ':' colon separated paths
     ENV['OOD_SHARED_PROJECT_PATH'].to_s.split(":").map { |p| Pathname.new(p) }
+  end
+
+  def coldfront_api_key
+    file = Pathname.new("~/.config/.coldfront/api_key").expand_path
+    file.read if file.file?
   end
 
   private

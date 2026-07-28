@@ -2,6 +2,10 @@
 
 const CONFIG_ID = 'ood_config'
 
+export function pageConfigData() {
+  return document.getElementById("page-data").dataset;
+}
+
 export function configData() {
   return document.getElementById(CONFIG_ID).dataset;
 }
@@ -109,4 +113,85 @@ export function appsDatatablePageLength() {
 export function userHome() {
   const cfgData = configData();
   return cfgData['userHome'];
+}
+
+// homepage widget URLs
+export function newsFeedUrl() {
+  const cfgData = configData();
+  return cfgData['newsFeedUrl'];
+}
+
+export function jobQueueUrl() {
+  const cfgData = configData();
+  return cfgData['jobQueueUrl'];
+}
+
+export function jobPathUrl(id="JOB_ID") {
+  const cfgData = configData();
+  return cfgData['jobPathUrl'].replace('JOB_ID', id);
+}
+
+export function jobApiPathUrl(id="JOB_ID") {
+  const cfgData = configData();
+  return cfgData['jobApiPathUrl'].replace('JOB_ID', id);
+}
+
+export function clusterStatusUrl() {
+  const cfgData = configData();
+  return cfgData['clusterStatusUrl'];
+}
+
+export function gpuHourSummaryUrl() {
+  const cfgData = configData();
+  return cfgData['gpuHourSummaryUrl'];
+}
+
+export function accountListUrl() {
+  const cfgData = configData();
+  return cfgData['accountListUrl'];
+}
+
+export function filesPath() {
+  const cfgData = configData();
+  return cfgData['filesPath'];
+}
+
+export function cancelJobsPath() {
+  const cfgData = configData();
+  return cfgData['cancelJobsPath'];
+}
+
+export function cancelJobApiPath(id="JOB_ID") {
+  const cfgData = configData();
+  return cfgData['cancelJobApiPath'].replace('JOB_ID', id);
+}
+
+export function username() {
+  const cfgData = configData();
+  return cfgData['username'];
+}
+
+export function performanceMetricsUrl() {
+  const cfgData = configData();
+  return cfgData['performanceMetricsUrl'];
+}
+
+export function performanceMetricsApiUserdataUrl() {
+  const cfgData = configData();
+  return cfgData['performanceMetricsApiUserdataUrl'];
+}
+
+export function performanceMetricsApiSacctuserUrl() {
+  const cfgData = configData();
+  return cfgData['performanceMetricsApiSacctuserUrl'];
+}
+
+export function nodeShowUrl(name="__NAME__") {
+  const cfgData = configData();
+  return cfgData['nodeShowUrl'].replace('__NAME__', name);
+}
+
+export function nodePathUrl(id="NODE_ID") {
+  const cfgData = configData();
+  return cfgData['nodePathUrl'].replace('NODE_ID', id);
 }

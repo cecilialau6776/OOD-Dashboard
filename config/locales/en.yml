@@ -3,14 +3,13 @@ en:
   activemodel:
     errors:
       messages:
+        required: "%{attribute} is required"
         format: "%{attribute} format invalid or missing"
         invalid: "%{attribute} is invalid"
-        required: "%{attribute} is required"
         used: "%{attribute} is already used"
   dashboard:
     active_jobs_close_details: "Close extended details panel."
     active_sessions_caption_html: <a href="%{all_sessions_url}"> view all (%{number_of_sessions})</a>
-    active_sessions_title: Active interactive sessions
     add: Add
     all_apps_table_app_column: Name
     all_apps_table_category_column: Category
@@ -354,3 +353,13 @@ en:
     welcome_html: |
       %{logo_img_tag}
       <p class="lead">OnDemand provides an integrated, single access point for all of your HPC resources.</p>
+    files_directory_download_size_0: "The directory size is 0 and has no contents for download."
+    jobs_project_directory_help: "Override the default location for this project"
+    jobs_scripts_created: "Script successfully created!"
+    jobs_scripts_default_created: "A 'hello_world.sh' was also added to this project."
+    jobs_scripts_updated: "Script manifest updated!"
+    jobs_scripts_not_found: "Cannot find script %{script_id}"
+    jobs_scripts_deleted: "Script successfully deleted!"
+    jobs_scripts_submitted: "Successfully submitted job %{job_id}."
+    jobs_scripts_delete_script_confirmation: "Delete all contents of script?"
+    jobs_scripts_fixed_field: "Fixed Value"

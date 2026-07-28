@@ -4,12 +4,15 @@ import oboe from 'oboe';
 import { supportPath } from './config.js';
 import { cssBadgeForState, capitalizeFirstLetter, ariaNotify, customizeTableHeaders } from './utils.js'
 import { OODAlertError } from './alert.js';
+// import dataTableProcessing from 'datatables.net-plugins/api/processing()';
 
 window.fetch_table_data = fetch_table_data;
 window.create_datatable = create_datatable;
 window.set_cluster_id = set_cluster_id;
 window.set_filter_id = set_filter_id;
 window.closeExtendedDetails = closeExtendedDetails;
+
+// dataTableProcessing(window, jQuery);
 
 var entityMap = {
   '&': '&amp;',
@@ -96,10 +99,6 @@ function fetch_job_data(tr, row, options) {
         ariaNotify("Job details list loaded.");
       })
       .catch(error => OODAlertError(error));
-}
-
-function fetch_table_data(table, options){
-  options = clean_options(options);
 
   oboe({
     url: options.base_uri + '/activejobs.json?'+get_request_params(),

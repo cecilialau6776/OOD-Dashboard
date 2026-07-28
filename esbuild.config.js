@@ -2,8 +2,7 @@ const esbuild = require('esbuild');
 const fs = require('fs');
 
 const faDir = 'node_modules/@fortawesome/fontawesome-free/webfonts/';
-
-// could just glob and pass this in the cli, but glob support is shell dependent
+// could just glob and pass this in the cli, but glob support is shell dependant
 const entryPoints = filesFromDir('app/javascript');
 const buildDir = 'app/assets/builds';
 

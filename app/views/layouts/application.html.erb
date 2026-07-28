@@ -114,5 +114,104 @@
 
   <%= render "layouts/footer" %>
   <div id="aria_live_region" class="visually-hidden" aria-live="polite"></div>
+  <!-- <script>
+       function getValuesByKey(data, key) {
+       return data.map(item => item[key]);
+       }
+
+       function showWarning(id, body, showClose) {
+       const alertHtml = `
+       <div class="col-12" id="${id}">
+       <div class="alert alert-danger ${showClose ? "alert-dismissible fade show" : ""}" role="alert" style="border-radius: 25px; box-shadow: 0 0 5px #ccc;">
+       ${body}
+       ${showClose ? `
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+       
+       </button>
+       ` : ""}
+       </div>
+       </div>
+       `;
+
+       if ($(`#warnings #${id}`).length > 0) {
+       $(`#warnings #${id}`).remove();
+       }
+       $("#warnings").append(alertHtml);
+       }
+
+       // Originally from https://stackoverflow.com/a/16348977
+       function stringToColor(str) {
+       let hash = 0;
+       str.split('').forEach(char => {
+       hash = char.charCodeAt(0) + ((hash << 5) - hash);
+       })
+       let color = '#';
+       for (let i = 0; i < 3; i++) {
+       const value = (hash >> (i * 8)) & 0xff;
+       color += value.toString(16).padStart(2, '0');
+       }
+       return color;
+       }
+
+       function toggleSubmenu(element) {
+       event.preventDefault();
+       const submenu = element.nextElementSibling;
+       const isExpanded = element.getAttribute('aria-expanded') === 'true';
+       
+       // Close all other submenus
+       document.querySelectorAll('.submenu').forEach(menu => {
+       if (menu !== submenu) {
+       menu.style.display = 'none';
+       menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+       }
+       });
+       
+       // Toggle current submenu
+       submenu.style.display = isExpanded ? 'none' : 'block';
+       element.setAttribute('aria-expanded', !isExpanded);
+       }
+
+       // Close submenus when clicking outside
+       document.addEventListener('click', function(event) {
+       if (!event.target.closest('.nav-item')) {
+       document.querySelectorAll('.submenu').forEach(menu => {
+       // Don't close submenu if it contains an active item
+       if (!menu.querySelector('.submenu-item.active')) {
+       menu.style.display = 'none';
+       menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+       }
+       });
+       }
+       });
+
+       // Initialize submenus - run this after DOM is loaded
+       document.addEventListener('DOMContentLoaded', function() {
+       // Find any submenu items that are marked as active
+       document.querySelectorAll('.submenu-item.active').forEach(activeItem => {
+       const submenu = activeItem.closest('.submenu');
+       if (submenu) {
+       // Show the submenu
+       submenu.style.display = 'block';
+       // Update the toggle button state
+       const toggleButton = submenu.previousElementSibling;
+       if (toggleButton) {
+       toggleButton.setAttribute('aria-expanded', 'true');
+       }
+       }
+       });
+       });
+
+       document.addEventListener('DOMContentLoaded', function() {
+       const restartLinks = document.querySelectorAll("a.nav-link.submenu-item");
+       for (const restartLink of restartLinks) {
+       if (restartLink.hasAttribute("href") && restartLink.getAttribute("href").includes("/nginx/stop?redir=") && restartLink?.querySelector("i.fas.fa-sync")) {
+       const restartIcon = restartLink.querySelector("i.fas.fa-sync");
+       restartLink.addEventListener('click', function(e) {
+       restartIcon.classList.add('icon-spin');
+       });
+       }
+       }
+       });
+       </script> -->
 </body>
 </html>

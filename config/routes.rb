@@ -55,7 +55,6 @@ Rails.application.routes.draw do
     get 'files', to: redirect("files/fs#{Dir.home}")
     get 'files/fs', to: redirect("files/fs#{Dir.home}")
     get 'frames/directory_frame' => 'files#directory_frame', as: 'directory_frame'
-    
     resources :transfers, only: [:show, :create, :destroy]
   end
 
@@ -94,6 +93,23 @@ Rails.application.routes.draw do
   get 'apps/restart' => 'apps#restart' if Configuration.app_sharing_enabled?
 
   root 'dashboard#index'
+
+  # API endpoints
+  get "api/balance_usage", action: :get, controller: "api/balance_usage", as: "balance_usage"
+  get "api/account_list", action: :get, controller: "api/account_list", as: "account_list"
+  get "api/disk_usage", action: :get, controller: "api/disk_usage", as: "disk_usage"
+  get "api/partition_status", action: :get, controller: "api/partition_status", as: "partition_status"
+  get "api/news_feed", action: :get, controller: "api/news_feed", as: "news_feed"
+  get "api/job_queue", action: :get, controller: "api/job_queue", as: "job_queue"
+  get "api/balance_summary", action: :get, controller: "api/balance_summary", as: "balance_summary"
+  get "api/gpu_hour_summary", action: :get, controller: "api/gpu_hour_summary", as: "gpu_hour_summary"
+  get "api/cluster_status", action: :get, controller: "api/cluster_status", as: "cluster_status_api"
+  get "api/nodes/:name", action: :show, controller: "api/nodes", as: "node_api"
+  get "api/jobs/:jobid", action: :show, controller: "api/jobs", as: "job_api"
+  delete "api/jobs/:jobid/cancel", action: :cancel, controller: "api/jobs", as: "cancel_job_api"
+
+  get "api/userdata", action: :getuserdata, controller: "api/performance_metrics"
+  get "api/sacctuser", action: :getsacctuser, controller: "api/performance_metrics"
 
   # App administration
   scope 'admin/:type', constraints: Authz::AppDeveloperConstraint do
@@ -145,6 +161,18 @@ Rails.application.routes.draw do
   match '/500', :to => 'errors#internal_server_error', :via => :all
 
   get 'module-browser' => 'module_browser#index', :as => 'module_browser'
+  get "/performance_metrics" => "performance_metrics#index", as: "performance_metrics"
+  get "/cluster_status" => "cluster_status#index", as: "cluster_status"
+  get "/nodes/:name" => "nodes#show", as: "node"
+  get "/job/:jobid" => "job#show", as: "job"
+
+  get "/myjobs" => "my_jobs#index", as: "my_jobs"
+  get "/myjobs/json" => "my_jobs#json"
+  delete "/myjobs" => "my_jobs#cancel_jobs", as: "cancel_jobs"
+
+  get "/job/:jobid/json" => "job_info#json"
+
+  get '/jobs/info/:cluster/:id' => 'jobs#info', :defaults => { :format => 'json' }, :as => 'jobs_info'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -200,4 +228,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  get '/help/dashboard-guide', to: 'help#dashboard_guide'
 end

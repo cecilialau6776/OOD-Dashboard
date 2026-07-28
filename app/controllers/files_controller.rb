@@ -326,6 +326,28 @@ class FilesController < ApplicationController
     type = Files.mime_type_by_extension(@path).presence || PosixFile.new(@path).mime_type
 
     response.set_header 'Content-Length', @path.stat.size
+    # tail_lines = params[:tail].to_i
+
+    # if tail_lines > 0 && @path.path.file? && @path.path.readable?
+    #   # Use tail for text files only
+    #   if type.to_s.start_with?('text/') || type.to_s.end_with?('xml')
+    #     # Get total line count first
+    #     total_lines = `wc -l < #{@path.to_s.shellescape}`.to_i
+        
+    #     # Get the last N lines with line numbers and remove trailing newline
+    #     start_line = [1, total_lines - tail_lines + 1].max
+    #     content = IO.popen(['tail', '-n', tail_lines.to_s, @path.to_s], err: File::NULL, &:read)
+    #     content.chomp! if content  # Remove trailing newline if content exists
+        
+    #     # Add line count info to the response
+    #     render json: {
+    #       content: content,
+    #       start_line: start_line,
+    #       total_lines: total_lines
+    #     }
+    #     return
+    #   end
+    # end
 
     # svgs aren't safe to view until we update our CSP
     if download? || type.to_s == 'image/svg+xml'

@@ -1,0 +1,87 @@
+<%=  javascript_include_tag 'my_jobs', nonce: true, type: 'module' %>
+<%= render partial: "layouts/constants" %>
+
+
+<div id="page-data"
+  data-job-info-url="<%= url_for controller: 'job_info', action: 'json', jobid: 'JOB_ID' %>"
+  data-my-jobs-url="<%= url_for controller: 'my_jobs', action: 'json', use_cache: true %>">
+
+<div class="card border-0 bg-transparent">
+    <div class="card-body bg-transparent">
+        <h3 class="fw-bold mb-3">
+            <div class="d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-tasks text-primary"></i>
+                        <span class="mx-2">My Jobs</span>
+                    </div>
+                </div>
+            </div>
+        </h3>
+        <div style="border-bottom: 1px solid rgba(0,0,0,0.1);" class="mb-3"></div>
+
+        <div id="my_jobs_content" class="bg-transparent">
+            <div id="my-jobs-loading-div" class="d-flex justify-content-center">
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem; border-width: 0.5rem" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="h1">&nbsp;Loading...</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="card border-0 bg-transparent">
+                            <a class="btn fw-bold shadow-sm mb-2" style="background-color: #ebd99f; color: black;" href="<%= url_for 'performance_metrics' %>"><i class="fas fa-chart-bar"></i> Job Performance Metrics</a>
+                            <a class="btn fw-bold shadow-sm" target="_blank" style="background-color: #ebd99f; color: black;" href="https://graphs.rc.rit.edu"><i class="fas fa-external-link-alt"></i> Detailed Performance Graphs</a>
+                            <div class="form-check form-check-inline d-none">
+                                <input class="form-check-input" type="checkbox" id="global-data-chart-toggle">
+                                <label class="form-check-label" for="global-data-chart-toggle">Use global data</label>
+                            </div>
+                            <span class="mt-2 mb-0 fw-bold">Select a date/time range:</span>
+                            <div id="datetime-range-selector" class="d-flex align-items-center" style="margin-top: 5px; background: transparent; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" aria-label="Select date and time range" aria-haspopup="dialog">
+                                <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+                                <span id="datetime-range-selector-text"></span>
+                                <span class="ms-auto">
+                                    <span class="visually-hidden">Toggle dropdown</span>
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div id="last-updated-text" class="d-none text-center fw-bold mt-0 pt-2 pb-1">
+                                Last Updated:
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8 col-lg-9 position-relative">
+                        <canvas id="chart1"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <ul class="nav nav-tabs bg-transparent" id="tablist">
+                            <li class="nav-item">
+                                <a href="" class="nav-link h5 bg-transparent" id="allocation-jobs-tab" title="View jobs from all of my accounts started by any user" data-bs-toggle="tooltip">Account Jobs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link h5 active bg-transparent" id="my-jobs-tab">My Jobs</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="my-jobs-div">
+                                <table class="table table-sm table-hover w-100" id="my-jobs-table"
+                                    style="
+                                    --dt-row-selected: 217, 237, 247;
+                                    --dt-row-selected-text: 51, 51, 51;
+                                    --dt-row-selected-link: 51, 122, 183;
+                                    "
+                                ></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,814 @@
+<%= javascript_include_tag 'performance_metrics', nonce: true, defer: true %>
+<%= render partial: "layouts/constants" %>
+
+<div class="container-fluid">
+    <div class="header-section mb-4" role="banner">
+        <h2 class="text-center mb-2">Performance Metrics</h2>
+        <p class="text-center text-muted">Track and analyze your job performance metrics on <%= Configuration.cluster_name %></p>
+    </div>
+
+    <div class="time-selector mb-3" role="navigation" aria-label="Time period selection">
+        <!-- Desktop view -->
+        <ul class="nav nav-pills justify-content-center d-none d-md-flex" id="myTab" role="tablist">
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light active px-4" id="all_time" data-bs-toggle="tab" data-bs-target="#alltime" type="button" role="tab" aria-selected="true" aria-controls="alltime">
+                    All Time
+                </button>
+            </li>
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light px-4" id="one_year" data-bs-toggle="tab" data-bs-target="#oneyear" type="button" role="tab" aria-selected="false" aria-controls="oneyear">
+                    Past Year
+                </button>
+            </li>
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light px-4" id="one_month" data-bs-toggle="tab" data-bs-target="#onemonth" type="button" role="tab" aria-selected="false" aria-controls="onemonth">
+                    Past Month
+                </button>
+            </li>
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light px-4" id="one_week" data-bs-toggle="tab" data-bs-target="#oneweek" type="button" role="tab" aria-selected="false" aria-controls="oneweek">
+                    Past Week
+                </button>
+            </li>
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light px-4" id="one_day" data-bs-toggle="tab" data-bs-target="#oneday" type="button" role="tab" aria-selected="false" aria-controls="oneday">
+                    Last 24 Hours
+                </button>
+            </li>
+            <li class="nav-item mx-1" role="presentation">
+                <button class="nav-link btn btn-light px-4" id="custom_range" data-bs-toggle="tab" data-bs-target="#custom" type="button" role="tab" aria-selected="false" aria-controls="custom">
+                    Custom
+                </button>
+            </li>
+        </ul>
+
+        <!-- Mobile view -->
+        <select class="form-select time-select d-md-none" aria-label="Select time period">
+            <option value="alltime" selected>All Time</option>
+            <option value="oneyear">Past Year</option>
+            <option value="onemonth">Past Month</option>
+            <option value="oneweek">Past Week</option>
+            <option value="oneday">Last 24 Hours</option>
+            <option value="custom">Custom</option>
+        </select>
+    </div>
+
+    <!-- Update the date range picker container -->
+    <div id="dateRangeContainer" class="date-range-container mt-1 mb-3" style="display: none;" role="region" aria-label="Custom date range selector">
+        <div class="p-3 bg-white rounded-3">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                        <label for="startDate" class="form-label text-muted mb-0 me-2 text-nowrap">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" aria-required="true">
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <i class="fas fa-long-arrow-alt-right text-muted" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                        <label for="endDate" class="form-label text-muted mb-0 me-2 text-nowrap">End Date</label>
+                        <input type="date" class="form-control" id="endDate" aria-required="true">
+                    </div>
+                </div>
+                <div class="col-md d-flex align-items-center">
+                    <button class="btn btn-primary w-100 py-1 my-auto" id="applyRange" aria-label="Apply selected date range">
+                        Apply Date Range
+                    </button>
+                </div>
+            </div>
+            <div id="dateRangeError" class="mt-2" style="display: none;">
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-0 py-2" role="alert" aria-live="polite">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message">
+                        
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorMessage" class="error-message" style="display: none;" role="alert" aria-live="assertive">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            <div class="error-text">
+                <h5>Unable to Load Performance Metrics</h5>
+                <p>We encountered a problem while retrieving your job metrics. This could be due to a temporary connection issue.</p>
+            </div>
+            <button class="retry-button" onclick="retryLoad()" aria-label="Retry loading metrics">
+                <i class="bi bi-arrow-clockwise me-2" aria-hidden="true"></i>
+                <span>Try Again</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="content-wrapper">
+        <div id="loading" class="simple-spinner">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Wrap the tab content -->
+        <div id="mainContent" style="opacity: 0; transition: opacity 0.3s ease;">
+            <div class="tab-content" id="myTabContent">
+                <% ['alltime', 'oneyear', 'onemonth', 'oneweek', 'oneday'].each do |period| %>
+                    <div class="tab-pane fade <%= period == 'alltime' ? 'show active' : '' %>" id="<%= period %>" role="tabpanel">
+                        <!-- Key Metrics Cards -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-sm-6 col-xl-3 mb-4">
+                                <div class="metric-card" role="region" aria-label="Metric information">
+                                    <div class="metric-icon bg-primary-subtle">
+                                        <i class="bi bi-briefcase" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h6 class="metric-label">Total Jobs</h6>
+                                        <h4 class="metric-value" id="<%= period %>userjobs" aria-live="polite">---</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6 col-xl-3 mb-4">
+                                <div class="metric-card">
+                                    <div class="metric-icon bg-success-subtle">
+                                        <i class="bi bi-hourglass-split"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h6 class="metric-label">Average Wait Time</h6>
+                                        <h4 class="metric-value" id="<%= period %>userwaittime">---</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3 mb-4">
+                                <div class="metric-card">
+                                    <div class="metric-icon bg-danger-subtle">
+                                        <i class="bi bi-stopwatch"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h6 class="metric-label">Mean Job Duration</h6>
+                                        <h4 class="metric-value" id="<%= period %>avgjobduration">---</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3 mb-4">
+                                <div class="metric-card">
+                                    <div class="metric-icon bg-info-subtle">
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <h6 class="metric-label">Total Wall Time</h6>
+                                        <h4 class="metric-value" id="<%= period %>walltime">---</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Efficiency Metrics -->
+                        <div class="row g-4">
+                            <% [['mem', 'Memory'], ['time', 'Time'], ['cpu', 'CPU']].each do |metric, display_name| %>
+                                <div class="col-md-4 mb-4">
+                                    <div class="efficiency-card">
+                                        <h5 class="card-title"><%= display_name %> Efficiency</h5>
+                                        <div class="efficiency-value">
+                                            <h3 id="<%= period %>avg<%= metric %>eff">---</h3>
+                                            <div class="efficiency-info">
+                                                <i class="bi bi-info-circle"></i>
+                                                <span id="<%= period %><%= metric %>below">---</span>
+                                            </div>
+                                        </div>
+                                        <div class="efficiency-extremes">
+                                            <div class="min-efficiency">
+                                                <label>Least Efficient</label>
+                                                <span id="<%= period %>least<%= metric %>">---</span>
+                                            </div>
+                                            <div class="max-efficiency">
+                                                <label>Most Efficient</label>
+                                                <span id="<%= period %>most<%= metric %>">---</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+                
+                <!-- Add the custom tab pane -->
+                <div class="tab-pane fade" id="custom" role="tabpanel">
+                    <!-- Copy the same content structure as other periods -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6 col-xl-3 mb-4">
+                            <div class="metric-card">
+                                <div class="metric-icon bg-primary-subtle">
+                                    <i class="bi bi-briefcase"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <h6 class="metric-label">Total Jobs</h6>
+                                    <h4 class="metric-value" id="customuserjobs">---</h4>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-xl-3 mb-4">
+                            <div class="metric-card">
+                                <div class="metric-icon bg-success-subtle">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <h6 class="metric-label">Average Wait Time</h6>
+                                    <h4 class="metric-value" id="customuserwaittime">---</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-3 mb-4">
+                            <div class="metric-card">
+                                <div class="metric-icon bg-danger-subtle">
+                                    <i class="bi bi-stopwatch"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <h6 class="metric-label">Mean Job Duration</h6>
+                                    <h4 class="metric-value" id="customavgjobduration">---</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-3 mb-4">
+                            <div class="metric-card">
+                                <div class="metric-icon bg-info-subtle">
+                                    <i class="bi bi-clock-history"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <h6 class="metric-label">Total Wall Time</h6>
+                                    <h4 class="metric-value" id="customwalltime">---</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <% [['mem', 'Memory'], ['time', 'Time'], ['cpu', 'CPU']].each do |metric, display_name| %>
+                            <div class="col-md-4 mb-4">
+                                <div class="efficiency-card">
+                                    <h5 class="card-title"><%= display_name %> Efficiency</h5>
+                                    <div class="efficiency-value">
+                                        <h3 id="customavg<%= metric %>eff">---</h3>
+                                        <div class="efficiency-info">
+                                            <i class="bi bi-info-circle"></i>
+                                            <span id="custom<%= metric %>below">---</span>
+                                        </div>
+                                    </div>
+                                    <div class="efficiency-extremes">
+                                        <div class="min-efficiency">
+                                            <label>Least Efficient</label>
+                                            <span id="customleast<%= metric %>">---</span>
+                                        </div>
+                                        <div class="max-efficiency">
+                                            <label>Most Efficient</label>
+                                            <span id="custommost<%= metric %>">---</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+}
+
+.metric-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-icon i {
+    font-size: 1.5rem;
+}
+
+.metric-content {
+    flex: 1;
+}
+
+.metric-label {
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+    font-size: 16px;
+}
+
+.metric-value {
+    margin: 0;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.efficiency-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.efficiency-card .card-title {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.efficiency-value {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.efficiency-value h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.efficiency-info {
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.efficiency-extremes {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.min-efficiency, .max-efficiency {
+    flex: 1;
+}
+
+.min-efficiency label, .max-efficiency label {
+    display: block;
+    color: #6c757d;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+}
+
+.nav-pills .nav-link {
+    color: #444;
+    background-color: white !important;
+    border: 1px solid #e9ecef;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    margin: 0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #f8f9fa !important;
+    border-color: #dee2e6;
+}
+
+.nav-pills .nav-link:focus,
+.nav-pills .nav-link:active,
+.nav-pills .nav-link.active:focus,
+.nav-pills .nav-link.active:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #0d6efd !important;
+    color: white !important;
+    border-color: #0d6efd;
+}
+
+.nav-pills .nav-item {
+    margin: 0 0.35rem;
+}
+
+.time-selector {
+    margin-bottom: 2rem;
+}
+
+/* Update mobile select styling to match */
+.time-select {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background-color: white;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    color: #444;
+    font-weight: 500;
+}
+
+.time-select:focus {
+    border-color: #0d6efd;
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .nav-pills {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+    
+    .nav-pills .nav-item {
+        flex: 0 0 auto;
+    }
+    
+    .metric-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .efficiency-card {
+        margin-bottom: 1rem;
+    }
+
+    .row.g-4 {
+        --bs-gutter-y: 1rem;
+    }
+
+    .tab-pane {
+        padding-bottom: 1rem;
+    }
+
+    .col-sm-6,
+    .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .col-sm-6:last-child,
+    .col-md-4:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.content-wrapper {
+    position: relative;
+    min-height: 200px;
+}
+
+.simple-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #0d6efd;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.row.g-4 {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+.metric-card {
+    height: 100%;
+}
+
+.efficiency-card {
+    height: 100%;
+}
+
+.error-message {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.error-content {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.error-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff3f3;
+    border-radius: 12px;
+}
+
+.error-icon i {
+    font-size: 24px;
+    color: #dc3545;
+}
+
+.error-text {
+    flex-grow: 1;
+}
+
+.error-text h5 {
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.error-text p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.retry-button {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.retry-button i {
+    font-size: 1.25rem;
+}
+
+.retry-button span {
+    letter-spacing: 0.01em;
+}
+
+.retry-button:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .error-message {
+        margin: 1.5rem 1rem;
+    }
+
+    .error-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .error-icon {
+        margin: 0 auto;
+    }
+
+    .error-text h5 {
+        font-size: 1.05rem;
+    }
+
+    .retry-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.date-range-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.date-range-container .form-group {
+    margin-bottom: 0;
+}
+
+.date-range-container label {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+    color: #495057;
+}
+
+.date-range-container .form-control {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.95rem;
+    height: calc(1.5em + 0.75rem + 2px);
+    transition: border-color 0.15s ease-in-out;
+}
+
+.date-range-container .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    outline: none;
+}
+
+.date-range-container .btn-primary {
+    height: calc(1.5em + 0.75rem + 2px);
+    margin-top: 1.6rem;
+    background-color: #0d6efd !important;
+    border-color: #0d6efd;
+    color: white !important;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    border-radius: 8px;
+}
+
+.date-range-container .btn-primary:hover {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca;
+    transform: translateY(-1px);
+}
+
+.date-range-container .btn-primary:focus,
+.date-range-container .btn-primary:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.date-range-container .btn-primary.active {
+    background-color: #0d6efd !important;
+    color: white !important;
+    border-color: #0d6efd;
+}
+
+.date-arrow {
+    padding-bottom: 0.5rem;
+    margin-top: 1.6rem;
+}
+
+.date-arrow i {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .date-range-container .btn-primary {
+        margin-top: 0;
+    }
+    
+    .col-md-auto {
+        display: none;
+    }
+
+    .col-md-4 {
+        margin-bottom: 0.5rem;
+    }
+
+    .date-range-container .mb-3 {
+        margin-bottom: 0.35rem !important;
+    }
+
+    .date-range-container .card-body {
+        padding: 1rem;
+    }
+
+    .date-range-container .form-group {
+        margin-bottom: 0.35rem;
+    }
+}
+
+.date-range-container .form-control.is-invalid {
+    border-color: #dc3545;
+    /* Remove the default Bootstrap error icon */
+    background-image: none !important;
+}
+
+.date-range-container .form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: none;
+}
+
+.date-range-container .alert {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    position: relative;
+    background-color: #f8d7da;
+    border-radius: 8px;
+    color: #721c24;
+}
+
+.date-range-container .alert .close {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    color: inherit;
+    opacity: .5;
+    font-size: 1rem;
+}
+
+.date-range-container .alert .close:hover {
+    opacity: .75;
+}
+
+.date-range-container .alert i {
+    font-size: 0.9rem;
+}
+
+/* Add subtle animation for the error message */
+.date-range-container .alert.fade {
+    transition: opacity 0.15s linear;
+}
+
+.date-range-container .alert.show {
+    opacity: 0.9;
+}
+
+.custom-shadow {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Update the container's background styling */
+.date-range-container .p-3 {
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Add hover effects */
+.date-range-container .form-control:hover {
+    border-color: #c1c9d0;
+}
+
+/* Improve label styling */
+.date-range-container label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Add transition for smoother appearance */
+.date-range-container {
+    transition: all 0.2s ease-in-out;
+}
+
+.efficiency-poor {
+    color: #dc3545 !important; /* Bootstrap 4 danger red */
+}
+
+.efficiency-moderate {
+    color: #ffc107 !important; /* Bootstrap 4 warning yellow */
+}
+
+.efficiency-good {
+    color: #28a745 !important; /* Bootstrap 4 success green */
+}
+</style>

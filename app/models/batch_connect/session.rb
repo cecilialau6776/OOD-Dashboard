@@ -167,6 +167,13 @@ module BatchConnect
         new.from_json(db_root.join(id).read)
       end
 
+      # Find session by job_id
+      # @param job_id [String] job ID
+      # @return [Session] the session
+      def find_by_job_id(job_id)
+        BatchConnect::Session.all.find { |session| session.job_id == job_id }
+      end
+
       # Checks if a session exists
       # @return [boolean]
       def exist?(id)

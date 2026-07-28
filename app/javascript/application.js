@@ -18,6 +18,7 @@ import jQuery from 'jquery';
 import 'jquery-ujs';
 import 'datatables.net';
 import 'datatables.net-bs5/js/dataTables.bootstrap5';
+import 'datatables.net-fixedheader';
 import 'datatables.net-select/js/dataTables.select';
 import 'datatables.net-plugins/api/processing().mjs';
 
@@ -38,6 +39,14 @@ import 'bootstrap/dist/js/bootstrap';
 
 import initPopovers from './popovers';
 import { updateAlerts } from './alert';
+
+// import { Chart, BarController, BarElement, Title, Legend } from 'chart.js';
+// import ChartPluginStacked100 from 'chartjs-plugin-stacked100';
+// Chart.register(BarController);
+// Chart.register(BarElement);
+// Chart.register(Title);
+// Chart.register(Legend);
+// Chart.register(ChartPluginStacked100);
 
 // lot's of inline scripts and stuff rely on jquery just being available
 window.jQuery = jQuery;

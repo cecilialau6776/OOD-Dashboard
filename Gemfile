@@ -40,7 +40,7 @@ group :development do
   gem 'i18n-tasks', '~> 1.0.15'
   gem 'highline', '2.1.0'
   # gem 'easy_translate'
-  gem 'ruby-openai'
+  # gem 'ruby-openai'
 end
 
 # lock gems to versions that are compatible with ruby 2.7.0,
@@ -69,6 +69,8 @@ gem 'zip_kit', '~> 6.2'
 gem 'rss', '~> 0.2'
 gem 'climate_control', '~> 0.2'
 gem 'rest-client', '~> 2.0'
+gem 'icalendar', '~> 2.12.1'
+gem 'icalendar-recurrence', '~> 1.2.1'
 
 gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'
