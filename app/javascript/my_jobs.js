@@ -9,12 +9,12 @@ import moment from 'moment-timezone';
 import daterangepicker from 'daterangepicker';
 import toastr from 'toastr';
 
-import { pageConfigData, jobPathUrl, filesPath, cancelJobsPath, username, performanceMetricsUrl } from './config.js';
+import { pageConfigData, jobPathUrl, filesPath, cancelJobsPath, username, csrfToken } from './config.js';
 
 const myJobsUrl = () => { return pageConfigData()["myJobsUrl"] };
 const jobInfoUrl = (id) => { return pageConfigData()["jobInfoUrl"].replace("JOB_ID", id) };
 
-window.csrf_token = csrfToken;
+window.csrf_token = csrfToken();
 
 const isLowTimeEff = (rowData) => (rowData[getColIndex("State")] === "COMPLETED" || rowData[getColIndex("State")] === "TIMEOUT") && rowData[getColIndex("Time Efficiency")] < TIME_EFF_THRESHOLD;
 const isLowCPUMemEff = (rowData) => (rowData[getColIndex("State")] === "COMPLETED" || rowData[getColIndex("State")] === "TIMEOUT") && rowData[getColIndex("Memory Efficiency")] < MEM_EFF_THRESHOLD;
