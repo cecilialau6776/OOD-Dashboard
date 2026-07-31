@@ -97,11 +97,12 @@ function loadJobQueue() {
 
   return fetch(jobQueueUrl())
     .then(response => {
-      response.json().then(data => {
+      return response.json()
+    })
+    .then(data => {
         $("#job_queue_card_content").html(getTableHtml(data));
 
         $('[data-bs-toggle="tooltip"]').tooltip({ boundary: 'window' });
-      });
     })
     .catch(error => {
       const errorHtml = `
@@ -128,4 +129,5 @@ function loadJobQueue() {
 
 jQuery(() => {
   loadJobQueue();
+  $("#job_queue_refresh_button").on("click", loadJobQueue);
 });
