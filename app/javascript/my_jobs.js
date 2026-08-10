@@ -1037,7 +1037,12 @@ function loadJobs() {
 
       $("#refresh-jobs-button").attr("disabled", true);
       $("#refresh-jobs-button").html('<i class="fa fa-refresh fa-spin"></i> Refresh');
-      fetch(`${myJobsUrl}?start_time=${start.toISOString()}&end_time=${end.toISOString()}`, { redirect: "manual" }).then(res => {
+      fetch(`${myJobsUrl()}?` + new URLSearchParams({
+        start_time: start.toISOString(),
+        end_time: end.toISOString(),
+      }).toString(), {
+        redirect: "manual",
+      }).then(res => {
         if (manual && res.status === 0 && res.type === "opaqueredirect") {
           redirectToLogin();
           return Promise.reject(res);

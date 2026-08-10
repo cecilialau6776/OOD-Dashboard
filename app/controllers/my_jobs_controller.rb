@@ -84,10 +84,10 @@ class MyJobsController < ApplicationController
 
     sacct_cache_key = "my_jobs_sacct/#{@user.name}"
 
-    if use_cache && Rails.cache.exist?(sacct_cache_key)
-      jobs_hash = Rails.cache.read(sacct_cache_key)
-      return render json: jobs_hash.to_json, status: :ok
-    end
+    # if use_cache && Rails.cache.exist?(sacct_cache_key)
+    #   jobs_hash = Rails.cache.read(sacct_cache_key)
+    #   return render json: jobs_hash.to_json, status: :ok
+    # end
 
     start_time = Date.today - 7.days
     end_time = DateTime.now
@@ -134,7 +134,7 @@ class MyJobsController < ApplicationController
     end
 
     # This command gets all jobs in the current user's allocations
-    result = `sacct -S #{start_time.strftime("%FT%T")} -E #{end_time.strftime("%FT%T")} -P -n -a -o #{SACCT_FIELDS.join(",")} -A #{allocations}`
+    result = `sacct -L -S #{start_time.strftime("%FT%T")} -E #{end_time.strftime("%FT%T")} -P -n -a -o #{SACCT_FIELDS.join(",")} -A #{allocations}`
 
     if $?.success?
       interactive_app_regex = %r{\A/home/#{Regexp.escape(@user.name)}/ondemand/data/sys/dashboard/batch_connect/sys/\w+/output/(?<uuid>[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})\z}
