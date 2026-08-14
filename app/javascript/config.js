@@ -1,4 +1,4 @@
-'use strict;'
+'use strict';
 
 const CONFIG_ID = 'ood_config'
 
@@ -184,11 +184,6 @@ export function performanceMetricsApiUserdataUrl() {
 export function performanceMetricsApiSacctuserUrl() {
   const cfgData = configData();
   return cfgData['performanceMetricsApiSacctuserUrl'];
-}
-
-export function nodeShowUrl(name="__NAME__") {
-  const cfgData = configData();
-  return cfgData['nodeShowUrl'].replace('__NAME__', name);
 }
 
 export function nodePathUrl(id="NODE_ID") {

@@ -1,0 +1,18 @@
+<%# locals: (descriptor: nil, attributes: {}) %>
+<% descriptor = " " + local_assigns[:descriptor] || "" %>
+
+<div class="d-none d-flex flex-column align-items-center justify-content-center h-100 py-3 error-div"
+   <% attributes.each do |attr, value| %>
+     <%= attr %>=<%= value %>
+   <% end %>
+  >
+  <div class="text-danger mb-3">
+    <i class="fas fa-exclamation-circle fa-2x"></i>
+  </div>
+  <h5 class="mb-2">Unable to Load <%= descriptor.titleize %></h5>
+  <p class="text-muted small mb-3">There was a problem retrieving the<%= descriptor %></p>
+  <button class="btn btn-sm btn-outline-secondary rounded-pill shadow-sm refresh-btn fs-6">
+    <i class="fas fa-sync-alt"></i>
+    <span class="ms-1">Retry</span>
+  </button>
+</div>

@@ -2,6 +2,37 @@
 @import "bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
+$gray-100: tint-color($gray, 80%) !default;
+$gray-200: tint-color($gray, 60%) !default;
+$gray-300: tint-color($gray, 40%) !default;
+$gray-400: tint-color($gray, 20%) !default;
+$gray-500: $gray !default;
+$gray-600: shade-color($gray, 20%) !default;
+$gray-700: shade-color($gray, 40%) !default;
+$gray-800: shade-color($gray, 60%) !default;
+$gray-900: shade-color($gray, 80%) !default;
+
+$warm-gray-100: tint-color($warm-gray, 80%) !default;
+$warm-gray-200: tint-color($warm-gray, 60%) !default;
+$warm-gray-300: tint-color($warm-gray, 40%) !default;
+$warm-gray-400: tint-color($warm-gray, 20%) !default;
+$warm-gray-500: $warm-gray !default;
+$warm-gray-600: shade-color($warm-gray, 20%) !default;
+$warm-gray-700: shade-color($warm-gray, 40%) !default;
+$warm-gray-800: shade-color($warm-gray, 60%) !default;
+$warm-gray-900: shade-color($warm-gray, 80%) !default;
+
+$warm-grays: (
+  "warm-gray-100": $warm-gray-100,
+  "warm-gray-200": $warm-gray-200,
+  "warm-gray-300": $warm-gray-300,
+  "warm-gray-400": $warm-gray-400,
+  "warm-gray-500": $warm-gray-500,
+  "warm-gray-600": $warm-gray-600,
+  "warm-gray-700": $warm-gray-700,
+  "warm-gray-800": $warm-gray-800,
+  "warm-gray-900": $warm-gray-900
+) !default;
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "bootstrap/scss/variables";
@@ -12,6 +43,7 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+// Generate border utilities
 $utilities: map-merge(
   $utilities,
   (
@@ -35,6 +67,28 @@ $utilities: map-merge(
       map-get($utilities, "border-start"),
       ( responsive: true ),
     ),
+  )
+);
+
+// Generate color variables
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans, $warm-grays);
+$colors: map-merge($colors, $all-colors);
+
+// Generate text utilties
+$utilities: map-merge(
+  $utilities,
+  (
+    "color": map-merge(
+        map-get($utilities, "color"),
+        (
+          values: map-merge(
+            map-get(map-get($utilities, "color"), "values"),
+            (
+              "cluster-status": var(--bs-cyan-500)
+            )
+          )
+        )
+    )
   )
 );
 

@@ -1,0 +1,15 @@
+<%# locals: (descriptor: nil, attributes: {}) %>
+<% descriptor = " " + local_assigns[:descriptor] || "" %>
+
+<div class="p-3 d-flex flex-column align-items-center justify-content-center h-100 loading-div"
+   <% attributes.each do |attr, value| %>
+     <%= attr %>=<%= value %>
+   <% end %>
+  >
+    <div class="position-relative mb-3">
+    <div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    </div>
+    <p class="text-muted mb-0">Loading<%= descriptor %>...</p>
+</div>

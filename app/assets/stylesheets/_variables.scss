@@ -6,25 +6,28 @@ $enable-responsive-font-sizes: "true";
 $enable-shadows: "true";
 
 // Colors
-$blue: rgb(51, 122, 183);
-$green: #5cb85c;
+// change contrast ratio
+$min-contrast-ratio: 3;
+// $blue: rgb(51, 122, 183);
+$red: #DA291C;
+$orange: #F76902;
+$cyan: #009CBD;
+$green: #84BD00;
+$teal: #C4D600;
+$yellow: #F6BE00;
+$purple: #7D55C7;
 $body-color: rgb(51, 51, 51);
 
-// see https://getbootstrap.com/docs/5.0/customize/sass/#modify-map
-$theme-colors: (
-  "primary": $blue,
-  "success": $green,
-  "danger": #dc3545,
-  "secondary": #6c757d,
-  "info": #0dcaf0,
-  "warning": #ffc107,
-  "light": #f8f9fa,
-  "dark": #212529
-);
+// add custom warm-gray color
+$warm-gray: #ACA39A;
+$warm-gray-200: #D7D2CB;
 
-// NOTE: bootstrap 3 info color was not teal but #5bc0de
-// however bootstrap's calculation to determine the text ends up with black instead of white text
-// so we avoid overriding this
+$gray-300: #D0D3D4;
+$gray: #A2AAAD;
+$gray-600: #7C878E;
+
+// see https://getbootstrap.com/docs/5.0/customize/sass/#modify-map
+$primary: $orange;
 
 // Navbar color default overrides
 $navbar-light-color: rgb(119, 119, 119);

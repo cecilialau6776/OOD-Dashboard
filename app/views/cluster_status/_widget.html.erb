@@ -1,0 +1,26 @@
+<%= javascript_include_tag 'cluster_status/widget' %>
+<h3 class="d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center">
+    <i class="fas fa-server text-cluster-status"></i>
+    <span class="mx-2">Cluster Status</span>
+    <a class="btn btn-sm btn-outline-secondary text-nowrap d-none d-md-inline-block"
+       href="<%= url_for cluster_status_path %>">
+      <i class="fas fa-table me-1"></i> View All <i class="fas fa-chevron-right ms-1" style="font-size: 0.75rem;"></i>
+    </a>
+  </div>
+  <button class="btn btn-sm btn-outline-secondary refresh-btn" data-widget="cluster_status">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+</h3>
+<div>
+  <%= render "shared/loading", descriptor: "cluster status", attributes: { 'data-widget': 'cluster_status' } %>
+  <%= render "shared/error", descriptor: "cluster status" , attributes: { 'data-widget': 'cluster_status' } %>
+  <div id="cluster_status_card_content"></div>
+</div>
+
+<style>
+ #cluster_status_card_content div[data-state] .badge {
+   color: var(--bs-black);
+   background-color: var(--state-color-subtle);
+ }
+</style>

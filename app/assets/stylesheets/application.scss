@@ -1,6 +1,6 @@
 @import "variables";
 
-@import "bootstrap/scss/bootstrap";
+@import "bootstrap";
 
 @import "custom";
 
@@ -133,14 +133,14 @@ pre.motd-monospaced {
 // Add branded panels
 
 .sandbox-apps-header {
-  background-color: $ood-burgundy;
-  color: $ood-white;
+  background-color: $red-700;
+  color: $white;
   margin-bottom: 2rem;
 }
 
 .system-and-shared-apps-header {
-  background-color: $ood-blue;
-  color: $ood-white;
+  background-color: $orange-600;
+  color: $white;
   margin-bottom: 2rem;
 }
 
@@ -212,3 +212,5 @@ small.form-text {
 @import "@uppy/dashboard/dist/style";
 @import "daterangepicker/daterangepicker";
 @import "toastr/toastr";
+
+@import "cluster_status";

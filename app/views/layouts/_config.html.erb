@@ -29,7 +29,6 @@
   data-username="<%= @user.name %>"
   data-performance-metrics-url="<%= url_for 'performance_metrics' %>"
   data-cluster-status-url="<%= url_for controller: 'api/cluster_status', action: 'get' %>"
-  data-node-show-url="<%#= url_for(controller: 'nodes', action: 'show', name: '__NAME__') %>"
   data-node-path-url="<%= node_path('NODE_ID') %>"
   data-performance-metrics-api-userdata-url="<%= url_for controller: 'api/performance_metrics', action: :getuserdata %>"
   data-performance-metrics-api-sacctuser-url="<%= url_for controller: 'api/performance_metrics', action: :getsacctuser %>"
