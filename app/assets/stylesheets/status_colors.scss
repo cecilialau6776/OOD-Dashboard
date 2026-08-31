@@ -1,0 +1,137 @@
+// Colors Definitions
+// Cluster and Node States colors
+*[data-cluster="sporc"] {
+    --cluster-color-subtle: var(--bs-purple-100);
+    --cluster-color: var(--bs-purple-400);
+    --cluster-color-dark: var(--bs-purple-700);
+}
+*[data-cluster="tigris"] {
+    --cluster-color-subtle: var(--bs-orange-200);
+    --cluster-color: var(--bs-orange-500);
+    --cluster-color-dark: var(--bs-orange-800);
+}
+
+*[data-state="online"] {
+    --state-color-subtle: var(--bs-green-200);
+    --state-color: var(--bs-green-500);
+    --state-color-dark: var(--bs-green-800);
+}
+*[data-state="idle"] {
+    --state-color-subtle: var(--bs-teal-200);
+    --state-color: var(--bs-teal-500);
+    --state-color-dark: var(--bs-teal-800);
+}
+*[data-state="drained"] {
+    --state-color-subtle: var(--bs-yellow-200);
+    --state-color: var(--bs-yellow-500);
+    --state-color-dark: var(--bs-yellow-800);
+}
+*[data-state="maintenance"] {
+    --state-color-subtle: var(--bs-orange-100);
+    --state-color: var(--bs-orange-400);
+    --state-color-dark: var(--bs-orange-700);
+}
+*[data-state="down"] {
+    --state-color-subtle: var(--bs-red-200);
+    --state-color: var(--bs-red-500);
+    --state-color-dark: var(--bs-red-800);
+}
+
+:root {
+    --job-state-cancelled-fg: white;
+    --job-state-cancelled-bg: var(--bs-secondary); 
+    --job-state-completed-fg: white;
+    --job-state-completed-bg: var(--bs-green); 
+    --job-state-completing-fg: white;
+    --job-state-completing-bg: var(--bs-cyan); 
+    --job-state-failed-fg: white;
+    --job-state-failed-bg: var(--bs-red); 
+    --job-state-memory-fg: white;
+    --job-state-memory-bg: var(--bs-pink); 
+    --job-state-pending-fg: white;
+    --job-state-pending-bg: var(--bs-yellow); 
+    --job-state-preempted-fg: white;
+    --job-state-preempted-bg: var(--bs-secondary); 
+    --job-state-running-fg: white;
+    --job-state-running-bg: var(--bs-blue); 
+    --job-state-requeued-fg: black;
+    --job-state-requeued-bg: var(--bs-warm-gray); 
+    --job-state-suspended-fg: white;
+    --job-state-suspended-bg: var(--bs-purple); 
+    --job-state-stopped-fg: white;
+    --job-state-stopped-bg: var(--bs-gray-800); 
+    --job-state-timeout-fg: white;
+    --job-state-timeout-bg: var(--bs-orange); 
+}
+
+// Job State colors
+*[data-job-state="cancelled"] {
+    --job-state-fg: var(--job-state-cancelled-fg);
+    --job-state-bg: var(--job-state-cancelled-bg);
+}
+*[data-job-state="completed"] {
+    --job-state-fg: var(--job-state-completed-fg);
+    --job-state-bg: var(--job-state-completed-bg);
+}
+*[data-job-state="completing"] {
+    --job-state-fg: var(--job-state-completing-fg);
+    --job-state-bg: var(--job-state-completing-bg);
+}
+*[data-job-state="failed"] {
+    --job-state-fg: var(--job-state-failed-fg);
+    --job-state-bg: var(--job-state-failed-bg);
+}
+*[data-job-state="out_of_memory"] {
+    --job-state-fg: var(--job-state-memory-fg);
+    --job-state-bg: var(--job-state-memory-bg);
+}
+*[data-job-state="pending"] {
+    --job-state-fg: var(--job-state-pending-fg);
+    --job-state-bg: var(--job-state-pending-bg);
+}
+*[data-job-state="preempted"] {
+    --job-state-fg: var(--job-state-preempted-fg);
+    --job-state-bg: var(--job-state-preempted-bg);
+}
+*[data-job-state="running"] {
+    --job-state-fg: var(--job-state-running-fg);
+    --job-state-bg: var(--job-state-running-bg);
+}
+*[data-job-state="requeued"] {
+    --job-state-fg: var(--job-state-requeued-fg);
+    --job-state-bg: var(--job-state-requeued-bg);
+}
+*[data-job-state="suspended"] {
+    --job-state-fg: var(--job-state-suspended-fg);
+    --job-state-bg: var(--job-state-suspended-bg);
+}
+*[data-job-state="stopped"] {
+    --job-state-fg: var(--job-state-stopped-fg);
+    --job-state-bg: var(--job-state-stopped-bg);
+}
+*[data-job-state="timeout"] {
+    --job-state-fg: var(--job-state-timeout-fg);
+    --job-state-bg: var(--job-state-timeout-bg);
+}
+
+
+// Badges
+.badge.cluster-badge {
+    --bs-badge-font-size: 1rem;
+    --bs-badge-color: var(--cluster-color-dark);
+    background-color: var(--cluster-color-subtle);
+}
+.badge.state-badge {
+    --bs-badge-font-size: 1rem;
+    --bs-badge-color: var(--state-color-dark);
+    background-color: var(--state-color-subtle);
+}
+.badge.partition-badge {
+    --bs-badge-font-size: 1rem;
+    --bs-badge-color: var(--bs-secondary-text-emphasis);
+    background-color: var(--bs-secondary-bg-subtle);
+}
+.badge.job-state-badge {
+    --bs-badge-color: var(--job-state-fg);
+    background-color: var(--job-state-bg);
+}

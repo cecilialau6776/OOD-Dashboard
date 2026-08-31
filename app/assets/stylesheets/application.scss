@@ -95,6 +95,12 @@ $ood-blue: rgb(0, 95, 133);
 
 // Load up dataTables bootstrap specific styles
 @import "datatables.net-bs5/css/dataTables.bootstrap5";
+@import "datatables.net-columncontrol-bs5/css/columnControl.bootstrap5";
+@import "datatables.net-select-bs5/css/select.bootstrap5";
+// DataTables .selected fix
+:root {
+    --dt-row-selected: var(--bs-primary-rgb);
+}
 
 // Use sticky footer in body of layout
 // See: https://css-tricks.com/couple-takes-sticky-footer/
@@ -182,6 +188,7 @@ small.form-text {
   }
 }
 
+
 // Your custom css styles below (must be manually added)
 
 @import "active_jobs";
@@ -213,4 +220,4 @@ small.form-text {
 @import "daterangepicker/daterangepicker";
 @import "toastr/toastr";
 
-@import "cluster_status";
+@import "status_colors";

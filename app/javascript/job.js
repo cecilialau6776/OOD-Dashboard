@@ -1,14 +1,15 @@
-import { filesPath, jobApiPathUrl, jobPathUrl, nodePathUrl, username } from './config.js';
+import { pageConfigData, filesPath, jobApiPathUrl, jobPathUrl, nodePathUrl, username } from './config.js';
 
-const jobId = () => { return document.getElementById("page-data").dataset["jobId"] };
+const jobId = () => { return pageConfigData()["jobId"] };
+const cluster = () => { return pageConfigData()["cluster"] };
 
 function formatMemory(memStr) {
   if (!memStr || memStr === 'N/A' || memStr === null) return '';
-  
+
   // Convert 'G', 'M', 'T' to 'GB', 'MB', 'TB'
   const match = memStr.match(/^(\d+(?:\.\d+)?)([GMTgmt])$/);
   if (!match) return memStr;
-  
+
   const [, value, unit] = match;
   const unitMap = {
     'G': 'GB',
@@ -18,7 +19,7 @@ function formatMemory(memStr) {
     'T': 'TB',
     't': 'TB'
   };
-  
+
   return `${value} ${unitMap[unit] || unit}`;
 }
 
@@ -43,16 +44,16 @@ function getStateDescription(state, reason) {
   // Get first word of state by splitting on underscore or space and taking first element
   state = state.split(" ")[0].toUpperCase();
   let description = SIMPLE_JOB_STATE_CODES[state] || JOB_STATE_CODES[state];
-  
+
   if (!description) return null;
-  
+
   if (reason) {
     const reasonDesc = SIMPLE_JOB_REASON_CODES[reason] || JOB_REASON_CODES[reason];
     if (reasonDesc) {
       description += ` (${reasonDesc})`;
     }
   }
-  
+
   return description;
 }
 
@@ -60,10 +61,10 @@ function formatEfficiency(value) {
   if (value === null || value === undefined || isNaN(value)) {
     return '<span style="color: #64748b;">-</span>';
   }
-  
+
   const efficiency = (parseFloat(value) * 100).toFixed(2);  // Convert to percentage and format to 2 decimal places
   let color;
-  
+
   if (efficiency >= 75) {
     color = '#28a745';  // Green for good efficiency
   } else if (efficiency >= 50) {
@@ -71,24 +72,24 @@ function formatEfficiency(value) {
   } else {
     color = '#dc3545';  // Red for poor efficiency
   }
-  
+
   return `<span style="color: ${color}; font-weight: 500;">${efficiency}%</span>`;
 }
 
 function formatDateTime(epochSeconds) {
   if (epochSeconds === null || epochSeconds === undefined) return '';
-  
+
   try {
     const date = new Date(epochSeconds * 1000); // Convert epoch seconds to milliseconds
     if (isNaN(date.getTime())) return '';
-    
+
     // Format date as MM/DD/YY
     const dateFormatter = new Intl.DateTimeFormat('en-US', {
       month: '2-digit',
       day: '2-digit',
       year: '2-digit'
     });
-    
+
     // Format time as HH:mm:ss
     const timeFormatter = new Intl.DateTimeFormat('en-US', {
       hour: '2-digit',
@@ -97,13 +98,13 @@ function formatDateTime(epochSeconds) {
       hour12: false,
       timeZoneName: 'short'
     });
-    
+
     const formattedDate = dateFormatter.format(date);
     const timeStr = timeFormatter.format(date);
-    
+
     // Split the time string into time and timezone
     const [time, timezone] = timeStr.split(' ');
-    
+
     return `${formattedDate}<span class="separator d-none d-md-inline">, </span><span class="d-md-none"> </span><span class="text-nowrap">${time}</span> <span class="text-nowrap">${timezone}</span>`;
   } catch (e) {
     console.error('Error formatting date:', e);
@@ -113,40 +114,40 @@ function formatDateTime(epochSeconds) {
 
 function format_time_display(seconds) {
   if (seconds === null || seconds === undefined || isNaN(seconds)) return { formatted: '', raw: '' };
-  
+
   // Convert to whole seconds
   const totalSeconds = Math.floor(seconds);
-  
+
   // Calculate hours, minutes, seconds
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const remainingSeconds = totalSeconds % 60;
-  
+
   // Format HH:MM:SS for tooltip
   const rawFormat = [
     hours.toString().padStart(2, '0'),
     minutes.toString().padStart(2, '0'),
     remainingSeconds.toString().padStart(2, '0')
   ].join(':');
-  
+
   // Format display with abbreviations, skipping zero values
   const parts = [];
-  
+
   if (hours > 0) {
     parts.push(`${hours} hr`);
   }
-  
+
   // Only include minutes if:
   // 1. Minutes are non-zero, or
   // 2. We have hours AND seconds (need minutes as separator)
   if (minutes > 0 || (hours > 0 && remainingSeconds > 0)) {
     parts.push(`${minutes} m`);
   }
-  
+
   if (remainingSeconds > 0 || parts.length === 0) {
     parts.push(`${remainingSeconds} s`);
   }
-  
+
   return {
     formatted: parts.join(' '),
     raw: rawFormat
@@ -160,7 +161,7 @@ function createNodeList(nodes) {
   if (nodes.length === 1 && nodes[0] === "None assigned") {
     return '';
   }
-  
+
   return nodes.map(node => `
     <a href="${nodePathUrl(node)}"
       class="node-link">
@@ -180,7 +181,7 @@ function get(data, key, defaultValue = '') {
   if (!data || !data.hasOwnProperty(key) || data[key] === null || data[key] === '' || data[key] === 'Unknown') {
     return defaultValue;
   }
-  
+
   // Special handling for User field to remove parenthetical user ID
   if (key === 'User') {
     const userMatch = data[key].match(/^([^(]+)/);
@@ -188,7 +189,7 @@ function get(data, key, defaultValue = '') {
       return userMatch[1].trim();
     }
   }
-  
+
   // Handle case where value is an object (like State or steps)
   if (typeof data[key] === 'object' && data[key] !== null) {
     // If it's an empty object, return default
@@ -214,16 +215,16 @@ function loadFile(data, tabId, dataKey) {
   const content = tab.querySelector('.output-content');
   const loadingPlaceholder = content.querySelector('.loading-placeholder');
   const textContainer = content.querySelector('.output-text-container');
-  
+
   // Show loading state
   loadingPlaceholder.classList.remove('d-none');
   textContainer.classList.add('d-none');
-  
+
   // Add tail parameter to request last 1000 lines
   const filePath = get(data, dataKey);
   const url = new URL(filesPath() + filePath, window.location.origin);
   url.searchParams.append('tail', '1000');
-  
+
   fetch(url)
     .then(response => {
       if (response.status === 403) {
@@ -238,29 +239,29 @@ function loadFile(data, tabId, dataKey) {
     .then(data => {
       // Split content into lines without filtering
       let lines = data.content.split('\n');
-      
+
       // Add truncation message if we received exactly 1000 lines and there are more lines
       if (lines.length === 1000 && data.total_lines > 1000) {
         lines.unshift(`--- Output truncated. Showing last 1000 lines (${data.start_line}-${data.total_lines}) ---`);
       }
-      
+
       // Clear previous content
       textContainer.innerHTML = '';
-      
+
       // Create pre element for the output
       const pre = document.createElement('pre');
       pre.className = 'output-text';
-      
+
       // Calculate the number of digits in the largest line number
       const maxLineNumber = data.total_lines;
       const numDigits = maxLineNumber.toString().length;
-      
+
       // Add a CSS variable to the pre element to store the character width
       pre.style.setProperty('--line-number-chars', numDigits);
-      
+
       lines.forEach((line, index) => {
         const lineDiv = document.createElement('div');
-        
+
         if (index === 0 && line.startsWith('--- Output truncated')) {
           lineDiv.className = 'output-line truncation-message';
           const lineContent = document.createElement('span');
@@ -274,18 +275,18 @@ function loadFile(data, tabId, dataKey) {
           const actualLineNumber = data.start_line + (index - (lines[0].startsWith('--- Output truncated') ? 1 : 0));
           // Pad the line number with spaces to match the maximum width
           lineNumber.textContent = actualLineNumber.toString().padStart(numDigits, ' ');
-          
+
           const lineContent = document.createElement('span');
           lineContent.className = 'line-content';
           lineContent.textContent = line;
-          
+
           lineDiv.appendChild(lineNumber);
           lineDiv.appendChild(lineContent);
         }
-        
+
         pre.appendChild(lineDiv);
       });
-      
+
       textContainer.appendChild(pre);
 
       // Show content
@@ -332,9 +333,9 @@ function loadFile(data, tabId, dataKey) {
 function renderJobData(data) {
   // Store current tab state before rendering
   const activeTabId = $('.nav-tabs .nav-link.active').attr('href') || '#info';
-  
+
   const jobState = get(data, 'State', 'UNKNOWN');
-  
+
   // Add auto-refresh for COMPLETING state
   if (jobState === 'COMPLETING') {
     setTimeout(() => loadJobData(), 3000);
@@ -342,7 +343,7 @@ function renderJobData(data) {
 
   const stateColors = getJobStateColor(jobState);
   const stateDescription = getStateDescription(jobState, data.state_reason);
-  
+
   const submitTime = get(data, 'Submit');
   const eligibleTime = get(data, 'Eligible');
   const startTime = get(data, 'Start');
@@ -395,11 +396,11 @@ function renderJobData(data) {
       if (jobState === 'RUNNING') {
         const elapsed = now - start;
         const timeLimit = get(data, 'Timelimit');
-        
+
         if (timeLimit) {
           // timeLimit is already in seconds
           const timeLimitSeconds = parseInt(timeLimit);
-          
+
           if (timeLimitSeconds > 0) {
             const progress = Math.min((elapsed / timeLimitSeconds) * 25, 25);
             timelineProgress = 75 + progress;
@@ -757,16 +758,16 @@ function renderJobData(data) {
                       </span>
                     </td>
                     <td>
-                      ${get(task, 'NodeList') && Array.isArray(task.NodeList) && 
-                        task.NodeList.length > 0 && 
-                        task.NodeList[0] !== "None assigned" ? 
-                          task.NodeList.map(node => `
+                      ${get(task, 'NodeList') && Array.isArray(task.NodeList) &&
+      task.NodeList.length > 0 &&
+      task.NodeList[0] !== "None assigned" ?
+      task.NodeList.map(node => `
                             <a href="${nodePathUrl(node)}"
                                class="node-link">
                               ${node}
                             </a>
-                          `).join('') 
-                        : ''}
+                          `).join('')
+      : ''}
                     </td>
                     <td>${formatDateTime(get(task, 'Submit'))}</td>
                     <td>${formatDateTime(get(task, 'Start'))}</td>
@@ -776,9 +777,9 @@ function renderJobData(data) {
                             data-bs-toggle="tooltip" 
                             data-bs-placement="bottom" 
                             title="${format_time_display(get(task, 'Elapsed')).raw}">
-                        ${get(task, 'Elapsed') && get(task, 'Elapsed') !== '0' ? 
-                          format_time_display(get(task, 'Elapsed')).formatted : 
-                          ''}
+                        ${get(task, 'Elapsed') && get(task, 'Elapsed') !== '0' ?
+      format_time_display(get(task, 'Elapsed')).formatted :
+      ''}
                       </span>
                     </td>
                     <td>
@@ -799,12 +800,12 @@ function renderJobData(data) {
                 <i class="fas fa-file-alt me-2 text-primary" style="font-size: 1.25rem;"></i>
                 <h5 class="mb-0 text-muted">
                   ${(() => {
-                    const path = get(data, 'StdOut');
-                    const parts = path.split('/');
-                    const fileName = parts.pop();
-                    return `${parts.join('/')}/`
-                      + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
-                  })()}
+        const path = get(data, 'StdOut');
+        const parts = path.split('/');
+        const fileName = parts.pop();
+        return `${parts.join('/')}/`
+          + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
+      })()}
                 </h5>
               </div>
               <a href="${filesPath() + get(data, 'StdOut')}" 
@@ -840,12 +841,12 @@ function renderJobData(data) {
                 <i class="fas fa-exclamation-triangle me-2 text-danger" style="font-size: 1.25rem;"></i>
                 <h5 class="mb-0 text-muted">
                   ${(() => {
-                    const path = get(data, 'StdErr');
-                    const parts = path.split('/');
-                    const fileName = parts.pop();
-                    return `${parts.join('/')}/`
-                      + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
-                  })()}
+        const path = get(data, 'StdErr');
+        const parts = path.split('/');
+        const fileName = parts.pop();
+        return `${parts.join('/')}/`
+          + `<span class="text-dark fw-bolder" style="font-size: 1.2em; text-shadow: 0 0 0.5px currentColor;">${fileName}</span>`;
+      })()}
                 </h5>
               </div>
               <a href="${filesPath() + get(data, 'StdErr')}" 
@@ -918,7 +919,7 @@ function renderJobData(data) {
   const cancelableStates = ['PENDING', 'RUNNING', 'REQUEUED', 'SUSPENDED'];
   const jobUser = get(data, 'User', '').split('(')[0].trim(); // Get username without parenthetical ID
   const currentUser = username; // Get current user from Ruby
-  
+
   if (cancelableStates.includes(jobState.split(" ")[0].toUpperCase()) && jobUser === currentUser) {
     cancelJobContainer.classList.remove('d-none');
     cancelJobContainer.classList.add('d-block');
@@ -931,8 +932,8 @@ function renderJobData(data) {
 function loadJobData() {
   // Add spinning class to refresh icon
   $('.btn-outline-secondary .fa-sync-alt').addClass('fa-spin');
-  
-  fetch(jobApiPathUrl(jobId()))
+
+  fetch(jobApiPathUrl(cluster(), jobId()), { cache: "no-store" })
     .then(res => {
       return res.json();
     })
@@ -942,7 +943,7 @@ function loadJobData() {
 
       loadFile(data, 'output', 'StdOut');
       loadFile(data, 'error', 'StdErr');
-      
+
       // Re-initialize tooltips after any dynamic updates
       $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip({
         trigger: 'hover',
@@ -999,13 +1000,13 @@ $('#cancelJobModal').on('hidden.bs.modal', function () {
 function cancelJob() {
   const modal = document.getElementById('cancelJobModal');
   const keepRunningBtn = document.getElementById('keepRunningBtn');
-  
+
   $(modal).modal({
     keyboard: true,
     backdrop: 'static',
     focus: false
   });
-  
+
   // Show modal and handle focus
   $(modal).modal('show');
   setTimeout(() => keepRunningBtn.focus(), 150);
@@ -1014,12 +1015,12 @@ function cancelJob() {
 function confirmCancelJob() {
   const modal = document.getElementById('cancelJobModal');
   const cancelBtn = document.getElementById('cancelJobBtn');
-  
+
   $(modal).modal('hide');
   setTimeout(() => cancelBtn.focus(), 150);
-  
+
   const jobId = document.getElementById('jobId').textContent;
-  
+
   fetch(cancelJobsApiPath(jobId()), {
     method: 'DELETE',
     headers: {
@@ -1027,27 +1028,27 @@ function confirmCancelJob() {
       'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
     }
   })
-  .then(response => response.json())
-  .then(data => {
-    if (data.error) {
-      throw new Error(data.error);
-    }
-    const toast = createToast('success', data.message || 'Job cancelled successfully');
-    document.body.appendChild(toast);
-    loadJobData();
-  })
-  .catch(error => {
-    const errorMessage = error.message || 'Failed to cancel job';
-    const toast = createToast('error', errorMessage);
-    document.body.appendChild(toast);
-  });
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      const toast = createToast('success', data.message || 'Job cancelled successfully');
+      document.body.appendChild(toast);
+      loadJobData();
+    })
+    .catch(error => {
+      const errorMessage = error.message || 'Failed to cancel job';
+      const toast = createToast('error', errorMessage);
+      document.body.appendChild(toast);
+    });
 }
 
 // Add event listener for modal close
-$(document).ready(function() {
+$(document).ready(function () {
   const modal = document.getElementById('cancelJobModal');
   const cancelBtn = document.getElementById('cancelJobBtn');
-  
+
   $(modal).on('hidden.bs.modal', function () {
     cancelBtn.focus();
   });
@@ -1063,12 +1064,12 @@ function createToast(type, message) {
       <span>${message}</span>
     </div>
   `;
-  
+
   // Remove toast after 3 seconds
   setTimeout(() => {
     toast.classList.add('fade-out');
     setTimeout(() => toast.remove(), 300);
   }, 3000);
-  
+
   return toast;
 }

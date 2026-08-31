@@ -7,29 +7,7 @@
 
 <div class="container-fluid">
   <div class="card">
-    <!-- card header -->
-    <h3 class="fw-bold card-header p-3">
-      <div class="d-flex flex-column">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center">
-            <i class="fas fa-server text-cluster-status"></i>
-            <span class="mx-2">Cluster Status</span>
-          </div>
-          <div class="d-flex align-items-center">
-            <small id="last-updated" class="d-none d-md-block font-weight-semibold me-3" style="font-size: 13pt;">
-              Last updated: <span data-bs-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
-            </small>
-            <button class="btn btn-sm btn-outline-secondary rounded-pill shadow-sm refresh-btn fs-6">
-              <i class="fas fa-sync-alt"></i>
-              <span class="d-none d-md-inline ms-1">Refresh</span>
-            </button>
-          </div>
-        </div>
-        <small id="last-updated-mobile" class="d-md-none font-weight-semibold mt-2" style="font-size: 13pt;">
-          Last updated: <span data-bs-toggle="tooltip" title="" style="border-bottom: 1px dotted #666;">Just now</span>
-        </small>
-      </div>
-    </h3>
+    <%= render "shared/card_header", title: "cluster status", icon_classes: "fas fa-server text-cluster-status" %>
 
     <%= render "shared/loading", descriptor: "cluster status" %>
     <%= render "shared/error", descriptor: "cluster status" %>
@@ -175,23 +153,6 @@
    border-bottom-left-radius: var(--bs-border-radius);
  }
 
- /* List View */
- .badge.cluster-badge {
-   --bs-badge-font-size: 1rem;
-   --bs-badge-color: var(--cluster-color-dark);
-   background-color: var(--cluster-color-subtle);
- }
- .badge.state-badge {
-   --bs-badge-font-size: 1rem;
-   --bs-badge-color: var(--state-color-dark);
-   background-color: var(--state-color-subtle);
- }
- .badge.partition-badge {
-   --bs-badge-font-size: 1rem;
-   --bs-badge-color: var(--bs-secondary-text-emphasis);
-   background-color: var(--bs-secondary-bg-subtle);
- }
-
  /* Colors */
  .filter-toggle[data-cluster] > .filter-indicator-box,
  .cluster-indicator {
@@ -244,11 +205,6 @@
  @media (max-width: 768px) {
    .node-tabs {
      display: none;
-   }
-   
-   /* Add container padding to prevent select from touching edges */
-   .node-tabs-container {
-     padding: 0 4px;
    }
  }
 

@@ -8,7 +8,6 @@ function nodeShowUrl(name = "__NAME__") {
   return cfgData['nodeShowUrl'].replace('__NAME__', name);
 }
 
-let rawData = null;
 let selectedStates = new Set();
 
 function getNodeGroupName(node) {
@@ -56,9 +55,6 @@ function renderNodeGroupFilters(nodeGroups) {
       });
     $filterGroupContainer.append($toggleButton);
   });
-
-  // After creating all tabs, update scroll indicators
-  updateScrollIndicators();
 }
 
 function renderHeatmap(data) {
@@ -158,70 +154,6 @@ function createNodeTooltip(node) {
     `;
 }
 
-let searchTerm = '';
-
-function nodeMatchesSearch(node, term) {
-  if (!term) return true;
-
-  term = term.toLowerCase();
-
-  // Search in node name
-  if (node.NodeName.toLowerCase().includes(term)) return true;
-
-  // Search in state
-  if (getNodeStateName(node).toLowerCase().includes(term)) return true;
-
-  // Search in CPU info
-  const cpuInfo = `${node.CPULoad || 0}/${node.CPUTot || 0}`;
-  if (cpuInfo.includes(term)) return true;
-
-  // Search in memory info
-  const totalMem = parseInt(node.RealMemory) || 0;
-  const freeMem = parseInt(node.FreeMem) || 0;
-  const usedMem = totalMem - freeMem;
-  const memInfo = `${formatMemory(usedMem)}/${formatMemory(totalMem)}`;
-  if (memInfo.toLowerCase().includes(term)) return true;
-
-  // Search in partitions
-  if (node.Partitions && node.Partitions.some(partition =>
-    partition.toLowerCase().includes(term)
-  )) return true;
-
-  return false;
-}
-
-function handleSearch(event) {
-  searchTerm = event.target.value;
-
-  // Get current group name
-  const currentGroup = document.querySelector('.node-tab.active')?.textContent.split(' (')[0] ||
-    document.querySelector('.mobile-group-select').value;
-
-  // Get nodes for current group
-  let nodes;
-  if (currentGroup === 'All Nodes') {
-    nodes = rawData;
-  } else {
-    nodes = rawData.filter(node => {
-      const prefix = node.NodeName.match(/^[a-z]+/i)?.[0] || 'other';
-      const nodeGroupName = prefix === 'login' ? 'Login Nodes' :
-        `${prefix.toUpperCase()} Nodes`;
-      return nodeGroupName === currentGroup;
-    });
-  }
-
-  // Apply search filter
-  const filteredNodes = nodes.filter(node => nodeMatchesSearch(node, searchTerm));
-
-  // Apply current sort if any
-  const sortedNodes = currentSort.column ?
-    sortNodes(filteredNodes, currentSort.column, currentSort.direction) :
-    filteredNodes;
-
-  // Render the filtered and sorted nodes
-  renderListView(sortedNodes);
-}
-
 function renderListView(data) {
   const datatable = $("#node-list").DataTable();
   datatable.clear();
@@ -314,7 +246,6 @@ function startTimestampUpdater() {
 
 async function loadClusterStatus() {
   $('.refresh-btn i').addClass('refresh-spin');
-  $("#error-div").addClass("d-none");
 
   // Clear selected states when refreshing
   selectedStates.clear();
@@ -322,7 +253,7 @@ async function loadClusterStatus() {
     indicator.classList.remove('selected');
   });
 
-  fetch(clusterStatusUrl(), {cache: "no-store"}).then(res => {
+  fetch(clusterStatusUrl(), { cache: "no-store" }).then(res => {
     return res.json();
   })
     .then(data => {
@@ -344,6 +275,7 @@ async function loadClusterStatus() {
 
       $("#grid-list-tabs").removeClass("d-none");
       $(".card-body").removeClass("d-none");
+      $(".error-div").addClass("d-none");
 
       return data;
     })
@@ -358,65 +290,6 @@ async function loadClusterStatus() {
       $(".loading-div").addClass("d-none");
       $('.refresh-btn i').removeClass('refresh-spin');
     });
-}
-
-let currentSort = {
-  column: null,
-  direction: 'asc'
-};
-
-function getSortValue(node, column) {
-  switch (column) {
-    case 'name':
-      return node.NodeName.toLowerCase();
-    case 'state':
-      // Create a priority order for states
-      const statePriority = {
-        'Down': 0,
-        'Maintenance': 1,
-        'Drained': 2,
-        'Online': 3,
-        'Available': 3,
-        'Partially Allocated': 3,
-        'Fully Allocated': 3
-      };
-      return statePriority[getNodeStateName(node)];
-    case 'compute':
-      // Handle both CPU and GPU sorting
-      if (node.NodeName.startsWith('g')) {
-        const gpuLoad = parseFloat(node.GPULoad) || 0;
-        const gpuTotal = parseFloat(node.GPUTot) || 0;
-        return gpuLoad / (gpuTotal || 1);
-      } else {
-        const cpuLoad = parseFloat(node.CPULoad) || 0;
-        const cpuTotal = parseFloat(node.CPUTot) || 0;
-        return cpuLoad / (cpuTotal || 1);
-      }
-    case 'memory':
-      // Calculate memory usage percentage
-      const totalMem = parseInt(node.RealMemory) || 0;
-      const freeMem = parseInt(node.FreeMem) || 0;
-      const usedMem = totalMem - freeMem;
-      return usedMem / (totalMem || 1); // Return usage percentage
-    case 'partitions':
-      return (node.Partitions || []).sort().join(',').toLowerCase();
-    default:
-      return 0;
-  }
-}
-
-function sortNodes(nodes, column, direction) {
-  return [...nodes].sort((a, b) => {
-    const aValue = getSortValue(a, column);
-    const bValue = getSortValue(b, column);
-
-    // Simple comparison that works for all types
-    if (direction === 'asc') {
-      return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
-    } else {
-      return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
-    }
-  });
 }
 
 function initializeGridTooltips() {
@@ -560,7 +433,6 @@ function initializeListViewDataTable() {
 // Initialize tooltips and handle window resize
 jQuery(() => {
   initializeListViewDataTable();
-  $('#node-search').on('input', handleSearch);
   $('.refresh-btn').on('click', loadClusterStatus);
 
   // Initialize general tooltips
@@ -569,87 +441,6 @@ jQuery(() => {
   // Start the timestamp updater
   startTimestampUpdater();
 
-  // Handle window resize
-  let resizeTimeout;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimeout);
-
-    // Dispose of all tooltips before resize
-    $('[data-bs-toggle="tooltip"]').tooltip('dispose');
-
-    resizeTimeout = setTimeout(function () {
-      if (rawData) {
-        // Store current state before redraw
-        const currentGroup = document.querySelector('.node-tab.active')?.textContent.split(' (')[0] ||
-          document.querySelector('.mobile-group-select').value;
-        const currentSearchTerm = document.getElementById('node-search')?.value || '';
-
-        // Redraw heatmap
-        renderHeatmap(rawData);
-
-        // Re-select the current group
-        if (currentGroup) {
-          switchNodeGroup(currentGroup);
-        }
-
-        // Re-apply search if there was one
-        if (currentSearchTerm) {
-          const searchInput = document.getElementById('node-search');
-          searchInput.value = currentSearchTerm;
-          searchTerm = currentSearchTerm;
-          handleSearch({ target: { value: currentSearchTerm } });
-        }
-
-        // After redrawing, reinitialize tooltips
-        initializeGridTooltips();
-        initializeGeneralTooltips();
-      }
-    }, 250);
-  });
-
   // First load cluster status which creates the DOM elements
   loadClusterStatus();
-
-  // Add scroll event listener for tabs
-  const tabsContainer = document.querySelector('.node-tabs-container > ul');
-  if (tabsContainer) {
-    tabsContainer.addEventListener('scroll', updateScrollIndicators);
-
-    // Update indicators on window resize
-    window.addEventListener('resize', updateScrollIndicators);
-
-    // Initial update
-    updateScrollIndicators();
-  }
 });
-
-// Add this function inside your existing JavaScript
-function updateScrollIndicators() {
-  const tabsContainer = document.querySelector('.node-tabs');
-  const container = document.querySelector('.node-tabs-container');
-
-  if (!tabsContainer || !container) return;
-
-  const hasHorizontalScroll = tabsContainer.scrollWidth > tabsContainer.clientWidth;
-
-  if (!hasHorizontalScroll) {
-    container.classList.remove('scroll-start', 'scroll-middle', 'scroll-end');
-    return;
-  }
-
-  const scrollLeft = tabsContainer.scrollLeft;
-  const scrollWidth = tabsContainer.scrollWidth;
-  const clientWidth = tabsContainer.clientWidth;
-
-  // Check scroll position
-  if (scrollLeft === 0) {
-    container.classList.remove('scroll-start', 'scroll-middle');
-    container.classList.add('scroll-end');
-  } else if (scrollLeft + clientWidth >= scrollWidth - 1) { // -1 for rounding errors
-    container.classList.remove('scroll-end', 'scroll-middle');
-    container.classList.add('scroll-start');
-  } else {
-    container.classList.remove('scroll-start', 'scroll-end');
-    container.classList.add('scroll-middle');
-  }
-}

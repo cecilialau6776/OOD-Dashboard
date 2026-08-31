@@ -16,11 +16,24 @@
 
 import jQuery from 'jquery';
 import 'jquery-ujs';
-import 'datatables.net';
-import 'datatables.net-bs5/js/dataTables.bootstrap5';
-import 'datatables.net-fixedheader';
-import 'datatables.net-select/js/dataTables.select';
-import 'datatables.net-plugins/api/processing().mjs';
+
+// import 'datatables.net';
+// import 'datatables.net-bs5/js/dataTables.bootstrap5';
+// import 'datatables.net-select/js/dataTables.select';
+// import 'datatables.net-columncontrol/js/dataTables.columnControl';
+
+import 'datatables.net-bs5';
+import 'datatables.net-fixedheader-bs5';
+import 'datatables.net-select-bs5';
+import 'datatables.net-columncontrol-bs5';
+import 'datatables.net-buttons-bs5';
+import 'datatables.net-buttons/js/buttons.colVis.mjs';
+import 'datatables.net-rowgroup-bs5';
+
+// import 'datatables.net-bs5/js/dataTables.bootstrap5';
+// import 'datatables.net-fixedheader-bs5/js/fixedHeader.bootstrap5';
+// import 'datatables.net-select-bs5/js/select.bootstrap5';
+// import 'datatables.net-columncontrol-bs5/js/columnControl.bootstrap5';
 
 // Enables hotwire Turbo Streams/Frames 
 import "@hotwired/turbo-rails"
@@ -39,14 +52,6 @@ import 'bootstrap/dist/js/bootstrap';
 
 import initPopovers from './popovers';
 import { updateAlerts } from './alert';
-
-// import { Chart, BarController, BarElement, Title, Legend } from 'chart.js';
-// import ChartPluginStacked100 from 'chartjs-plugin-stacked100';
-// Chart.register(BarController);
-// Chart.register(BarElement);
-// Chart.register(Title);
-// Chart.register(Legend);
-// Chart.register(ChartPluginStacked100);
 
 // lot's of inline scripts and stuff rely on jquery just being available
 window.jQuery = jQuery;

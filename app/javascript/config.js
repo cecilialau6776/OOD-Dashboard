@@ -126,14 +126,14 @@ export function jobQueueUrl() {
   return cfgData['jobQueueUrl'];
 }
 
-export function jobPathUrl(id="JOB_ID") {
+export function jobPathUrl(cluster="CLUSTER", id="JOB_ID") {
   const cfgData = configData();
-  return cfgData['jobPathUrl'].replace('JOB_ID', id);
+  return cfgData['jobPathUrl'].replace('CLUSTER', cluster).replace('JOB_ID', id);
 }
 
-export function jobApiPathUrl(id="JOB_ID") {
+export function jobApiPathUrl(cluster="CLUSTER", id="JOB_ID") {
   const cfgData = configData();
-  return cfgData['jobApiPathUrl'].replace('JOB_ID', id);
+  return cfgData['jobApiPathUrl'].replace('CLUSTER', cluster).replace('JOB_ID', id);
 }
 
 export function clusterStatusUrl() {
@@ -156,9 +156,9 @@ export function filesPath() {
   return cfgData['filesPath'];
 }
 
-export function cancelJobsPath() {
+export function cancelJobsPath(cluster="CLUSTER") {
   const cfgData = configData();
-  return cfgData['cancelJobsPath'];
+  return cfgData['cancelJobsPath'].replace('CLUSTER', cluster);
 }
 
 export function cancelJobApiPath(id="JOB_ID") {
