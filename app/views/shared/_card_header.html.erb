@@ -6,6 +6,7 @@
       <div class="d-flex align-items-center">
         <i class="<%= icon_classes %>"></i>
         <span class="mx-2"><%= title.titleize %></span>
+        <%= yield :card_header %>
       </div>
       <div class="d-flex align-items-center">
         <small id="last-updated" class="d-none d-md-block font-weight-semibold fs-6 me-3">

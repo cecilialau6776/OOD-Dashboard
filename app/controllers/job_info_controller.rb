@@ -160,23 +160,21 @@ class JobInfoController < ApplicationController
   def expand_nodelist(value)
     return 'N/A' if value.nil? || value == '(null)' || value == 'None' || value == 'N/A'
 
-    nodes = []
-    # Match patterns like: a[859,861-869,871-888,890-891,893,895-898,901-902,905,907,910]
-    if match = value.match(/^([a-zA-Z]+)\[([\d\-,]+)\]$/)
-      prefix = match[1]
-      ranges = match[2].split(',')
+    # match nodes without ranges first
+    nodes = value.scan(/(?:[a-zA-Z]+-)+\d+/)
 
-      ranges.each do |range|
-        if range.include?('-')
-          start, finish = range.split('-').map(&:to_i)
+    # match nodes with ranges and add them to the list
+    value.scan(/((?:[a-zA-Z]+-)+)\[([\d\-,]+)\]/).each do |match|
+      prefix = match[0]
+      range_info = match[1].split(',')
+      range_info.each do |range_or_number|
+        if range_or_number.include? '-'
+          start, finish = range_or_number.split('-').map(&:to_i)
           (start..finish).each { |n| nodes << "#{prefix}#{n}" }
         else
-          nodes << "#{prefix}#{range}"
+          nodes << "#{prefix}#{range_or_number}"
         end
       end
-    else
-      # Handle single node case or comma-separated nodes without ranges
-      nodes = value.split(',')
     end
 
     nodes.join(',')

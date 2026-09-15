@@ -264,8 +264,6 @@ async function loadClusterStatus() {
       formatLastUpdated();
       startTimestampUpdater();
 
-      rawData = data;
-
       // Update both views
       renderHeatmap(data);
       renderListView(data);
