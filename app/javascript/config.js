@@ -161,9 +161,9 @@ export function cancelJobsPath(cluster="CLUSTER") {
   return cfgData['cancelJobsPath'].replace('CLUSTER', cluster);
 }
 
-export function cancelJobApiPath(id="JOB_ID") {
+export function cancelJobApiPath(cluster="CLUSTER", id="JOB_ID") {
   const cfgData = configData();
-  return cfgData['cancelJobApiPath'].replace('JOB_ID', id);
+  return cfgData['cancelJobApiPath'].replace('CLUSTER', cluster).replace('JOB_ID', id);
 }
 
 export function username() {

@@ -2,6 +2,7 @@
 
 import { pageConfigData, clusterStatusUrl } from '../config.js';
 import { getNodeState, getNodeStateName } from './util.js';
+import { startTimestampUpdater } from '../utils.js';
 
 function nodeShowUrl(name = "__NAME__") {
   const cfgData = pageConfigData();
@@ -161,89 +162,6 @@ function renderListView(data) {
   datatable.draw();
 }
 
-function formatLastUpdated() {
-  const now = new Date();
-  const lastUpdated = window.lastUpdatedTime || now;  // Use stored timestamp
-
-  // Format absolute time
-  const year = lastUpdated.getFullYear();
-  const month = (lastUpdated.getMonth() + 1).toString().padStart(2, '0');
-  const day = lastUpdated.getDate().toString().padStart(2, '0');
-  const hours = lastUpdated.getHours().toString().padStart(2, '0');
-  const minutes = lastUpdated.getMinutes().toString().padStart(2, '0');
-  const seconds = lastUpdated.getSeconds().toString().padStart(2, '0');
-
-  // Get timezone abbreviation
-  const timezone = lastUpdated.toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2];
-  const absoluteTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${timezone}`;
-
-  // Calculate time difference in milliseconds
-  const timeDiff = now - lastUpdated;
-  const hoursDiff = timeDiff / (1000 * 60 * 60);
-
-  // If within last 24 hours, show relative time
-  if (hoursDiff < 24) {
-    let relativeTime;
-    if (timeDiff < 30000) { // less than 30 seconds
-      relativeTime = 'Just now';
-    } else {
-      // Round to nearest minute
-      const minutes = Math.round(timeDiff / 60000);
-      if (minutes < 60) {
-        relativeTime = `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-      } else {
-        const hours = Math.floor(minutes / 60);
-        relativeTime = `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      }
-    }
-
-    // Update both spans with relative time and tooltip with absolute time
-    const desktopSpan = document.querySelector('#last-updated span');
-    const mobileSpan = document.querySelector('#last-updated-mobile span');
-
-    if (desktopSpan && mobileSpan) {
-      desktopSpan.textContent = relativeTime;
-      mobileSpan.textContent = relativeTime;
-
-      desktopSpan.setAttribute('data-bs-original-title', absoluteTime);
-      mobileSpan.setAttribute('data-bs-original-title', absoluteTime);
-
-      // Keep the dotted underline
-      desktopSpan.style.borderBottom = '1px dotted #666';
-      mobileSpan.style.borderBottom = '1px dotted #666';
-
-      // Reinitialize tooltips
-      // $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip();
-    }
-  } else {
-    // If more than 24 hours, show absolute time
-    const desktopSpan = document.querySelector('#last-updated span');
-    const mobileSpan = document.querySelector('#last-updated-mobile span');
-
-    if (desktopSpan && mobileSpan) {
-      desktopSpan.textContent = absoluteTime;
-      mobileSpan.textContent = absoluteTime;
-
-      // Remove tooltips and dotted underline for absolute time display
-      desktopSpan.removeAttribute('title');
-      mobileSpan.removeAttribute('title');
-      desktopSpan.style.borderBottom = 'none';
-      mobileSpan.style.borderBottom = 'none';
-      $('[data-bs-toggle="tooltip"]').tooltip('dispose');
-    }
-  }
-}
-
-function startTimestampUpdater() {
-  // Clear any existing interval
-  if (window.timestampInterval) {
-    clearInterval(window.timestampInterval);
-  }
-
-  // Update timestamp every minute (60000 milliseconds)
-  window.timestampInterval = setInterval(formatLastUpdated, 60000);
-}
-
 async function loadClusterStatus() {
   $('.refresh-btn i').addClass('refresh-spin');
 
@@ -259,10 +177,6 @@ async function loadClusterStatus() {
     .then(data => {
       // Store the current time as the last update time
       window.lastUpdatedTime = new Date();
-
-      // Update timestamp display and start auto-updating
-      formatLastUpdated();
-      startTimestampUpdater();
 
       // Update both views
       renderHeatmap(data);

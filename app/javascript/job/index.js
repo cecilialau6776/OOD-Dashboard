@@ -1,4 +1,5 @@
-import { pageConfigData, filesPath, jobApiPathUrl, jobPathUrl, nodePathUrl, username } from '../config.js';
+import { pageConfigData, filesPath, jobApiPathUrl, cancelJobApiPath, nodePathUrl, username } from '../config.js';
+import { startTimestampUpdater } from '../utils.js';
 
 import toastr from 'toastr';
 
@@ -516,28 +517,18 @@ function renderOverview(data) {
   // bind toggle nodelist button click
   if ($nodelistToggleBtn !== "") {
     $nodelistToggleBtn.on("click", function () {
-      const $nodelist = $("#nodelist")
-      const $icon = $(this).children("i").first()
-      if ($nodelist.hasClass("d-none")) {
-        // show
-        $nodelist.removeClass("d-none");
-        $icon.removeClass("fa-caret-right");
-        $icon.addClass("fa-caret-down");
-      } else {
-        // hide
-        $nodelist.addClass("d-none");
-        $icon.addClass("fa-caret-right");
-        $icon.removeClass("fa-caret-down");
-      }
+      const $nodelist = $("#nodelist");
+      const $icon = $(this).children("i").first();
+      const nodelistHidden = $nodelist.hasClass("d-none")
+      $nodelist.toggleClass("d-none", !nodelistHidden);
+      $icon.toggleClass("fa-caret-right", !nodelistHidden);
+      $icon.toggleClass("fa-caret-down", nodelistHidden);
     });
   }
 
 }
 
 function renderJobData(data) {
-  // Store current tab state before rendering
-  const activeTabId = $('.nav-tabs .nav-link.active').attr('href') || '#info';
-
   const jobState = getState(data) || 'UNKNOWN';
 
   // Add auto-refresh for COMPLETING state
@@ -546,7 +537,6 @@ function renderJobData(data) {
   }
 
   // Render job state
-  const stateColors = getJobStateColor(jobState);
   const stateDescription = getStateDescription(jobState, data.state_reason);
   $("#jobState > .badge").first()
     .attr("title", stateDescription || "")
@@ -560,16 +550,19 @@ function renderJobData(data) {
   }
   renderTimeline(data);
   renderOverview(data);
-  $("cancelJobBtn").parent().toggleClass("d-none", !canCancelJob(data));
 }
 
-function loadJobData() {
+async function loadJobData() {
   $('.refresh-btn i').addClass('refresh-spin');
 
   fetch(jobApiPathUrl(cluster(), jobId()), { cache: "no-store" })
     .then(res => res.json())
     .then(data => {
       if (data.error) throw new Error(data.error);
+
+      // Store the current time as the last update time
+      window.lastUpdatedTime = new Date();
+
       renderJobData(data);
 
       loadFile(data.StdOut, 'output');
@@ -583,6 +576,7 @@ function loadJobData() {
         animation: false
       });
       $(".card-body").removeClass("d-none");
+      $("#cancelJobBtn").parent().toggleClass("d-none", !canCancelJob(data));
     }).catch(error => {
       $(".card-body").addClass("d-none");
       $(".error-div").removeClass("d-none");
@@ -619,6 +613,9 @@ jQuery(() => {
   });
   loadJobData();
 
+  // Start the timestamp updater
+  startTimestampUpdater();
+
   // Bind refresh button
   $("button.refresh-btn").on("click", loadJobData);
   $("#confirmCancelJob").on("click", confirmCancelJob);
@@ -627,7 +624,7 @@ jQuery(() => {
 function confirmCancelJob() {
   $("#cancelJobModal").modal('hide');
 
-  fetch(cancelJobsApiPath(jobId()), {
+  fetch(cancelJobApiPath(cluster(), jobId()), {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

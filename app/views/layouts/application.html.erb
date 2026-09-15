@@ -20,6 +20,8 @@
 
     <%= render partial: 'layouts/google_analytics' %>
 
+    <%= render partial: 'layouts/config' %>
+
     <%= yield :head %>
 
     <%= csrf_meta_tags %>
@@ -28,8 +30,6 @@
     <meta name="profile" content="<%= @user_configuration.profile %>">
 
     <meta name="generator" content="Open OnDemand" />
-
-    <%= render partial: 'layouts/config' %>
   </head>
   <body>
     <header>

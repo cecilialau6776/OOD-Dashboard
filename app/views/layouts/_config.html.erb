@@ -25,7 +25,7 @@
   data-account-list-url="<%= url_for controller: 'api/account_list', action: 'get' %>"
   data-files-path="<%= files_path %>"
   data-cancel-jobs-path="<%= cancel_jobs_path('CLUSTER') %>"
-  data-cancel-api-jobs-path="<%= cancel_job_api_path('CLUSTER', 'JOB_ID') %>"
+  data-cancel-job-api-path="<%= cancel_job_api_path('CLUSTER', 'JOB_ID') %>"
   data-username="<%= @user.name %>"
   data-performance-metrics-url="<%= url_for 'performance_metrics' %>"
   data-cluster-status-url="<%= url_for controller: 'api/cluster_status', action: 'get' %>"
