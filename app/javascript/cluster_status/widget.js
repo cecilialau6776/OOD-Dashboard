@@ -3,9 +3,8 @@ import { NODE_STATE_NAME_MAP, getNodeState } from './util.js';
 
 async function loadClusterStatus() {
   $('.refresh-btn i').addClass('refresh-spin');
-  fetch(clusterStatusUrl()).then(response => {
-    return response.json();
-  })
+  fetch(clusterStatusUrl())
+    .then(response => response.json())
     .then(nodes => {
       const counts = {
         online: 0,
@@ -35,12 +34,6 @@ async function loadClusterStatus() {
             `;
 
       $("#cluster_status_card_content").html(tableHtml);
-      setTimeout(() => {
-        $('.progress-bar').each(function () {
-          $(this).css('width', $(this).attr('aria-valuenow') + '%');
-        });
-      }, 50);
-
     })
     .catch(error => {
       $(".error-div[data-widget='parititon-status']").removeClass("d-none");
