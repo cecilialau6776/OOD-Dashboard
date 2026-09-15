@@ -15,6 +15,10 @@ class DashboardController < ApplicationController
   def logout; end
 
   def set_maintenance
+    @maintenance = maintenance
+  end
+
+  def maintenance
     maintenance_times = Rails.cache.fetch('next_maintenance', expires_in: 1.hours, race_condition_ttl: 5.seconds) do
       err_output = { error: 'Error running getting next maintenance window' }
       begin
@@ -36,7 +40,7 @@ class DashboardController < ApplicationController
     end
 
     now = Time.now
-    if now < start_time
+    if now < maintenance_times[:start]
       "Next maintenance window on #{maintenance_times[:start].strftime('%b %-d, %Y at %-I:%M %p')}"
     else
       "Cluster currently under maintenance. Should end by #{maintenance_times[:end].strftime('%-I:%M %p on %b %-d, %Y')}"
