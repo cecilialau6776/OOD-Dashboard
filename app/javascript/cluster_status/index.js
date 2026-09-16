@@ -79,9 +79,13 @@ function renderHeatmap(data) {
   const $heatmapContainer = $('#heatmap-container');
   $heatmapContainer.html("");
   $heatmapContainer.append(createNodeGrid(nodesArray));
+  $heatmapContainer.append($("<div>", { "class": "d-none no-results text-center p-3 fs-5" }).text("No nodes with current filters."));
 
   // Initialize tooltips for the grid nodes
-  initializeGridTooltips();
+  $(".node-cell[data-bs-toggle='tooltip']").tooltip({
+    trigger: 'hover',
+    container: 'body'
+  });
 }
 
 function createNodeGrid(nodes) {
@@ -109,6 +113,7 @@ function createNodeGrid(nodes) {
       "class": "node-cell btn",
       "data-bs-toggle": "tooltip",
       "data-bs-html": "true",
+      "data-bs-custom-class": "node-cell-tooltip",
       "title": createNodeTooltip(node),
       "href": nodeShowUrl(nodeName),
     });
@@ -171,9 +176,8 @@ async function loadClusterStatus() {
     indicator.classList.remove('selected');
   });
 
-  fetch(clusterStatusUrl(), { cache: "no-store" }).then(res => {
-    return res.json();
-  })
+  fetch(clusterStatusUrl(), { cache: "no-store" })
+    .then(res => res.json())
     .then(data => {
       // Store the current time as the last update time
       window.lastUpdatedTime = new Date();
@@ -204,38 +208,6 @@ async function loadClusterStatus() {
     });
 }
 
-function initializeGridTooltips() {
-  // First dispose any existing tooltips
-  $('.node-cell[data-bs-toggle="tooltip"]').tooltip('dispose');
-
-  // Initialize tooltips using event delegation
-  $('#heatmap').on('mouseenter', '.node-cell', function () {
-    const $this = $(this);
-    if (!$this.data('tooltip-initialized')) {
-      $this.tooltip({
-        boundary: 'window',
-        trigger: 'hover',
-        placement: 'auto',
-        container: 'body',
-        template: '<div class="tooltip grid-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-      }).tooltip('show');
-      $this.data('tooltip-initialized', true);
-    }
-  });
-}
-
-function initializeGeneralTooltips() {
-  // Initialize tooltips for non-grid elements
-  $('[data-bs-toggle="tooltip"]:not(.node-cell)').tooltip({
-    boundary: 'window',
-    trigger: 'hover',
-    placement: 'auto',
-    container: 'body'
-  }).on('show.bs.tooltip', function () {
-    $('[data-bs-toggle="tooltip"]:not(.node-cell)').not(this).tooltip('hide');
-  });
-}
-
 function handleFilterChange() {
   let filters = {};
   $.each($(".filter-group"), (_index, filterGroup) => {
@@ -258,6 +230,8 @@ function handleFilterChange() {
     }, "");
     $(selector).addClass("d-none");
   });
+  const shownCount = $(".node-cell-col:not(.d-none)").length;
+  $(".no-results").toggleClass("d-none", shownCount !== 0);
 }
 
 function initializeFilters() {
@@ -347,12 +321,15 @@ jQuery(() => {
   initializeListViewDataTable();
   $('.refresh-btn').on('click', loadClusterStatus);
 
-  // Initialize general tooltips
-  initializeGeneralTooltips();
+  // Initialize all tooltips that already exist
+  $('[data-bs-toggle="tooltip"]').tooltip({
+    trigger: 'hover',
+    container: 'body'
+  });
 
   // Start the timestamp updater
   startTimestampUpdater();
 
-  // First load cluster status which creates the DOM elements
+  // This will manage loading any tooltips it creates
   loadClusterStatus();
 });
