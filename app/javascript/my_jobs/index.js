@@ -9,6 +9,7 @@ import 'daterangepicker';
 import toastr from 'toastr';
 
 import { pageConfigData, jobPathUrl, filesPath, cancelJobsPath, username, csrfToken } from '../config.js';
+import { clusterBadge, jobStateBadge } from '../utils.js';
 
 const jobInfoUrl = (cluster, id) => { return pageConfigData()["jobInfoUrl"].replace("JOB_ID", id).replace("CLUSTER", cluster) };
 const myJobsUrl = () => { return pageConfigData()["myJobsUrl"] };
@@ -37,12 +38,7 @@ const TABLE_COLUMNS = [
   {
     title: "Cluster",
     data: "cluster",
-    render: function (cluster, _type, _job) {
-      return $("<span>", {
-        "class": "badge cluster-badge rounded-pill",
-        "data-cluster": cluster,
-      }).text(cluster.toUpperCase())[0].outerHTML;
-    },
+    render: clusterBadge,
     columnControl: ["searchDropdown", "order", "rowGroup"],
   },
   {
@@ -202,37 +198,7 @@ const TABLE_COLUMNS = [
   {
     title: "State",
     data: "state",
-    render: (state_raw, _type, job) => {
-      const state = state_raw.split(" ")[0];
-      const reason = job["reason"];
-      var state_verbose = (SIMPLE_JOB_STATE_CODES[state] || JOB_STATE_CODES[state.split(" ")[0]] || "--").replaceAll(/"/g, "&quot;");
-      var reason_verbose = (SIMPLE_JOB_REASON_CODES[reason.split(" ")[0]] || JOB_REASON_CODES[reason.split(" ")[0]] || "--").replaceAll(/"/g, "&quot;");
-      const requeue_count = job["requeue_count"];
-      const $span = $("<span>", {
-        "class": "text-nowrap",
-      });
-      const $badge = $("<a>", {
-        "class": "job-state-badge badge p-2",
-        "data-job-state": state.toLowerCase(),
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        "title": `${state_verbose + (requeue_count ? `\nRequeued ${requeue_count} time(s)` : "")}`,
-      })
-        .text(`${state}${(requeue_count ? ` (${requeue_count})` : "")}`);
-      $span.append($badge);
-
-      if (reason !== "None" && reason_verbose !== "--") {
-        $span.append(" due to ")
-          .append($("<span>", {
-            "class": "job-reason-filter badge rounded-pill text-bg-secondary shadow-sm",
-            "data-bs-toggle": "tooltip",
-            "data-bs-placement": "top",
-            "title": reason_verbose,
-          }).text(reason)
-          );
-      }
-      return $span[0].outerHTML;
-    },
+    render: jobStateBadge,
     columnControl: ["searchDropdown", "order", "rowGroup"],
   },
   {

@@ -4,9 +4,8 @@ import { pageConfigData, clusterStatusUrl } from '../config.js';
 import { getNodeState, getNodeStateName } from './util.js';
 import { startTimestampUpdater } from '../utils.js';
 
-function nodeShowUrl(name = "__NAME__") {
-  const cfgData = pageConfigData();
-  return cfgData['nodeShowUrl'].replace('__NAME__', name);
+const nodeShowUrl = (cluster, name) => {
+  return pageConfigData().nodeShowUrl.replace('CLUSTER', cluster).replace('NAME', name);
 }
 
 let selectedStates = new Set();
@@ -115,7 +114,7 @@ function createNodeGrid(nodes) {
       "data-bs-html": "true",
       "data-bs-custom-class": "node-cell-tooltip",
       "title": createNodeTooltip(node),
-      "href": nodeShowUrl(nodeName),
+      "href": nodeShowUrl(cluster, nodeName),
     });
     $nodeCell.text(nodeName);
 

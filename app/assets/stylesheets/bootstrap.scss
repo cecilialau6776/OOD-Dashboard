@@ -85,7 +85,8 @@ $utilities: map-merge(
             map-get(map-get($utilities, "color"), "values"),
             (
               "cluster-status": var(--bs-cyan-500),
-              "my-jobs": var(--bs-green-500)
+              "job": var(--bs-green-500),
+              "node": var(--bs-blue-600)
             )
           )
         )

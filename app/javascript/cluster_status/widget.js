@@ -1,8 +1,11 @@
 import { clusterStatusUrl } from '../config.js';
 import { NODE_STATE_NAME_MAP, getNodeState } from './util.js';
 
+const widgetAttr = 'data-widget="cluster_status"'
+
 async function loadClusterStatus() {
-  $('.refresh-btn i').addClass('refresh-spin');
+  $(`.refresh-btn[${widgetAttr}] i`).addClass('refresh-spin');
+
   fetch(clusterStatusUrl())
     .then(response => response.json())
     .then(nodes => {
@@ -36,17 +39,17 @@ async function loadClusterStatus() {
       $("#cluster_status_card_content").html(tableHtml);
     })
     .catch(error => {
-      $(".error-div[data-widget='parititon-status']").removeClass("d-none");
+      $(`.error-div[${widgetAttr}]`).removeClass("d-none");
       console.error(error);
       throw error;
     })
     .finally(() => {
-      $(".loading-div").addClass("d-none");
-      $('.refresh-btn i').removeClass('refresh-spin');
+      $(`.loading-div[${widgetAttr}]`).addClass("d-none");
+      $(`.refresh-btn[${widgetAttr}] i`).removeClass('refresh-spin');
     });
 }
 
 jQuery(() => {
   loadClusterStatus();
-  $('.refresh-btn[data-widget="cluster_status"]').on('click', loadClusterStatus);
+  $(`.refresh-btn[${widgetAttr}]`).on('click', loadClusterStatus);
 });

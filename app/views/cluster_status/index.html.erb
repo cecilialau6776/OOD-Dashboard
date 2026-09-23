@@ -2,12 +2,12 @@
 
 
 <div id="page-data"
-     data-node-show-url="<%= url_for(controller: 'nodes', action: 'show', name: '__NAME__') %>"
+     data-node-show-url="<%= url_for(controller: 'nodes', action: 'show', cluster: 'CLUSTER', name: 'NAME') %>"
 </div>
 
 <div class="container-fluid">
   <div class="card">
-    <%= render "shared/card_header", title: "cluster status", icon_classes: "fas fa-server text-cluster-status" %>
+    <%= render "shared/card_header", title: "Cluster Status", icon_classes: "fas fa-server text-cluster-status" %>
 
     <%= render "shared/loading", descriptor: "cluster status" %>
     <%= render "shared/error", descriptor: "cluster status" %>

@@ -186,7 +186,7 @@ export function performanceMetricsApiSacctuserUrl() {
   return cfgData['performanceMetricsApiSacctuserUrl'];
 }
 
-export function nodePathUrl(id="NODE_ID") {
+export function nodePathUrl(cluster="CLUSTER", id="NODE_ID") {
   const cfgData = configData();
-  return cfgData['nodePathUrl'].replace('NODE_ID', id);
+  return cfgData['nodePathUrl'].replace('CLUSTER', cluster).replace('NODE_ID', id);
 }

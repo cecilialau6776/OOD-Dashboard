@@ -26,23 +26,6 @@ function formatMemory(memStr) {
   return `${value} ${unitMap[unit] || unit}`;
 }
 
-function getJobStateColor(state) {
-  // Get first word of state by splitting on underscore or space and taking first element
-  state = state.split(" ")[0].toUpperCase();
-  const stateColors = JOB_STATE_COLORS[state];
-  if (stateColors) {
-    return {
-      bg: stateColors.bg,
-      fg: stateColors.fg
-    };
-  }
-  // Default colors if state not found - using a distinctive purple shade
-  return {
-    bg: '#d3d3d3', // Light gray
-    fg: '#000000'  // White text for contrast
-  };
-}
-
 function getStateDescription(state, reason) {
   // Get first word of state by splitting on underscore or space and taking first element
   state = state.split(" ")[0].toUpperCase();
@@ -214,7 +197,7 @@ function createNodeList(nodes) {
   }
 
   return nodes.map(node =>
-    $("<a>", { "class": "btn btn-outline-info", "href": nodePathUrl(node) }).text(node)
+    $("<a>", { "class": "btn btn-outline-info", "href": nodePathUrl(cluster(), node) }).text(node)
   );
 }
 
@@ -569,12 +552,14 @@ async function loadJobData() {
       loadFile(data.StdErr, 'error');
 
       // Re-initialize tooltips after any dynamic updates
-      $('[data-bs-toggle="tooltip"]').tooltip('dispose').tooltip({
-        trigger: 'hover',
-        container: 'body',
-        boundary: 'window',
-        animation: false
-      });
+      $('[data-bs-toggle="tooltip"]')
+        .tooltip('dispose')
+        .tooltip({
+          trigger: 'hover',
+          container: 'body',
+          boundary: 'window',
+          animation: false
+        });
       $(".card-body").removeClass("d-none");
       $("#cancelJobBtn").parent().toggleClass("d-none", !canCancelJob(data));
     }).catch(error => {

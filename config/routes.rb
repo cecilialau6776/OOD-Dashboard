@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   get 'api/balance_summary', action: :get, controller: 'api/balance_summary', as: 'balance_summary'
   get 'api/gpu_hour_summary', action: :get, controller: 'api/gpu_hour_summary', as: 'gpu_hour_summary'
   get 'api/cluster_status', action: :get, controller: 'api/cluster_status', as: 'cluster_status_api'
-  get 'api/nodes/:name', action: :show, controller: 'api/nodes', as: 'node_api'
+  get 'api/nodes/:cluster/:name', action: :show, controller: 'api/nodes', as: 'node_api'
   get 'api/jobs/:cluster/:jobid', action: :show, controller: 'api/jobs', as: 'job_api'
   delete 'api/jobs/:cluster/:jobid/cancel', action: :cancel, controller: 'api/jobs', as: 'cancel_job_api'
 
@@ -166,7 +166,7 @@ Rails.application.routes.draw do
   get 'module-browser' => 'module_browser#index', :as => 'module_browser'
   get '/performance_metrics' => 'performance_metrics#index', as: 'performance_metrics'
   get '/cluster_status' => 'cluster_status#index', as: 'cluster_status'
-  get '/nodes/:name' => 'nodes#show', as: 'node'
+  get '/nodes/:cluster/:name' => 'nodes#show', as: 'node'
   get '/job/:cluster/:jobid' => 'job#show', as: 'job'
 
   get '/myjobs' => 'my_jobs#index', as: 'my_jobs'

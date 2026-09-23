@@ -23,7 +23,7 @@
         </span>
       <% end %>
 
-      <%= render "shared/card_header", title: "job #{@job_id}", icon_classes: "fas fa-terminal text-jobs" %>
+      <%= render "shared/card_header", title: "Job: #{@job_id}", icon_classes: "fas fa-terminal text-job" %>
 
       <%= render "shared/loading", descriptor: "job info" %>
       <%= render "shared/error", descriptor: "job info" %>

@@ -392,7 +392,7 @@ module Api
       end
 
       # Execute scancel command
-      output, status = Open3.capture2e("scancel -M #{cluster}", job_id)
+      output, status = Open3.capture2e("scancel -M #{cluster} #{job_id}")
 
       if status.success?
         render json: { message: "Job #{job_id} cancelled successfully" }, status: :ok

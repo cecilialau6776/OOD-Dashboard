@@ -1,6 +1,6 @@
-import {analyticsPath} from "./config";
+import { analyticsPath } from "./config";
 
-export function cssBadgeForState(state){
+export function cssBadgeForState(state) {
   switch (state) {
     case 'completed':
       return 'bg-success';
@@ -22,7 +22,7 @@ export function capitalizeFirstLetter(string) {
 }
 
 export function toHumanSize(number, precision = 2) {
-  if(number === null) {
+  if (number === null) {
     return '-';
   } else {
     const unitIndex = number == 0 ? 0 : Math.floor(Math.log(number) / Math.log(1000));
@@ -36,19 +36,19 @@ export function startOfYear() {
   past.setDate(1);
   past.setMonth(0);
   past.setFullYear(now.getFullYear());
-  return `${past.getFullYear()}-${past.getMonth()+1}-${past.getDate()}`;
+  return `${past.getFullYear()}-${past.getMonth() + 1}-${past.getDate()}`;
 }
 
 export function thirtyDaysAgo() {
   const now = new Date();
   const past = new Date();
   past.setDate(now.getDate() - 30);
-  return `${past.getFullYear()}-${past.getMonth()+1}-${past.getDate()}`;
+  return `${past.getFullYear()}-${past.getMonth() + 1}-${past.getDate()}`;
 }
 
 export function today() {
   const now = new Date();
-  return `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
+  return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
 
 // the next two functions, using #full_page_spinner, are only used in sweet_alert.js
@@ -78,7 +78,7 @@ function hideSpinner() {
 export function bindFullPageSpinnerEvent() {
   $('.full-page-spinner').each((index, element) => {
     const $element = $(element);
-    if($element.is('a')) {
+    if ($element.is('a')) {
       $element.on('click', showSpinner);
     } else {
       $element.closest('form').on('submit', showSpinner);
@@ -95,9 +95,9 @@ export function openLinkInJs(event) {
   let href = event.target.href;
 
   // event.target could be a child of the anchor, so try that.
-  if(href == null) {
+  if (href == null) {
     const closestAnchor = event.target.closest('a');
-    if(closestAnchor.hasChildNodes(event.target)) {
+    if (closestAnchor.hasChildNodes(event.target)) {
       href = closestAnchor.href;
     } else {
       // event.target is not a child of an anhcor, so there's nothing to do.
@@ -105,11 +105,11 @@ export function openLinkInJs(event) {
     }
   }
 
-  if(window.open(href) == null) {
+  if (window.open(href) == null) {
     // link was not opened in new window, so display error msg to user
     const html = document.getElementById('js-alert-danger-template').innerHTML;
     const msg = "This link is configured to open in a new window, but it doesn't seem to have opened. " +
-          "Please disable your popup blocker for this page and try again.";
+      "Please disable your popup blocker for this page and try again.";
 
     // replace message in alert and add to main div of layout
     const mainDiv = document.querySelectorAll('div[role="main"]')[0];
@@ -123,8 +123,8 @@ export function openLinkInJs(event) {
 export function ariaNotify(message, interrupt = true) {
   const liveRegion = document.getElementById("aria_live_region");
 
-  if(liveRegion) {
-    if(interrupt) {
+  if (liveRegion) {
+    if (interrupt) {
       liveRegion.textContent = message;
     }
     else {
@@ -152,14 +152,14 @@ export function pushNotify(message, options = {}) {
 
 // rearrange table header labels so button labels are not part of header
 export function customizeTableHeaders(thead) {
-  $(thead).find('th.dt-orderable-asc').each(function(_index, el) {
+  $(thead).find('th.dt-orderable-asc').each(function (_index, el) {
     const sortButton = $(el).find('span.dt-column-order');
     const ariaLabel = sortButton.attr('aria-label');
     $(el).attr('aria-label', ariaLabel).attr('tabindex', '0');
     sortButton.removeAttr('aria-label')
-              .removeAttr('tabindex')
-              .removeAttr('role')
-              .attr('aria-hidden', 'true');
+      .removeAttr('tabindex')
+      .removeAttr('role')
+      .attr('aria-hidden', 'true');
   });
 }
 
@@ -184,7 +184,7 @@ export function setInnerHTML(element, html) {
   scripts.forEach(currentElement => {
     const newElement = document.createElement("script");
 
-    Array.from(currentElement.attributes).forEach( attr => {
+    Array.from(currentElement.attributes).forEach(attr => {
       newElement.setAttribute(attr.name, attr.value);
     });
 
@@ -210,7 +210,7 @@ export function reportErrorForAnalytics(path, error) {
 // target can be an id or an HTMLElement
 export function hide(target) {
   const ele = typeof target === 'string' ? document.getElementById(target) : target;
-  if(ele instanceof HTMLElement) {
+  if (ele instanceof HTMLElement) {
     ele.classList.add('d-none');
   }
 }
@@ -221,7 +221,7 @@ export function hide(target) {
 // target can be an id or an HTMLElement
 export function show(target) {
   const ele = typeof target === 'string' ? document.getElementById(target) : target;
-  if(ele instanceof HTMLElement) {
+  if (ele instanceof HTMLElement) {
     ele.classList.remove('d-none');
   }
 }
@@ -312,3 +312,113 @@ function updateLastUpdated() {
     }
   }
 }
+
+export function slurmDateTime(time, _type, _row, meta) {
+  const timedata = {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  }
+  const $span = $("<span>", { "title": time })
+    .css("border-bottom", "0.15rem dotted var(--bs-secondary)");
+  const daySplit = time.split("-");
+  if (daySplit.length == 2) {
+    timedata.days = parseInt(daySplit[0]);
+    const colonSplit = daySplit[1].split(":");
+    switch (colonSplit.length) {
+      case 1:
+        timedata.hours = parseInt(colonSplit[0]);
+      case 2:
+        timedata.minutes = parseInt(colonSplit[1]);
+      case 3:
+        timedata.seconds = parseInt(colonSplit[2]);
+    }
+  } else {
+    const colonSplit = time.split(":");
+    switch (colonSplit.length) {
+      case 1:
+        timedata.minutes = parseInt(colonSplit[0]);
+        break;
+      case 2:
+        timedata.minutes = parseInt(colonSplit[0]);
+        timedata.seconds = parseInt(colonSplit[1]);
+        break;
+      case 3:
+        timedata.hours = parseInt(colonSplit[0]);
+        timedata.minutes = parseInt(colonSplit[1]);
+        timedata.seconds = parseInt(colonSplit[2]);
+        break;
+    }
+  }
+
+  const hoursStr = String(timedata.days * 24 + timedata.hours).padStart(2, "0");
+  const minutesStr = String(timedata.minutes).padStart(2, "0");
+  const secondsStr = String(timedata.seconds).padStart(2, "0");
+  $span.text(`${hoursStr}:${minutesStr}:${secondsStr}`);
+
+  // Return the outerHTML if used as a datatable renderer
+  if (meta !== undefined) {
+    return $span[0].outerHTML;
+  } else {
+    return $span;
+  }
+}
+
+export function clusterBadge(cluster, _type, _job, meta) {
+  const $span = $("<span>", {
+    "class": "badge cluster-badge rounded-pill",
+    "data-cluster": cluster,
+  }).text(cluster.toUpperCase());
+
+  if (meta !== undefined) {
+    return $span[0].outerHTML;
+  } else {
+    return $span;
+  }
+}
+
+export function jobStateBadge(state_raw, _type, job, meta) {
+  const state = state_raw.split(" ")[0];
+  const reason = (job === undefined) ? undefined : job["reason"];
+  const state_verbose = (SIMPLE_JOB_STATE_CODES[state] || JOB_STATE_CODES[state.split(" ")[0]] || "--").replaceAll(/"/g, "&quot;");
+  const requeue_count = (job === undefined) ? undefined : job["requeue_count"];
+  const $span = $("<span>", {
+    "class": "text-nowrap",
+  });
+  const $badge = $("<span>", {
+    "class": "job-state-badge badge p-2",
+    "data-job-state": state.toLowerCase(),
+    "data-bs-toggle": "tooltip",
+    "data-bs-placement": "top",
+    "title": `${state_verbose + (requeue_count ? `\nRequeued ${requeue_count} time(s)` : "")}`,
+  })
+    .text(`${state}${(requeue_count ? ` (${requeue_count})` : "")}`);
+  $span.append($badge);
+
+  if (reason !== undefined) {
+    const reason_code = reason.split(" ")[0];
+    const reason_verbose = (SIMPLE_JOB_REASON_CODES[reason_code] || JOB_REASON_CODES[reason_code] || "--").replaceAll(/"/g, "&quot;");
+    $span.append(" due to ")
+      .append($("<span>", {
+        "class": "job-reason-filter badge rounded-pill text-bg-secondary shadow-sm",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        "title": reason_verbose,
+      }).text(reason)
+      );
+  }
+
+  if (meta !== undefined) {
+    return $span[0].outerHTML;
+  } else {
+    return $span;
+  }
+}
+
+(function ($) {
+  $.fn.removePlaceholder = function () {
+    this.removeClass("placeholder").css("width", "");
+    return this;
+  };
+})(jQuery);
